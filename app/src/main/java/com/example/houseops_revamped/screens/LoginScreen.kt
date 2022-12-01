@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AlternateEmail
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -152,21 +154,15 @@ fun LoginScreen(
         }
 
         //  create Account Text
-        Text(
-            buildAnnotatedString {
-                append("New to Houseops? ")
-                withStyle(
-                    style = SpanStyle(
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                ) {
-                    append("Create Account")
-                }
-            },
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
-        )
+        AnnotatedClickableString(
+            normalText = "New to HouseOps? ",
+            clickableText = "Create Account"
+        ) {
+
+            //  navigate to signup screen
+            navHostController.navigate(Screens.SignUp.route)
+
+        }
 
     }
 }
@@ -302,6 +298,59 @@ fun ColumnScope.PasswordTextField(
 }
 
 //  clickable text parts
+@Composable
+fun AnnotatedClickableString(
+    normalText: String,
+    clickableText: String,
+    onTextClicked: () -> Unit
+) {
+
+    val tag = "TAG"
+
+    val annotatedText = buildAnnotatedString {
+        withStyle(
+            style = SpanStyle(
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
+            )
+        ) {
+            append(normalText)
+        }
+
+        //  making the text clickable
+        pushStringAnnotation(
+            //  tag which will be provided when you click the text
+            tag = tag,
+            annotation = tag
+        )
+
+        withStyle(
+            style = SpanStyle(
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.ExtraBold
+            )
+        ) {
+            append(clickableText)
+        }
+
+        //  end of annotation with the current tag
+        pop()
+    }
+
+    //  clickableText to enable clicking
+    ClickableText(
+        text = annotatedText,
+        onClick = { offset ->
+            annotatedText.getStringAnnotations(
+                tag = tag,
+                start = offset,
+                end = offset
+            )[0].let {
+                onTextClicked()
+            }
+        }
+    )
+
+}
 
 //  ----------------- previews --------------------
 //  dark mode preview

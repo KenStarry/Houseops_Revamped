@@ -18,3 +18,6 @@ val DarkBackgroundAlt = Color(0xFF212121)
 val BlueAccent = Color(0xFF49c6e5)
 val DarkBlueAccent = Color(0xFF1c1f33)
 val PinkAccent = Color(0xFFf72585)
+
+val TextBlack900 = Color.Black
+val TextWhite900 = Color.White
