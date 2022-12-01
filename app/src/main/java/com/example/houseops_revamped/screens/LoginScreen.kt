@@ -20,7 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -40,7 +44,7 @@ fun LoginScreen(
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
 
         //  svg icon
@@ -81,7 +85,7 @@ fun LoginScreen(
         Text(
             text = "Forgot Password?",
             fontSize = MaterialTheme.typography.bodySmall.fontSize,
-            fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .align(Alignment.End)
@@ -113,6 +117,56 @@ fun LoginScreen(
             }
 
         }
+
+        //  or
+        Text(
+            text = "OR",
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
+        )
+
+        //  Sign in with Google Button
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.onPrimary),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onSecondary,
+                    disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3f),
+                    disabledContentColor = Color.White.copy(alpha = 0.3f)
+                ),
+                enabled = true
+            ) {
+                Text(
+                    text = "Sign In With Google",
+                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                    color = Color.White
+                )
+            }
+
+        }
+
+        //  create Account Text
+        Text(
+            buildAnnotatedString {
+                append("New to Houseops? ")
+                withStyle(
+                    style = SpanStyle(
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                ) {
+                    append("Create Account")
+                }
+            },
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
+        )
 
     }
 }
@@ -246,6 +300,8 @@ fun ColumnScope.PasswordTextField(
             PasswordVisualTransformation()
     )
 }
+
+//  clickable text parts
 
 //  ----------------- previews --------------------
 //  dark mode preview
