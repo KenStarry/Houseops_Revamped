@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = BlueAccent,
@@ -61,23 +62,38 @@ fun HouseOps_RevampedTheme(
         else -> LightColorScheme
     }
 
+    //using accompanyst library
+    val systemUiController = rememberSystemUiController()
     val view = LocalView.current
+
     if (!view.isInEditMode) {
         SideEffect {
 
-            val window = (view.context as Activity).window
+            //  changing status bar background and foreground Icons
+            systemUiController.setStatusBarColor(
+                color = colorScheme.onPrimary,
+                darkIcons = !darkTheme
+            )
 
-            //  change status bar and navigationbar background colors
-            window.statusBarColor = colorScheme.onPrimary.toArgb()
-            window.navigationBarColor = colorScheme.onPrimary.toArgb()
+            //  changing naviagtion background and foreground
+            systemUiController.setNavigationBarColor(
+                color = colorScheme.onPrimary,
+                darkIcons = !darkTheme
+            )
 
-            //  change status bar and navigationbar text color
-            WindowCompat.getInsetsController(window, view)
-                .isAppearanceLightStatusBars = darkTheme
-            WindowCompat.getInsetsController(window, view)
-                .isAppearanceLightNavigationBars = darkTheme
-
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
+//            val window = (view.context as Activity).window
+//
+//            //  change status bar and navigationbar background colors
+//            window.statusBarColor = colorScheme.onPrimary.toArgb()
+//            window.navigationBarColor = colorScheme.onPrimary.toArgb()
+//
+//            //  change status bar and navigationbar text color
+//            WindowCompat.getInsetsController(window, view)
+//                .isAppearanceLightStatusBars = darkTheme
+//            WindowCompat.getInsetsController(window, view)
+//                .isAppearanceLightNavigationBars = darkTheme
+//
+//            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
         }
     }
 

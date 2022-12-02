@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.sharp.ArrowBack
 import androidx.compose.material.icons.sharp.MoreVert
 import androidx.compose.material.icons.sharp.Notifications
 import androidx.compose.material3.*
@@ -104,6 +105,33 @@ fun MainTopAppBar(
             )
         )
     }
+}
+
+//  back press top bars
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BackPressTopAppBar(
+    title: String,
+    onBackPressed: () -> Unit
+) {
+
+    TopAppBar(
+        title = {
+            Text(text = title)
+        },
+        navigationIcon = {
+            IconButton(onClick = { onBackPressed() }) {
+                Icon(
+                    imageVector = Icons.Sharp.ArrowBack,
+                    contentDescription = "Back Arrow"
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.onPrimary
+        )
+    )
+
 }
 
 //  --------------- Previews ---------------- //

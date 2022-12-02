@@ -69,11 +69,12 @@ fun LoginScreen(
 
         //  input fields
         //  email address
-        EmailTextField(
+        CustomTextField(
             startIcon = Icons.Outlined.AlternateEmail,
             endIcon = null,
             placeholder = "Email Address",
-            imeAction = ImeAction.Next
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Email
         )
 
         //  password
@@ -170,11 +171,12 @@ fun LoginScreen(
 //  email input textfield
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ColumnScope.EmailTextField(
+fun ColumnScope.CustomTextField(
     startIcon: ImageVector?,
     endIcon: ImageVector?,
     placeholder: String,
-    imeAction: ImeAction
+    imeAction: ImeAction,
+    keyboardType: KeyboardType
 ) {
 
     var emailTextFieldState by remember {
@@ -209,7 +211,7 @@ fun ColumnScope.EmailTextField(
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             imeAction = imeAction,
-            keyboardType = KeyboardType.Email
+            keyboardType = keyboardType
         ),
         modifier = Modifier
             .fillMaxWidth()

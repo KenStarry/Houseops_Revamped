@@ -13,7 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 val LightBackground = Color(0xFFF4F2F3)
 val LightBackgroundAlt = Color(0xFFffffff)
 val DarkBackground = Color(0xFF393d3f)
-val DarkBackgroundAlt = Color(0xFF212121)
+val DarkBackgroundAlt = Color(0xFF2F3233)
 
 val BlueAccent = Color(0xFF49c6e5)
 val DarkBlueAccent = Color(0xFF1c1f33)
