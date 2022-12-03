@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -31,13 +32,31 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.example.houseops_revamped.navigation.Screens
+import com.example.houseops_revamped.network.loginUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navHostController: NavHostController
 ) {
+
+    val scope = rememberCoroutineScope()
+    val auth = Firebase.auth
+    val context = LocalContext.current
+
+    var loginEmailState by remember {
+        mutableStateOf("")
+    }
+    var loginPassState by remember {
+        mutableStateOf("")
+    }
 
     Column(
         modifier = Modifier
@@ -75,14 +94,18 @@ fun LoginScreen(
             placeholder = "Email Address",
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Email
-        )
+        ) {
+            loginEmailState = it
+        }
 
         //  password
         PasswordTextField(
             startIcon = Icons.Outlined.Lock,
             placeholder = "Password",
             imeAction = ImeAction.Done
-        )
+        ) {
+            loginPassState = it
+        }
 
         //  forgot password text
         Text(
@@ -104,7 +127,21 @@ fun LoginScreen(
         ) {
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    scope.launch(Dispatchers.IO) {
+                        loginUser(
+                            auth = auth,
+                            context = context,
+                            email = loginEmailState,
+                            password = loginPassState
+                        ) {
+                            navHostController.navigate(HOME_ROUTE) {
+                                popUpTo(AUTHENTICATION_ROUTE)
+                                launchSingleTop = true
+                            }
+                        }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3f),
@@ -176,7 +213,8 @@ fun ColumnScope.CustomTextField(
     endIcon: ImageVector?,
     placeholder: String,
     imeAction: ImeAction,
-    keyboardType: KeyboardType
+    keyboardType: KeyboardType,
+    onEmailInput: (input: String) -> Unit
 ) {
 
     var emailTextFieldState by remember {
@@ -185,7 +223,10 @@ fun ColumnScope.CustomTextField(
 
     TextField(
         value = emailTextFieldState,
-        onValueChange = { emailTextFieldState = it },
+        onValueChange = {
+            emailTextFieldState = it
+            onEmailInput(emailTextFieldState)
+        },
         leadingIcon = {
             if (startIcon != null) {
                 Icon(
@@ -232,7 +273,8 @@ fun ColumnScope.CustomTextField(
 fun ColumnScope.PasswordTextField(
     startIcon: ImageVector?,
     placeholder: String,
-    imeAction: ImeAction
+    imeAction: ImeAction,
+    onPasswordInput: (input: String) -> Unit
 ) {
 
     var passValueState by remember {
@@ -249,7 +291,10 @@ fun ColumnScope.PasswordTextField(
 
     TextField(
         value = passValueState,
-        onValueChange = { passValueState = it },
+        onValueChange = {
+            passValueState = it
+            onPasswordInput(passValueState)
+        },
         leadingIcon = {
             if (startIcon != null) {
                 Icon(

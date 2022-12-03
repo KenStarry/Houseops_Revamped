@@ -32,7 +32,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = PurpleGrey40,
     tertiary = Pink40,
     onPrimary = LightBackgroundAlt,
-    onSecondary = DarkBackgroundAlt,
+    onSecondary = LightBackground,
     onSecondaryContainer = TextBlack900
 
     /* Other default colors to override

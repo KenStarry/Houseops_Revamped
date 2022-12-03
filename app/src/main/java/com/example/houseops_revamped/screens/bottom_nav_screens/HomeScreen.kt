@@ -23,10 +23,6 @@ fun HomeScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
             .clickable {
-                navHostController.navigate(AUTHENTICATION_ROUTE) {
-                    popUpTo(AUTHENTICATION_ROUTE)
-                    launchSingleTop = true
-                }
             }
     )
 }

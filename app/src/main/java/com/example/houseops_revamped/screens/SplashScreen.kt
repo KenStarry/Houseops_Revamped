@@ -19,9 +19,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.example.houseops_revamped.navigation.SPLASH_ROUTE
 import com.example.houseops_revamped.ui.theme.Purple40
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.delay
 
 @Composable
@@ -29,11 +32,29 @@ fun SplashScreen(
     navHostController: NavHostController
 ) {
     LaunchedEffect(key1 = true) {
+
         delay(3000)
-        //  navigate to home screen and pop
-        navHostController.navigate(HOME_ROUTE) {
-            popUpTo(SPLASH_ROUTE)
-            launchSingleTop = true
+
+        //  check if the user is logged in or not
+        val auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        //  the user exists
+        if (currentUser != null) {
+
+            //  navigate to home screen and pop
+            navHostController.navigate(HOME_ROUTE) {
+                popUpTo(SPLASH_ROUTE)
+                launchSingleTop = true
+            }
+        } else {
+
+            //  navigate to login screen and pop
+            navHostController.navigate(AUTHENTICATION_ROUTE) {
+                popUpTo(SPLASH_ROUTE)
+                launchSingleTop = true
+            }
+
         }
     }
 

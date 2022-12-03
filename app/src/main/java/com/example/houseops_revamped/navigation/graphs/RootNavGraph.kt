@@ -16,7 +16,7 @@ fun RootNavGraph(
 
     NavHost(
         navController = navHostController,
-        startDestination = AUTHENTICATION_ROUTE,
+        startDestination = SPLASH_ROUTE,
         route = ROOT_ROUTE
     ) {
 
