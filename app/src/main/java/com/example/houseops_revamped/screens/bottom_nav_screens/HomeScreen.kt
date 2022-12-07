@@ -25,9 +25,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.custom_components.MainTopAppBar
+import com.example.houseops_revamped.models.UsersCollection
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.network.queryUserDetails
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,8 +41,31 @@ fun HomeScreen(
     navHostController: NavHostController
 ) {
 
+    val scope = rememberCoroutineScope()
+    val db = Firebase.firestore
+    val auth = Firebase.auth
+    val currentUser = auth.currentUser
+
+    var userDetails by remember {
+        mutableStateOf(UsersCollection())
+    }
+
+    //  observe user data
+    LaunchedEffect(key1 = currentUser!!.email) {
+        withContext(Dispatchers.Main) {
+            queryUserDetails(db, currentUser) { user ->
+                //  update the ui accordingly
+                userDetails = user
+            }
+        }
+    }
     Scaffold(
-        topBar = { MainTopAppBar(navHostController = navHostController)}
+        topBar = {
+            MainTopAppBar(
+                navHostController = navHostController,
+                userDetails.userImageUri!!
+            )
+        }
     ) {
 
         Column(
@@ -47,9 +76,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.Start
         ) {
 
-            SearchWidget()
-
-            //  observe user data
+//            SearchWidget()
         }
 
     }

@@ -42,6 +42,7 @@ import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.network.createAccount
 import com.example.houseops_revamped.network.createUserCollection
+import com.example.houseops_revamped.network.uploadImageToFirestore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -341,6 +342,12 @@ fun validateDetails(
                 userImageUri = uri as String,
                 userPassword = newPass,
                 userIsCaretaker = false
+            )
+            // upload image to firestore
+            uploadImageToFirestore(
+                imageUri = imageUri!!,
+                email = email,
+                context = context
             )
         }
 

@@ -12,8 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.ChevronRight
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,16 +25,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.houseops_revamped.custom_components.SettingsTopAppBar
+import com.example.houseops_revamped.models.UsersCollection
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.example.houseops_revamped.network.logoutUser
+import com.example.houseops_revamped.network.queryUserDetails
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,8 +51,23 @@ fun SettingsScreen(
 ) {
 
     val scope = rememberCoroutineScope()
+    val db = Firebase.firestore
     val auth = Firebase.auth
+    val currentUser = auth.currentUser
     val context = LocalContext.current
+
+    var userDetails by remember {
+        mutableStateOf(UsersCollection())
+    }
+
+    LaunchedEffect(key1 = currentUser!!.email) {
+        withContext(Dispatchers.Main) {
+
+            queryUserDetails(db, currentUser) { user ->
+                userDetails = user
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -68,7 +90,7 @@ fun SettingsScreen(
         ) {
 
             //  user profile section
-            ProfileSection(scope, navHostController, auth, context)
+            ProfileSection(scope, navHostController, auth, context, userDetails)
 
             //  become a caretaker section
             BecomeACaretaker()
@@ -114,7 +136,8 @@ fun ColumnScope.ProfileSection(
     scope: CoroutineScope,
     navHostController: NavHostController,
     auth: FirebaseAuth,
-    context: Context
+    context: Context,
+    userDetails: UsersCollection
 ) {
 
     Column(
@@ -129,13 +152,17 @@ fun ColumnScope.ProfileSection(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Image(
-            painter = painterResource(id = com.example.houseops_revamped.R.drawable.lady1),
-            contentDescription = "User Settings Profile image",
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(userDetails.userImageUri)
+                .crossfade(true)
+                .build(),
+            contentDescription = "User Image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .clip(CircleShape)
-                .size(100.dp)
+                .size(80.dp)
+
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -148,7 +175,7 @@ fun ColumnScope.ProfileSection(
 
         //  userName
         Text(
-            text = "Shanice K.",
+            text = userDetails.userName!!,
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = MaterialTheme.typography.titleMedium.fontWeight
         )

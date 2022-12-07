@@ -1,6 +1,8 @@
 package com.example.houseops_revamped.network
 
 import android.content.Context
+import android.net.Uri
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavHostController
@@ -9,9 +11,13 @@ import com.example.houseops_revamped.models.UsersCollection
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -44,6 +50,7 @@ suspend fun createAccount(
         }
 }
 
+//  create user collection
 suspend fun createUserCollection(
     userName: String,
     userEmail: String,
@@ -72,6 +79,42 @@ suspend fun createUserCollection(
         }
 }
 
+//  add image to firestore
+suspend fun uploadImageToFirestore(
+    imageUri: Uri,
+    email: String,
+    context: Context
+) {
+    val storageRef = FirebaseStorage.getInstance().getReference(Constants.USER_IMAGES)
+    val dbRef = Firebase.firestore
+
+    val fileRef = storageRef.child(
+        "${System.currentTimeMillis()}.${getFileExtension(imageUri, context)}"
+    )
+
+    fileRef.putFile(imageUri)
+        .addOnSuccessListener {
+            //  download url
+            fileRef.downloadUrl.addOnSuccessListener { url ->
+
+                //  set the url in the user collection document
+                val userDocumentRef = dbRef.collection(Constants.USERS_COLLECTION).document(email)
+                userDocumentRef.update("userImageUri", url)
+            }
+        }
+        .addOnFailureListener { }
+        .addOnProgressListener { }
+}
+
+//  get file extension
+fun getFileExtension(uri: Uri, context: Context): String? {
+    val cr = context.contentResolver
+    val mimeTypeMap = MimeTypeMap.getSingleton()
+
+    return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri))
+}
+
+//  login
 suspend fun loginUser(
     auth: FirebaseAuth,
     context: Context,
@@ -92,6 +135,7 @@ suspend fun loginUser(
 
 }
 
+//  logout user
 suspend fun logoutUser(
     auth: FirebaseAuth,
     context: Context,
@@ -104,8 +148,27 @@ suspend fun logoutUser(
     onLoggedOut()
 }
 
+//  query user details in mainactivity
+suspend fun queryUserDetails(
+    db: FirebaseFirestore,
+    currentUser: FirebaseUser,
+    onQuerySuccess: (user: UsersCollection) -> Unit
+) {
+
+    db.collection(Constants.USERS_COLLECTION)
+        .document(currentUser.email!!)
+        .addSnapshotListener { snapshot, error ->
+
+            if (error != null)
+                return@addSnapshotListener
+
+            val user: UsersCollection = snapshot!!.toObject()!!
+
+            onQuerySuccess(user)
+        }
 
 
+}
 
 
 

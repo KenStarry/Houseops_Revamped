@@ -6,16 +6,19 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.sharp.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,11 +26,14 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.models.TopbarDropdown
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.HOME_ROUTE
+import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.network.logoutUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +44,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopAppBar(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    userImageUrl: String
 ) {
 
     val screens = listOf(
@@ -82,13 +89,20 @@ fun MainTopAppBar(
                 )
             },
             navigationIcon = {
-                Image(
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(userImageUrl)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "User Image",
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(40.dp),
-                    painter = painterResource(id = R.drawable.lady1),
-                    contentDescription = "User Profile Picture",
-                    contentScale = ContentScale.Crop
+                        .size(40.dp)
+                        .clickable {
+                            //  navigate to settings screen
+                            navHostController.navigate(BottomNavScreens.Settings.route)
+                        },
                 )
             },
             actions = {
@@ -96,6 +110,12 @@ fun MainTopAppBar(
                     Icon(
                         imageVector = Icons.Sharp.Notifications,
                         contentDescription = "Notification Icon"
+                    )
+                }
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Search,
+                        contentDescription = "Search Icon"
                     )
                 }
                 IconButton(onClick = { /*TODO*/ }) {
@@ -296,7 +316,12 @@ fun SettingsTopAppBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                navHostController.navigate(BottomNavScreens.Home.route) {
+                    popUpTo(BottomNavScreens.Home.route)
+                    launchSingleTop = true
+                }
+            }) {
                 Icon(
                     imageVector = Icons.Sharp.ArrowBack,
                     contentDescription = "Back Arrow"
@@ -381,7 +406,7 @@ fun BackPressTopAppBar(
 @Preview
 @Composable
 fun MainTopAppBarPrev() {
-    MainTopAppBar(rememberNavController())
+    MainTopAppBar(rememberNavController(), "")
 }
 
 
