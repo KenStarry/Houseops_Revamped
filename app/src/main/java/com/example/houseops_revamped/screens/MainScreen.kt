@@ -36,50 +36,9 @@ fun MainScreen(
     navHostController: NavHostController
 ) {
 
-    var topAppBarViewState by remember {
-        mutableStateOf("Home")
-    }
-
     Scaffold(
-        topBar = {
-            when (topAppBarViewState) {
-                "Home" -> {
-                    MainTopAppBar(navHostController = navHostController)
-                }
-                "Booked" -> {
-                    BookedTopAppBar(navHostController = navHostController)
-                }
-                "Wishlist" -> {
-                    WishlistTopAppBar(navHostController = navHostController)
-                }
-                "Settings" -> {
-                    SettingsTopAppBar(navHostController = navHostController)
-                }
-            }
-        },
         bottomBar = {
-            MainBottomBar(navHostController = navHostController) {
-                topAppBarViewState = it.title
-
-                //  switch the top app bar state
-                when (it.title) {
-                    "Home" -> {
-                        topAppBarViewState = "Home"
-                    }
-
-                    "Booked" -> {
-                        topAppBarViewState = "Booked"
-                    }
-
-                    "Wishlist" -> {
-                        topAppBarViewState = "Wishlist"
-                    }
-
-                    "Settings" -> {
-                        topAppBarViewState = "Settings"
-                    }
-                }
-            }
+            MainBottomBar(navHostController = navHostController)
         },
     ) { contentPadding ->
 
@@ -97,8 +56,7 @@ fun MainScreen(
 //  navigation bar
 @Composable
 fun MainBottomBar(
-    navHostController: NavHostController,
-    bottomBarItemClicked: (screen: BottomNavScreens) -> Unit
+    navHostController: NavHostController
 ) {
 
     val screens = listOf(
@@ -150,9 +108,7 @@ fun MainBottomBar(
                     navHostController = navHostController,
                     currentDestination = currentDestination,
                     screen = screen
-                ) { scr ->
-                    bottomBarItemClicked(scr)
-                }
+                )
             }
         }
     }
@@ -164,8 +120,7 @@ fun MainBottomBar(
 fun RowScope.MainBottomBarItem(
     navHostController: NavHostController,
     currentDestination: NavDestination?,
-    screen: BottomNavScreens,
-    onBottomBarItemClicked: (screen: BottomNavScreens) -> Unit
+    screen: BottomNavScreens
 ) {
 
     NavigationBarItem(
@@ -178,7 +133,6 @@ fun RowScope.MainBottomBarItem(
                 popUpTo(BottomNavScreens.Home.route)
                 launchSingleTop = true
             }
-            onBottomBarItemClicked(screen)
         },
 
         alwaysShowLabel = false,
@@ -227,7 +181,7 @@ fun RowScope.MainBottomBarItem(
 @Preview
 @Composable
 fun MainBottomBarPrev() {
-    MainBottomBar(navHostController = rememberNavController()) {}
+    MainBottomBar(navHostController = rememberNavController())
 }
 
 @Preview

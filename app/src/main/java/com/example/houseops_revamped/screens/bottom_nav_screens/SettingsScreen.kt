@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.custom_components.SettingsTopAppBar
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.example.houseops_revamped.network.logoutUser
@@ -36,6 +37,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     navHostController: NavHostController
@@ -45,21 +47,26 @@ fun SettingsScreen(
     val auth = Firebase.auth
     val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimary)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
+    Scaffold(
+        topBar = { SettingsTopAppBar(navHostController = navHostController)}
+    ) { contentPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(contentPadding)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
 
-        //  user profile section
-        ProfileSection(scope, navHostController, auth, context)
+            //  user profile section
+            ProfileSection(scope, navHostController, auth, context)
 
-        //  become a caretaker section
-        BecomeACaretaker()
+            //  become a caretaker section
+            BecomeACaretaker()
 
+        }
     }
 }
 

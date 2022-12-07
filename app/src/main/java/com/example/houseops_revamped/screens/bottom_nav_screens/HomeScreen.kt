@@ -24,26 +24,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.custom_components.MainTopAppBar
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navHostController: NavHostController
 ) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimary)
-            .padding(8.dp),
-        horizontalAlignment = Alignment.Start
+    Scaffold(
+        topBar = { MainTopAppBar(navHostController = navHostController)}
     ) {
 
-        SearchWidget()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(it),
+            horizontalAlignment = Alignment.Start
+        ) {
 
-        //  observe user data
+            SearchWidget()
+
+            //  observe user data
+        }
+
     }
 }
 
