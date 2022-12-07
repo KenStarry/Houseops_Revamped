@@ -17,7 +17,7 @@ val DarkBackgroundAlt = Color(0xFF2F3233)
 
 //val BlueAccent = Color(0xFF49c6e5)
 val BlueAccent = Color(0xFF008cff)
-val BlueAccentLight = Color(0xFF008cff).copy(alpha = 0.1f)
+val BlueAccentLight = Color(0xFF7DC5FF)
 val DarkBlueAccent = Color(0xFF1c1f33)
 val PinkAccent = Color(0xFFf72585)
 

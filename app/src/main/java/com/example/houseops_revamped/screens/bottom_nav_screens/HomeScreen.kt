@@ -28,6 +28,7 @@ import com.example.houseops_revamped.custom_components.MainTopAppBar
 import com.example.houseops_revamped.models.UsersCollection
 import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.network.queryUserDetails
+import com.example.houseops_revamped.ui.theme.BlueAccentLight
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -41,7 +42,6 @@ fun HomeScreen(
     navHostController: NavHostController
 ) {
 
-    val scope = rememberCoroutineScope()
     val db = Firebase.firestore
     val auth = Firebase.auth
     val currentUser = auth.currentUser
@@ -65,6 +65,25 @@ fun HomeScreen(
                 navHostController = navHostController,
                 userDetails.userImageUri!!
             )
+        },
+        floatingActionButton = {
+            //  only display the fab if the user is a caretaker
+            if (userDetails.userIsCaretaker) {
+                ExtendedFloatingActionButton(
+                    text = {
+                        Text(text = "Dashboard")
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Dashboard,
+                            contentDescription = "Dashboard"
+                        )
+                    },
+                    onClick = { /*TODO*/ },
+                    expanded = true,
+                    containerColor = BlueAccentLight
+                )
+            }
         }
     ) {
 
