@@ -48,7 +48,14 @@ fun SettingsScreen(
     val context = LocalContext.current
 
     Scaffold(
-        topBar = { SettingsTopAppBar(navHostController = navHostController)}
+        topBar = {
+            SettingsTopAppBar(
+                scope,
+                navHostController,
+                auth,
+                context
+            )
+        }
     ) { contentPadding ->
         Column(
             modifier = Modifier
@@ -145,33 +152,6 @@ fun ColumnScope.ProfileSection(
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = MaterialTheme.typography.titleMedium.fontWeight
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
-        //  Logout button
-        Button(
-            onClick = {
-                scope.launch(Dispatchers.Main) {
-                    logoutUser(auth, context, navHostController) {
-                        //  navigate back to login screen
-                        navHostController.navigate(AUTHENTICATION_ROUTE) {
-                            popUpTo(HOME_ROUTE)
-                        }
-                    }
-                }
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = Color.White
-            )
-        ) {
-            Text(
-                text = "Logout",
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize
-            )
-        }
-
-
     }
 }
 
