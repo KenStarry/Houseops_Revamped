@@ -55,11 +55,7 @@ fun MainTopAppBar(
     //  show or hide visibility as per state
     AnimatedVisibility(
         visible = topAppBarVisibilityState.value,
-        enter = expandVertically(
-            animationSpec = tween(
-                durationMillis = 300
-            )
-        ),
+        enter = EnterTransition.None,
         exit = shrinkVertically(
             animationSpec = tween(
                 durationMillis = 300
@@ -67,6 +63,9 @@ fun MainTopAppBar(
         )
     ) {
         TopAppBar(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(8.dp),
             title = {
                 Text(
                     modifier = Modifier
@@ -93,6 +92,232 @@ fun MainTopAppBar(
                         contentDescription = "Notification Icon"
                     )
                 }
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Sharp.MoreVert,
+                        contentDescription = "More Vertical Icon"
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.onPrimary
+            )
+        )
+    }
+}
+
+//  Booked Top App Bar
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BookedTopAppBar(
+    navHostController: NavHostController
+) {
+
+    val screens = listOf(
+        BottomNavScreens.Home,
+        BottomNavScreens.Booked,
+        BottomNavScreens.Wishlist,
+        BottomNavScreens.Settings,
+    )
+
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    val targetDestination = screens.any { it.route == currentDestination?.route }
+    val topAppBarVisibilityState = remember {
+        mutableStateOf(true)
+    }
+
+    topAppBarVisibilityState.value = targetDestination
+
+    //  show or hide visibility as per state
+    AnimatedVisibility(
+        visible = topAppBarVisibilityState.value,
+        enter = EnterTransition.None,
+        exit = shrinkVertically(
+            animationSpec = tween(
+                durationMillis = 300
+            )
+        )
+    ) {
+        TopAppBar(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(8.dp),
+            title = {
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    text = "Booked",
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = MaterialTheme.typography.titleSmall.fontWeight
+                )
+            },
+            navigationIcon = {
+                Image(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(40.dp),
+                    painter = painterResource(id = R.drawable.lady1),
+                    contentDescription = "User Profile Picture",
+                    contentScale = ContentScale.Crop
+                )
+            },
+            actions = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Sharp.Notifications,
+                        contentDescription = "Notification Icon"
+                    )
+                }
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Sharp.MoreVert,
+                        contentDescription = "More Vertical Icon"
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.onPrimary
+            )
+        )
+    }
+}
+
+//  Wishlist Top App Bar
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WishlistTopAppBar(
+    navHostController: NavHostController
+) {
+
+    val screens = listOf(
+        BottomNavScreens.Home,
+        BottomNavScreens.Booked,
+        BottomNavScreens.Wishlist,
+        BottomNavScreens.Settings,
+    )
+
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    val targetDestination = screens.any { it.route == currentDestination?.route }
+    val topAppBarVisibilityState = remember {
+        mutableStateOf(true)
+    }
+
+    topAppBarVisibilityState.value = targetDestination
+
+    //  show or hide visibility as per state
+    AnimatedVisibility(
+        visible = topAppBarVisibilityState.value,
+        enter = EnterTransition.None,
+        exit = shrinkVertically(
+            animationSpec = tween(
+                durationMillis = 300
+            )
+        )
+    ) {
+        TopAppBar(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(8.dp),
+            title = {
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    text = "Wishlist",
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = MaterialTheme.typography.titleSmall.fontWeight
+                )
+            },
+            navigationIcon = {
+                Image(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(40.dp),
+                    painter = painterResource(id = R.drawable.lady1),
+                    contentDescription = "User Profile Picture",
+                    contentScale = ContentScale.Crop
+                )
+            },
+            actions = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Sharp.Notifications,
+                        contentDescription = "Notification Icon"
+                    )
+                }
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Sharp.MoreVert,
+                        contentDescription = "More Vertical Icon"
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.onPrimary
+            )
+        )
+    }
+}
+
+//  Settings Top App Bar
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SettingsTopAppBar(
+    navHostController: NavHostController
+) {
+
+    val screens = listOf(
+        BottomNavScreens.Home,
+        BottomNavScreens.Booked,
+        BottomNavScreens.Wishlist,
+        BottomNavScreens.Settings,
+    )
+
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    val targetDestination = screens.any { it.route == currentDestination?.route }
+    val topAppBarVisibilityState = remember {
+        mutableStateOf(true)
+    }
+
+    topAppBarVisibilityState.value = targetDestination
+
+    //  show or hide visibility as per state
+    AnimatedVisibility(
+        visible = topAppBarVisibilityState.value,
+        enter = EnterTransition.None,
+        exit = shrinkVertically(
+            animationSpec = tween(
+                durationMillis = 300
+            )
+        )
+    ) {
+        TopAppBar(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.onPrimary)
+                .padding(8.dp),
+            title = {
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    text = "Settings",
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = MaterialTheme.typography.titleSmall.fontWeight
+                )
+            },
+            navigationIcon = {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Sharp.ArrowBack,
+                        contentDescription = "Back Arrow"
+                    )
+                }
+            },
+            actions = {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         imageVector = Icons.Sharp.MoreVert,

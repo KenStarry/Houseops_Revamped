@@ -46,7 +46,7 @@ fun NavGraphBuilder.homeNavGraph(
 
         //  Settings screen
         composable(route = BottomNavScreens.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(navHostController)
         }
     }
 }

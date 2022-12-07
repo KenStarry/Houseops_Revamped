@@ -6,10 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -24,9 +21,14 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.custom_components.BookedTopAppBar
 import com.example.houseops_revamped.custom_components.MainTopAppBar
+import com.example.houseops_revamped.custom_components.SettingsTopAppBar
+import com.example.houseops_revamped.custom_components.WishlistTopAppBar
 import com.example.houseops_revamped.navigation.BottomNavScreens
+import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.example.houseops_revamped.navigation.graphs.RootNavGraph
+import org.checkerframework.common.subtyping.qual.Bottom
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,9 +36,51 @@ fun MainScreen(
     navHostController: NavHostController
 ) {
 
+    var topAppBarViewState by remember {
+        mutableStateOf("Home")
+    }
+
     Scaffold(
-        topBar = { MainTopAppBar(navHostController = navHostController) },
-        bottomBar = { MainBottomBar(navHostController = navHostController) },
+        topBar = {
+            when (topAppBarViewState) {
+                "Home" -> {
+                    MainTopAppBar(navHostController = navHostController)
+                }
+                "Booked" -> {
+                    BookedTopAppBar(navHostController = navHostController)
+                }
+                "Wishlist" -> {
+                    WishlistTopAppBar(navHostController = navHostController)
+                }
+                "Settings" -> {
+                    SettingsTopAppBar(navHostController = navHostController)
+                }
+            }
+        },
+        bottomBar = {
+            MainBottomBar(navHostController = navHostController) {
+                topAppBarViewState = it.title
+
+                //  switch the top app bar state
+                when (it.title) {
+                    "Home" -> {
+                        topAppBarViewState = "Home"
+                    }
+
+                    "Booked" -> {
+                        topAppBarViewState = "Booked"
+                    }
+
+                    "Wishlist" -> {
+                        topAppBarViewState = "Wishlist"
+                    }
+
+                    "Settings" -> {
+                        topAppBarViewState = "Settings"
+                    }
+                }
+            }
+        },
     ) { contentPadding ->
 
         Box(
@@ -53,7 +97,8 @@ fun MainScreen(
 //  navigation bar
 @Composable
 fun MainBottomBar(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    bottomBarItemClicked: (screen: BottomNavScreens) -> Unit
 ) {
 
     val screens = listOf(
@@ -105,7 +150,9 @@ fun MainBottomBar(
                     navHostController = navHostController,
                     currentDestination = currentDestination,
                     screen = screen
-                )
+                ) { scr ->
+                    bottomBarItemClicked(scr)
+                }
             }
         }
     }
@@ -117,7 +164,8 @@ fun MainBottomBar(
 fun RowScope.MainBottomBarItem(
     navHostController: NavHostController,
     currentDestination: NavDestination?,
-    screen: BottomNavScreens
+    screen: BottomNavScreens,
+    onBottomBarItemClicked: (screen: BottomNavScreens) -> Unit
 ) {
 
     NavigationBarItem(
@@ -127,9 +175,10 @@ fun RowScope.MainBottomBarItem(
 
         onClick = {
             navHostController.navigate(route = screen.route) {
-                popUpTo(navHostController.graph.findStartDestination().id)
+                popUpTo(BottomNavScreens.Home.route)
                 launchSingleTop = true
             }
+            onBottomBarItemClicked(screen)
         },
 
         alwaysShowLabel = false,
@@ -178,7 +227,7 @@ fun RowScope.MainBottomBarItem(
 @Preview
 @Composable
 fun MainBottomBarPrev() {
-    MainBottomBar(navHostController = rememberNavController())
+    MainBottomBar(navHostController = rememberNavController()) {}
 }
 
 @Preview

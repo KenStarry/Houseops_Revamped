@@ -92,6 +92,18 @@ suspend fun loginUser(
 
 }
 
+suspend fun logoutUser(
+    auth: FirebaseAuth,
+    context: Context,
+    navHostController: NavHostController,
+    onLoggedOut: () -> Unit
+) {
+
+    //  logout user
+    auth.signOut()
+    onLoggedOut()
+}
+
 
 
 

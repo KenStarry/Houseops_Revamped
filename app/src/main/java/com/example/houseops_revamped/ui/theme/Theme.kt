@@ -3,6 +3,7 @@ package com.example.houseops_revamped.ui.theme
 import android.app.Activity
 import android.os.Build
 import android.view.Window
+import android.view.WindowManager
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -11,6 +12,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -21,7 +23,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 private val DarkColorScheme = darkColorScheme(
     primary = BlueAccent,
     secondary = PurpleGrey80,
-    tertiary = Pink80,
+    tertiary = BlueAccentLight,
     onPrimary = DarkBackground,
     onSecondary = DarkBackgroundAlt,
     onSecondaryContainer = TextWhite900
@@ -30,7 +32,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = BlueAccent,
     secondary = PurpleGrey40,
-    tertiary = Pink40,
+    tertiary = BlueAccentLight,
     onPrimary = LightBackgroundAlt,
     onSecondary = LightBackground,
     onSecondaryContainer = TextBlack900
@@ -80,6 +82,7 @@ fun HouseOps_RevampedTheme(
                 color = colorScheme.onPrimary,
                 darkIcons = !darkTheme
             )
+
 
 //            val window = (view.context as Activity).window
 //
