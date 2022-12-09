@@ -2,6 +2,9 @@ package com.example.houseops_revamped.models
 
 object Constants {
 
+    //  Arguments
+    const val CURRENT_USER = "user"
+
     //  Cloud firestore
     const val USERS_COLLECTION = "users"
 

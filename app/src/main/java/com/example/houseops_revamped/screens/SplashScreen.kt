@@ -10,8 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -31,13 +30,15 @@ import kotlinx.coroutines.delay
 fun SplashScreen(
     navHostController: NavHostController
 ) {
+    //  check if the user is logged in or not
+    val auth = Firebase.auth
+    val currentUser by remember {
+        mutableStateOf(auth.currentUser)
+    }
+
     LaunchedEffect(key1 = true) {
 
         delay(3000)
-
-        //  check if the user is logged in or not
-        val auth = Firebase.auth
-        val currentUser = auth.currentUser
 
         //  the user exists
         if (currentUser != null) {
@@ -54,7 +55,6 @@ fun SplashScreen(
                 popUpTo(SPLASH_ROUTE)
                 launchSingleTop = true
             }
-
         }
     }
 

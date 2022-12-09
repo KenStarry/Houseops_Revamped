@@ -143,28 +143,33 @@ suspend fun logoutUser(
     onLoggedOut: () -> Unit
 ) {
 
-    //  logout user
-    auth.signOut()
+//    val myAuth = FirebaseAuth.getInstance()
+//    myAuth.addAuthStateListener {
+//        //  logout user
+//        it.signOut()
+//    }
     onLoggedOut()
 }
 
 //  query user details in mainactivity
 suspend fun queryUserDetails(
     db: FirebaseFirestore,
-    currentUser: FirebaseUser,
+    currentUserEmail: String,
     onQuerySuccess: (user: UsersCollection) -> Unit
 ) {
 
     db.collection(Constants.USERS_COLLECTION)
-        .document(currentUser.email!!)
+        .document(currentUserEmail)
         .addSnapshotListener { snapshot, error ->
 
             if (error != null)
                 return@addSnapshotListener
 
-            val user: UsersCollection = snapshot!!.toObject()!!
+            if (snapshot != null) {
+                val user: UsersCollection = snapshot.toObject()!!
+                onQuerySuccess(user)
 
-            onQuerySuccess(user)
+            }
         }
 
 

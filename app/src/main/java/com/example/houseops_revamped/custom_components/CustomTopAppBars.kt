@@ -78,7 +78,7 @@ fun MainTopAppBar(
         TopAppBar(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.onPrimary)
-                .padding(8.dp),
+                .padding(start = 8.dp, top = 8.dp, bottom = 8.dp),
             title = {
                 Text(
                     modifier = Modifier
@@ -351,6 +351,7 @@ fun SettingsTopAppBar(
                     TopbarDropdown("logout", Icons.Sharp.Logout) {
                         scope.launch(Dispatchers.Main) {
                             logoutUser(auth, context, navHostController) {
+                                auth.signOut()
                                 //  navigate back to login screen
                                 navHostController.navigate(AUTHENTICATION_ROUTE) {
                                     popUpTo(HOME_ROUTE)

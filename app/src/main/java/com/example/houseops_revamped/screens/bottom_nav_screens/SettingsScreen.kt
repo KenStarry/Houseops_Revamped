@@ -52,18 +52,23 @@ fun SettingsScreen(
 
     val scope = rememberCoroutineScope()
     val db = Firebase.firestore
-    val auth = Firebase.auth
+    val auth by remember {
+        mutableStateOf(Firebase.auth)
+    }
     val currentUser = auth.currentUser
     val context = LocalContext.current
 
     var userDetails by remember {
         mutableStateOf(UsersCollection())
     }
+    var currentUserEmail by remember {
+        mutableStateOf(auth.currentUser?.email.toString())
+    }
 
-    LaunchedEffect(key1 = currentUser!!.email) {
+    LaunchedEffect(key1 = userDetails) {
         withContext(Dispatchers.Main) {
 
-            queryUserDetails(db, currentUser) { user ->
+            queryUserDetails(db, currentUserEmail) { user ->
                 userDetails = user
             }
         }
