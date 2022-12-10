@@ -21,14 +21,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.houseops_revamped.custom_components.BookedTopAppBar
-import com.example.houseops_revamped.custom_components.MainTopAppBar
-import com.example.houseops_revamped.custom_components.SettingsTopAppBar
-import com.example.houseops_revamped.custom_components.WishlistTopAppBar
 import com.example.houseops_revamped.navigation.BottomNavScreens
-import com.example.houseops_revamped.navigation.HOME_ROUTE
 import com.example.houseops_revamped.navigation.graphs.RootNavGraph
-import org.checkerframework.common.subtyping.qual.Bottom
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,11 +1,5 @@
 package com.example.houseops_revamped.navigation
 
-//  constants for the routes
-const val ROOT_ROUTE = "root_route"
-const val SPLASH_ROUTE = "splash_route"
-const val HOME_ROUTE = "home_route"
-const val AUTHENTICATION_ROUTE = "authentication_route"
-
 sealed class Screens(
     val route: String
 ) {
@@ -21,4 +15,7 @@ sealed class Screens(
 
     //  signup screen
     object SignUp : Screens(route = "sign_up_screen")
+
+    //  caretaker registration screen
+    object CaretakerRegistration : Screens(route = "caretaker_registration")
 }

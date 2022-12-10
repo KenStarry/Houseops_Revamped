@@ -1,14 +1,10 @@
 package com.example.houseops_revamped.screens.bottom_nav_screens
 
 import android.content.Context
-import android.view.RoundedCorner
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.ChevronRight
 import androidx.compose.material3.*
@@ -16,24 +12,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.SettingsTopAppBar
-import com.example.houseops_revamped.models.UsersCollection
-import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.navigation.HOME_ROUTE
-import com.example.houseops_revamped.network.logoutUser
+import com.example.houseops_revamped.models.firestore.UsersCollection
+import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.network.queryUserDetails
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -41,7 +31,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,23 +41,21 @@ fun SettingsScreen(
 
     val scope = rememberCoroutineScope()
     val db = Firebase.firestore
+    val context = LocalContext.current
+    val direction = Direction(navHostController)
+
     val auth by remember {
         mutableStateOf(Firebase.auth)
     }
-    val currentUser = auth.currentUser
-    val context = LocalContext.current
 
     var userDetails by remember {
         mutableStateOf(UsersCollection())
-    }
-    var currentUserEmail by remember {
-        mutableStateOf(auth.currentUser?.email.toString())
     }
 
     LaunchedEffect(key1 = userDetails) {
         withContext(Dispatchers.Main) {
 
-            queryUserDetails(db, currentUserEmail) { user ->
+            queryUserDetails(db, auth.currentUser?.email!!) { user ->
                 userDetails = user
             }
         }
@@ -98,7 +85,7 @@ fun SettingsScreen(
             ProfileSection(scope, navHostController, auth, context, userDetails)
 
             //  become a caretaker section
-            BecomeACaretaker()
+            BecomeACaretaker(direction = direction)
 
         }
     }
@@ -106,7 +93,9 @@ fun SettingsScreen(
 
 //  become a caretaker section
 @Composable
-fun ColumnScope.BecomeACaretaker() {
+fun ColumnScope.BecomeACaretaker(
+    direction: Direction
+) {
 
     Row(
         modifier = Modifier
@@ -114,6 +103,9 @@ fun ColumnScope.BecomeACaretaker() {
             .fillMaxWidth(0.9f)
             .wrapContentHeight()
             .background(MaterialTheme.colorScheme.onSecondary)
+            .clickable {
+                direction.navigateToCaretakerRegistration()
+            }
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .align(Alignment.CenterHorizontally),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -126,7 +118,9 @@ fun ColumnScope.BecomeACaretaker() {
             fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
         )
 
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = {
+            direction.navigateToCaretakerRegistration()
+        }) {
             Icon(
                 imageVector = Icons.Sharp.ChevronRight,
                 contentDescription = "Right Chevron"
@@ -158,9 +152,10 @@ fun ColumnScope.ProfileSection(
     ) {
 
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
+            model = ImageRequest.Builder(context)
                 .data(userDetails.userImageUri)
                 .crossfade(true)
+                .placeholder(R.drawable.lady1)
                 .build(),
             contentDescription = "User Image",
             contentScale = ContentScale.Crop,
@@ -187,6 +182,8 @@ fun ColumnScope.ProfileSection(
     }
 }
 
+//  appearance settings
+
 @Preview(
     showSystemUi = true
 )
@@ -194,7 +191,6 @@ fun ColumnScope.ProfileSection(
 fun SettingsScreenPreview() {
     SettingsScreen(rememberNavController())
 }
-
 
 
 

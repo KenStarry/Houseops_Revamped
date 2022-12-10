@@ -29,11 +29,10 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.models.Constants.HOME_ROUTE
 import com.example.houseops_revamped.models.TopbarDropdown
-import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
-import com.example.houseops_revamped.navigation.HOME_ROUTE
-import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.network.logoutUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
@@ -386,7 +385,13 @@ fun BackPressTopAppBar(
 
     TopAppBar(
         title = {
-            Text(text = title)
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                text = title,
+                fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                fontWeight = MaterialTheme.typography.titleSmall.fontWeight
+            )
         },
         navigationIcon = {
             IconButton(onClick = { onBackPressed() }) {

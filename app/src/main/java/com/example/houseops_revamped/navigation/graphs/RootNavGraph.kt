@@ -3,11 +3,8 @@ package com.example.houseops_revamped.navigation.graphs
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.navigation.HOME_ROUTE
-import com.example.houseops_revamped.navigation.ROOT_ROUTE
-import com.example.houseops_revamped.navigation.SPLASH_ROUTE
-import com.example.houseops_revamped.navigation.graphs.homeNavGraph
+import com.example.houseops_revamped.models.Constants.ROOT_ROUTE
+import com.example.houseops_revamped.models.Constants.SPLASH_ROUTE
 
 @Composable
 fun RootNavGraph(
@@ -22,6 +19,7 @@ fun RootNavGraph(
 
         authNavGraph(navHostController = navHostController)
         homeNavGraph(navHostController = navHostController)
+        caretakerNavGraph(navHostController = navHostController)
         splashNavGraph(navHostController = navHostController)
     }
 

@@ -4,22 +4,17 @@ import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
 import android.widget.Toast
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.models.Constants
-import com.example.houseops_revamped.models.UsersCollection
-import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.navigation.HOME_ROUTE
+import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.models.Constants.HOME_ROUTE
+import com.example.houseops_revamped.models.firestore.UsersCollection
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 //  create a user account in FirebaseAuth
 suspend fun createAccount(
@@ -56,7 +51,9 @@ suspend fun createUserCollection(
     userEmail: String,
     userImageUri: String,
     userPassword: String,
-    userIsCaretaker: Boolean
+    userIsCaretaker: Boolean,
+    userExtraDetails: ArrayList<String>?,
+    userHasMadeRequest: Boolean
 ) {
 
     val user = UsersCollection(
@@ -64,7 +61,9 @@ suspend fun createUserCollection(
         userEmail = userEmail,
         userImageUri = userImageUri,
         userPassword = userPassword,
-        userIsCaretaker = userIsCaretaker
+        userIsCaretaker = userIsCaretaker,
+        userExtraDetails = userExtraDetails,
+        userHasMadeRequest = userHasMadeRequest
     )
 
     val db: FirebaseFirestore = Firebase.firestore

@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.navigation.HOME_ROUTE
+import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.models.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.network.loginUser
 import com.google.firebase.auth.ktx.auth

@@ -39,7 +39,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
-import com.example.houseops_revamped.navigation.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.network.createAccount
 import com.example.houseops_revamped.network.createUserCollection
 import com.example.houseops_revamped.network.uploadImageToFirestore
@@ -341,7 +341,9 @@ fun validateDetails(
                 userEmail = email,
                 userImageUri = uri as String,
                 userPassword = newPass,
-                userIsCaretaker = false
+                userIsCaretaker = false,
+                userExtraDetails = ArrayList(),
+                userHasMadeRequest = false
             )
             // upload image to firestore
             uploadImageToFirestore(
