@@ -79,7 +79,7 @@ fun HomeScreen(
             userDetails.userImageUri?.let {
                 MainTopAppBar(
                     navHostController = navHostController,
-                    it
+                    userImageUrl = it
                 )
             }
         },

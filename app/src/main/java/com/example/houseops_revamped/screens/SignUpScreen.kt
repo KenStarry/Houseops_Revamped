@@ -339,17 +339,19 @@ fun validateDetails(
             createUserCollection(
                 userName = name,
                 userEmail = email,
-                userImageUri = uri as String,
+                userImageUri = "",
                 userPassword = newPass,
                 userIsCaretaker = false,
-                userExtraDetails = ArrayList(),
+                userExtraDetails = listOf(),
                 userHasMadeRequest = false
             )
             // upload image to firestore
             uploadImageToFirestore(
                 imageUri = imageUri!!,
                 email = email,
-                context = context
+                context = context,
+                onUploadFailure = {},
+                onUploadProgress = {}
             )
         }
 

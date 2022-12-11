@@ -15,6 +15,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.util.Objects
 
 //  create a user account in FirebaseAuth
 suspend fun createAccount(
@@ -52,7 +53,7 @@ suspend fun createUserCollection(
     userImageUri: String,
     userPassword: String,
     userIsCaretaker: Boolean,
-    userExtraDetails: ArrayList<String>?,
+    userExtraDetails: List<String>?,
     userHasMadeRequest: Boolean
 ) {
 
@@ -82,7 +83,9 @@ suspend fun createUserCollection(
 suspend fun uploadImageToFirestore(
     imageUri: Uri,
     email: String,
-    context: Context
+    context: Context,
+    onUploadFailure: () -> Unit,
+    onUploadProgress: () -> Unit
 ) {
     val storageRef = FirebaseStorage.getInstance().getReference(Constants.USER_IMAGES)
     val dbRef = Firebase.firestore
@@ -101,8 +104,8 @@ suspend fun uploadImageToFirestore(
                 userDocumentRef.update("userImageUri", url)
             }
         }
-        .addOnFailureListener { }
-        .addOnProgressListener { }
+        .addOnFailureListener { onUploadFailure() }
+        .addOnProgressListener { onUploadProgress() }
 }
 
 //  get file extension
