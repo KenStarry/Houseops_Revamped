@@ -2,13 +2,10 @@ package com.example.houseops_revamped.screens
 
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -33,12 +30,15 @@ import com.example.houseops_revamped.custom_components.FormTextField
 import com.example.houseops_revamped.models.Constants
 import com.example.houseops_revamped.models.TextFieldModel
 import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.network.queryUserDetails
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Objects
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,6 +57,21 @@ fun CaretakerRegistrationScreen(
         mutableStateOf(auth.currentUser)
     }
 
+    var hasUserMadeRequest by remember {
+        mutableStateOf(false)
+    }
+
+    //  query user details
+    LaunchedEffect(key1 = true) {
+        withContext(Dispatchers.Main) {
+
+            queryUserDetails(db, currentUser?.email!!) { user ->
+                //  check if the user has made a request
+                hasUserMadeRequest = user.userHasMadeRequest
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             BackPressTopAppBar(title = "Caretaker Registration") {
@@ -72,12 +87,16 @@ fun CaretakerRegistrationScreen(
                 .padding(contentPadding)
         ) {
 
-            MainRegistrationFormView(db = db, auth = auth)
+            if (hasUserMadeRequest)
+                PendingRegistrationView()
+            else
+                MainRegistrationFormView(db = db, auth = auth)
 
         }
     }
 }
 
+//  form for user to make a request
 @Composable
 fun MainRegistrationFormView(
     db: FirebaseFirestore,
@@ -201,9 +220,65 @@ fun MainRegistrationFormView(
     }
 }
 
+//  pending approval view
 @Composable
 fun PendingRegistrationView() {
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        //  svg image
+        Image(
+            painter = painterResource(id = R.drawable.undraw_a_moment_to_relax_re_v5gv),
+            contentDescription = "Relax svg",
+            modifier = Modifier
+                .size(250.dp)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        //  hold on text
+        Text(
+            text = "Request pending approval, we'll get back to you...",
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+        
+//        Image(painter = painterResource(id = R.raw.success_lottie), contentDescription = )
+
+        //  action buttons
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(0.9f),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            //  revoke request
+            OutlinedButton(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+            ) {
+                Text(
+                    text = "Revoke Request",
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            }
+
+        }
+
+    }
 
 }
 
