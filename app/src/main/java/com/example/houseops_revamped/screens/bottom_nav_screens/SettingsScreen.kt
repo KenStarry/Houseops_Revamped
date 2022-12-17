@@ -85,7 +85,7 @@ fun SettingsScreen(
             ProfileSection(scope, navHostController, auth, context, userDetails)
 
             //  become a caretaker section
-            BecomeACaretaker(direction = direction)
+            BecomeACaretaker(direction = direction, userDetails)
 
         }
     }
@@ -94,7 +94,8 @@ fun SettingsScreen(
 //  become a caretaker section
 @Composable
 fun ColumnScope.BecomeACaretaker(
-    direction: Direction
+    direction: Direction,
+    userDetails: UsersCollection
 ) {
 
     Row(
@@ -104,7 +105,7 @@ fun ColumnScope.BecomeACaretaker(
             .wrapContentHeight()
             .background(MaterialTheme.colorScheme.onSecondary)
             .clickable {
-                direction.navigateToCaretakerRegistration()
+                direction.navigateToCaretakerRegistration(userDetails.userHasMadeRequest)
             }
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .align(Alignment.CenterHorizontally),
@@ -119,7 +120,8 @@ fun ColumnScope.BecomeACaretaker(
         )
 
         IconButton(onClick = {
-            direction.navigateToCaretakerRegistration()
+            direction.navigateToCaretakerRegistration(userDetails.userHasMadeRequest)
+
         }) {
             Icon(
                 imageVector = Icons.Sharp.ChevronRight,

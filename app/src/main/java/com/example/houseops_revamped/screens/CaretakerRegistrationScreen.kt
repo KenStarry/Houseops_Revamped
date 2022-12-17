@@ -1,24 +1,19 @@
 package com.example.houseops_revamped.screens
 
+import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,12 +21,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
+import com.example.houseops_revamped.custom_components.CaretakerIDCard
 import com.example.houseops_revamped.custom_components.FormTextField
-import com.example.houseops_revamped.models.Constants
+import com.example.houseops_revamped.utilities.Constants
 import com.example.houseops_revamped.models.TextFieldModel
+import com.example.houseops_revamped.models.firestore.UsersCollection
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.network.queryUserDetails
-import com.example.houseops_revamped.ui.theme.BlueAccentLight
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,12 +35,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Objects
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CaretakerRegistrationScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    userHasRegistered: Boolean
 ) {
 
     val direction = Direction(navHostController)
@@ -61,6 +57,10 @@ fun CaretakerRegistrationScreen(
         mutableStateOf(false)
     }
 
+    var userDetails by remember {
+        mutableStateOf(UsersCollection())
+    }
+
     //  query user details
     LaunchedEffect(key1 = true) {
         withContext(Dispatchers.Main) {
@@ -68,6 +68,7 @@ fun CaretakerRegistrationScreen(
             queryUserDetails(db, currentUser?.email!!) { user ->
                 //  check if the user has made a request
                 hasUserMadeRequest = user.userHasMadeRequest
+                userDetails = user
             }
         }
     }
@@ -88,7 +89,27 @@ fun CaretakerRegistrationScreen(
         ) {
 
             if (hasUserMadeRequest)
-                PendingRegistrationView()
+                PendingRegistrationView(
+                    onRevokeRequest = {
+                        hasUserMadeRequest = false
+                        updateUserDetails(
+                            db,
+                            auth,
+                            null,
+                            hasUserMadeRequest,
+                            onUpdateHasMadeRequest = {},
+                            onUpdateExtraDetails = {}
+                        )
+//                        updateHasMadeRequest(
+//                            hasUserMadeRequest,
+//                            db,
+//                            auth,
+//                            onUpdateHasMadeRequest = {}
+//                        )
+                    },
+                    userDetails = userDetails,
+                    context = context
+                )
             else
                 MainRegistrationFormView(db = db, auth = auth)
 
@@ -222,7 +243,11 @@ fun MainRegistrationFormView(
 
 //  pending approval view
 @Composable
-fun PendingRegistrationView() {
+fun PendingRegistrationView(
+    onRevokeRequest: () -> Unit,
+    userDetails: UsersCollection,
+    context: Context
+) {
 
     Column(
         modifier = Modifier
@@ -232,12 +257,10 @@ fun PendingRegistrationView() {
         verticalArrangement = Arrangement.Center
     ) {
 
-        //  svg image
-        Image(
-            painter = painterResource(id = R.drawable.undraw_a_moment_to_relax_re_v5gv),
-            contentDescription = "Relax svg",
-            modifier = Modifier
-                .size(250.dp)
+        //  caretaker ID Card
+        CaretakerIDCard(
+            context = context,
+            userDetails = userDetails
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -251,8 +274,6 @@ fun PendingRegistrationView() {
         )
 
         Spacer(modifier = Modifier.height(32.dp))
-        
-//        Image(painter = painterResource(id = R.raw.success_lottie), contentDescription = )
 
         //  action buttons
         Row(
@@ -264,7 +285,9 @@ fun PendingRegistrationView() {
 
             //  revoke request
             OutlinedButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    onRevokeRequest()
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary
                 ),
@@ -285,7 +308,7 @@ fun PendingRegistrationView() {
 fun updateUserDetails(
     db: FirebaseFirestore,
     auth: FirebaseAuth,
-    extraDetails: List<String>,
+    extraDetails: List<String>?,
     hasMadeRequest: Boolean,
     onUpdateExtraDetails: () -> Unit,
     onUpdateHasMadeRequest: () -> Unit
@@ -314,10 +337,31 @@ fun updateUserDetails(
 
 }
 
+fun updateHasMadeRequest(
+    hasMadeRequest: Boolean,
+    db: FirebaseFirestore,
+    auth: FirebaseAuth,
+    onUpdateHasMadeRequest: () -> Unit
+) {
+
+    val userRef = db.collection(Constants.USERS_COLLECTION).document(auth.currentUser?.email!!)
+
+    //  update the hasMade request field
+    userRef
+        .update("userHasMadeRequest", hasMadeRequest)
+        .addOnSuccessListener {
+            onUpdateHasMadeRequest()
+        }
+        .addOnFailureListener {
+            Log.d("Register", it.message.toString())
+        }
+
+}
+
 @Preview(
     showSystemUi = true
 )
 @Composable
 fun CaretakerRegistrationPrev() {
-    CaretakerRegistrationScreen(rememberNavController())
+    CaretakerRegistrationScreen(rememberNavController(), false)
 }

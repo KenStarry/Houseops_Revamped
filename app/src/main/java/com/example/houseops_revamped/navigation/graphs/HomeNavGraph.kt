@@ -4,11 +4,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.houseops_revamped.models.Constants.HOME_ROUTE
+import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.screens.MainScreen
-import com.example.houseops_revamped.screens.SplashScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.BookedScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.HomeScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.SettingsScreen

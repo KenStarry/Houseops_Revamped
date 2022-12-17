@@ -2,7 +2,6 @@ package com.example.houseops_revamped.screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -33,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.models.Constants.HOME_ROUTE
+import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.network.loginUser
 import com.google.firebase.auth.ktx.auth

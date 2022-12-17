@@ -2,7 +2,6 @@ package com.example.houseops_revamped.screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.window.SplashScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -18,9 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.models.Constants.HOME_ROUTE
-import com.example.houseops_revamped.models.Constants.SPLASH_ROUTE
+import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
+import com.example.houseops_revamped.utilities.Constants.SPLASH_ROUTE
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.delay
@@ -41,6 +40,8 @@ fun SplashScreen(
 
         //  the user exists
         if (currentUser != null) {
+
+            //  query the user details and send them to MainScreen
 
             //  navigate to home screen and pop
             navHostController.navigate(HOME_ROUTE) {

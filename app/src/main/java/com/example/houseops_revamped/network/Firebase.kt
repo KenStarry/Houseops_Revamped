@@ -5,9 +5,9 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.models.Constants
-import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.models.Constants.HOME_ROUTE
+import com.example.houseops_revamped.utilities.Constants
+import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.models.firestore.UsersCollection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,7 +15,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import java.util.Objects
 
 //  create a user account in FirebaseAuth
 suspend fun createAccount(

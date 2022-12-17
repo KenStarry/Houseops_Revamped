@@ -29,8 +29,8 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.models.Constants.HOME_ROUTE
+import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.models.TopbarDropdown
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.network.logoutUser

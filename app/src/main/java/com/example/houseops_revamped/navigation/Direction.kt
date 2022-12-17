@@ -7,8 +7,8 @@ class Direction(
 ) {
 
     //  navigate to caretaker registration
-    val navigateToCaretakerRegistration: () -> Unit = {
-        navHostController.navigate(Screens.CaretakerRegistration.route)
+    val navigateToCaretakerRegistration: (registeredStatus: Boolean) -> Unit = { status ->
+        navHostController.navigate(Screens.CaretakerRegistration.hasCaretakerRegistred(status = status))
     }
 
     //  navigate back

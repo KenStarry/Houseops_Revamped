@@ -1,10 +1,8 @@
 package com.example.houseops_revamped.navigation.graphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.example.houseops_revamped.models.Constants
+import com.example.houseops_revamped.utilities.Constants
 import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.screens.CaretakerRegistrationScreen
 
@@ -17,8 +15,19 @@ fun NavGraphBuilder.caretakerNavGraph(
         route = Constants.CARETAKER_ROUTE
     ) {
 
-        composable(route = Screens.CaretakerRegistration.route) {
-            CaretakerRegistrationScreen(navHostController)
+        composable(
+            route = Screens.CaretakerRegistration.route,
+            arguments = listOf(
+                navArgument(Constants.CARETAKER_HAS_REGISTERED) {
+                    type = NavType.BoolType
+                    defaultValue = false
+                }
+            )
+        ) {
+            CaretakerRegistrationScreen(
+                navHostController,
+                it.arguments?.getBoolean(Constants.CARETAKER_HAS_REGISTERED)!!
+            )
         }
     }
 }

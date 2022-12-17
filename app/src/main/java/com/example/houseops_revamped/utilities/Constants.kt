@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.models
+package com.example.houseops_revamped.utilities
 
 object Constants {
 
@@ -9,6 +9,10 @@ object Constants {
     const val HOME_ROUTE = "home_route"
     const val AUTHENTICATION_ROUTE = "authentication_route"
     const val CARETAKER_ROUTE = "caretaker_route"
+
+    //  route arguments
+    //  caretaker registration
+    const val CARETAKER_HAS_REGISTERED = "has_registered"
 
     //  Arguments
     const val CURRENT_USER = "user"

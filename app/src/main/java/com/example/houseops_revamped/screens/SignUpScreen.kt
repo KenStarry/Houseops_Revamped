@@ -1,11 +1,7 @@
 package com.example.houseops_revamped.screens
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,11 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.*
@@ -37,9 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
-import com.example.houseops_revamped.models.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.network.createAccount
 import com.example.houseops_revamped.network.createUserCollection
 import com.example.houseops_revamped.network.uploadImageToFirestore
