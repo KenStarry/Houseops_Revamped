@@ -11,6 +11,7 @@ import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.models.firestore.UsersCollection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -174,6 +175,33 @@ suspend fun queryUserDetails(
         }
 
 
+}
+
+//  query users based on a criteria
+suspend fun queryRegisteredCaretakers(
+    db: FirebaseFirestore,
+    onQuerySuccess: (userList: List<UsersCollection>) -> Unit
+) {
+
+    db.collection(Constants.USERS_COLLECTION)
+        .whereEqualTo("userHasMadeRequest", true)
+        .addSnapshotListener { querySnapshot, error ->
+
+            if (error != null)
+                return@addSnapshotListener
+
+            val usersList: ArrayList<UsersCollection> = ArrayList()
+
+            if (querySnapshot != null) {
+                for (snapshot in querySnapshot) {
+
+                    val user: UsersCollection = snapshot.toObject()
+                    usersList.add(user)
+                }
+            }
+
+            onQuerySuccess(usersList)
+        }
 }
 
 

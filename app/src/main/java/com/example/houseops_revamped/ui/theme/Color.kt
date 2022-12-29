@@ -21,5 +21,7 @@ val BlueAccentLight = Color(0xFF7DC5FF)
 val DarkBlueAccent = Color(0xFF1c1f33)
 val PinkAccent = Color(0xFFf72585)
 
+val PendingColor = Color.Yellow
+
 val TextBlack900 = Color.Black
 val TextWhite900 = Color.White

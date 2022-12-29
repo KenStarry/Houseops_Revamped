@@ -15,6 +15,7 @@ fun NavGraphBuilder.caretakerNavGraph(
         route = Constants.CARETAKER_ROUTE
     ) {
 
+        //  caretaker registration screen
         composable(
             route = Screens.CaretakerRegistration.route,
             arguments = listOf(

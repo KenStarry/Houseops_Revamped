@@ -100,12 +100,6 @@ fun CaretakerRegistrationScreen(
                             onUpdateHasMadeRequest = {},
                             onUpdateExtraDetails = {}
                         )
-//                        updateHasMadeRequest(
-//                            hasUserMadeRequest,
-//                            db,
-//                            auth,
-//                            onUpdateHasMadeRequest = {}
-//                        )
                     },
                     userDetails = userDetails,
                     context = context
@@ -252,10 +246,21 @@ fun PendingRegistrationView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimary),
+            .background(MaterialTheme.colorScheme.onPrimary)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
+        //  title
+        Text(
+            text = "Pending Approval",
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+            fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         //  caretaker ID Card
         CaretakerIDCard(

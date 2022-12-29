@@ -7,6 +7,7 @@ import androidx.navigation.navigation
 import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.Screens
+import com.example.houseops_revamped.screens.AdminScreen
 import com.example.houseops_revamped.screens.MainScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.BookedScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.HomeScreen
@@ -26,6 +27,11 @@ fun NavGraphBuilder.homeNavGraph(
         //  main screen
         composable(route = Screens.Main.route) {
             MainScreen(navHostController = navHostController)
+        }
+        
+        //  admin screen
+        composable(route = Screens.Admin.route) {
+            AdminScreen(navHostController = navHostController)
         }
 
         //  Home screen

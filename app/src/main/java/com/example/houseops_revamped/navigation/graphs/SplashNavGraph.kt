@@ -17,6 +17,7 @@ fun NavGraphBuilder.splashNavGraph(
         route = SPLASH_ROUTE
     ) {
 
+        //  splash screen
         composable(route = Screens.Splash.route) {
             SplashScreen(navHostController = navHostController)
         }

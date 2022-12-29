@@ -18,6 +18,9 @@ sealed class Screens(
     //  signup screen
     object SignUp : Screens(route = "sign_up_screen")
 
+    //  admin screen
+    object Admin : Screens(route = "admin_screen")
+
     //  caretaker registration screen
     object CaretakerRegistration :
         Screens(route = "caretaker_registration/{${Constants.CARETAKER_HAS_REGISTERED}}") {

@@ -22,7 +22,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = BlueAccent,
-    secondary = PurpleGrey80,
+    secondary = PinkAccent,
     tertiary = BlueAccentLight,
     onPrimary = DarkBackground,
     onSecondary = DarkBackgroundAlt,
@@ -31,7 +31,7 @@ private val DarkColorScheme = darkColorScheme(
 
 private val LightColorScheme = lightColorScheme(
     primary = BlueAccent,
-    secondary = PurpleGrey40,
+    secondary = PinkAccent,
     tertiary = BlueAccentLight,
     onPrimary = LightBackgroundAlt,
     onSecondary = LightBackground,

@@ -33,6 +33,7 @@ import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.models.TopbarDropdown
 import com.example.houseops_revamped.navigation.BottomNavScreens
+import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.network.logoutUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
@@ -297,6 +298,9 @@ fun SettingsTopAppBar(
     context: Context
 ) {
 
+    val direction = Direction(navHostController)
+
+    //  toggle menu on and off boolean
     var showMenu by remember {
         mutableStateOf(false)
     }
@@ -346,22 +350,48 @@ fun SettingsTopAppBar(
                 )
             ) {
 
-                val itemsList = listOf(
-                    TopbarDropdown("logout", Icons.Sharp.Logout) {
-                        scope.launch(Dispatchers.Main) {
-                            logoutUser(auth, context, navHostController) {
-                                auth.signOut()
-                                //  navigate back to login screen
-                                navHostController.navigate(AUTHENTICATION_ROUTE) {
-                                    popUpTo(HOME_ROUTE)
+                //  list of drop down items
+                val itemsList = if (auth.currentUser?.email == "starrycodes@gmail.com") {
+                    //  Admin
+                    listOf(
+                        TopbarDropdown("Admin Page", Icons.Sharp.AdminPanelSettings) {
+                            //  navigate to admin page
+                            direction.navigateToAdminPage()
+                        },
+                        TopbarDropdown("Logout", Icons.Sharp.Logout) {
+                            scope.launch(Dispatchers.Main) {
+                                logoutUser(auth, context, navHostController) {
+                                    auth.signOut()
+                                    //  navigate back to login screen
+                                    navHostController.navigate(AUTHENTICATION_ROUTE) {
+                                        popUpTo(HOME_ROUTE)
+                                    }
                                 }
                             }
+                        },
+                        TopbarDropdown("Delete Account", Icons.Sharp.DeleteForever) {
+                            Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
                         }
-                    },
-                    TopbarDropdown("Delete Account", Icons.Sharp.DeleteForever) {
-                        Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
-                    }
-                )
+                    )
+                } else {
+                    //  Normal User
+                    listOf(
+                        TopbarDropdown("Logout", Icons.Sharp.Logout) {
+                            scope.launch(Dispatchers.Main) {
+                                logoutUser(auth, context, navHostController) {
+                                    auth.signOut()
+                                    //  navigate back to login screen
+                                    navHostController.navigate(AUTHENTICATION_ROUTE) {
+                                        popUpTo(HOME_ROUTE)
+                                    }
+                                }
+                            }
+                        },
+                        TopbarDropdown("Delete Account", Icons.Sharp.DeleteForever) {
+                            Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                }
 
                 CustomDropdownMenuItem(
                     dropdownItems = itemsList

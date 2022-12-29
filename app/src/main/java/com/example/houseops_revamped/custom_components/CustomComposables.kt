@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.RoundedCorner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,7 +14,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.sharp.Star
+import androidx.compose.material.icons.sharp.Timer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,6 +41,7 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.models.TopbarDropdown
 import com.example.houseops_revamped.models.firestore.UsersCollection
 import com.example.houseops_revamped.ui.theme.DarkBlueAccent
+import com.example.houseops_revamped.ui.theme.PendingColor
 
 //  custom form textfields
 @OptIn(ExperimentalMaterial3Api::class)
@@ -130,6 +135,7 @@ fun CustomDropdownMenuItem(
 
 
 //  Caretaker id card
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CaretakerIDCard(
     context: Context,
@@ -146,12 +152,13 @@ fun CaretakerIDCard(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DarkBlueAccent)
+                .background(MaterialTheme.colorScheme.onPrimary),
+            contentAlignment = Alignment.Center
         ) {
 
-            //  houseops logo
+            //  background logo
             Image(
-                painter = painterResource(id = R.drawable.houseops_dark_final),
+                painter = painterResource(id = R.drawable.img_2),
                 contentDescription = "houseops logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -162,8 +169,8 @@ fun CaretakerIDCard(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(DarkBlueAccent.copy(alpha = 0.9f))
-                    .padding(8.dp),
+                    .background(Color.Black.copy(alpha = 0.5f))
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
@@ -173,112 +180,172 @@ fun CaretakerIDCard(
                         .clip(CircleShape)
                         .size(10.dp)
                         .background(MaterialTheme.colorScheme.onPrimary)
-                        .align(Alignment.Start)
+                        .align(Alignment.CenterHorizontally)
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-                //  caretaker id title
-                Text(
-                    text = "Caretaker ID",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
-                )
+                //  Apartment name title
+                if (userDetails.userExtraDetails != null) {
 
-                //  caretaker image
-                Column(
-                    modifier = Modifier
-                        .wrapContentSize()
-                ) {
-
-                    //  image
-                    AsyncImage(
-                        model = ImageRequest.Builder(context)
-                            .data(userDetails.userImageUri)
-                            .crossfade(true)
-                            .placeholder(R.drawable.lady1)
-                            .build(),
-                        contentDescription = "Caretaker ID Image",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(80.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    //  name
-                    if (userDetails.userExtraDetails != null) {
-                        userDetails.userExtraDetails?.let {
-                            Text(
-                                text = it[0],
-                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 1,
-                                color = Color.White,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                            )
-                        }
+                    //  apartment name
+                    userDetails.userExtraDetails?.let {
+                        Text(
+                            text = it[2],
+                            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                            fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1,
+                            color = Color.White,
+                            modifier = Modifier
+                                .wrapContentWidth()
+                                .align(Alignment.Start)
+                        )
                     }
-                }
 
-                //  caretaker details
-                Column(
-                    modifier = Modifier
-                        .wrapContentSize()
-                ) {
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                    val detailsIcons = listOf(
-                        Icons.Outlined.ConfirmationNumber,
-                        Icons.Outlined.Apartment,
-                        Icons.Outlined.LocationOn,
-                        Icons.Outlined.Phone
-                    )
-
-                    if (userDetails.userExtraDetails != null) {
-                        //  id number
+                    //  apartment location
+                    userDetails.userExtraDetails?.let {
                         CaretakerIDRow(
-                            icon = detailsIcons[0],
-                            desc = userDetails.userExtraDetails!!.get(1)
-                        )
-
-                        //  apartment
-                        CaretakerIDRow(
-                            icon = detailsIcons[1],
-                            desc = userDetails.userExtraDetails!!.get(2)
-                        )
-
-                        //  location
-                        CaretakerIDRow(
-                            icon = detailsIcons[2],
-                            desc = userDetails.userExtraDetails!!.get(3)
-                        )
-
-                        //  phone number
-                        CaretakerIDRow(
-                            icon = detailsIcons[3],
-                            desc = userDetails.userExtraDetails!!.get(4)
+                            icon = Icons.Outlined.LocationOn,
+                            desc = it[3],
+                            modifier = Modifier
+                                .align(Alignment.Start)
                         )
                     }
                 }
 
+                Spacer(modifier = Modifier.height(24.dp))
+
+                //  caretaker image with a badge
+                if (userDetails.userIsCaretaker) {
+                    BadgedImage(
+                        context = context,
+                        imageUri = userDetails.userImageUri!!,
+                        borderColor = MaterialTheme.colorScheme.primary,
+                        icon = Icons.Sharp.Star,
+                        iconTint = MaterialTheme.colorScheme.primary
+                    )
+                } else {
+                    BadgedImage(
+                        context = context,
+                        imageUri = userDetails.userImageUri!!,
+                        borderColor = PendingColor,
+                        icon = Icons.Filled.Timer,
+                        iconTint = PendingColor
+                    )
+                }
+
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                //  name
+                if (userDetails.userExtraDetails != null) {
+
+                    //  caretaker name
+                    userDetails.userExtraDetails?.let {
+                        Text(
+                            text = it[0],
+                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1,
+                            color = Color.White,
+                            modifier = Modifier
+                                .wrapContentWidth()
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    //  caretaker phone number
+                    userDetails.userExtraDetails?.let {
+                        CaretakerIDRow(
+                            icon = Icons.Outlined.Phone,
+                            desc = it[4],
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                        )
+                    }
+
+                }
+
+                //  houseops logo
+                Image(
+                    painter = painterResource(id = R.drawable.houseops_dark_final),
+                    contentDescription = "houseops logo",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(150.dp)
+                )
             }
         }
+    }
+}
+
+//  badged image
+@Composable
+fun BadgedImage(
+    context: Context,
+    imageUri: String,
+    borderColor: Color,
+    icon: ImageVector,
+    iconTint: Color
+) {
+    Box(
+        modifier = Modifier
+            .width(90.dp)
+            .wrapContentHeight()
+    ) {
+
+        AsyncImage(
+            model = ImageRequest.Builder(context)
+                .data(imageUri)
+                .crossfade(true)
+                .placeholder(R.drawable.lady1)
+                .build(),
+            contentDescription = "Badged Image",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(90.dp)
+                .border(
+                    width = 4.dp,
+                    shape = CircleShape,
+                    color = borderColor
+                )
+        )
+
+        //  the caretaker premium icon
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = "Badge icon",
+                tint = iconTint,
+                modifier = Modifier
+                    .size(26.dp)
+            )
+        }
+
     }
 }
 
 @Composable
 fun ColumnScope.CaretakerIDRow(
     icon: ImageVector,
-    desc: String
+    desc: String,
+    modifier: Modifier = Modifier
 ) {
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+        modifier
+            .wrapContentSize(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

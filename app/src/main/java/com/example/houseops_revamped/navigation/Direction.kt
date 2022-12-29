@@ -11,6 +11,11 @@ class Direction(
         navHostController.navigate(Screens.CaretakerRegistration.hasCaretakerRegistred(status = status))
     }
 
+    //  navigate to admin page
+    val navigateToAdminPage: () -> Unit = {
+        navHostController.navigate(Screens.Admin.route)
+    }
+
     //  navigate back
     val navigateBack: () -> Unit = {
         navHostController.navigateUp()
