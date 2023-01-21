@@ -6,9 +6,6 @@ sealed class Screens(
     val route: String
 ) {
 
-    //  splash screen
-    object Splash : Screens(route = "splash_screen")
-
     //  main screen
     object Main : Screens(route = "main_screen")
 

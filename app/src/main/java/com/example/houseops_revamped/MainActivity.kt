@@ -11,13 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.screens.MainScreen
 import com.example.houseops_revamped.ui.theme.HouseOps_RevampedTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        installSplashScreen()
         super.onCreate(savedInstanceState)
+
         setContent {
             HouseOps_RevampedTheme {
                 MainScreen(rememberNavController())
