@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_authentication.login.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -32,6 +33,8 @@ class LoginViewModel @Inject constructor(
                         password = event.password,
                         onResponse = { response ->
                             response?.let { loginResponse = it }
+
+                            Log.d("response", response.toString())
                         }
                     )
 
