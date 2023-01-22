@@ -55,9 +55,9 @@ fun SettingsScreen(
     LaunchedEffect(key1 = userDetails) {
         withContext(Dispatchers.Main) {
 
-            queryUserDetails(db, auth.currentUser?.email!!) { user ->
-                userDetails = user
-            }
+//            queryUserDetails(db, auth.currentUser?.email!!) { user ->
+//                userDetails = user
+//            }
         }
     }
 

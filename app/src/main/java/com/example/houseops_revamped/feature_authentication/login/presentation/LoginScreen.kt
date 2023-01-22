@@ -2,6 +2,7 @@ package com.example.houseops_revamped.screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -29,9 +30,13 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.feature_authentication.login.domain.model.LoginEvents
+import com.example.houseops_revamped.feature_authentication.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.Screens
@@ -46,6 +51,8 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     navHostController: NavHostController
 ) {
+
+    val loginVM: LoginViewModel = hiltViewModel()
 
     val scope = rememberCoroutineScope()
     val auth = Firebase.auth
@@ -128,19 +135,45 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    scope.launch(Dispatchers.IO) {
-                        loginUser(
-                            auth = auth,
-                            context = context,
-                            email = loginEmailState,
-                            password = loginPassState
-                        ) {
+
+                    loginVM.onEvent(LoginEvents.Login(
+                        email = loginEmailState,
+                        password = loginPassState
+                    ))
+
+                    //  check login event
+                    when (loginVM.loginResponse) {
+
+                        is Response.Success -> {
+
+                            Log.d("login", "Login Successful")
+
                             navHostController.navigate(HOME_ROUTE) {
                                 popUpTo(AUTHENTICATION_ROUTE)
                                 launchSingleTop = true
                             }
                         }
+                        is Response.Loading -> {
+                            Log.d("login", "Login Loading")
+                        }
+                        is Response.Failure -> {
+                            Log.d("login", "Login Failed")
+                        }
                     }
+
+//                    scope.launch(Dispatchers.IO) {
+//                        loginUser(
+//                            auth = auth,
+//                            context = context,
+//                            email = loginEmailState,
+//                            password = loginPassState
+//                        ) {
+//                            navHostController.navigate(HOME_ROUTE) {
+//                                popUpTo(AUTHENTICATION_ROUTE)
+//                                launchSingleTop = true
+//                            }
+//                        }
+//                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
