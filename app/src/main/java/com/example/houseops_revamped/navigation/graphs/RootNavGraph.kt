@@ -3,9 +3,8 @@ package com.example.houseops_revamped.navigation.graphs
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
-import com.example.houseops_revamped.utilities.Constants.ROOT_ROUTE
-import com.example.houseops_revamped.utilities.Constants.SPLASH_ROUTE
+import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.utils.Constants.ROOT_ROUTE
 
 @Composable
 fun RootNavGraph(

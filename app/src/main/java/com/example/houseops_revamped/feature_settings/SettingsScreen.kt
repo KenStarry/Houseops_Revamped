@@ -22,9 +22,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.SettingsTopAppBar
-import com.example.houseops_revamped.models.firestore.UsersCollection
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.navigation.Direction
-import com.example.houseops_revamped.network.queryUserDetails
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

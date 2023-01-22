@@ -32,7 +32,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
-import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.network.createAccount
 import com.example.houseops_revamped.network.createUserCollection
 import com.example.houseops_revamped.network.uploadImageToFirestore

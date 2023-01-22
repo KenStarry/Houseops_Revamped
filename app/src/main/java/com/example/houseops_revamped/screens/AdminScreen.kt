@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.custom_components.CaretakerIDCard
-import com.example.houseops_revamped.models.firestore.UsersCollection
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.network.queryRegisteredCaretakers
 import com.google.accompanist.pager.ExperimentalPagerApi

@@ -23,9 +23,9 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.custom_components.CaretakerIDCard
 import com.example.houseops_revamped.custom_components.FormTextField
-import com.example.houseops_revamped.utilities.Constants
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.models.TextFieldModel
-import com.example.houseops_revamped.models.firestore.UsersCollection
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.network.queryUserDetails
 import com.google.firebase.auth.FirebaseAuth

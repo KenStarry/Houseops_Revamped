@@ -1,6 +1,6 @@
 package com.example.houseops_revamped.navigation
 
-import com.example.houseops_revamped.utilities.Constants
+import com.example.houseops_revamped.core.utils.Constants
 
 sealed class Screens(
     val route: String

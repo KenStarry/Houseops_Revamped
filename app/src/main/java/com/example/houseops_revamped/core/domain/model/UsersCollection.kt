@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.models.firestore
+package com.example.houseops_revamped.core.domain.model
 
 import java.util.Objects
 

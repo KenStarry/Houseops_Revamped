@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.utilities
+package com.example.houseops_revamped.core.utils
 
 object Constants {
 

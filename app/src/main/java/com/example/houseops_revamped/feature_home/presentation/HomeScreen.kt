@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.screens.bottom_nav_screens
+package com.example.houseops_revamped.feature_home.presentation
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -34,7 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.MainTopAppBar
 import com.example.houseops_revamped.models.ExploreLocationsModel
-import com.example.houseops_revamped.models.firestore.UsersCollection
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.network.queryUserDetails
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 import com.google.firebase.auth.ktx.auth

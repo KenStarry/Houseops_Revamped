@@ -37,8 +37,8 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.feature_authentication.login.domain.model.LoginEvents
 import com.example.houseops_revamped.feature_authentication.login.presentation.viewmodel.LoginViewModel
-import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.Screens
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
