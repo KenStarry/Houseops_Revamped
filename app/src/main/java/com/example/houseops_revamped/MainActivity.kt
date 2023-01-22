@@ -20,9 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         installSplashScreen()
-        super.onCreate(savedInstanceState)
 
         setContent {
             HouseOps_RevampedTheme {
