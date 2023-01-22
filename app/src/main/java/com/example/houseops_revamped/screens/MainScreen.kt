@@ -15,12 +15,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.graphs.RootNavGraph
 
@@ -29,6 +31,8 @@ import com.example.houseops_revamped.navigation.graphs.RootNavGraph
 fun MainScreen(
     navHostController: NavHostController
 ) {
+
+    val coreVM: CoreViewModel = hiltViewModel()
 
     Scaffold(
         bottomBar = {
@@ -41,7 +45,10 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-            RootNavGraph(navHostController = navHostController)
+            RootNavGraph(
+                navHostController = navHostController,
+                isLoggedIn = coreVM.isUserLoggedIn()
+            )
         }
 
     }
