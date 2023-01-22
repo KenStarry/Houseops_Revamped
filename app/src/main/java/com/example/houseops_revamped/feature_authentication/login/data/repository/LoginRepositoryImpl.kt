@@ -17,14 +17,9 @@ class LoginRepositoryImpl @Inject constructor(
         onResponse: (res: Response?) -> Unit
     ) {
 
-        onResponse(Response.Loading)
-
         try {
 
             auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    onResponse(Response.Success)
-                }
                 .addOnSuccessListener {
                     onResponse(Response.Success)
                 }

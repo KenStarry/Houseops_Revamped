@@ -18,7 +18,7 @@ class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCases
 ) : ViewModel() {
 
-    var loginResponse by mutableStateOf<Response>(Response.Success)
+    var loginResponse by mutableStateOf<Response>(Response.Failure)
         private set
 
     fun onEvent(event: LoginEvents) {
