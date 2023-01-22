@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.screens
+package com.example.houseops_revamped.feature_authentication.login.presentation
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -40,11 +40,8 @@ import com.example.houseops_revamped.feature_authentication.login.presentation.v
 import com.example.houseops_revamped.utilities.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.utilities.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.Screens
-import com.example.houseops_revamped.network.loginUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.screens
+package com.example.houseops_revamped.feature_authentication.sign_up.presentation
 
 import android.content.Context
 import android.net.Uri

@@ -116,27 +116,6 @@ fun getFileExtension(uri: Uri, context: Context): String? {
     return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri))
 }
 
-//  login
-suspend fun loginUser(
-    auth: FirebaseAuth,
-    context: Context,
-    email: String,
-    password: String,
-    onLoggedInSuccess: () -> Unit
-) {
-
-    auth.signInWithEmailAndPassword(email, password)
-        .addOnSuccessListener {
-            Toast.makeText(context, "Logged in successfully", Toast.LENGTH_SHORT).show()
-
-            onLoggedInSuccess()
-        }
-        .addOnFailureListener {
-            Toast.makeText(context, "Something went wrong...", Toast.LENGTH_SHORT).show()
-        }
-
-}
-
 //  logout user
 suspend fun logoutUser(
     auth: FirebaseAuth,
