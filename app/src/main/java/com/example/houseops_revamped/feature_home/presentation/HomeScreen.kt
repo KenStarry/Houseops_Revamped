@@ -94,6 +94,9 @@ fun HomeScreen(
                     .padding(16.dp)
             )
 
+            //  pill buttons
+
+
         }
 
     }
