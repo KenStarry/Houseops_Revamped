@@ -29,12 +29,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.MainTopAppBar
 import com.example.houseops_revamped.models.ExploreLocationsModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.network.queryUserDetails
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 import com.google.firebase.auth.ktx.auth
@@ -49,11 +51,11 @@ fun HomeScreen(
     navHostController: NavHostController
 ) {
 
+    val coreVM: CoreViewModel = hiltViewModel()
+
     val db = Firebase.firestore
     val auth = Firebase.auth
-    var currentUser by remember {
-        mutableStateOf(auth.currentUser)
-    }
+    val currentUser = coreVM.currentUser
 
     var userDetails by remember {
         mutableStateOf(UsersCollection())
@@ -64,7 +66,7 @@ fun HomeScreen(
         withContext(Dispatchers.Main) {
 
             if (currentUser != null) {
-                queryUserDetails(db, currentUser?.email.toString()) { user ->
+                queryUserDetails(db, currentUser.email.toString()) { user ->
                     //  update the ui accordingly
                     userDetails = user
 
