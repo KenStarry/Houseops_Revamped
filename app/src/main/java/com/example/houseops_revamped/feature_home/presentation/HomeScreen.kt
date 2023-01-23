@@ -35,6 +35,7 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.models.ExploreLocationsModel
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_home.presentation.components.HomeAppBar
+import com.example.houseops_revamped.feature_home.presentation.components.HomeGreetings
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,100 +85,15 @@ fun HomeScreen(
             horizontalAlignment = Alignment.Start
         ) {
 
-            Column(
+            //  greetings text
+            HomeGreetings(
+                userName = userDetails?.userName ?: "",
                 modifier = Modifier
-                    .fillMaxWidth(0.9f)
+                    .fillMaxWidth()
                     .wrapContentHeight()
-                    .align(Alignment.CenterHorizontally)
-                    .padding(vertical = 16.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
+                    .padding(16.dp)
+            )
 
-                //  explore nearby places
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .align(Alignment.Start),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    //  title
-                    Text(
-                        text = "Explore Nearby",
-                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                        fontWeight = MaterialTheme.typography.titleMedium.fontWeight
-                    )
-
-                    //  chevron
-                    IconButton(
-                        modifier = Modifier
-                            .clip(CircleShape),
-                        onClick = { /*TODO*/ },
-                        colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.onSecondary
-                        )
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.ChevronRight,
-                            contentDescription = "Chevron right"
-                        )
-                    }
-                }
-                
-                Spacer(modifier = Modifier.height(16.dp))
-
-                val images = listOf(
-                    painterResource(id = R.drawable.house1)
-                )
-
-                //  current locations
-                LazyHorizontalGrid(
-                    state = rememberLazyGridState(),
-                    userScrollEnabled = true,
-                    rows = GridCells.Fixed(2),
-                    content = {
-                        itemsIndexed(
-                            listOf(
-                                ExploreLocationsModel(
-                                    images[0],
-                                    "Mombasa",
-                                    "460km"
-                                ),
-                                ExploreLocationsModel(
-                                    images[0],
-                                    "Nairobi",
-                                    "60km"
-                                ),
-                                ExploreLocationsModel(
-                                    images[0],
-                                    "Nakuru",
-                                    "860km"
-                                ),
-                                ExploreLocationsModel(
-                                    images[0],
-                                    "Kitengela",
-                                    "22km"
-                                ),
-                            )
-                        ) { index, item ->
-
-                            ExploreLocationsItem(
-                                item.locationImage!!,
-                                item.locationName,
-                                item.locationDistance
-                            )
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(180.dp)
-                        .background(MaterialTheme.colorScheme.onPrimary),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                )
-            }
         }
 
     }
