@@ -2,7 +2,7 @@ package com.example.houseops_revamped.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val GreyBackground = Color(0xFFEFF0F5)
+val GreyBackground = Color(0xFFF8F9FC)
 val WhiteBackground = Color(0xFFffffff)
 val DarkBackground = Color(0xFF292B2C)
 val BlackBackgroundAlt = Color(0xFF18191A)

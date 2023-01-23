@@ -2,6 +2,7 @@ package com.example.houseops_revamped.feature_home.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
@@ -58,11 +59,7 @@ fun HomeAppBar(
     AnimatedVisibility(
         visible = topAppBarVisibilityState.value,
         enter = EnterTransition.None,
-        exit = shrinkVertically(
-            animationSpec = tween(
-                durationMillis = 300
-            )
-        )
+        exit = ExitTransition.None
     ) {
         TopAppBar(
             modifier = Modifier
