@@ -21,7 +21,7 @@ class CoreRepositoryImpl @Inject constructor(
 
     override suspend fun getUserDetails(
         email: String,
-        user: (user: UsersCollection) -> Unit
+        user: (user: UsersCollection?) -> Unit
     ) {
 
         try {

@@ -11,7 +11,7 @@ interface CoreRepository {
 
     suspend fun getUserDetails(
         email: String,
-        user: (user: UsersCollection) -> Unit
+        user: (user: UsersCollection?) -> Unit
     )
 
 }
