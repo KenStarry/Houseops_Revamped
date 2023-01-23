@@ -6,6 +6,7 @@ import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
 import com.example.houseops_revamped.core.domain.use_cases.CurrentUser
 import com.example.houseops_revamped.core.domain.use_cases.IsUserLoggedIn
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,8 +20,12 @@ object CoreModule {
     @Provides
     @Singleton
     fun provideCoreRepository(
+        db: FirebaseFirestore,
         auth: FirebaseAuth
-    ) : CoreRepository = CoreRepositoryImpl(auth)
+    ) : CoreRepository = CoreRepositoryImpl(
+        db = db,
+        auth = auth
+    )
 
     @Provides
     @Singleton
