@@ -40,97 +40,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-//  Main Top App Bar
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MainTopAppBar(
-    navHostController: NavHostController,
-    userImageUrl: String
-) {
-
-    val screens = listOf(
-        BottomNavScreens.Home,
-        BottomNavScreens.Booked,
-        BottomNavScreens.Wishlist,
-        BottomNavScreens.Settings,
-    )
-
-    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-
-    val targetDestination = screens.any { it.route == currentDestination?.route }
-    val topAppBarVisibilityState = remember {
-        mutableStateOf(true)
-    }
-
-    topAppBarVisibilityState.value = targetDestination
-
-    //  show or hide visibility as per state
-    AnimatedVisibility(
-        visible = topAppBarVisibilityState.value,
-        enter = EnterTransition.None,
-        exit = shrinkVertically(
-            animationSpec = tween(
-                durationMillis = 300
-            )
-        )
-    ) {
-        TopAppBar(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.onPrimary)
-                .padding(start = 8.dp, top = 8.dp, bottom = 8.dp),
-            title = {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
-                    text = "Home",
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    fontWeight = MaterialTheme.typography.titleSmall.fontWeight
-                )
-            },
-            navigationIcon = {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(userImageUrl)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "User Image",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(40.dp)
-                        .clickable {
-                            //  navigate to settings screen
-                            navHostController.navigate(BottomNavScreens.Settings.route)
-                        },
-                )
-            },
-            actions = {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        imageVector = Icons.Sharp.Notifications,
-                        contentDescription = "Notification Icon"
-                    )
-                }
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Search,
-                        contentDescription = "Search Icon"
-                    )
-                }
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        imageVector = Icons.Sharp.MoreVert,
-                        contentDescription = "More Vertical Icon"
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.onPrimary
-            )
-        )
-    }
-}
 
 //  Booked Top App Bar
 @OptIn(ExperimentalMaterial3Api::class)
@@ -436,13 +345,6 @@ fun BackPressTopAppBar(
         )
     )
 
-}
-
-//  --------------- Previews ---------------- //
-@Preview
-@Composable
-fun MainTopAppBarPrev() {
-    MainTopAppBar(rememberNavController(), "")
 }
 
 

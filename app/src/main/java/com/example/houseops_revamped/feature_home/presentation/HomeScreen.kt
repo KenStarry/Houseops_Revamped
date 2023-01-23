@@ -1,6 +1,5 @@
 package com.example.houseops_revamped.feature_home.presentation
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -33,17 +32,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.custom_components.MainTopAppBar
 import com.example.houseops_revamped.models.ExploreLocationsModel
-import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.network.queryUserDetails
+import com.example.houseops_revamped.feature_home.presentation.components.HomeAppBar
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,7 +51,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             userDetails?.userImageUri?.let {
-                MainTopAppBar(
+                HomeAppBar(
                     navHostController = navHostController,
                     userImageUrl = it
                 )

@@ -23,18 +23,18 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 private val DarkColorScheme = darkColorScheme(
     primary = BlueAccent,
     secondary = PinkAccent,
-    tertiary = BlueAccentLight,
-    onPrimary = DarkBackground,
-    onSecondary = DarkBackgroundAlt,
+    tertiary = BlueAccentTransparentAlt,
+    onPrimary = BlackBackgroundAlt,
+    onSecondary = DarkBackground,
     onSecondaryContainer = TextWhite900
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = BlueAccent,
     secondary = PinkAccent,
-    tertiary = BlueAccentLight,
-    onPrimary = LightBackgroundAlt,
-    onSecondary = LightBackground,
+    tertiary = BlueAccentTransparentAlt,
+    onPrimary = GreyBackground,
+    onSecondary = WhiteBackground,
     onSecondaryContainer = TextBlack900
 
     /* Other default colors to override
