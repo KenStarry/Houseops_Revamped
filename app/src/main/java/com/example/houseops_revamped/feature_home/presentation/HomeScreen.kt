@@ -53,32 +53,12 @@ fun HomeScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
 
-    val db = Firebase.firestore
-    val auth = Firebase.auth
-    val currentUser = coreVM.currentUser
-
-    var userDetails by remember {
-        mutableStateOf(UsersCollection())
-    }
-
-    //  observe user data
-    LaunchedEffect(key1 = userDetails) {
-        withContext(Dispatchers.Main) {
-
-            if (currentUser != null) {
-                queryUserDetails(db, currentUser.email.toString()) { user ->
-                    //  update the ui accordingly
-                    userDetails = user
-
-                    user.userImageUri?.let { Log.d("image_load_tag", it) }
-                }
-            }
-        }
-    }
+    val currentUser = coreVM.currentUser()
+    val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
 
     Scaffold(
         topBar = {
-            userDetails.userImageUri?.let {
+            userDetails?.userImageUri?.let {
                 MainTopAppBar(
                     navHostController = navHostController,
                     userImageUrl = it
@@ -87,22 +67,20 @@ fun HomeScreen(
         },
         floatingActionButton = {
             //  only display the fab if the user is a caretaker
-            if (userDetails.userIsCaretaker) {
-                ExtendedFloatingActionButton(
-                    text = {
-                        Text(text = "Dashboard")
-                    },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Dashboard,
-                            contentDescription = "Dashboard"
-                        )
-                    },
-                    onClick = { /*TODO*/ },
-                    expanded = true,
-                    containerColor = BlueAccentLight
-                )
-            }
+            ExtendedFloatingActionButton(
+                text = {
+                    Text(text = "Dashboard")
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Dashboard,
+                        contentDescription = "Dashboard"
+                    )
+                },
+                onClick = { /*TODO*/ },
+                expanded = true,
+                containerColor = BlueAccentLight
+            )
         }
     ) {
 

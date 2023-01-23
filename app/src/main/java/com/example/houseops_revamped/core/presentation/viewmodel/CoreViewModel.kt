@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
+import com.example.houseops_revamped.core.domain.use_cases.UserDetails
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +22,9 @@ class CoreViewModel @Inject constructor(
         private set
 
     var currentUser by mutableStateOf<FirebaseUser?>(null)
+        private set
+
+    var user by mutableStateOf<UsersCollection?>(null)
         private set
 
     fun isUserLoggedIn(): Boolean {
@@ -38,6 +43,24 @@ class CoreViewModel @Inject constructor(
         }
 
         return currentUser
+    }
+
+    fun getUserDetails(
+        email: String
+    ): UsersCollection? {
+
+        viewModelScope.launch {
+            coreUseCases.userDetails(
+                email = email,
+                user = { currentUser ->
+                    currentUser?.let {
+                        user = it
+                    }
+                }
+            )
+        }
+
+        return user
     }
 }
 
