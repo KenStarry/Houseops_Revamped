@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -81,49 +82,66 @@ fun HomeScreen(
         }
     ) {
 
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onPrimary)
-                .padding(it),
-            horizontalAlignment = Alignment.Start
+                .padding(it)
         ) {
 
-            //  greetings text
-            HomeGreetings(
-                userName = userDetails?.userName ?: "",
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(16.dp)
-            )
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.onPrimary)
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
 
-            //  pill buttons
-            LazyHorizontalGrid(
-                rows = GridCells.Adaptive(50.dp),
-                content = {
-                    itemsIndexed(
-                        HomeConstants.homePills
-                    ) { index, pill ->
+                //  greetings text
+                HomeGreetings(
+                    userName = userDetails?.userName ?: "",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(vertical = 16.dp)
+                )
 
-                        HomePillBtns(
-                            icon = pill.icon,
-                            title = pill.title,
-                            onClick = {
-                                //  pass the category at the specific index
-                                Log.d("category", HomeConstants.homePills[index].title)
-                            }
-                        )
+                //  pill buttons
+                LazyHorizontalGrid(
+                    rows = GridCells.Adaptive(50.dp),
+                    content = {
+                        itemsIndexed(
+                            HomeConstants.homePills
+                        ) { index, pill ->
 
-                    }
-                },
-                state = rememberLazyGridState(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp),
-                contentPadding = PaddingValues(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            )
+                            HomePillBtns(
+                                icon = pill.icon,
+                                title = pill.title,
+                                onClick = {
+                                    //  pass the category at the specific index
+                                    Log.d("category", HomeConstants.homePills[index].title)
+                                }
+                            )
+
+                        }
+                    },
+                    state = rememberLazyGridState(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp),
+                    contentPadding = PaddingValues(vertical = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                )
+
+                //  apartments
+                Text(
+                    text = "Apartments",
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+
+            }
 
         }
 
