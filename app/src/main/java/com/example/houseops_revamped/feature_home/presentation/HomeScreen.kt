@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_home.presentation
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -42,6 +44,7 @@ import com.example.houseops_revamped.feature_home.presentation.components.HomeGr
 import com.example.houseops_revamped.feature_home.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_home.presentation.models.PillBtn
 import com.example.houseops_revamped.feature_home.presentation.utils.HomeConstants
+import com.example.houseops_revamped.feature_home.presentation.viewmodel.HomeViewModel
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,9 +54,12 @@ fun HomeScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val homeVM: HomeViewModel = hiltViewModel()
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
+
+    Toast.makeText(LocalContext.current, homeVM.houses.size.toString(), Toast.LENGTH_SHORT).show()
 
     Scaffold(
         topBar = {
@@ -95,7 +101,7 @@ fun HomeScreen(
                     .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
                 //  greetings text
@@ -104,7 +110,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(vertical = 16.dp)
+                        .padding(vertical = 8.dp)
                 )
 
                 //  pill buttons
@@ -130,7 +136,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp),
-                    contentPadding = PaddingValues(vertical = 16.dp),
+                    contentPadding = PaddingValues(vertical = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 )
 

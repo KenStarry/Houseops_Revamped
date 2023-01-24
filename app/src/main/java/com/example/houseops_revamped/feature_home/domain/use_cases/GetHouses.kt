@@ -7,7 +7,7 @@ class GetHouses(
     private val repo: HomeRepository
 ) {
 
-    suspend operator fun invoke(houses: (List<HouseModel>) -> Unit) = repo.getHouses {
+    suspend operator fun invoke(houses: (ArrayList<HouseModel>) -> Unit) = repo.getHouses {
         houses(it)
     }
 }

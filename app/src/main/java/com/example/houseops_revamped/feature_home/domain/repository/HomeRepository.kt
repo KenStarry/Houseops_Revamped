@@ -6,7 +6,7 @@ interface HomeRepository {
 
     //  get houses
     suspend fun getHouses(
-        houses: (List<HouseModel>) -> Unit
+        houses: (ArrayList<HouseModel>) -> Unit
     )
 
 }

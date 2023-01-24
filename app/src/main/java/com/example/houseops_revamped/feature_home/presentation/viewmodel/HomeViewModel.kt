@@ -16,7 +16,7 @@ class HomeViewModel @Inject constructor(
     private val useCases: HomeUseCases
 ) : ViewModel() {
 
-    var houses by mutableStateOf<List<HouseModel>>(emptyList())
+    var houses by mutableStateOf<ArrayList<HouseModel>>(ArrayList())
         private set
 
     init {
@@ -28,7 +28,11 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             useCases.getHouses(
                 houses = {
-                    houses = it
+
+                    it.forEach { house ->
+                        if (!houses.contains(house))
+                            houses.add(house)
+                    }
                 }
             )
         }
