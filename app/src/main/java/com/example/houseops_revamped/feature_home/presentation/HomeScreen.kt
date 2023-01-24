@@ -36,6 +36,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.models.ExploreLocationsModel
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_home.presentation.components.HomeApartments
 import com.example.houseops_revamped.feature_home.presentation.components.HomeAppBar
 import com.example.houseops_revamped.feature_home.presentation.components.HomeGreetings
 import com.example.houseops_revamped.feature_home.presentation.components.HomePillBtns
@@ -133,6 +134,7 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 )
 
+                HomeApartments(title = "Apartments")
 
 
             }
