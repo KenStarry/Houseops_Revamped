@@ -57,7 +57,8 @@ fun HomeGreetings(
 
                 Icon(
                     imageVector = Icons.Outlined.MyLocation,
-                    contentDescription = "My location"
+                    contentDescription = "My location",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
                 )
 
                 Text(

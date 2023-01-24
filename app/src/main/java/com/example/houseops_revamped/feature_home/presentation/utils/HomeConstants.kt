@@ -11,7 +11,7 @@ object HomeConstants {
         PillBtn(Icons.Outlined.Person3, "Caretakers"),
         PillBtn(Icons.Outlined.Paid, "For Sale"),
         PillBtn(Icons.Outlined.Hotel, "One Bedroom"),
-        PillBtn(Icons.Outlined.Apartment, "Two Bedroom"),
-        PillBtn(Icons.Outlined.Key, "Mansions")
+        PillBtn(Icons.Outlined.Key, "Mansions"),
+        PillBtn(Icons.Outlined.Apartment, "Two Bedroom")
     )
 }

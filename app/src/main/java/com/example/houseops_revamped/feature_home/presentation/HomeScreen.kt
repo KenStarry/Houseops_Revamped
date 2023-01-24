@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -36,6 +37,9 @@ import com.example.houseops_revamped.models.ExploreLocationsModel
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_home.presentation.components.HomeAppBar
 import com.example.houseops_revamped.feature_home.presentation.components.HomeGreetings
+import com.example.houseops_revamped.feature_home.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_home.presentation.models.PillBtn
+import com.example.houseops_revamped.feature_home.presentation.utils.HomeConstants
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,7 +76,7 @@ fun HomeScreen(
                 },
                 onClick = { /*TODO*/ },
                 expanded = true,
-                containerColor = BlueAccentLight
+                containerColor = MaterialTheme.colorScheme.primary
             )
         }
     ) {
@@ -95,7 +99,31 @@ fun HomeScreen(
             )
 
             //  pill buttons
+            LazyHorizontalGrid(
+                rows = GridCells.Adaptive(50.dp),
+                content = {
+                    itemsIndexed(
+                        HomeConstants.homePills
+                    ) { index, pill ->
 
+                        HomePillBtns(
+                            icon = pill.icon,
+                            title = pill.title,
+                            onClick = {
+                                //  pass the category at the specific index
+                                Log.d("category", HomeConstants.homePills[index].title)
+                            }
+                        )
+
+                    }
+                },
+                state = rememberLazyGridState(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            )
 
         }
 
