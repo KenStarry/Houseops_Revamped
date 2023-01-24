@@ -19,6 +19,7 @@ object Constants {
 
     //  Cloud firestore
     const val USERS_COLLECTION = "users"
+    const val HOUSES_SUB_COLLECTION = "houses"
 
     //  Cloud storage
     const val USER_IMAGES = "user_images"
