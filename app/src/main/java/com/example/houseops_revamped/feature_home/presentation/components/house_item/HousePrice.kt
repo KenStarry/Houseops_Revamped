@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 
@@ -37,9 +38,9 @@ fun HousePrice(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     )
-                ) { append("15,000") }
+                ) { append("15,000000000") }
                 withStyle(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.primary
@@ -48,33 +49,47 @@ fun HousePrice(
             },
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier
+                .weight(2f)
         )
+        
+        Spacer(modifier = Modifier.width(8.dp))
 
         //  Thumbs up icon
-        Row(
+        Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(16.dp))
-                .wrapContentSize()
-                .background(MaterialTheme.colorScheme.tertiary)
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                .weight(1f),
+            contentAlignment = Alignment.Center
         ) {
 
-            Icon(
-                imageVector = Icons.Outlined.ThumbUp,
-                contentDescription = "Like Icon",
-                tint = MaterialTheme.colorScheme.primary
-            )
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .wrapContentSize()
+                    .background(MaterialTheme.colorScheme.tertiary)
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
 
-            Text(
-                text = "0",
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
+                Icon(
+                    imageVector = Icons.Outlined.ThumbUp,
+                    contentDescription = "Like Icon",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+
+                Text(
+                    text = "0",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+
+            }
 
         }
+
 
     }
 }
