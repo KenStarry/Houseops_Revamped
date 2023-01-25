@@ -6,18 +6,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -35,7 +27,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,16 +35,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.models.ExploreLocationsModel
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_home.presentation.components.HomeApartments
+import com.example.houseops_revamped.feature_home.presentation.components.FeaturedSection
 import com.example.houseops_revamped.feature_home.presentation.components.HomeAppBar
 import com.example.houseops_revamped.feature_home.presentation.components.HomeGreetings
 import com.example.houseops_revamped.feature_home.presentation.components.HomePillBtns
-import com.example.houseops_revamped.feature_home.presentation.models.PillBtn
 import com.example.houseops_revamped.feature_home.presentation.utils.HomeConstants
 import com.example.houseops_revamped.feature_home.presentation.viewmodel.HomeViewModel
-import com.example.houseops_revamped.ui.theme.BlueAccentLight
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -66,8 +54,7 @@ fun HomeScreen(
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
-
-    Toast.makeText(LocalContext.current, homeVM.houses.size.toString(), Toast.LENGTH_SHORT).show()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -109,7 +96,7 @@ fun HomeScreen(
                     .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
 
                 //  greetings text
@@ -148,8 +135,12 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 )
 
-                HomeApartments(title = "Trending")
-
+                //  featured section
+                FeaturedSection(
+                    title = "Featured",
+                    context = context,
+                    houses = homeVM.houses
+                )
 
             }
 

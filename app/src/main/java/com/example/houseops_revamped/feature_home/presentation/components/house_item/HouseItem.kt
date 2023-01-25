@@ -5,10 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -28,11 +30,11 @@ fun HouseItem(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
             .size(
-                width = 270.dp,
-                height = 300.dp
+                width = 240.dp,
+                height = 280.dp
             )
             .background(MaterialTheme.colorScheme.onSecondary)
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
 
         //  Image
@@ -64,6 +66,14 @@ fun HouseItem(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
+
+            //  house category
+            Text(
+                text = house.houseCategory,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+            )
 
         }
 
