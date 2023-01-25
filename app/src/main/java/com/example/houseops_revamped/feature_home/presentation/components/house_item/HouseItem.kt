@@ -41,10 +41,7 @@ fun HouseItem(
             if (house.houseImageUris.isNotEmpty()) {
                 CoilImage(
                     context = context,
-                    imageUri = house.houseImageUris[Random.nextInt(
-                        0,
-                        house.houseImageUris.size
-                    )].toUri(),
+                    imageUri = house.houseImageUris[0].toUri(),
                     placeholder = R.drawable.houseops_dark_final,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))

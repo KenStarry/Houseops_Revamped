@@ -52,7 +52,7 @@ fun FeaturedSection(
                         modifier = Modifier
                             .clip(RoundedCornerShape(16.dp))
                             .size(
-                                width = 200.dp,
+                                width = 180.dp,
                                 height = 250.dp
                             )
                             .background(MaterialTheme.colorScheme.onSecondary)
