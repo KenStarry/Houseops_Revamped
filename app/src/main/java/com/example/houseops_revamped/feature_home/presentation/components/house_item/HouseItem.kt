@@ -27,14 +27,8 @@ fun HouseItem(
 ) {
 
     Column(
-        modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
-            .size(
-                width = 240.dp,
-                height = 280.dp
-            )
-            .background(MaterialTheme.colorScheme.onSecondary)
-            .padding(8.dp)
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
         //  Image
@@ -70,10 +64,15 @@ fun HouseItem(
             //  house category
             Text(
                 text = house.houseCategory,
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
             )
+
+            //  house price
 
         }
 
