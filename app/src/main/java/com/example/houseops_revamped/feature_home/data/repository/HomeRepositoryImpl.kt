@@ -18,7 +18,7 @@ class HomeRepositoryImpl(
                 if (error != null)
                     return@addSnapshotListener
 
-                var housesList = ArrayList<HouseModel>()
+                val housesList = ArrayList<HouseModel>()
 
                 querySnapshot?.forEach { snapshot ->
                     snapshot.toObject(HouseModel::class.java).let {

@@ -2,13 +2,21 @@ package com.example.houseops_revamped.feature_home.presentation
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
+import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -47,7 +55,7 @@ import com.example.houseops_revamped.feature_home.presentation.utils.HomeConstan
 import com.example.houseops_revamped.feature_home.presentation.viewmodel.HomeViewModel
 import com.example.houseops_revamped.ui.theme.BlueAccentLight
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     navHostController: NavHostController
@@ -114,8 +122,8 @@ fun HomeScreen(
                 )
 
                 //  pill buttons
-                LazyHorizontalGrid(
-                    rows = GridCells.Adaptive(50.dp),
+                LazyHorizontalStaggeredGrid(
+                    rows = StaggeredGridCells.Fixed(2),
                     content = {
                         itemsIndexed(
                             HomeConstants.homePills
@@ -132,9 +140,9 @@ fun HomeScreen(
 
                         }
                     },
-                    state = rememberLazyGridState(),
+                    state = rememberLazyStaggeredGridState(),
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .wrapContentWidth()
                         .height(150.dp),
                     contentPadding = PaddingValues(vertical = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
