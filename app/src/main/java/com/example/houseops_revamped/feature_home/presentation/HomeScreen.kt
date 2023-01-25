@@ -148,7 +148,7 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 )
 
-                HomeApartments(title = "Apartments")
+                HomeApartments(title = "Trending")
 
 
             }
