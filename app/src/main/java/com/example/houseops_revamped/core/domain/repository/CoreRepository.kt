@@ -14,4 +14,13 @@ interface CoreRepository {
         user: (user: UsersCollection?) -> Unit
     )
 
+    suspend fun updateFirestoreField(
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String,
+        subCollectionDocument: String,
+        fieldName: String,
+        fieldValue: String
+    )
+
 }

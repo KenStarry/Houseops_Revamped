@@ -41,6 +41,31 @@ class CoreRepositoryImpl @Inject constructor(
         }
 
     }
+
+    override suspend fun updateFirestoreField(
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String,
+        subCollectionDocument: String,
+        fieldName: String,
+        fieldValue: String
+    ) {
+
+        try {
+            val collectionRef = db
+                .collection(collectionName)
+                .document(documentName)
+                .collection(subCollectionName)
+                .document(subCollectionDocument)
+
+            collectionRef.update(
+                fieldName, fieldValue
+            )
+
+        } catch (e: Exception) {
+            Log.d("update", "$e")
+        }
+    }
 }
 
 
