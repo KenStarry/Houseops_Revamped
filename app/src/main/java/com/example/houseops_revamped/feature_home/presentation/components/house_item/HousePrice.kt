@@ -1,9 +1,11 @@
 package com.example.houseops_revamped.feature_home.presentation.components.house_item
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,11 +20,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.core.utils.Constants
 
 @Composable
 fun HousePrice(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    price: String,
+    priceCategory: String
 ) {
+
+    val category = when (priceCategory) {
+        Constants.priceCategories[0] -> {
+            "mo"
+        }
+        Constants.priceCategories[1] -> {
+            "yr"
+        }
+        Constants.priceCategories[2] -> {
+            "qrtr"
+        }
+        Constants.priceCategories[3] -> {
+            "halfYr"
+        }
+        else -> {
+            ""
+        }
+    }
 
     //  price and like icon
     Row(
@@ -38,14 +61,14 @@ fun HousePrice(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     )
-                ) { append("15,000000000") }
+                ) { append(price) }
                 withStyle(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.primary
                     )
-                ) { append("/mo") }
+                ) { append("/$category") }
             },
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold,
@@ -54,41 +77,14 @@ fun HousePrice(
             modifier = Modifier
                 .weight(2f)
         )
-        
+
         Spacer(modifier = Modifier.width(8.dp))
 
         //  Thumbs up icon
-        Box(
+        ThumbsUp(
             modifier = Modifier
-                .weight(1f),
-            contentAlignment = Alignment.Center
-        ) {
-
-            Row(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .wrapContentSize()
-                    .background(MaterialTheme.colorScheme.tertiary)
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-
-                Icon(
-                    imageVector = Icons.Outlined.ThumbUp,
-                    contentDescription = "Like Icon",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-
-                Text(
-                    text = "0",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-
-            }
-
-        }
+                .weight(1f)
+        )
 
 
     }

@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +39,7 @@ fun HouseItem(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(2f),
+                .fillMaxHeight(0.6f),
             contentAlignment = Alignment.Center
         ) {
 
@@ -50,34 +53,46 @@ fun HouseItem(
                         .fillMaxSize()
                 )
             }
-
-
-
         }
 
         //  content
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
         ) {
 
-            //  house category
-            Text(
-                text = house.houseCategory,
-                fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f),
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-            )
+                    .weight(1f),
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                //  house category
+                Text(
+                    text = house.houseCategory,
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                //  house location
+                HouseLocation()
+
+            }
 
             //  house price
             HousePrice(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .weight(1f),
+                price = house.housePrice,
+                priceCategory = house.housePriceCategory
             )
         }
 

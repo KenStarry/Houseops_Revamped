@@ -23,4 +23,11 @@ object Constants {
 
     //  Cloud storage
     const val USER_IMAGES = "user_images"
+
+    val priceCategories = listOf(
+        "month",
+        "year",
+        "quarter",
+        "6 months",
+    )
 }

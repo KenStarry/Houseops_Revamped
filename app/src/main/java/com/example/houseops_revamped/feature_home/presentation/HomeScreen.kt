@@ -2,9 +2,7 @@ package com.example.houseops_revamped.feature_home.presentation
 
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -94,7 +92,8 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -139,8 +138,13 @@ fun HomeScreen(
                 FeaturedSection(
                     title = "Featured",
                     context = context,
-                    houses = homeVM.houses
+                    houses = homeVM.houses,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentSize()
                 )
+                
+                Spacer(modifier = Modifier.height(48.dp))
 
             }
 
