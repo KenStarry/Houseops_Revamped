@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.core.domain.model.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
 import com.example.houseops_revamped.core.domain.use_cases.UserDetails
@@ -61,6 +62,26 @@ class CoreViewModel @Inject constructor(
         }
 
         return user
+    }
+
+    fun onEvent(event: CoreEvents) {
+
+        when (event) {
+
+            is CoreEvents.UpdateFirestoreField -> {
+
+                viewModelScope.launch {
+                    coreUseCases.updateField(
+                        collectionName = event.collectionName,
+                        documentName = event.documentName,
+                        subCollectionName = event.subCollectionName,
+                        subCollectionDocument = event.subCollectionDocument,
+                        fieldName = event.fieldName,
+                        fieldValue = event.fieldValue
+                    )
+                }
+            }
+        }
     }
 }
 
