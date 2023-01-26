@@ -21,7 +21,6 @@ fun RootNavGraph(
 
         authNavGraph(navHostController = navHostController)
         homeNavGraph(navHostController = navHostController)
-        caretakerNavGraph(navHostController = navHostController)
     }
 
 }

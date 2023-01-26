@@ -61,9 +61,7 @@ suspend fun createUserCollection(
         userEmail = userEmail,
         userImageUri = userImageUri,
         userPassword = userPassword,
-        userIsCaretaker = userIsCaretaker,
-        userExtraDetails = userExtraDetails,
-        userHasMadeRequest = userHasMadeRequest
+        userLikedHouses = listOf()
     )
 
     val db: FirebaseFirestore = Firebase.firestore

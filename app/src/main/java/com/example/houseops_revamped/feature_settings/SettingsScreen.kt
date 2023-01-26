@@ -104,7 +104,7 @@ fun ColumnScope.BecomeACaretaker(
             .wrapContentHeight()
             .background(MaterialTheme.colorScheme.onSecondary)
             .clickable {
-                direction.navigateToCaretakerRegistration(userDetails.userHasMadeRequest)
+//                direction.navigateToCaretakerRegistration(userDetails.userHasMadeRequest)
             }
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .align(Alignment.CenterHorizontally),
@@ -119,7 +119,7 @@ fun ColumnScope.BecomeACaretaker(
         )
 
         IconButton(onClick = {
-            direction.navigateToCaretakerRegistration(userDetails.userHasMadeRequest)
+//            direction.navigateToCaretakerRegistration(userDetails.userHasMadeRequest)
 
         }) {
             Icon(

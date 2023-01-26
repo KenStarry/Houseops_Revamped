@@ -17,16 +17,6 @@ sealed class Screens(
 
     //  admin screen
     object Admin : Screens(route = "admin_screen")
-
-    //  caretaker registration screen
-    object CaretakerRegistration :
-        Screens(route = "caretaker_registration/{${Constants.CARETAKER_HAS_REGISTERED}}") {
-
-        //  pass whether caretaker has registered or not
-        fun hasCaretakerRegistred(status: Boolean): String {
-            return "caretaker_registration/$status"
-        }
-    }
 }
 
 

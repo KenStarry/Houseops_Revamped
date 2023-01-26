@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
-import com.example.houseops_revamped.custom_components.CaretakerIDCard
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.network.queryRegisteredCaretakers
@@ -157,7 +156,7 @@ fun RegisteredCaretakerPage(
     ) {
 
         //  caretaker id card
-        CaretakerIDCard(context = context, userDetails = userDetails)
+//        CaretakerIDCard(context = context, userDetails = userDetails)
 
         Spacer(modifier = Modifier.height(16.dp))
 
