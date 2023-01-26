@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
         getHouses()
     }
 
-    private fun getHouses() {
+    fun getHouses() {
 
         viewModelScope.launch {
             useCases.getHouses(

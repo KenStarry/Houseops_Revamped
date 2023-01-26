@@ -15,16 +15,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.presentation.components.house_item.HouseItem
+import com.example.houseops_revamped.feature_home.presentation.viewmodel.HomeViewModel
 
 @Composable
 fun FeaturedSection(
     modifier: Modifier = Modifier,
     context: Context,
     title: String,
-    houses: List<HouseModel>
+    houses: ArrayList<HouseModel>
 ) {
+
+    val homeVM: HomeViewModel = hiltViewModel()
+    homeVM.getHouses()
 
     Column(
         modifier = modifier,

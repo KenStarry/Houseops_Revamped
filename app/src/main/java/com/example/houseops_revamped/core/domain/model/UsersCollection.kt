@@ -7,10 +7,10 @@ data class UsersCollection(
     var userEmail: String?,
     var userPassword: String?,
     var userImageUri: String?,
-    var userIsCaretaker: Boolean = false,
-    var userExtraDetails: List<String>?,
-    var userHasMadeRequest: Boolean = false
+    var userLikedHouses: List<LikedHouse>?
 ) {
     //  empty constructor
-    constructor() : this("", "", "", "", false, listOf())
+    constructor() : this("", "", "",
+        "", listOf()
+    )
 }
