@@ -17,15 +17,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.CoreEvents
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 
 @Composable
 fun ThumbsUp(
     modifier: Modifier = Modifier,
-    likes: String
+    houseModel: HouseModel
 ) {
+
+    val coreVM: CoreViewModel = hiltViewModel()
 
     var isThumbsUpClicked by remember {
         mutableStateOf(false)
+    }
+
+    var likesInteger by remember {
+        mutableStateOf(houseModel.houseLikes.toInt())
     }
 
     Box(
@@ -39,7 +50,26 @@ fun ThumbsUp(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.tertiary)
                 .clickable {
+
                     isThumbsUpClicked = !isThumbsUpClicked
+
+                    if (isThumbsUpClicked)
+                        likesInteger += 1
+                    else
+                        if (likesInteger > 0)
+                            likesInteger -= 1
+
+                    //  update firestore field
+                    coreVM.onEvent(
+                        CoreEvents.UpdateFirestoreField(
+                            collectionName = Constants.APARTMENTS_COLLECTION,
+                            documentName = houseModel.houseApartmentName,
+                            subCollectionName = Constants.HOUSES_SUB_COLLECTION,
+                            subCollectionDocument = houseModel.houseCategory,
+                            fieldName = "houseLikes",
+                            fieldValue = likesInteger.toString()
+                        )
+                    )
                 }
                 .padding(vertical = 4.dp, horizontal = 8.dp),
             horizontalArrangement = Arrangement.Center,
@@ -61,7 +91,7 @@ fun ThumbsUp(
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = likes,
+                text = likesInteger.toString(),
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,

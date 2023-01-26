@@ -84,7 +84,7 @@ fun HousePrice(
         ThumbsUp(
             modifier = Modifier
                 .weight(1f),
-            likes = houseModel.houseLikes
+            houseModel = houseModel
         )
 
 
