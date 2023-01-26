@@ -91,8 +91,7 @@ fun HouseItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                price = house.housePrice,
-                priceCategory = house.housePriceCategory
+                houseModel = house
             )
         }
 

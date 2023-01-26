@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ThumbsUp(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    likes: String
 ) {
 
     var isThumbsUpClicked by remember {
@@ -52,13 +53,15 @@ fun ThumbsUp(
                     Icons.Outlined.ThumbUp,
 
                 contentDescription = "Like Icon",
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(16.dp)
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = "0",
+                text = likes,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,

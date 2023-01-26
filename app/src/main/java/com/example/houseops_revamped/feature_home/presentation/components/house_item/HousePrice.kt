@@ -21,15 +21,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 
 @Composable
 fun HousePrice(
     modifier: Modifier = Modifier,
-    price: String,
-    priceCategory: String
+    houseModel: HouseModel
 ) {
 
-    val category = when (priceCategory) {
+    val category = when (houseModel.housePriceCategory) {
         Constants.priceCategories[0] -> {
             "mo"
         }
@@ -63,7 +63,7 @@ fun HousePrice(
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     )
-                ) { append(price) }
+                ) { append(houseModel.housePrice) }
                 withStyle(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.primary
@@ -83,7 +83,8 @@ fun HousePrice(
         //  Thumbs up icon
         ThumbsUp(
             modifier = Modifier
-                .weight(1f)
+                .weight(1f),
+            likes = houseModel.houseLikes
         )
 
 
