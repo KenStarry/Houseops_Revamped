@@ -12,7 +12,7 @@ import com.example.houseops_revamped.screens.MainScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.BookedScreen
 import com.example.houseops_revamped.feature_home.presentation.HomeScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.SettingsScreen
-import com.example.houseops_revamped.screens.bottom_nav_screens.WishlistScreen
+import com.example.houseops_revamped.feature_bookmark.BookmarkScreen
 
 fun NavGraphBuilder.homeNavGraph(
     navHostController: NavHostController
@@ -45,8 +45,8 @@ fun NavGraphBuilder.homeNavGraph(
         }
 
         //  Wishlist screen
-        composable(route = BottomNavScreens.Wishlist.route) {
-            WishlistScreen()
+        composable(route = BottomNavScreens.Bookmarks.route) {
+            BookmarkScreen()
         }
 
         //  Settings screen

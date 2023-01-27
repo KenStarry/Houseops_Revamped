@@ -27,9 +27,9 @@ sealed class BottomNavScreens(
         badgeCount = 5
     )
 
-    object Wishlist : BottomNavScreens(
-        route = "wishlist_screen",
-        title = "Wishlist",
+    object Bookmarks : BottomNavScreens(
+        route = "bookmarks_screen",
+        title = "Bookmarks",
         icon = Icons.Sharp.Bookmarks,
         badgeCount = 13
     )

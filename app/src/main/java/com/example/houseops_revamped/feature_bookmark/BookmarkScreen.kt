@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.screens.bottom_nav_screens
+package com.example.houseops_revamped.feature_bookmark
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun WishlistScreen() {
+fun BookmarkScreen() {
 
     Box(
         modifier = Modifier

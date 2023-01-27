@@ -57,7 +57,7 @@ fun RowScope.MainBottomBarItem(
                             color = Color.White,
                             modifier = Modifier
                                 .clip(CircleShape)
-                                .background(Color.Red)
+                                .background(MaterialTheme.colorScheme.tertiary)
                                 .wrapContentSize()
                                 .padding(horizontal = 4.dp),
                             textAlign = TextAlign.Center

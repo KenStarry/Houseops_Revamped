@@ -21,7 +21,7 @@ fun MainBottomBar(
     val screens = listOf(
         BottomNavScreens.Home,
         BottomNavScreens.Booked,
-        BottomNavScreens.Wishlist,
+        BottomNavScreens.Bookmarks,
         BottomNavScreens.Settings,
     )
 

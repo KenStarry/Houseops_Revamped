@@ -3,8 +3,6 @@ package com.example.houseops_revamped.feature_home.presentation.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -41,7 +39,7 @@ fun HomeAppBar(
     val screens = listOf(
         BottomNavScreens.Home,
         BottomNavScreens.Booked,
-        BottomNavScreens.Wishlist,
+        BottomNavScreens.Bookmarks,
         BottomNavScreens.Settings,
     )
 
