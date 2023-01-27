@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.core.data.repository
 
 import android.util.Log
+import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 import com.example.houseops_revamped.core.utils.Constants
@@ -67,21 +68,17 @@ class CoreRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateFirestoreArrayField(
+    override suspend fun updateLikedHousesField(
         collectionName: String,
         documentName: String,
-        subCollectionName: String,
-        subCollectionDocument: String,
         fieldName: String,
-        fieldValue: String,
+        fieldValue: LikedHouse,
         isAddItem: Boolean
     ) {
         try {
             val collectionRef = db
                 .collection(collectionName)
                 .document(documentName)
-                .collection(subCollectionName)
-                .document(subCollectionDocument)
 
             if (isAddItem)
                 collectionRef.update(

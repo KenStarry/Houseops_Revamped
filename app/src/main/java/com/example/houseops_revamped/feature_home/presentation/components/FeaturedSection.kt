@@ -25,7 +25,8 @@ fun FeaturedSection(
     modifier: Modifier = Modifier,
     context: Context,
     title: String,
-    houses: ArrayList<HouseModel>
+    houses: ArrayList<HouseModel>,
+    email: String
 ) {
 
     val homeVM: HomeViewModel = hiltViewModel()
@@ -61,7 +62,8 @@ fun FeaturedSection(
                                 height = 260.dp
                             )
                             .background(MaterialTheme.colorScheme.onSecondary)
-                            .padding(8.dp)
+                            .padding(8.dp),
+                        email = email
                     )
                 }
             },

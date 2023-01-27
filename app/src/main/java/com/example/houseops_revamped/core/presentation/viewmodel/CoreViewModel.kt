@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.core.domain.model.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
-import com.example.houseops_revamped.core.domain.use_cases.UserDetails
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -82,14 +81,12 @@ class CoreViewModel @Inject constructor(
                 }
             }
 
-            is CoreEvents.UpdateFirestoreArrayField -> {
+            is CoreEvents.UpdateLikedHouses -> {
 
                 viewModelScope.launch {
                     coreUseCases.updateArrayField(
                         collectionName = event.collectionName,
                         documentName = event.documentName,
-                        subCollectionName = event.subCollectionName,
-                        subCollectionDocument = event.subCollectionDocument,
                         fieldName = event.fieldName,
                         fieldValue = event.fieldValue,
                         isAddItem = event.isAddItem

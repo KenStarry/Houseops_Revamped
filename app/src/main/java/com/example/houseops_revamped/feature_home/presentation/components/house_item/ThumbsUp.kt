@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.CoreEvents
+import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
@@ -26,7 +27,8 @@ import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 @Composable
 fun ThumbsUp(
     modifier: Modifier = Modifier,
-    houseModel: HouseModel
+    houseModel: HouseModel,
+    email: String
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
@@ -68,6 +70,20 @@ fun ThumbsUp(
                             subCollectionDocument = houseModel.houseCategory,
                             fieldName = "houseLikes",
                             fieldValue = likesInteger.toString()
+                        )
+                    )
+
+                    //  update user arrayfield
+                    coreVM.onEvent(
+                        CoreEvents.UpdateLikedHouses(
+                            collectionName = Constants.USERS_COLLECTION,
+                            documentName = email,
+                            fieldName = "userLikedHouses",
+                            fieldValue = LikedHouse(
+                                apartmentName = houseModel.houseApartmentName,
+                                houseCategory = houseModel.houseCategory
+                            ),
+                            isAddItem = true
                         )
                     )
                 }

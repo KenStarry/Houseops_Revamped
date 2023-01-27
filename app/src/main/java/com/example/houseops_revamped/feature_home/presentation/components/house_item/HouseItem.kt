@@ -27,7 +27,8 @@ import kotlin.random.Random
 fun HouseItem(
     modifier: Modifier = Modifier,
     context: Context,
-    house: HouseModel
+    house: HouseModel,
+    email: String
 ) {
 
     Column(
@@ -91,7 +92,8 @@ fun HouseItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                houseModel = house
+                houseModel = house,
+                email = email
             )
         }
 
@@ -107,6 +109,7 @@ fun HouseItem(
 fun HouseItemPrev() {
     HouseItem(
         house = HouseModel(),
-        context = LocalContext.current
+        context = LocalContext.current,
+        email = ""
     )
 }

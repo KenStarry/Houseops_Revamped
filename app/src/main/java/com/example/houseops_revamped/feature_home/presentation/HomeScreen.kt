@@ -141,7 +141,8 @@ fun HomeScreen(
                     houses = homeVM.houses,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentSize()
+                        .wrapContentSize(),
+                    email = userDetails?.userEmail ?: "none"
                 )
                 
                 Spacer(modifier = Modifier.height(48.dp))

@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.domain.repository
 
+import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.google.firebase.auth.FirebaseUser
 
@@ -23,13 +24,11 @@ interface CoreRepository {
         fieldValue: String
     )
 
-    suspend fun updateFirestoreArrayField(
+    suspend fun updateLikedHousesField(
         collectionName: String,
         documentName: String,
-        subCollectionName: String,
-        subCollectionDocument: String,
         fieldName: String,
-        fieldValue: String,
+        fieldValue: LikedHouse,
         isAddItem: Boolean
     )
 

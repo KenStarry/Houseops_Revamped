@@ -26,7 +26,8 @@ import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 @Composable
 fun HousePrice(
     modifier: Modifier = Modifier,
-    houseModel: HouseModel
+    houseModel: HouseModel,
+    email: String
 ) {
 
     val category = when (houseModel.housePriceCategory) {
@@ -84,7 +85,8 @@ fun HousePrice(
         ThumbsUp(
             modifier = Modifier
                 .weight(1f),
-            houseModel = houseModel
+            houseModel = houseModel,
+            email = email
         )
 
 

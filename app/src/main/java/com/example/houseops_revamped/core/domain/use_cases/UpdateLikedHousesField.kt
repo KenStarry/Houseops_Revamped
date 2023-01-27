@@ -1,24 +1,21 @@
 package com.example.houseops_revamped.core.domain.use_cases
 
+import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 
-class UpdateArrayField(
+class UpdateLikedHousesField(
     private val repository: CoreRepository
 ) {
 
     suspend operator fun invoke(
         collectionName: String,
         documentName: String,
-        subCollectionName: String,
-        subCollectionDocument: String,
         fieldName: String,
-        fieldValue: String,
+        fieldValue: LikedHouse,
         isAddItem: Boolean
-    ) = repository.updateFirestoreArrayField(
+    ) = repository.updateLikedHousesField(
         collectionName,
         documentName,
-        subCollectionName,
-        subCollectionDocument,
         fieldName,
         fieldValue,
         isAddItem
