@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.presentation.components.house_item.HouseItem
 import com.example.houseops_revamped.feature_home.presentation.viewmodel.HomeViewModel
@@ -26,7 +27,7 @@ fun FeaturedSection(
     context: Context,
     title: String,
     houses: ArrayList<HouseModel>,
-    email: String
+    user: UsersCollection?
 ) {
 
     val homeVM: HomeViewModel = hiltViewModel()
@@ -63,7 +64,7 @@ fun FeaturedSection(
                             )
                             .background(MaterialTheme.colorScheme.onSecondary)
                             .padding(8.dp),
-                        email = email
+                        user = user
                     )
                 }
             },

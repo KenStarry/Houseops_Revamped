@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 
@@ -27,7 +28,7 @@ import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 fun HousePrice(
     modifier: Modifier = Modifier,
     houseModel: HouseModel,
-    email: String
+    user: UsersCollection?
 ) {
 
     val category = when (houseModel.housePriceCategory) {
@@ -86,7 +87,7 @@ fun HousePrice(
             modifier = Modifier
                 .weight(1f),
             houseModel = houseModel,
-            email = email
+            user = user
         )
 
 

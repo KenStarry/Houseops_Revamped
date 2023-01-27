@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 import kotlin.random.Random
@@ -28,7 +29,7 @@ fun HouseItem(
     modifier: Modifier = Modifier,
     context: Context,
     house: HouseModel,
-    email: String
+    user: UsersCollection?
 ) {
 
     Column(
@@ -93,7 +94,7 @@ fun HouseItem(
                     .fillMaxWidth()
                     .weight(1f),
                 houseModel = house,
-                email = email
+                user = user,
             )
         }
 
@@ -110,6 +111,6 @@ fun HouseItemPrev() {
     HouseItem(
         house = HouseModel(),
         context = LocalContext.current,
-        email = ""
+        user = UsersCollection()
     )
 }

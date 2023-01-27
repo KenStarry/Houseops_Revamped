@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.CoreEvents
 import com.example.houseops_revamped.core.domain.model.LikedHouse
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
@@ -28,13 +29,25 @@ import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 fun ThumbsUp(
     modifier: Modifier = Modifier,
     houseModel: HouseModel,
-    email: String
+    user: UsersCollection?
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
 
     var isThumbsUpClicked by remember {
         mutableStateOf(false)
+    }
+
+    //  check if the user has already liked the house before
+    user?.userLikedHouses?.let { likedHouses ->
+
+        likedHouses.forEach { house ->
+            if (house.houseCategory == houseModel.houseCategory &&
+                house.apartmentName == houseModel.houseApartmentName
+            ) {
+                isThumbsUpClicked = true
+            }
+        }
     }
 
     var likesInteger by remember {
@@ -77,13 +90,13 @@ fun ThumbsUp(
                     coreVM.onEvent(
                         CoreEvents.UpdateLikedHouses(
                             collectionName = Constants.USERS_COLLECTION,
-                            documentName = email,
+                            documentName = user?.userEmail ?: "none",
                             fieldName = "userLikedHouses",
                             fieldValue = LikedHouse(
                                 apartmentName = houseModel.houseApartmentName,
                                 houseCategory = houseModel.houseCategory
                             ),
-                            isAddItem = true
+                            isAddItem = isThumbsUpClicked
                         )
                     )
                 }

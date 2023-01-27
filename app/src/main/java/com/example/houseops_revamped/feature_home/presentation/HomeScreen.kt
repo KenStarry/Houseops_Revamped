@@ -142,7 +142,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentSize(),
-                    email = userDetails?.userEmail ?: "none"
+                    user = userDetails
                 )
                 
                 Spacer(modifier = Modifier.height(48.dp))
