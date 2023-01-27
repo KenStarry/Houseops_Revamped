@@ -27,6 +27,8 @@ class CoreViewModel @Inject constructor(
     var user by mutableStateOf<UsersCollection?>(null)
         private set
 
+    var isThumbsUpClicked by mutableStateOf(false)
+
     fun isUserLoggedIn(): Boolean {
 
         viewModelScope.launch {
@@ -89,7 +91,7 @@ class CoreViewModel @Inject constructor(
                         documentName = event.documentName,
                         fieldName = event.fieldName,
                         fieldValue = event.fieldValue,
-                        isAddItem = event.isAddItem
+                        isAddItem = event.isAddItem,
                     )
                 }
             }

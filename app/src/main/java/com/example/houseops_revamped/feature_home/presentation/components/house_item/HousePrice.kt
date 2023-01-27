@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmark
+import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,11 +85,15 @@ fun HousePrice(
         Spacer(modifier = Modifier.width(8.dp))
 
         //  Thumbs up icon
-        ThumbsUp(
-            modifier = Modifier
-                .weight(1f),
-            houseModel = houseModel,
-            user = user
+//        ThumbsUp(
+//            modifier = Modifier
+//                .weight(1f),
+//            houseModel = houseModel,
+//            user = user
+//        )
+
+        BookmarkIcon(
+            house = houseModel
         )
 
 

@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.presentation.components.house_item
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -38,17 +39,18 @@ fun ThumbsUp(
         mutableStateOf(false)
     }
 
-    //  check if the user has already liked the house before
-    user?.userLikedHouses?.let { likedHouses ->
+    val likedHouses = user?.userLikedHouses
 
-        likedHouses.forEach { house ->
-            if (house.houseCategory == houseModel.houseCategory &&
-                house.apartmentName == houseModel.houseApartmentName
-            ) {
-                isThumbsUpClicked = true
-            }
-        }
-    }
+    //  check if the user has already liked the house before
+//    likedHouses?.let {
+//        it.forEach { house ->
+//            if (house.houseCategory == houseModel.houseCategory &&
+//                house.apartmentName == houseModel.houseApartmentName
+//            ) {
+//                isThumbsUpClicked = true
+//            }
+//        }
+//    }
 
     var likesInteger by remember {
         mutableStateOf(houseModel.houseLikes.toInt())
@@ -66,13 +68,17 @@ fun ThumbsUp(
                 .background(MaterialTheme.colorScheme.tertiary)
                 .clickable {
 
-                    isThumbsUpClicked = !isThumbsUpClicked
+                    if (isThumbsUpClicked) {
 
-                    if (isThumbsUpClicked)
-                        likesInteger += 1
-                    else
-                        if (likesInteger > 0)
+                        if (likesInteger > 0) {
                             likesInteger -= 1
+                            isThumbsUpClicked = false
+                        }
+
+                    } else {
+                        likesInteger += 1
+                        isThumbsUpClicked = true
+                    }
 
                     //  update firestore field
                     coreVM.onEvent(
