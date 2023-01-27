@@ -2,6 +2,8 @@ package com.example.houseops_revamped.feature_home.presentation.components.house
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,7 +31,10 @@ fun BookmarkIcon(
         )
     ) {
         Icon(
-            imageVector = Icons.Outlined.BookmarkBorder,
+            imageVector = if (isBookmarked)
+                Icons.Filled.Bookmark
+            else
+                Icons.Outlined.BookmarkBorder,
             contentDescription = "Bookmark",
             tint = MaterialTheme.colorScheme.primary
         )
