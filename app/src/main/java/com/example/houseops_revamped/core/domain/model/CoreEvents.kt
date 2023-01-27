@@ -11,4 +11,13 @@ sealed class CoreEvents {
         val fieldValue: String
     ) : CoreEvents()
 
+    data class UpdateFirestoreArrayField(
+        val collectionName: String,
+        val documentName: String,
+        val subCollectionName: String,
+        val subCollectionDocument: String,
+        val fieldName: String,
+        val fieldValue: String,
+        val isAddItem: Boolean
+    ) : CoreEvents()
 }

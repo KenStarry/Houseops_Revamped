@@ -81,6 +81,21 @@ class CoreViewModel @Inject constructor(
                     )
                 }
             }
+
+            is CoreEvents.UpdateFirestoreArrayField -> {
+
+                viewModelScope.launch {
+                    coreUseCases.updateArrayField(
+                        collectionName = event.collectionName,
+                        documentName = event.documentName,
+                        subCollectionName = event.subCollectionName,
+                        subCollectionDocument = event.subCollectionDocument,
+                        fieldName = event.fieldName,
+                        fieldValue = event.fieldValue,
+                        isAddItem = event.isAddItem
+                    )
+                }
+            }
         }
     }
 }

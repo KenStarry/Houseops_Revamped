@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import javax.inject.Inject
 
 class CoreRepositoryImpl @Inject constructor(
@@ -75,7 +74,7 @@ class CoreRepositoryImpl @Inject constructor(
         subCollectionDocument: String,
         fieldName: String,
         fieldValue: String,
-        addItem: Boolean
+        isAddItem: Boolean
     ) {
         try {
             val collectionRef = db
@@ -84,7 +83,7 @@ class CoreRepositoryImpl @Inject constructor(
                 .collection(subCollectionName)
                 .document(subCollectionDocument)
 
-            if (addItem)
+            if (isAddItem)
                 collectionRef.update(
                     fieldName, FieldValue.arrayUnion(fieldValue)
                 )

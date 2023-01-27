@@ -30,7 +30,7 @@ interface CoreRepository {
         subCollectionDocument: String,
         fieldName: String,
         fieldValue: String,
-        addItem: Boolean
+        isAddItem: Boolean
     )
 
 }

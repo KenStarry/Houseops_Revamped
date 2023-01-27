@@ -13,7 +13,7 @@ class UpdateArrayField(
         subCollectionDocument: String,
         fieldName: String,
         fieldValue: String,
-        addItem: Boolean
+        isAddItem: Boolean
     ) = repository.updateFirestoreArrayField(
         collectionName,
         documentName,
@@ -21,6 +21,6 @@ class UpdateArrayField(
         subCollectionDocument,
         fieldName,
         fieldValue,
-        addItem
+        isAddItem
     )
 }
