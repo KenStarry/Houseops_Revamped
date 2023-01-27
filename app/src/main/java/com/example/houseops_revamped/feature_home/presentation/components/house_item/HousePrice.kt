@@ -93,7 +93,8 @@ fun HousePrice(
 //        )
 
         BookmarkIcon(
-            house = houseModel
+            house = houseModel,
+            user = user
         )
 
 

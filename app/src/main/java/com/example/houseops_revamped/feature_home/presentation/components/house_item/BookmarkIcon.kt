@@ -11,20 +11,53 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.BookmarkHouse
+import com.example.houseops_revamped.core.domain.model.CoreEvents
+import com.example.houseops_revamped.core.domain.model.LikedHouse
+import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_home.domain.model.HouseModel
 
 @Composable
 fun BookmarkIcon(
-    house: HouseModel
+    house: HouseModel,
+    user: UsersCollection?
 ) {
+
+    val coreVM: CoreViewModel = hiltViewModel()
 
     var isBookmarked by remember {
         mutableStateOf(false)
     }
 
+    if (user?.userBookmarks?.contains(
+            LikedHouse(
+                apartmentName = house.houseApartmentName,
+                houseCategory = house.houseCategory
+            )
+        ) == true
+    ) {
+        isBookmarked = true
+    }
+
     IconButton(
         onClick = {
             isBookmarked = !isBookmarked
+
+            coreVM.onEvent(
+                CoreEvents.UpdateArrayField(
+                    collectionName = Constants.USERS_COLLECTION,
+                    documentName = user?.userEmail ?: "none",
+                    fieldName = "userBookmarks",
+                    fieldValue = LikedHouse(
+                        apartmentName = house.houseApartmentName,
+                        houseCategory = house.houseCategory
+                    ),
+                    isAddItem = isBookmarked
+                )
+            )
         },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = MaterialTheme.colorScheme.tertiary

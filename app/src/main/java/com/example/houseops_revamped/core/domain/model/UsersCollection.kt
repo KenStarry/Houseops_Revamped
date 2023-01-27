@@ -8,7 +8,7 @@ data class UsersCollection(
     var userPassword: String?,
     var userImageUri: String?,
     var userLikedHouses: List<LikedHouse>?,
-    var userBookmarks: List<BookmarkHouse>?
+    var userBookmarks: List<LikedHouse>?
 ) {
     //  empty constructor
     constructor() : this("", "", "",
