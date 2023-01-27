@@ -23,4 +23,14 @@ interface CoreRepository {
         fieldValue: String
     )
 
+    suspend fun updateFirestoreArrayField(
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String,
+        subCollectionDocument: String,
+        fieldName: String,
+        fieldValue: String,
+        addItem: Boolean
+    )
+
 }

@@ -34,7 +34,8 @@ object CoreModule {
         isUserLoggedIn = IsUserLoggedIn(repo),
         currentUser = CurrentUser(repo),
         userDetails = UserDetails(repo),
-        updateField = UpdateField(repo)
+        updateField = UpdateField(repo),
+        updateArrayField = UpdateArrayField(repo)
     )
 }
 

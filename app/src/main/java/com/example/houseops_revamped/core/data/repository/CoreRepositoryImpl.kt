@@ -6,6 +6,7 @@ import com.example.houseops_revamped.core.domain.repository.CoreRepository
 import com.example.houseops_revamped.core.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import javax.inject.Inject
@@ -61,6 +62,36 @@ class CoreRepositoryImpl @Inject constructor(
             collectionRef.update(
                 fieldName, fieldValue
             )
+
+        } catch (e: Exception) {
+            Log.d("update", "$e")
+        }
+    }
+
+    override suspend fun updateFirestoreArrayField(
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String,
+        subCollectionDocument: String,
+        fieldName: String,
+        fieldValue: String,
+        addItem: Boolean
+    ) {
+        try {
+            val collectionRef = db
+                .collection(collectionName)
+                .document(documentName)
+                .collection(subCollectionName)
+                .document(subCollectionDocument)
+
+            if (addItem)
+                collectionRef.update(
+                    fieldName, FieldValue.arrayUnion(fieldValue)
+                )
+            else
+                collectionRef.update(
+                    fieldName, FieldValue.arrayRemove(fieldValue)
+                )
 
         } catch (e: Exception) {
             Log.d("update", "$e")
