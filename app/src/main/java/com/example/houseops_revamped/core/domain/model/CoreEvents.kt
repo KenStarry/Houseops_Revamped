@@ -11,7 +11,7 @@ sealed class CoreEvents {
         val fieldValue: String
     ) : CoreEvents()
 
-    data class UpdateLikedHouses(
+    data class UpdateArrayField(
         val collectionName: String,
         val documentName: String,
         val fieldName: String,

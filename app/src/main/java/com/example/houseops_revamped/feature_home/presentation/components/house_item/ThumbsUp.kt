@@ -1,6 +1,5 @@
 package com.example.houseops_revamped.feature_home.presentation.components.house_item
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -94,7 +93,7 @@ fun ThumbsUp(
 
                     //  update user arrayfield
                     coreVM.onEvent(
-                        CoreEvents.UpdateLikedHouses(
+                        CoreEvents.UpdateArrayField(
                             collectionName = Constants.USERS_COLLECTION,
                             documentName = user?.userEmail ?: "none",
                             fieldName = "userLikedHouses",

@@ -24,7 +24,7 @@ interface CoreRepository {
         fieldValue: String
     )
 
-    suspend fun updateLikedHousesField(
+    suspend fun updateUserArrayField(
         collectionName: String,
         documentName: String,
         fieldName: String,

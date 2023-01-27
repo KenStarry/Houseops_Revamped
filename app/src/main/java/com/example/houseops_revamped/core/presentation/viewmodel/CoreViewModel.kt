@@ -83,7 +83,7 @@ class CoreViewModel @Inject constructor(
                 }
             }
 
-            is CoreEvents.UpdateLikedHouses -> {
+            is CoreEvents.UpdateArrayField -> {
 
                 viewModelScope.launch {
                     coreUseCases.updateArrayField(

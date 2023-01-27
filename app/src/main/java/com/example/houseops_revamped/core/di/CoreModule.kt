@@ -34,7 +34,7 @@ object CoreModule {
         currentUser = CurrentUser(repo),
         userDetails = UserDetails(repo),
         updateField = UpdateField(repo),
-        updateArrayField = UpdateLikedHousesField(repo)
+        updateArrayField = UpdateUsersArrayField(repo)
     )
 }
 

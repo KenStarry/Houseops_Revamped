@@ -68,7 +68,7 @@ class CoreRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateLikedHousesField(
+    override suspend fun updateUserArrayField(
         collectionName: String,
         documentName: String,
         fieldName: String,

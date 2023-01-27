@@ -3,7 +3,7 @@ package com.example.houseops_revamped.core.domain.use_cases
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 
-class UpdateLikedHousesField(
+class UpdateUsersArrayField(
     private val repository: CoreRepository
 ) {
 
@@ -13,7 +13,7 @@ class UpdateLikedHousesField(
         fieldName: String,
         fieldValue: LikedHouse,
         isAddItem: Boolean
-    ) = repository.updateLikedHousesField(
+    ) = repository.updateUserArrayField(
         collectionName,
         documentName,
         fieldName,
