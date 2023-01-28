@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.navigation
 
 import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
 sealed class Screens(
     val route: String
@@ -19,7 +20,9 @@ sealed class Screens(
     object Admin : Screens(route = "admin_screen")
 
     //  house view screen
-    object HouseView : Screens(route = "house_view_screen")
+    object HouseView : Screens(route = "house_view_screen/{house}") {
+        fun passHouse(houseModel: HouseModel): String = "house_view_screen/$houseModel"
+    }
 }
 
 

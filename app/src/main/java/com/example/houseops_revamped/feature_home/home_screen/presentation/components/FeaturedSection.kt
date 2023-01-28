@@ -1,7 +1,9 @@
 package com.example.houseops_revamped.feature_home.home_screen.presentation.components
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,14 +18,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseops_revamped.feature_home.home_screen.presentation.viewmodel.HomeViewModel
+import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.navigation.Screens
 
 @Composable
 fun FeaturedSection(
     modifier: Modifier = Modifier,
+    navHostController: NavHostController,
     context: Context,
     title: String,
     houses: ArrayList<HouseModel>,
@@ -31,6 +37,8 @@ fun FeaturedSection(
 ) {
 
     val homeVM: HomeViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
+
     homeVM.getHouses()
 
     Column(
@@ -63,6 +71,12 @@ fun FeaturedSection(
                                 height = 260.dp
                             )
                             .background(MaterialTheme.colorScheme.onSecondary)
+                            .clickable {
+                                //  open house view Screen
+                                direction.navigateToRoute(
+                                    Screens.HouseView.route, false
+                                )
+                            }
                             .padding(8.dp),
                         user = user
                     )
