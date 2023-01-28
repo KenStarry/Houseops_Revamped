@@ -17,6 +17,9 @@ sealed class Screens(
 
     //  admin screen
     object Admin : Screens(route = "admin_screen")
+
+    //  house view screen
+    object HouseView : Screens(route = "house_view_screen")
 }
 
 
