@@ -32,4 +32,34 @@ interface CoreRepository {
         isAddItem: Boolean
     )
 
+    suspend fun getApartments()
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

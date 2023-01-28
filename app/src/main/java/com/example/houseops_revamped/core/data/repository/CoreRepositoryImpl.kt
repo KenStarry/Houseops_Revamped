@@ -93,6 +93,10 @@ class CoreRepositoryImpl @Inject constructor(
             Log.d("update", "$e")
         }
     }
+
+    override suspend fun getApartments() {
+
+    }
 }
 
 
