@@ -34,10 +34,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_home.presentation.components.FeaturedSection
-import com.example.houseops_revamped.feature_home.presentation.components.HomeAppBar
-import com.example.houseops_revamped.feature_home.presentation.components.HomeGreetings
-import com.example.houseops_revamped.feature_home.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_home.presentation.components.*
 import com.example.houseops_revamped.feature_home.presentation.utils.HomeConstants
 import com.example.houseops_revamped.feature_home.presentation.viewmodel.HomeViewModel
 
@@ -108,30 +105,10 @@ fun HomeScreen(
                 )
 
                 //  pill buttons
-                LazyHorizontalStaggeredGrid(
-                    rows = StaggeredGridCells.Fixed(2),
-                    content = {
-                        itemsIndexed(
-                            HomeConstants.homePills
-                        ) { index, pill ->
-
-                            HomePillBtns(
-                                icon = pill.icon,
-                                title = pill.title,
-                                onClick = {
-                                    //  pass the category at the specific index
-                                    Log.d("category", HomeConstants.homePills[index].title)
-                                }
-                            )
-
-                        }
-                    },
-                    state = rememberLazyStaggeredGridState(),
+                PillSection(
                     modifier = Modifier
                         .wrapContentWidth()
-                        .height(150.dp),
-                    contentPadding = PaddingValues(vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        .height(150.dp)
                 )
 
                 //  featured section
