@@ -1,9 +1,7 @@
 package com.example.houseops_revamped.navigation.graphs
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.Screens
@@ -12,6 +10,7 @@ import com.example.houseops_revamped.screens.MainScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.BookedScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.SettingsScreen
 import com.example.houseops_revamped.feature_bookmark.BookmarkScreen
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.HomeScreen
 import com.example.houseops_revamped.feature_home.house_view_screen.HouseViewScreen
 
@@ -29,7 +28,7 @@ fun NavGraphBuilder.homeNavGraph(
         composable(route = Screens.Main.route) {
             MainScreen(navHostController = navHostController)
         }
-        
+
         //  admin screen
         composable(route = Screens.Admin.route) {
             AdminScreen(navHostController = navHostController)
@@ -56,8 +55,22 @@ fun NavGraphBuilder.homeNavGraph(
         }
 
         //  Home View Screen
-        composable(route = Screens.HouseView.route) {
-            HouseViewScreen(navHostController)
+        composable(
+            route = Screens.HouseView.route,
+            arguments = listOf(
+                navArgument("apartment") {
+                    type = NavType.StringType
+                },
+                navArgument("category") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            HouseViewScreen(
+                navHostController = navHostController,
+                apartment = it.arguments?.getString("apartment") ?: "none",
+                category = it.arguments?.getString("apartment") ?: "none"
+            )
         }
     }
 }

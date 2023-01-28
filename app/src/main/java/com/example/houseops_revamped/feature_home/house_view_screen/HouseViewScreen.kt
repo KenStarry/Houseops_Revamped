@@ -5,7 +5,9 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun HouseViewScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    apartment: String,
+    category: String
 ) {
 
 

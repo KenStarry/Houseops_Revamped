@@ -20,8 +20,11 @@ sealed class Screens(
     object Admin : Screens(route = "admin_screen")
 
     //  house view screen
-    object HouseView : Screens(route = "house_view_screen/{house}") {
-        fun passHouse(houseModel: HouseModel): String = "house_view_screen/$houseModel"
+    object HouseView : Screens(route = "house_view_screen/{apartment}/{category}") {
+        fun passHouse(
+            apartment: String,
+            category: String
+        ): String = "house_view_screen/$apartment/$category"
     }
 }
 
