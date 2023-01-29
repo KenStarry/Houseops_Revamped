@@ -61,13 +61,13 @@ fun BackAppBar(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .wrapContentSize()
-                .background(MaterialTheme.colorScheme.onSecondary)
+                .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
 
             Text(
-                text = "Ksh. $price",
+                text = "Ksh. $price/mo",
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)

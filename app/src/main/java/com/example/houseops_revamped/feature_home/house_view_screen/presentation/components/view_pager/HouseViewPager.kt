@@ -2,6 +2,7 @@ package com.example.houseops_revamped.feature_home.house_view_screen.presentatio
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -71,7 +72,13 @@ fun HouseViewPager(
                 activeColor = MaterialTheme.colorScheme.primary,
                 inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
                     .wrapContentSize()
+                    .background(MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f))
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 8.dp
+                    )
             )
 
         }
