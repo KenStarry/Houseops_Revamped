@@ -10,9 +10,8 @@ import com.example.houseops_revamped.screens.MainScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.BookedScreen
 import com.example.houseops_revamped.screens.bottom_nav_screens.SettingsScreen
 import com.example.houseops_revamped.feature_bookmark.BookmarkScreen
-import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.HomeScreen
-import com.example.houseops_revamped.feature_home.house_view_screen.HouseViewScreen
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.HouseViewScreen
 
 fun NavGraphBuilder.homeNavGraph(
     navHostController: NavHostController
@@ -69,7 +68,7 @@ fun NavGraphBuilder.homeNavGraph(
             HouseViewScreen(
                 navHostController = navHostController,
                 apartment = it.arguments?.getString("apartment") ?: "none",
-                category = it.arguments?.getString("apartment") ?: "none"
+                category = it.arguments?.getString("category") ?: "none"
             )
         }
     }

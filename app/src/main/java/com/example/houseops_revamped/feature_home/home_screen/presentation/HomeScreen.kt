@@ -118,7 +118,8 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentSize(),
-                    user = userDetails
+                    user = userDetails,
+                    navHostController = navHostController
                 )
 
                 ApartmentsSection(

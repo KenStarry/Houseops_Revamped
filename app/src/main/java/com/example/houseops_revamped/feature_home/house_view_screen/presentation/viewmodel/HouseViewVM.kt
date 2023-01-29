@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,7 +19,7 @@ class HouseViewVM @Inject constructor(
 
     var currentHouse by mutableStateOf<HouseModel?>(null)
 
-    operator fun invoke(
+    fun getHouse(
         apartment: String,
         category: String
     ) {
@@ -31,6 +32,8 @@ class HouseViewVM @Inject constructor(
                     currentHouse = it
                 }
             )
+
+            Log.d("view", "$currentHouse")
         }
     }
 }

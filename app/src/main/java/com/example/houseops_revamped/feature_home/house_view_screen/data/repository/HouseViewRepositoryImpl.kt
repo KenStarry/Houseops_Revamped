@@ -27,11 +27,13 @@ class HouseViewRepositoryImpl(
 
                     snapshot?.toObject(HouseModel::class.java)?.let {
                         currentHouse(it)
+
+                        Log.d("viewRepo", "$currentHouse")
                     }
                 }
 
         } catch (e: Exception) {
-            Log.d("house", "$e")
+            Log.d("viewRepo", "$e")
         }
     }
 }

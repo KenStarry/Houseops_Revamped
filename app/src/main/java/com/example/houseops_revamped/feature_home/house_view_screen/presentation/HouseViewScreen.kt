@@ -1,7 +1,17 @@
-package com.example.houseops_revamped.feature_home.house_view_screen
+package com.example.houseops_revamped.feature_home.house_view_screen.presentation
 
+import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.HouseViewPager
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 
 @Composable
 fun HouseViewScreen(
@@ -10,6 +20,49 @@ fun HouseViewScreen(
     category: String
 ) {
 
+    val houseViewVM: HouseViewVM = hiltViewModel()
+    val context = LocalContext.current
 
+    houseViewVM.getHouse(apartment, category)
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+            .padding(8.dp)
+    ) {
+
+        houseViewVM.currentHouse?.let {
+
+            //  view pager
+            HouseViewPager(
+                house = it,
+                context = context,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.5f)
+            )
+        }
+
+        //  main content
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

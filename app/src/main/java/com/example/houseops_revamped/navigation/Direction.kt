@@ -11,6 +11,13 @@ class Direction(
         navHostController.navigate(Screens.Admin.route)
     }
 
+    val navigateToHouseView: (
+        apartment: String,
+        category: String
+    ) -> Unit = { apartment, category ->
+        navHostController.navigate(Screens.HouseView.passHouse(apartment, category))
+    }
+
     //  navigate to route
     val navigateToRoute: (
         route: String,

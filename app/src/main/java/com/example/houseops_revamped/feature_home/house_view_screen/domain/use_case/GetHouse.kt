@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.domain.use_case
 
+import android.util.Log
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.repository.HouseViewRepository
 
@@ -16,6 +17,8 @@ class GetHouse(
         apartmentName = apartmentName,
         currentHouse = {
             currentHouse(it)
+
+            Log.d("usecase", "$it")
         }
     )
 }
