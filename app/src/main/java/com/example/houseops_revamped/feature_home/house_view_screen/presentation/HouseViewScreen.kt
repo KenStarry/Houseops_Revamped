@@ -47,7 +47,7 @@ fun HouseViewScreen(
                     .height(300.dp)
             )
             
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             //  main content
             HouseViewDetails(
