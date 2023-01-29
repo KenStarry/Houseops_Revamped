@@ -35,9 +35,9 @@ fun DetailsTitle(
 
         Text(
             text = houseCategory,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
     }

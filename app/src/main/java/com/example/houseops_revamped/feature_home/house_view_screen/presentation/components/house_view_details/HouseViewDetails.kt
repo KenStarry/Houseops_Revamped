@@ -9,6 +9,9 @@ fun HouseViewDetails(
 ) {
 
     //  title
-
+    DetailsTitle(
+        apartmentName = house.houseApartmentName,
+        houseCategory = house.houseCategory
+    )
 
 }
