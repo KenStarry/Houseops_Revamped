@@ -3,6 +3,8 @@ package com.example.houseops_revamped.feature_home.house_view_screen.presentatio
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,6 +32,7 @@ fun HouseViewScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
+            .verticalScroll(rememberScrollState())
             .padding(12.dp)
     ) {
 
@@ -41,8 +44,10 @@ fun HouseViewScreen(
                 context = context,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.5f)
+                    .height(300.dp)
             )
+            
+            Spacer(modifier = Modifier.height(24.dp))
 
             //  main content
             HouseViewDetails(
