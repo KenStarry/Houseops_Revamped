@@ -20,7 +20,7 @@ fun HouseViewDetails(
     //  title
     DetailsTitle(
         apartmentName = house.houseApartmentName,
-        houseCategory = house.
+        houseCategory = house.houseCategory
     )
 
     //  caretaker information & call / message icons
