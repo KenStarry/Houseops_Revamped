@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.HouseViewPager
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 
 @Composable
@@ -25,11 +26,11 @@ fun HouseViewScreen(
 
     houseViewVM.getHouse(apartment, category)
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
-            .padding(8.dp)
+            .padding(12.dp)
     ) {
 
         houseViewVM.currentHouse?.let {
@@ -42,9 +43,12 @@ fun HouseViewScreen(
                     .fillMaxWidth()
                     .fillMaxHeight(0.5f)
             )
-        }
 
-        //  main content
+            //  main content
+            HouseViewDetails(
+                house = it
+            )
+        }
     }
 
 }
