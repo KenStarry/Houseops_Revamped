@@ -3,7 +3,9 @@ package com.example.houseops_revamped.feature_home.house_view_screen.presentatio
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +18,7 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.BackAppBar
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
@@ -30,9 +33,11 @@ fun HouseViewPager(
         modifier = modifier
     ) {
 
+        val pagerState = rememberPagerState()
+
         HorizontalPager(
             count = house.houseImageUris.size,
-            state = rememberPagerState()
+            state = pagerState
         ) { page ->
 
             CoilImage(
@@ -49,6 +54,27 @@ fun HouseViewPager(
         BackAppBar(
             price = house.housePrice
         )
+
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom
+        ) {
+
+            HorizontalPagerIndicator(
+                pagerState = pagerState,
+                indicatorWidth = 6.dp,
+                indicatorHeight = 6.dp,
+                indicatorShape = CircleShape,
+                activeColor = MaterialTheme.colorScheme.primary,
+                inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier
+                    .wrapContentSize()
+            )
+
+        }
 
     }
 
