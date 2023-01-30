@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.domain.repository
 
+import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.google.firebase.auth.FirebaseUser
@@ -15,7 +16,10 @@ interface CoreRepository {
         user: (user: UsersCollection?) -> Unit
     )
 
-    suspend fun getCaretakerDetails()
+    suspend fun getCaretakerDetails(
+        apartmentName: String,
+        caretaker: (caretaker: Caretaker?) -> Unit
+    )
 
     suspend fun updateFirestoreField(
         collectionName: String,

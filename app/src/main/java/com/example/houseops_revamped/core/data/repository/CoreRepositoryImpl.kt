@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.core.data.repository
 
 import android.util.Log
+import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
@@ -40,7 +41,28 @@ class CoreRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.d("userDetails", e.message.toString())
         }
+    }
 
+    override suspend fun getCaretakerDetails(
+        apartmentName: String,
+        caretaker: (caretaker: Caretaker?) -> Unit
+    ) {
+        db.collection(Constants.CARETAKER_COLLECTION)
+            .whereEqualTo("caretakerApartment", apartmentName)
+            .get()
+            .addOnSuccessListener { documents ->
+                documents.forEach {
+
+                    it.toObject(Caretaker::class.java).let { caretaker ->
+                        caretaker(caretaker)
+
+                        Log.d("caretaker", "${caretaker.caretakerEmail}")
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.d("caretaker", "$it")
+            }
     }
 
     override suspend fun updateFirestoreField(
