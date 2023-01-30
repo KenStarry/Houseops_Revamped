@@ -15,6 +15,8 @@ interface CoreRepository {
         user: (user: UsersCollection?) -> Unit
     )
 
+    suspend fun getCaretakerDetails()
+
     suspend fun updateFirestoreField(
         collectionName: String,
         documentName: String,
