@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FeatureItem(
-    featureIcon: ImageVector,
+    featureIcon: ImageVector?,
     featureName: String
 ) {
 
@@ -38,20 +38,22 @@ fun FeatureItem(
         ) {
 
             //  icon
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(50.dp)
-                    .background(MaterialTheme.colorScheme.tertiary),
-                contentAlignment = Alignment.Center
-            ) {
+            featureIcon?.let {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(50.dp)
+                        .background(MaterialTheme.colorScheme.tertiary),
+                    contentAlignment = Alignment.Center
+                ) {
 
-                Icon(
-                    imageVector = featureIcon,
-                    contentDescription = "feature icon",
-                    tint = MaterialTheme.colorScheme.primary
-                )
+                    Icon(
+                        imageVector = it,
+                        contentDescription = "feature icon",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
 
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
