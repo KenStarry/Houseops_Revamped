@@ -51,6 +51,7 @@ fun HouseViewScreen(
 
             //  main content
             HouseViewDetails(
+                context = context,
                 house = it
             )
         }

@@ -10,12 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomePillBtns(
     icon: ImageVector,
     title: String,
+    paddingHorizontal: Dp = 16.dp,
+    paddingVertical: Dp = 8.dp,
     onClick: () -> Unit
 ) {
 
@@ -37,8 +40,8 @@ fun HomePillBtns(
                 .background(MaterialTheme.colorScheme.tertiary)
                 .clickable { onClick() }
                 .padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp
+                    horizontal = paddingHorizontal,
+                    vertical = paddingVertical
                 ),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically

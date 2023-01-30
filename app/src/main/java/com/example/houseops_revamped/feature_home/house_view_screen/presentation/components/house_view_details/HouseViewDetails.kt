@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details
 
+import android.content.Context
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -9,11 +10,15 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 
 @Composable
 fun HouseViewDetails(
+    context: Context,
     house: HouseModel
 ) {
 
     //  action icons
-    DetailActionIcons()
+    DetailActionIcons(
+        price = house.housePrice,
+        priceCategory = house.housePriceCategory
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 
@@ -24,6 +29,9 @@ fun HouseViewDetails(
     )
 
     //  caretaker information & call / message icons
-
+    DetailsCaretaker(
+        context = context,
+        apartment = house.houseApartmentName
+    )
 
 }
