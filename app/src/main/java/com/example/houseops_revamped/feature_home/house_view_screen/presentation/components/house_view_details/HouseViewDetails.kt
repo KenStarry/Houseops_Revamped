@@ -14,19 +14,23 @@ fun HouseViewDetails(
     house: HouseModel
 ) {
 
+    val spacing = 24.dp
+
     //  action icons
     DetailActionIcons(
         price = house.housePrice,
         priceCategory = house.housePriceCategory
     )
 
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = Modifier.height(spacing))
 
     //  title
     DetailsTitle(
         apartmentName = house.houseApartmentName,
         houseCategory = house.houseCategory
     )
+
+    Spacer(modifier = Modifier.height(spacing))
 
     //  caretaker information & call / message icons
     DetailsCaretaker(
