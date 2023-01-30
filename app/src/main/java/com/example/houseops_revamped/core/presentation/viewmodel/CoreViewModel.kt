@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
@@ -25,6 +26,9 @@ class CoreViewModel @Inject constructor(
         private set
 
     var user by mutableStateOf<UsersCollection?>(null)
+        private set
+
+    var caretaker by mutableStateOf<Caretaker?>(null)
         private set
 
     var isThumbsUpClicked by mutableStateOf(false)
@@ -63,6 +67,22 @@ class CoreViewModel @Inject constructor(
         }
 
         return user
+    }
+
+    fun getCaretakerDetails(
+        apartment: String
+    ): Caretaker? {
+
+        viewModelScope.launch {
+            coreUseCases.caretakerDetails(
+                apartmentName = apartment,
+                caretaker = {
+                    caretaker = it
+                }
+            )
+        }
+
+        return caretaker
     }
 
     fun onEvent(event: CoreEvents) {
