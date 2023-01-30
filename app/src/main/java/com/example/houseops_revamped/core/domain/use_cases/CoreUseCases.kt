@@ -4,6 +4,7 @@ data class CoreUseCases(
     val isUserLoggedIn: IsUserLoggedIn,
     val currentUser: CurrentUser,
     val userDetails: UserDetails,
+    val caretakerDetails: CaretakerDetails,
     val updateField: UpdateField,
     val updateArrayField: UpdateUsersArrayField
 ) {
