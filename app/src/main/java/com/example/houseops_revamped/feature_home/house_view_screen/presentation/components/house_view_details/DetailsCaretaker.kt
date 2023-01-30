@@ -78,7 +78,7 @@ fun DetailsCaretaker(
                     //  name
                     Text(
                         text = it.caretakerName ?: "",
-                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
@@ -86,7 +86,7 @@ fun DetailsCaretaker(
                     //  role
                     Text(
                         text = "caretaker",
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                         fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     )

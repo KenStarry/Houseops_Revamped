@@ -44,7 +44,7 @@ fun DetailActionIcons(
 
             Text(
                 text = "Ksh. $price",
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )

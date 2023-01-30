@@ -38,4 +38,9 @@ fun HouseViewDetails(
         apartment = house.houseApartmentName
     )
 
+    //  features
+    DetailsFeatures(
+        features = house.houseFeatures
+    )
+
 }

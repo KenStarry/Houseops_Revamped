@@ -46,7 +46,7 @@ fun DetailsTitle(
 
             Text(
                 text = "$apartmentName Apartments",
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )
