@@ -45,4 +45,35 @@ fun HouseViewDetails(
         features = house.houseFeatures
     )
 
+    Spacer(modifier = Modifier.height(spacing))
+
+    //  description
+    DetailsDescription(
+        description = house.houseDescription
+    )
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
