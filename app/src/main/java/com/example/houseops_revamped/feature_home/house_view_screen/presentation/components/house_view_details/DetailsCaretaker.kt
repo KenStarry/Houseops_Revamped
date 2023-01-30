@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Phone
+import androidx.compose.material.icons.outlined.PhoneAndroid
+import androidx.compose.material.icons.outlined.Phonelink
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +19,8 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.ui.theme.LimeGreen
+import com.example.houseops_revamped.ui.theme.LimeGreenDull
 
 @Composable
 fun DetailsCaretaker(
@@ -90,8 +93,48 @@ fun DetailsCaretaker(
 
                 }
 
+                //  phone call
+                Row(
+                    modifier = Modifier
+                        .weight(1f),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            contentColor = LimeGreen,
+                            containerColor = LimeGreenDull
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Phone,
+                            contentDescription = "Phone call"
+                        )
+                    }
+
+                }
             }
         }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
