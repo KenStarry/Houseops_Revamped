@@ -38,6 +38,8 @@ fun HouseViewDetails(
         apartment = house.houseApartmentName
     )
 
+    Spacer(modifier = Modifier.height(spacing))
+
     //  features
     DetailsFeatures(
         features = house.houseFeatures

@@ -25,17 +25,18 @@ fun DetailsFeatures(
                 items = features
             ) {
 
-                FeatureItem(
-                    featureIcon = when (it) {
-                        featuresList[0].featureName -> featuresList[0].featureIcon
-                        featuresList[1].featureName -> featuresList[1].featureIcon
-                        featuresList[2].featureName -> featuresList[2].featureIcon
-                        featuresList[3].featureName -> featuresList[3].featureIcon
-                        featuresList[4].featureName -> featuresList[4].featureIcon
-                        featuresList[5].featureName -> featuresList[5].featureIcon
-                        else -> null
-                    },
+                val icon = when (it) {
+                    featuresList[0].featureName -> featuresList[0].featureIcon
+                    featuresList[1].featureName -> featuresList[1].featureIcon
+                    featuresList[2].featureName -> featuresList[2].featureIcon
+                    featuresList[3].featureName -> featuresList[3].featureIcon
+                    featuresList[4].featureName -> featuresList[4].featureIcon
+                    featuresList[5].featureName -> featuresList[5].featureIcon
+                    else -> null
+                }
 
+                FeatureItem(
+                    featureIcon = icon,
                     featureName = it
                 )
             }
