@@ -21,7 +21,10 @@ fun FeatureItem(
 
     Card(
         modifier = Modifier
-            .wrapContentSize(),
+            .size(
+                width = 100.dp,
+                height = 120.dp
+            ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onSecondary,
             contentColor = MaterialTheme.colorScheme.onSecondary
@@ -31,7 +34,7 @@ fun FeatureItem(
 
         Column(
             modifier = Modifier
-                .wrapContentSize()
+                .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -56,7 +59,7 @@ fun FeatureItem(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             //  text
             Text(
