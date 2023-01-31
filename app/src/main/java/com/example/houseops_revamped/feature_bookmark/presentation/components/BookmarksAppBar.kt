@@ -16,7 +16,7 @@ fun BookmarksAppBar(
         title = {
             Text(
                 text = "Bookmarks",
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.ExtraBold
             )
         },
