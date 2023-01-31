@@ -9,11 +9,11 @@ interface BookmarksRepository {
     //  get all bookmarks
     suspend fun getBookmarks(
         userEmail: String,
-        bookmarks: (List<BookmarkHouse>) -> Unit
+        bookmarks: (List<String>) -> Unit
     )
 
     suspend fun getBookmarkedHouses(
-        bookmarkModelList: List<BookmarkHouse>,
+        bookmarkModelList: List<String>,
         houses: (MutableList<HouseModel>) -> Unit
     )
 }

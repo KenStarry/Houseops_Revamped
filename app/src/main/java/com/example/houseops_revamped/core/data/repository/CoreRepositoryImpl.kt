@@ -95,7 +95,7 @@ class CoreRepositoryImpl @Inject constructor(
         collectionName: String,
         documentName: String,
         fieldName: String,
-        fieldValue: BookmarkHouse,
+        fieldValue: String,
         isAddItem: Boolean
     ) {
         try {

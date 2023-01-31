@@ -18,8 +18,8 @@ class BookmarksViewModel @Inject constructor(
     private val useCase: BookmarksUseCase
 ) : ViewModel() {
 
-    val _bookmarks = mutableStateOf<List<BookmarkHouse>>(emptyList())
-    val bookmarks: State<List<BookmarkHouse>> = _bookmarks
+    val _bookmarks = mutableStateOf<List<String>>(emptyList())
+    val bookmarks: State<List<String>> = _bookmarks
 
     val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
     val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
@@ -40,7 +40,7 @@ class BookmarksViewModel @Inject constructor(
     }
 
     fun getBookmarkedHouses(
-        bookmarkModelList: List<BookmarkHouse>,
+        bookmarkModelList: List<String>,
     ) {
         viewModelScope.launch {
             useCase.getBookmarkedHouses(

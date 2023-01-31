@@ -10,7 +10,7 @@ class GetBookmarks(
 
     suspend operator fun invoke(
         email: String,
-        bookmarks: (List<BookmarkHouse>) -> Unit
+        bookmarks: (List<String>) -> Unit
     ) = repo.getBookmarks(
         userEmail = email,
         bookmarks = { bookmarks(it) }

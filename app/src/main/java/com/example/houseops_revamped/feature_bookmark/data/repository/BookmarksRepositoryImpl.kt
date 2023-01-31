@@ -2,13 +2,11 @@ package com.example.houseops_revamped.feature_bookmark.data.repository
 
 import android.util.Log
 import com.example.houseops_revamped.core.domain.model.BookmarkHouse
-import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_bookmark.domain.repository.BookmarksRepository
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import javax.inject.Inject
 
 class BookmarksRepositoryImpl @Inject constructor(
@@ -17,7 +15,7 @@ class BookmarksRepositoryImpl @Inject constructor(
 
     override suspend fun getBookmarks(
         userEmail: String,
-        bookmarks: (List<BookmarkHouse>) -> Unit
+        bookmarks: (List<String>) -> Unit
     ) {
 
         db.collection(Constants.USERS_COLLECTION)
@@ -28,7 +26,7 @@ class BookmarksRepositoryImpl @Inject constructor(
                 document?.let {
                     val user = it.toObject(UsersCollection::class.java)
 
-                    bookmarks(user?.userBookmarks ?: emptyList())
+                    bookmarks(user?.userBookmarkIds ?: emptyList())
                 }
 
             }
@@ -38,7 +36,7 @@ class BookmarksRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookmarkedHouses(
-        bookmarkModelList: List<BookmarkHouse>,
+        bookmarkModelList: List<String>,
         houses: (MutableList<HouseModel>) -> Unit
     ) {
 
@@ -47,8 +45,7 @@ class BookmarksRepositoryImpl @Inject constructor(
         if (bookmarkModelList.isNotEmpty()) {
 
             db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
-//                .whereIn("houseApartmentName", bookmarkModelList.map { it.apartmentName })
-                .whereIn("houseCategory", bookmarkModelList.map { it.houseCategory })
+                .whereIn("houseId", bookmarkModelList)
                 .addSnapshotListener { querySnapshot, error ->
 
                     if (error != null)

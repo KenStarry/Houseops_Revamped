@@ -35,7 +35,7 @@ interface CoreRepository {
         collectionName: String,
         documentName: String,
         fieldName: String,
-        fieldValue: BookmarkHouse,
+        fieldValue: String,
         isAddItem: Boolean
     )
 

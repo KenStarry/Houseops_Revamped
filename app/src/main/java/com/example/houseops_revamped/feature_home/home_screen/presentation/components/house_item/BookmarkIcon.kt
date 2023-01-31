@@ -1,20 +1,16 @@
 package com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item
 
-import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.CoreEvents
-import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
@@ -32,11 +28,8 @@ fun BookmarkIcon(
         mutableStateOf(false)
     }
 
-    if (user?.userBookmarks?.contains(
-            BookmarkHouse(
-                apartmentName = house.houseApartmentName,
-                houseCategory = house.houseCategory
-            )
+    if (user?.userBookmarkIds?.contains(
+            house.houseId
         ) == true
     ) {
         isBookmarked = true
@@ -51,10 +44,7 @@ fun BookmarkIcon(
                     collectionName = Constants.USERS_COLLECTION,
                     documentName = user?.userEmail ?: "none",
                     fieldName = "userBookmarks",
-                    fieldValue = BookmarkHouse(
-                        apartmentName = house.houseApartmentName,
-                        houseCategory = house.houseCategory
-                    ),
+                    fieldValue = house.houseId,
                     isAddItem = isBookmarked
                 )
             )

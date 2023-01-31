@@ -11,7 +11,7 @@ class GetBookmarkedHouses(
 ) {
 
     suspend operator fun invoke(
-        bookmarkModelList: List<BookmarkHouse>,
+        bookmarkModelList: List<String>,
         houses: (MutableList<HouseModel>) -> Unit
     ) = repo.getBookmarkedHouses(
         bookmarkModelList = bookmarkModelList,

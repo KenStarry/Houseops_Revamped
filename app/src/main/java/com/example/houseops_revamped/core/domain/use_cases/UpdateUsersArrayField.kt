@@ -12,7 +12,7 @@ class UpdateUsersArrayField(
         collectionName: String,
         documentName: String,
         fieldName: String,
-        fieldValue: BookmarkHouse,
+        fieldValue: String,
         isAddItem: Boolean
     ) = repository.updateUserArrayField(
         collectionName,
