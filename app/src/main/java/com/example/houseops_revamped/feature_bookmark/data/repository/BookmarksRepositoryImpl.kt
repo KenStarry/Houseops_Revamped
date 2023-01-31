@@ -1,7 +1,6 @@
 package com.example.houseops_revamped.feature_bookmark.data.repository
 
 import android.util.Log
-import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_bookmark.domain.repository.BookmarksRepository
@@ -26,7 +25,7 @@ class BookmarksRepositoryImpl @Inject constructor(
                 document?.let {
                     val user = it.toObject(UsersCollection::class.java)
 
-                    bookmarks(user?.userBookmarkIds ?: emptyList())
+                    bookmarks(user?.userBookmarks ?: emptyList())
                 }
 
             }
@@ -45,7 +44,7 @@ class BookmarksRepositoryImpl @Inject constructor(
         if (bookmarkModelList.isNotEmpty()) {
 
             db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
-                .whereIn("houseId", bookmarkModelList)
+                .whereIn("houseId", bookmarkModelList.map { it })
                 .addSnapshotListener { querySnapshot, error ->
 
                     if (error != null)

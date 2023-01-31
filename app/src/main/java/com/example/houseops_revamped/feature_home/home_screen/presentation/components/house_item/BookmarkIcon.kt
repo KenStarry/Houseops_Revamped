@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item
 
+import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
@@ -8,8 +9,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
@@ -28,10 +29,7 @@ fun BookmarkIcon(
         mutableStateOf(false)
     }
 
-    if (user?.userBookmarkIds?.contains(
-            house.houseId
-        ) == true
-    ) {
+    if (user?.userBookmarks?.contains(house.houseId) == true) {
         isBookmarked = true
     }
 
