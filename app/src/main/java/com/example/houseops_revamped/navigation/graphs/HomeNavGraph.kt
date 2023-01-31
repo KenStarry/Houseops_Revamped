@@ -45,7 +45,7 @@ fun NavGraphBuilder.homeNavGraph(
 
         //  Wishlist screen
         composable(route = BottomNavScreens.Bookmarks.route) {
-            BookmarkScreen()
+            BookmarkScreen(navHostController = navHostController)
         }
 
         //  Settings screen
