@@ -19,7 +19,7 @@ class BookmarksViewModel @Inject constructor(
     val bookmarks: State<List<LikedHouse>> = _bookmarks
 
 
-    private fun getBookmarks(
+    fun getBookmarks(
         userEmail: String
     ) {
 
