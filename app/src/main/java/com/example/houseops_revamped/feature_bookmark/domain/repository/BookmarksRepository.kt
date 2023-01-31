@@ -11,4 +11,10 @@ interface BookmarksRepository {
         userEmail: String,
         bookmarks: (List<LikedHouse>) -> Unit
     )
+
+    suspend fun getBookmarkedHouses(
+        apartmentName: String,
+        houseCategory: String,
+        houses: (MutableList<HouseModel>) -> Unit
+    )
 }
