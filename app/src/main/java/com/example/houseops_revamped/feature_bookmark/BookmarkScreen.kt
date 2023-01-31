@@ -28,7 +28,11 @@ fun BookmarkScreen(
     val bookmarksVM: BookmarksViewModel = hiltViewModel()
 
     val currentUser = coreVM.currentUser()
+
     bookmarksVM.getBookmarks(currentUser?.email ?: "no email")
+    bookmarksVM.getBookmarkedHouses(bookmarksVM.bookmarks.value)
+
+    Toast.makeText(LocalContext.current, "Number of houses = ${bookmarksVM.bookmarkedHouses.value.size}", Toast.LENGTH_SHORT).show()
 
     Scaffold(
         topBar = {

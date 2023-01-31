@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_bookmark.data.repository
 
+import android.util.Log
 import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -37,28 +38,34 @@ class BookmarksRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookmarkedHouses(
-        apartmentName: String,
-        houseCategory: String,
+        bookmarkModelList: List<LikedHouse>,
         houses: (MutableList<HouseModel>) -> Unit
     ) {
-        db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
-            .whereEqualTo("houseApartmentName", apartmentName)
-            .whereEqualTo("houseCategory", houseCategory)
-            .addSnapshotListener { querySnapshot, error ->
 
-                if (error != null)
-                    return@addSnapshotListener
+        val housesList = ArrayList<HouseModel>()
 
-                val housesList = ArrayList<HouseModel>()
+        bookmarkModelList.forEach {
 
-                querySnapshot?.forEach { snapshot ->
-                    snapshot.toObject(HouseModel::class.java).let {house ->
-                        housesList.add(house)
+            db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
+                .whereEqualTo("houseApartmentName", it.apartmentName)
+                .whereEqualTo("houseCategory", it.houseCategory)
+                .addSnapshotListener { querySnapshot, error ->
+
+                    if (error != null)
+                        return@addSnapshotListener
+
+                    querySnapshot?.forEach { snapshot ->
+                        snapshot.toObject(HouseModel::class.java).let { house ->
+                            housesList.add(house)
+                        }
                     }
-                }
 
-                houses(housesList)
-            }
+                    Log.d("bookmarks", "Added ${housesList.size} houses")
+
+                    Log.d("bookmarks", "HouseList size ${housesList.size} houses")
+                    houses(housesList)
+                }
+        }
     }
 }
 

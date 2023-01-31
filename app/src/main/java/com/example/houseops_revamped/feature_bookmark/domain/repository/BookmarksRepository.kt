@@ -13,8 +13,7 @@ interface BookmarksRepository {
     )
 
     suspend fun getBookmarkedHouses(
-        apartmentName: String,
-        houseCategory: String,
+        bookmarkModelList: List<LikedHouse>,
         houses: (MutableList<HouseModel>) -> Unit
     )
 }

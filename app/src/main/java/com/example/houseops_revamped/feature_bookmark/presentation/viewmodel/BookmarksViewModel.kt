@@ -19,8 +19,8 @@ class BookmarksViewModel @Inject constructor(
     val _bookmarks = mutableStateOf<List<LikedHouse>>(emptyList())
     val bookmarks: State<List<LikedHouse>> = _bookmarks
 
-    val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
-    val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
+    val _bookmarkedHouses = mutableStateOf<ArrayList<HouseModel>>(ArrayList())
+    val bookmarkedHouses: State<ArrayList<HouseModel>> = _bookmarkedHouses
 
     fun getBookmarks(
         userEmail: String
@@ -38,15 +38,13 @@ class BookmarksViewModel @Inject constructor(
     }
 
     fun getBookmarkedHouses(
-        apartmentName: String,
-        houseCategory: String
+        bookmarkModelList: List<LikedHouse>,
     ) {
         viewModelScope.launch {
             useCase.getBookmarkedHouses(
-                apartmentName = apartmentName,
-                houseCategory = houseCategory,
+                bookmarkModelList = bookmarkModelList,
                 houses = {
-                    _bookmarkedHouses.value = it
+                    _bookmarkedHouses.value.addAll(it)
                 }
             )
         }
