@@ -34,7 +34,7 @@ fun FeaturedSection(
     navHostController: NavHostController,
     context: Context,
     title: String,
-    houses: ArrayList<HouseModel>,
+    houses: List<HouseModel>,
     user: UsersCollection?
 ) {
 

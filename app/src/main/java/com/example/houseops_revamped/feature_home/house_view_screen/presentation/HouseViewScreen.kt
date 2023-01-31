@@ -1,6 +1,5 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,7 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.HouseViewPager
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 
@@ -44,7 +43,8 @@ fun HouseViewScreen(
                 context = context,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp)
+                    .height(300.dp),
+                navHostController = navHostController
             )
             
             Spacer(modifier = Modifier.height(24.dp))

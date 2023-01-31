@@ -37,7 +37,7 @@ class Direction(
     }
 
     //  navigate back
-    val navigateBack: () -> Unit = {
+    val navigateUp: () -> Unit = {
         navHostController.navigateUp()
     }
 }

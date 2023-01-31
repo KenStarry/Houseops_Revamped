@@ -53,7 +53,7 @@ fun AdminScreen(
     Scaffold(
         topBar = {
             BackPressTopAppBar(title = "Admin") {
-                Direction(navHostController).navigateBack()
+                Direction(navHostController).navigateUp()
             }
         }
     ) { contentPadding ->

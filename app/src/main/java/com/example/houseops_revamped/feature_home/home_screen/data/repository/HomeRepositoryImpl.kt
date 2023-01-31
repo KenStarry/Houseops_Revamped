@@ -10,7 +10,7 @@ class HomeRepositoryImpl(
     private val db: FirebaseFirestore
 ) : HomeRepository {
 
-    override suspend fun getHouses(houses: (ArrayList<HouseModel>) -> Unit) {
+    override suspend fun getHouses(houses: (MutableList<HouseModel>) -> Unit) {
 
         db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
             .addSnapshotListener { querySnapshot, error ->

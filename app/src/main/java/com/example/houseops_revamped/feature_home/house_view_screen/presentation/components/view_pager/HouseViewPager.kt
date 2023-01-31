@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components
+package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
@@ -27,7 +28,8 @@ import com.google.accompanist.pager.rememberPagerState
 fun HouseViewPager(
     modifier: Modifier = Modifier,
     house: HouseModel,
-    context: Context
+    context: Context,
+    navHostController: NavHostController
 ) {
 
     Box(
@@ -53,7 +55,8 @@ fun HouseViewPager(
         }
 
         BackAppBar(
-            price = house.housePrice
+            price = house.housePrice,
+            navHostController = navHostController
         )
 
         Row(
