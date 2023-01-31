@@ -14,4 +14,5 @@ class GetBookmarks(
         userEmail = email,
         bookmarks = { bookmarks(it) }
     )
+
 }
