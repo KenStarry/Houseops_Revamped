@@ -28,9 +28,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             useCases.getHouses(
                 houses = {
-                    it.forEach {house ->
-                        houses.add(house)
-                    }
+                    houses = it
                 }
             )
         }
