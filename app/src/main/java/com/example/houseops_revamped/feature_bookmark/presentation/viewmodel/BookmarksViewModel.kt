@@ -1,9 +1,11 @@
 package com.example.houseops_revamped.feature_bookmark.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.feature_bookmark.domain.use_case.BookmarksUseCase
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
@@ -16,11 +18,11 @@ class BookmarksViewModel @Inject constructor(
     private val useCase: BookmarksUseCase
 ) : ViewModel() {
 
-    val _bookmarks = mutableStateOf<List<LikedHouse>>(emptyList())
-    val bookmarks: State<List<LikedHouse>> = _bookmarks
+    val _bookmarks = mutableStateOf<List<BookmarkHouse>>(emptyList())
+    val bookmarks: State<List<BookmarkHouse>> = _bookmarks
 
-    val _bookmarkedHouses = mutableStateOf<ArrayList<HouseModel>>(ArrayList())
-    val bookmarkedHouses: State<ArrayList<HouseModel>> = _bookmarkedHouses
+    val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
+    val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
 
     fun getBookmarks(
         userEmail: String
@@ -38,13 +40,13 @@ class BookmarksViewModel @Inject constructor(
     }
 
     fun getBookmarkedHouses(
-        bookmarkModelList: List<LikedHouse>,
+        bookmarkModelList: List<BookmarkHouse>,
     ) {
         viewModelScope.launch {
             useCase.getBookmarkedHouses(
                 bookmarkModelList = bookmarkModelList,
                 houses = {
-                    _bookmarkedHouses.value.addAll(it)
+                    _bookmarkedHouses.value = it
                 }
             )
         }

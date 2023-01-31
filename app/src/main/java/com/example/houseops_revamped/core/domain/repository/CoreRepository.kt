@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.domain.repository
 
+import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -34,7 +35,7 @@ interface CoreRepository {
         collectionName: String,
         documentName: String,
         fieldName: String,
-        fieldValue: LikedHouse,
+        fieldValue: BookmarkHouse,
         isAddItem: Boolean
     )
 

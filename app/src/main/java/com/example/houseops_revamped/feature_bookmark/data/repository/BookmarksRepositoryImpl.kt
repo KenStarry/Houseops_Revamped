@@ -17,7 +17,7 @@ class BookmarksRepositoryImpl @Inject constructor(
 
     override suspend fun getBookmarks(
         userEmail: String,
-        bookmarks: (List<LikedHouse>) -> Unit
+        bookmarks: (List<BookmarkHouse>) -> Unit
     ) {
 
         db.collection(Constants.USERS_COLLECTION)
@@ -38,17 +38,17 @@ class BookmarksRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookmarkedHouses(
-        bookmarkModelList: List<LikedHouse>,
+        bookmarkModelList: List<BookmarkHouse>,
         houses: (MutableList<HouseModel>) -> Unit
     ) {
 
         val housesList = ArrayList<HouseModel>()
 
-        bookmarkModelList.forEach {
+        if (bookmarkModelList.isNotEmpty()) {
 
             db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
-                .whereEqualTo("houseApartmentName", it.apartmentName)
-                .whereEqualTo("houseCategory", it.houseCategory)
+//                .whereIn("houseApartmentName", bookmarkModelList.map { it.apartmentName })
+                .whereIn("houseCategory", bookmarkModelList.map { it.houseCategory })
                 .addSnapshotListener { querySnapshot, error ->
 
                     if (error != null)
@@ -60,9 +60,8 @@ class BookmarksRepositoryImpl @Inject constructor(
                         }
                     }
 
-                    Log.d("bookmarks", "Added ${housesList.size} houses")
+                    Log.d("bookmarks", "${bookmarkModelList.size}")
 
-                    Log.d("bookmarks", "HouseList size ${housesList.size} houses")
                     houses(housesList)
                 }
         }

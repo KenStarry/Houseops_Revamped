@@ -15,7 +15,7 @@ sealed class CoreEvents {
         val collectionName: String,
         val documentName: String,
         val fieldName: String,
-        val fieldValue: LikedHouse,
+        val fieldValue: BookmarkHouse,
         val isAddItem: Boolean
     ) : CoreEvents()
 }

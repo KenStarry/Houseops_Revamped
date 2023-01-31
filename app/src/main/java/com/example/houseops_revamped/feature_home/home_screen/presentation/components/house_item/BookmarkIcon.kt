@@ -33,7 +33,7 @@ fun BookmarkIcon(
     }
 
     if (user?.userBookmarks?.contains(
-            LikedHouse(
+            BookmarkHouse(
                 apartmentName = house.houseApartmentName,
                 houseCategory = house.houseCategory
             )
@@ -51,7 +51,7 @@ fun BookmarkIcon(
                     collectionName = Constants.USERS_COLLECTION,
                     documentName = user?.userEmail ?: "none",
                     fieldName = "userBookmarks",
-                    fieldValue = LikedHouse(
+                    fieldValue = BookmarkHouse(
                         apartmentName = house.houseApartmentName,
                         houseCategory = house.houseCategory
                     ),

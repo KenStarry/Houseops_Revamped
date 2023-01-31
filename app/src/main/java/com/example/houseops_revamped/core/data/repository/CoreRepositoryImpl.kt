@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.core.data.repository
 
 import android.util.Log
+import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -94,7 +95,7 @@ class CoreRepositoryImpl @Inject constructor(
         collectionName: String,
         documentName: String,
         fieldName: String,
-        fieldValue: LikedHouse,
+        fieldValue: BookmarkHouse,
         isAddItem: Boolean
     ) {
         try {

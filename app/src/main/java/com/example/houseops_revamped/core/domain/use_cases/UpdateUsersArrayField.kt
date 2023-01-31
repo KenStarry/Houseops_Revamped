@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.domain.use_cases
 
+import com.example.houseops_revamped.core.domain.model.BookmarkHouse
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 
@@ -11,7 +12,7 @@ class UpdateUsersArrayField(
         collectionName: String,
         documentName: String,
         fieldName: String,
-        fieldValue: LikedHouse,
+        fieldValue: BookmarkHouse,
         isAddItem: Boolean
     ) = repository.updateUserArrayField(
         collectionName,
