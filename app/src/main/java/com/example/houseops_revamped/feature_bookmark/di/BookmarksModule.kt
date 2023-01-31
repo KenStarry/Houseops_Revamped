@@ -3,6 +3,7 @@ package com.example.houseops_revamped.feature_bookmark.di
 import com.example.houseops_revamped.feature_bookmark.data.repository.BookmarksRepositoryImpl
 import com.example.houseops_revamped.feature_bookmark.domain.repository.BookmarksRepository
 import com.example.houseops_revamped.feature_bookmark.domain.use_case.BookmarksUseCase
+import com.example.houseops_revamped.feature_bookmark.domain.use_case.GetBookmarkedHouses
 import com.example.houseops_revamped.feature_bookmark.domain.use_case.GetBookmarks
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -26,6 +27,7 @@ object BookmarksModule {
     fun provideBookmarksUseCase(
         repo: BookmarksRepository
     ) = BookmarksUseCase(
-        getBookmarks = GetBookmarks(repo)
+        getBookmarks = GetBookmarks(repo),
+        getBookmarkedHouses = GetBookmarkedHouses(repo)
     )
 }

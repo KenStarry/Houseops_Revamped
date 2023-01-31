@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.feature_bookmark.domain.use_case.BookmarksUseCase
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +19,8 @@ class BookmarksViewModel @Inject constructor(
     val _bookmarks = mutableStateOf<List<LikedHouse>>(emptyList())
     val bookmarks: State<List<LikedHouse>> = _bookmarks
 
+    val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
+    val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
 
     fun getBookmarks(
         userEmail: String
@@ -32,6 +35,21 @@ class BookmarksViewModel @Inject constructor(
             )
         }
 
+    }
+
+    fun getBookmarkedHouses(
+        apartmentName: String,
+        houseCategory: String
+    ) {
+        viewModelScope.launch {
+            useCase.getBookmarkedHouses(
+                apartmentName = apartmentName,
+                houseCategory = houseCategory,
+                houses = {
+                    _bookmarkedHouses.value = it
+                }
+            )
+        }
     }
 }
 
