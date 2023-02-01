@@ -4,10 +4,7 @@ import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,14 +13,17 @@ import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun BookmarkIcon(
     house: HouseModel,
-    user: UsersCollection?
+    user: UsersCollection?,
+    snackbarHostState: SnackbarHostState
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val scope = rememberCoroutineScope()
 
     var isBookmarked by remember {
         mutableStateOf(false)
@@ -36,6 +36,14 @@ fun BookmarkIcon(
     IconButton(
         onClick = {
             isBookmarked = !isBookmarked
+
+            if (isBookmarked) {
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        "Hello there"
+                    )
+                }
+            }
 
             coreVM.onEvent(
                 CoreEvents.UpdateArrayField(

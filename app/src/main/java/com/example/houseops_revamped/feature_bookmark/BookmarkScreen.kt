@@ -4,10 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,6 +26,7 @@ fun BookmarkScreen(
     val coreVM: CoreViewModel = hiltViewModel()
     val bookmarksVM: BookmarksViewModel = hiltViewModel()
     val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -35,6 +35,7 @@ fun BookmarkScreen(
     bookmarksVM.getBookmarkedHouses(bookmarksVM.bookmarks.value)
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             BookmarksAppBar(
                 onBackPressed = {
@@ -56,7 +57,8 @@ fun BookmarkScreen(
                 bookmarkedHouses = bookmarksVM.bookmarkedHouses.value,
                 currentUser = userDetails,
                 context = context,
-                bookmarksVM = bookmarksVM
+                bookmarksVM = bookmarksVM,
+                snackbarHostState = snackbarHostState
             )
         }
 

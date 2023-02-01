@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +37,8 @@ fun BookmarkCategories(
     context: Context,
     houseCategories: List<HouseCategoryModel>,
     bookmarkedHouses: List<HouseModel>,
-    currentUser: UsersCollection?
+    currentUser: UsersCollection?,
+    snackbarHostState: SnackbarHostState
 ) {
 
     val pagerState = rememberPagerState()
@@ -76,7 +78,8 @@ fun BookmarkCategories(
                 navHostController = navHostController,
                 houseCategory = bookmarksVM.listOfCategories.value[page],
                 bookmarkedHouses = bookmarkedHouses,
-                currentUser = currentUser
+                currentUser = currentUser,
+                snackbarHostState = snackbarHostState
             )
         }
     }

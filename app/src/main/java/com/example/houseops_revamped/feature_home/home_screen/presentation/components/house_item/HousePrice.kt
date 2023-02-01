@@ -8,10 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +27,8 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 fun HousePrice(
     modifier: Modifier = Modifier,
     houseModel: HouseModel,
-    user: UsersCollection?
+    user: UsersCollection?,
+    snackbarHostState: SnackbarHostState
 ) {
 
     val category = when (houseModel.housePriceCategory) {
@@ -86,7 +84,8 @@ fun HousePrice(
 
         BookmarkIcon(
             house = houseModel,
-            user = user
+            user = user,
+            snackbarHostState = snackbarHostState
         )
 
 

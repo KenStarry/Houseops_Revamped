@@ -29,7 +29,8 @@ fun HouseItemAlt(
     modifier: Modifier = Modifier,
     context: Context,
     house: HouseModel,
-    user: UsersCollection?
+    user: UsersCollection?,
+    snackbarHostState: SnackbarHostState
 ) {
 
     Row(
@@ -121,6 +122,7 @@ fun HouseItemAlt(
                     .weight(1f),
                 houseModel = house,
                 user = user,
+                snackbarHostState = snackbarHostState
             )
         }
 

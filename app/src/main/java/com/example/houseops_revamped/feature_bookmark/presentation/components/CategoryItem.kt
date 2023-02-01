@@ -9,10 +9,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +29,8 @@ fun CategoryItem(
     navHostController: NavHostController,
     houseCategory: HouseCategoryModel,
     bookmarkedHouses: List<HouseModel>,
-    currentUser: UsersCollection?
+    currentUser: UsersCollection?,
+    snackbarHostState: SnackbarHostState
 ) {
 
     val direction = Direction(navHostController)
@@ -109,7 +107,8 @@ fun CategoryItem(
                                         house.houseApartmentName, house.houseCategory
                                     )
                                 }
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            snackbarHostState = snackbarHostState
                         )
                     }
                 }
@@ -117,7 +116,9 @@ fun CategoryItem(
             state = rememberLazyListState(),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(500.dp)
+                .height(500.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         )
     }
 }

@@ -11,9 +11,11 @@ import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridS
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.sharp.LocationOn
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,11 +48,18 @@ fun HomeScreen(
     val coreVM: CoreViewModel = hiltViewModel()
     val homeVM: HomeViewModel = hiltViewModel()
 
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val context = LocalContext.current
 
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+            }
+        },
         topBar = {
             userDetails?.userImageUri?.let {
                 HomeAppBar(
@@ -119,7 +128,8 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .wrapContentSize(),
                     user = userDetails,
-                    navHostController = navHostController
+                    navHostController = navHostController,
+                    snackbarHostState = snackbarHostState
                 )
 
                 ApartmentsSection(
