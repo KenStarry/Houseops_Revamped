@@ -1,5 +1,12 @@
 package com.example.houseops_revamped.core.utils
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.Hotel
+import androidx.compose.material.icons.outlined.LocalCafe
+import androidx.compose.material.icons.outlined.LocalHotel
+import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
+
 object Constants {
 
     //  routes
@@ -31,5 +38,12 @@ object Constants {
         "year",
         "quarter",
         "6 months",
+    )
+
+    val houseCategories = listOf(
+        HouseCategoryModel("One Bedroom", Icons.Outlined.Apartment),
+        HouseCategoryModel("Two Bedroom", Icons.Outlined.Hotel),
+        HouseCategoryModel("Bedsitter", Icons.Outlined.LocalCafe),
+        HouseCategoryModel("Single", Icons.Outlined.LocalHotel),
     )
 }

@@ -15,6 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_bookmark.presentation.components.BookmarkCategories
 import com.example.houseops_revamped.feature_bookmark.presentation.components.BookmarksAppBar
 import com.example.houseops_revamped.feature_bookmark.presentation.viewmodel.BookmarksViewModel
 
@@ -26,13 +28,13 @@ fun BookmarkScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val bookmarksVM: BookmarksViewModel = hiltViewModel()
+    val context = LocalContext.current
 
     val currentUser = coreVM.currentUser()
+    val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
 
     bookmarksVM.getBookmarks(currentUser?.email ?: "no email")
     bookmarksVM.getBookmarkedHouses(bookmarksVM.bookmarks.value)
-
-    Toast.makeText(LocalContext.current, "Number of houses = ${bookmarksVM.bookmarkedHouses.value.size}", Toast.LENGTH_SHORT).show()
 
     Scaffold(
         topBar = {
@@ -50,8 +52,12 @@ fun BookmarkScreen(
                 .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(contentPadding)
         ) {
-
-
+            BookmarkCategories(
+                houseCategories = Constants.houseCategories,
+                bookmarkedHouses = bookmarksVM.bookmarkedHouses.value,
+                currentUser = userDetails,
+                context = context
+            )
         }
 
     }
