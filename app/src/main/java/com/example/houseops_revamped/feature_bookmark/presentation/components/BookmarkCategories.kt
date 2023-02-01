@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_bookmark.domain.model.BookmarkEvents
@@ -31,6 +32,7 @@ import com.google.accompanist.pager.rememberPagerState
 @Composable
 fun BookmarkCategories(
     bookmarksVM: BookmarksViewModel,
+    navHostController: NavHostController,
     context: Context,
     houseCategories: List<HouseCategoryModel>,
     bookmarkedHouses: List<HouseModel>,
@@ -71,6 +73,7 @@ fun BookmarkCategories(
             //  category item
             CategoryItem(
                 context = context,
+                navHostController = navHostController,
                 houseCategory = bookmarksVM.listOfCategories.value[page],
                 bookmarkedHouses = bookmarkedHouses,
                 currentUser = currentUser

@@ -19,18 +19,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
+import com.example.houseops_revamped.navigation.Direction
 
 @Composable
 fun CategoryItem(
     context: Context,
+    navHostController: NavHostController,
     houseCategory: HouseCategoryModel,
     bookmarkedHouses: List<HouseModel>,
     currentUser: UsersCollection?
 ) {
+
+    val direction = Direction(navHostController)
 
     Column(
         modifier = Modifier
@@ -100,7 +105,9 @@ fun CategoryItem(
                                 .background(MaterialTheme.colorScheme.onSecondary)
                                 .clickable {
                                     //  open house view Screen
-
+                                    direction.navigateToHouseView(
+                                        house.houseApartmentName, house.houseCategory
+                                    )
                                 }
                                 .padding(8.dp)
                         )

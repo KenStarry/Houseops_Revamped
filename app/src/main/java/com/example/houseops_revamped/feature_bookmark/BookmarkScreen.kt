@@ -52,6 +52,7 @@ fun BookmarkScreen(
         ) {
             BookmarkCategories(
                 houseCategories = Constants.houseCategories,
+                navHostController = navHostController,
                 bookmarkedHouses = bookmarksVM.bookmarkedHouses.value,
                 currentUser = userDetails,
                 context = context,
