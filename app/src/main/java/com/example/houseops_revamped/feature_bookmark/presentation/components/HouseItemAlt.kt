@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +41,7 @@ fun HouseItemAlt(
         //  Image
         Box(
             modifier = Modifier
-                .weight(1f)
+                .weight(1.5f)
                 .fillMaxHeight(),
             contentAlignment = Alignment.Center
         ) {
@@ -63,9 +61,34 @@ fun HouseItemAlt(
         //  content
         Column(
             modifier = Modifier
-                .weight(1f),
-            horizontalAlignment = Alignment.Start
+                .weight(2f),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Card(
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    ),
+                    shape = CardDefaults.shape
+                ) {
+                    Text(
+                        text = house.houseApartmentName,
+                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                        fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+                }
+            }
 
             Column(
                 modifier = Modifier
