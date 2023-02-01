@@ -21,6 +21,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.feature_bookmark.domain.model.BookmarkEvents
 import com.example.houseops_revamped.feature_bookmark.presentation.viewmodel.BookmarksViewModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
@@ -93,20 +94,10 @@ fun BookmarkCategories(
         //  no bookmarks svg
         AnimatedVisibility(visible = bookmarksVM.listOfCategories.value.isEmpty()) {
 
-            val composition by rememberLottieComposition(
-                LottieCompositionSpec
-                    .RawRes(R.raw.success_lottie)
-            )
-
-            val progress by animateLottieCompositionAsState(
-                composition = composition
-            )
-
-            LottieAnimation(
-                composition = composition,
-                progress = progress,
-                modifier = Modifier
-                    .fillMaxSize()
+            Lottie(
+                rawFile = R.raw.success_lottie,
+                modifier = Modifier.fillMaxSize(),
+                isPlaying = true
             )
         }
     }
