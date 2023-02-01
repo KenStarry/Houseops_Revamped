@@ -20,13 +20,13 @@ class BookmarksViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val _categoryVisibility = mutableStateOf(false)
+    private val _categoryVisibility = mutableStateOf(false)
     val categoryVisibility: State<Boolean> = _categoryVisibility
 
-    val _bookmarks = mutableStateOf<List<String>>(emptyList())
+    private val _bookmarks = mutableStateOf<List<String>>(emptyList())
     val bookmarks: State<List<String>> = _bookmarks
 
-    val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
+    private val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
     val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
 
     fun getBookmarks(
@@ -62,9 +62,7 @@ class BookmarksViewModel @Inject constructor(
         when (event) {
 
             is BookmarkEvents.ToggleCategoryVisibility -> {
-                viewModelScope.launch {
-                    _categoryVisibility.value = event.isVisible
-                }
+                _categoryVisibility.value = event.isVisible
             }
         }
     }
