@@ -21,10 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
-import com.example.houseops_revamped.core.domain.use_cases.CurrentUser
-import com.example.houseops_revamped.core.presentation.components.HouseItemAlt
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
-import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
 
 @Composable
@@ -92,16 +89,14 @@ fun CategoryItem(
                 ) { index, house ->
 
                     if (house.houseCategory == houseCategory.title) {
-                        HouseItem(
+                        HouseItemAlt(
                             context = context,
                             house = house,
                             user = currentUser,
                             modifier = Modifier
                                 .clip(RoundedCornerShape(16.dp))
-                                .size(
-                                    width = 190.dp,
-                                    height = 260.dp
-                                )
+                                .fillMaxWidth()
+                                .height(150.dp)
                                 .background(MaterialTheme.colorScheme.onSecondary)
                                 .clickable {
                                     //  open house view Screen
