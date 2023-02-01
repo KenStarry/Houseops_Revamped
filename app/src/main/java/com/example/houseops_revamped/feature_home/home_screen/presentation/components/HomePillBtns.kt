@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomePillBtns(
-    icon: ImageVector,
+    icon: ImageVector?,
     title: String,
     paddingHorizontal: Dp = 16.dp,
     paddingVertical: Dp = 8.dp,
@@ -47,11 +47,13 @@ fun HomePillBtns(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Icon(
-                imageVector = icon,
-                contentDescription = "pill icon",
-                tint = MaterialTheme.colorScheme.primary
-            )
+            icon?.let {
+                Icon(
+                    imageVector = it,
+                    contentDescription = "pill icon",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
 
             Spacer(modifier = Modifier.width(8.dp))
 
