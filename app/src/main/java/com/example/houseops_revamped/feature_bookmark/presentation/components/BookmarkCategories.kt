@@ -5,12 +5,14 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.platform.LocalContext
@@ -22,6 +24,7 @@ import com.example.houseops_revamped.feature_bookmark.presentation.viewmodel.Boo
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalPagerApi::class)
@@ -34,22 +37,45 @@ fun BookmarkCategories(
     currentUser: UsersCollection?
 ) {
 
-    bookmarksVM.onEvent(BookmarkEvents.FilterCategories(
-        houseCategories, bookmarkedHouses
-    ))
+    val pagerState = rememberPagerState()
 
-    HorizontalPager(
-        count = bookmarksVM.listOfCategories.size,
-        state = rememberPagerState(),
-        itemSpacing = 24.dp
-    ) {page ->
-        //  category item
-        CategoryItem(
-            context = context,
-            houseCategory = bookmarksVM.listOfCategories[page],
-            bookmarkedHouses = bookmarkedHouses,
-            currentUser = currentUser
+    bookmarksVM.onEvent(
+        BookmarkEvents.FilterCategories(
+            houseCategories, bookmarkedHouses
         )
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            activeColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
+            inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.1f),
+            indicatorHeight = 5.dp,
+            indicatorWidth = 5.dp,
+            indicatorShape = CircleShape,
+            spacing = 4.dp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+
+        HorizontalPager(
+            count = bookmarksVM.listOfCategories.size,
+            state = pagerState,
+            itemSpacing = 16.dp
+        ) { page ->
+            //  category item
+            CategoryItem(
+                context = context,
+                houseCategory = bookmarksVM.listOfCategories[page],
+                bookmarkedHouses = bookmarkedHouses,
+                currentUser = currentUser
+            )
+        }
     }
 }
 
