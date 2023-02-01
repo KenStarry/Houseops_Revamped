@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
 @Composable
 fun HouseItemAlt(
     house: HouseModel,
-    context: Context
+    context: Context,
+    user: UsersCollection?
 ) {
 
     Card(
