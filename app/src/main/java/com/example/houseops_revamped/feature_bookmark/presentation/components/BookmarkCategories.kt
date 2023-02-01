@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.feature_bookmark.domain.model.BookmarkEvents
 import com.example.houseops_revamped.feature_bookmark.presentation.viewmodel.BookmarksViewModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -33,70 +34,23 @@ fun BookmarkCategories(
     currentUser: UsersCollection?
 ) {
 
-    val pagerState = rememberPagerState()
-
-    val listOfCategories = ArrayList<HouseCategoryModel>()
-
-    houseCategories.forEach { category ->
-        if (bookmarkedHouses.map { it.houseCategory }.contains(category.title)) {
-            listOfCategories.add(category)
-        }
-    }
-
-    Log.d("category", listOfCategories.toString())
+    bookmarksVM.onEvent(BookmarkEvents.FilterCategories(
+        houseCategories, bookmarkedHouses
+    ))
 
     HorizontalPager(
-        count = listOfCategories.size,
-        state = pagerState,
+        count = bookmarksVM.listOfCategories.size,
+        state = rememberPagerState(),
         itemSpacing = 24.dp
     ) {page ->
         //  category item
         CategoryItem(
             context = context,
-            houseCategory = listOfCategories[page],
+            houseCategory = bookmarksVM.listOfCategories[page],
             bookmarkedHouses = bookmarkedHouses,
             currentUser = currentUser
         )
     }
-
-//    LazyColumn(
-//        content = {
-//
-//            itemsIndexed(
-//                houseCategories
-//            ) { index, category ->
-//
-//                AnimatedVisibility(
-//                    visible = bookmarkedHouses.map { it.houseCategory }
-//                        .contains(category.title),
-//                    enter = fadeIn() + scaleIn(
-//                        animationSpec = tween(
-//                            durationMillis = 500
-//                        )
-//                    ),
-//                    exit = fadeOut() + scaleOut(
-//                        animationSpec = tween(
-//                            durationMillis = 500
-//                        )
-//                    ),
-//                    label = "Bookmarks animated visibility"
-//                ) {
-//
-//                    //  category item
-//                    CategoryItem(
-//                        context = context,
-//                        houseCategory = category,
-//                        bookmarkedHouses = bookmarkedHouses,
-//                        currentUser = currentUser
-//                    )
-//                }
-//            }
-//        },
-//        state = rememberLazyListState(),
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(500.dp)
-//    )
 }
 
 

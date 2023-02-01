@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.core.domain.model.BookmarkHouse
+import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.domain.model.LikedHouse
 import com.example.houseops_revamped.feature_bookmark.domain.model.BookmarkEvents
 import com.example.houseops_revamped.feature_bookmark.domain.use_case.BookmarksUseCase
@@ -28,6 +29,9 @@ class BookmarksViewModel @Inject constructor(
 
     private val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
     val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
+
+    var listOfCategories = ArrayList<HouseCategoryModel>()
+        private set
 
     fun getBookmarks(
         userEmail: String
@@ -63,6 +67,17 @@ class BookmarksViewModel @Inject constructor(
 
             is BookmarkEvents.ToggleCategoryVisibility -> {
                 _categoryVisibility.value = event.isVisible
+            }
+
+            is BookmarkEvents.FilterCategories -> {
+                viewModelScope.launch {
+
+                    event.houseCategories.forEach { category ->
+                        if (event.bookmarkedHouses.map { it.houseCategory }.contains(category.title)) {
+                            listOfCategories.add(category)
+                        }
+                    }
+                }
             }
         }
     }
