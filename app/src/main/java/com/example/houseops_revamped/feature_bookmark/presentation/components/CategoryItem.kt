@@ -1,10 +1,13 @@
 package com.example.houseops_revamped.feature_bookmark.presentation.components
 
 import android.content.Context
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
@@ -23,6 +26,7 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseops_revamped.navigation.Direction
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryItem(
     context: Context,
@@ -38,7 +42,7 @@ fun CategoryItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
+            .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
@@ -48,7 +52,8 @@ fun CategoryItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .height(50.dp)
+                .background(MaterialTheme.colorScheme.onPrimary),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -87,9 +92,10 @@ fun CategoryItem(
         //  another lazy column for the house items
         LazyColumn(
             content = {
-                itemsIndexed(
-                    bookmarkedHouses
-                ) { index, house ->
+                items(
+                    items = bookmarkedHouses,
+                    key = {it.houseId}
+                ) { house ->
 
                     if (house.houseCategory == houseCategory.title) {
                         HouseItemAlt(
@@ -107,18 +113,20 @@ fun CategoryItem(
                                         house.houseApartmentName, house.houseCategory
                                     )
                                 }
-                                .padding(8.dp),
+                                .padding(8.dp)
+                                .animateItemPlacement(),
                             snackbarHostState = snackbarHostState
                         )
+
+                        Spacer(modifier = Modifier.height(24.dp))
                     }
                 }
             },
             state = rememberLazyListState(),
             modifier = Modifier
-                .fillMaxWidth()
-                .height(500.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onPrimary),
+            horizontalAlignment = Alignment.CenterHorizontally
         )
     }
 }

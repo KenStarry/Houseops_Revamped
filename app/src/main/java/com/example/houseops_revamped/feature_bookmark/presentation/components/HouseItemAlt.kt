@@ -79,11 +79,11 @@ fun HouseItemAlt(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     ),
-                    shape = CardDefaults.shape
+                    shape = RoundedCornerShape(16.dp)
                 ) {
                     Text(
                         text = house.houseApartmentName,
-                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                         fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier
                             .padding(8.dp)

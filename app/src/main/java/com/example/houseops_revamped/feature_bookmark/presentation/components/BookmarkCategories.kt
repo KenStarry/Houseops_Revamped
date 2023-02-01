@@ -3,6 +3,7 @@ package com.example.houseops_revamped.feature_bookmark.presentation.components
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -48,38 +49,34 @@ fun BookmarkCategories(
         )
     )
 
-    Toast.makeText(
-        LocalContext.current,
-        bookmarksVM.listOfCategories.value.size.toString(),
-        Toast.LENGTH_SHORT
-    ).show()
-
     Column(
         modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .fillMaxSize()
     ) {
+
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            activeColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
+            inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.1f),
+            indicatorHeight = 5.dp,
+            indicatorWidth = 5.dp,
+            indicatorShape = CircleShape,
+            spacing = 4.dp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
 
         //  horizontal pager and indicators
         AnimatedVisibility(
             visible = bookmarksVM.listOfCategories.value.isNotEmpty()
         ) {
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                activeColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
-                inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.1f),
-                indicatorHeight = 5.dp,
-                indicatorWidth = 5.dp,
-                indicatorShape = CircleShape,
-                spacing = 4.dp,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-            )
 
             HorizontalPager(
                 count = bookmarksVM.listOfCategories.value.size,
                 state = pagerState,
-                itemSpacing = 16.dp
+                itemSpacing = 16.dp,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.onPrimary)
             ) { page ->
                 //  category item
                 CategoryItem(

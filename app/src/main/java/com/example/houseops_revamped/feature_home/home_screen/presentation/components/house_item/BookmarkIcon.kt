@@ -22,6 +22,7 @@ fun BookmarkIcon(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     var isBookmarked by remember {
@@ -36,13 +37,10 @@ fun BookmarkIcon(
         onClick = {
             isBookmarked = !isBookmarked
 
-//            if (isBookmarked) {
-//                scope.launch {
-//                    snackbarHostState.showSnackbar(
-//                        "Hello there"
-//                    )
-//                }
-//            }
+            if (isBookmarked) {
+                Toast.makeText(context, "Bookmark Added Successfully!", Toast.LENGTH_SHORT).show()
+            } else
+                Toast.makeText(context, "Bookmark Removed", Toast.LENGTH_SHORT).show()
 
             coreVM.onEvent(
                 CoreEvents.UpdateArrayField(
