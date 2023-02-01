@@ -64,14 +64,14 @@ fun BookmarkCategories(
         )
 
         HorizontalPager(
-            count = bookmarksVM.listOfCategories.size,
+            count = bookmarksVM.listOfCategories.value.size,
             state = pagerState,
             itemSpacing = 16.dp
         ) { page ->
             //  category item
             CategoryItem(
                 context = context,
-                houseCategory = bookmarksVM.listOfCategories[page],
+                houseCategory = bookmarksVM.listOfCategories.value[page],
                 bookmarkedHouses = bookmarkedHouses,
                 currentUser = currentUser
             )

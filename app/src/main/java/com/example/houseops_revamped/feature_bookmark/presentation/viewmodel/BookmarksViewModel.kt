@@ -30,8 +30,8 @@ class BookmarksViewModel @Inject constructor(
     private val _bookmarkedHouses = mutableStateOf<List<HouseModel>>(emptyList())
     val bookmarkedHouses: State<List<HouseModel>> = _bookmarkedHouses
 
-    var listOfCategories = ArrayList<HouseCategoryModel>()
-        private set
+    private val _listOfCategories = mutableStateOf<List<HouseCategoryModel>>(emptyList())
+    val listOfCategories: State<List<HouseCategoryModel>> = _listOfCategories
 
     fun getBookmarks(
         userEmail: String
@@ -72,11 +72,19 @@ class BookmarksViewModel @Inject constructor(
             is BookmarkEvents.FilterCategories -> {
                 viewModelScope.launch {
 
-                    event.houseCategories.forEach { category ->
-                        if (event.bookmarkedHouses.map { it.houseCategory }.contains(category.title)) {
-                            listOfCategories.add(category)
+                    val categoryList = ArrayList<HouseCategoryModel>()
+
+                    if (event.bookmarkedHouses.isNotEmpty()) {
+                        event.houseCategories.forEach { category ->
+
+                            if (event.bookmarkedHouses.map { it.houseCategory }.contains(category.title)) {
+                                categoryList.add(category)
+                            }
                         }
                     }
+
+                    _listOfCategories.value = categoryList
+                    Log.d("categories", categoryList.size.toString())
                 }
             }
         }

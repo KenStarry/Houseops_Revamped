@@ -84,14 +84,6 @@ fun HousePrice(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        //  Thumbs up icon
-//        ThumbsUp(
-//            modifier = Modifier
-//                .weight(1f),
-//            houseModel = houseModel,
-//            user = user
-//        )
-
         BookmarkIcon(
             house = houseModel,
             user = user
