@@ -18,8 +18,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun BookmarkIcon(
     house: HouseModel,
-    user: UsersCollection?,
-    snackbarHostState: SnackbarHostState
+    user: UsersCollection?
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
@@ -37,13 +36,13 @@ fun BookmarkIcon(
         onClick = {
             isBookmarked = !isBookmarked
 
-            if (isBookmarked) {
-                scope.launch {
-                    snackbarHostState.showSnackbar(
-                        "Hello there"
-                    )
-                }
-            }
+//            if (isBookmarked) {
+//                scope.launch {
+//                    snackbarHostState.showSnackbar(
+//                        "Hello there"
+//                    )
+//                }
+//            }
 
             coreVM.onEvent(
                 CoreEvents.UpdateArrayField(

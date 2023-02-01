@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
@@ -23,6 +24,10 @@ fun HouseViewScreen(
 ) {
 
     val houseViewVM: HouseViewVM = hiltViewModel()
+    val coreVM: CoreViewModel = hiltViewModel()
+
+    val currentUser = coreVM.currentUser()
+    val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val context = LocalContext.current
 
     houseViewVM.getHouse(apartment, category)
@@ -52,7 +57,8 @@ fun HouseViewScreen(
             //  main content
             HouseViewDetails(
                 context = context,
-                house = it
+                house = it,
+                userDetails = userDetails
             )
         }
     }

@@ -17,12 +17,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.BookmarkIcon
 
 @Composable
 fun DetailActionIcons(
-    price: String,
-    priceCategory: String
+    house: HouseModel,
+    userDetails: UsersCollection?
 ) {
 
     Row(
@@ -43,7 +46,7 @@ fun DetailActionIcons(
         ) {
 
             Text(
-                text = "Ksh. $price",
+                text = "Ksh. ${house.housePrice}",
                 fontWeight = FontWeight.ExtraBold,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -51,7 +54,7 @@ fun DetailActionIcons(
 
             HomePillBtns(
                 icon = Icons.Outlined.AlternateEmail,
-                title = priceCategory,
+                title = house.housePriceCategory,
                 onClick = {}
             )
 
@@ -72,12 +75,10 @@ fun DetailActionIcons(
                 )
             }
 
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Outlined.BookmarkBorder,
-                    contentDescription = "Bookmarks icon"
-                )
-            }
+            BookmarkIcon(
+                house = house,
+                user = userDetails
+            )
 
         }
 

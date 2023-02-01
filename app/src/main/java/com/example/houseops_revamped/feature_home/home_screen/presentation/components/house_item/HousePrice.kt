@@ -84,8 +84,7 @@ fun HousePrice(
 
         BookmarkIcon(
             house = houseModel,
-            user = user,
-            snackbarHostState = snackbarHostState
+            user = user
         )
 
 
