@@ -22,6 +22,10 @@ interface CoreRepository {
         caretaker: (caretaker: Caretaker?) -> Unit
     )
 
+    suspend fun getAllCaretakers(
+        caretakers: (List<Caretaker>?) -> Unit
+    )
+
     suspend fun updateFirestoreField(
         collectionName: String,
         documentName: String,

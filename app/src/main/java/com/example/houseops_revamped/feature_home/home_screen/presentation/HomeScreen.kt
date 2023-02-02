@@ -112,6 +112,8 @@ fun HomeScreen(
                         .padding(vertical = 8.dp)
                 )
 
+                //  caretaker section
+
                 //  pill buttons
                 PillSection(
                     modifier = Modifier

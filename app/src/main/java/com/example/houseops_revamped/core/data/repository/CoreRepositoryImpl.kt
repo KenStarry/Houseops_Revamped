@@ -117,6 +117,33 @@ class CoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getAllCaretakers(caretakers: (List<Caretaker>?) -> Unit) {
+
+        try {
+            db.collection(Constants.CARETAKER_COLLECTION)
+                .addSnapshotListener { querySnapshot, error ->
+
+                    if (error != null)
+                        return@addSnapshotListener
+
+                    val caretakersList = ArrayList<Caretaker>()
+
+                    querySnapshot?.let {
+                        it.forEach { snapshot ->
+                            snapshot.toObject(Caretaker::class.java).let { caretaker ->
+                                caretakersList.add(caretaker)
+                            }
+                        }
+                    }
+
+                    caretakers(caretakersList)
+
+                }
+        } catch (e: Exception) {
+            Log.d("caretakers", "$e")
+        }
+    }
+
     override suspend fun getApartments() {
 
     }
