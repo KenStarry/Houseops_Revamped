@@ -1,20 +1,57 @@
 package com.example.houseops_revamped.feature_categories.presentation.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesTopBar(
     title: String,
+    icon: ImageVector,
     onBackPressed: () -> Unit
 ) {
 
     LargeTopAppBar(
         title = {
-            Text(text = title)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(35.dp)
+                        .background(MaterialTheme.colorScheme.tertiary),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Category icon",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                Text(
+                    text = title,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontWeight = FontWeight.ExtraBold,
+                )
+
+            }
         },
         navigationIcon = {
             IconButton(onClick = { onBackPressed() }) {
