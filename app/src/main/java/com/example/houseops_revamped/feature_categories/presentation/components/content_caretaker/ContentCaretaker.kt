@@ -1,9 +1,10 @@
 package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
 
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,14 +33,15 @@ fun ContentCaretaker(
                     context = context,
                     caretaker = caretaker,
                     modifier = Modifier
-                        .size(
-                            width = 150.dp,
-                            height = 200.dp
-                        )
+                        .wrapContentSize()
                 )
 
             }
-        }
+        },
+        state = rememberLazyGridState(),
+        contentPadding = PaddingValues(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     )
 
 

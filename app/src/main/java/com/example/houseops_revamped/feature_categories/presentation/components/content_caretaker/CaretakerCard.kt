@@ -1,10 +1,7 @@
 package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
 
 import android.content.Context
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -45,6 +42,8 @@ fun CaretakerCard(
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             CoilImage(
                 context = context,
                 imageUri = caretaker.caretakerImage?.toUri(),
@@ -53,6 +52,8 @@ fun CaretakerCard(
                     .clip(CircleShape)
                     .size(60.dp)
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = caretaker.caretakerName ?: "",

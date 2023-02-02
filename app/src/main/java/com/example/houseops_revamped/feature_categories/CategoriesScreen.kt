@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.presentation.components.CategoriesTopBar
+import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.ContentCaretaker
 import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,7 +27,9 @@ fun CategoriesScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+
     val categories = HomeConstants.homePills
+    val caretakers = coreVM.getAllCaretakers()
 
     Scaffold(
         topBar = {
@@ -71,7 +74,10 @@ fun CategoriesScreen(
                 }
                 //  Caretakers screen
                 categories[5].title -> {
-
+                    ContentCaretaker(
+                        coreVM = coreVM,
+                        caretakers = caretakers
+                    )
                 }
 
             }
