@@ -14,6 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,6 +30,7 @@ import com.example.houseops_revamped.feature_home.home_screen.presentation.compo
 import com.example.houseops_revamped.feature_home.home_screen.presentation.viewmodel.HomeViewModel
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.navigation.Screens
+import kotlinx.coroutines.launch
 
 @Composable
 fun FeaturedSection(
@@ -42,6 +45,14 @@ fun FeaturedSection(
 
     val homeVM: HomeViewModel = hiltViewModel()
     val direction = Direction(navHostController)
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = Unit) {
+        scope.launch {
+            listState.animateScrollToItem(0)
+        }
+    }
 
     homeVM.getHouses()
 
@@ -87,7 +98,7 @@ fun FeaturedSection(
                     )
                 }
             },
-            state = rememberLazyListState(),
+            state = listState,
             contentPadding = PaddingValues(vertical = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
