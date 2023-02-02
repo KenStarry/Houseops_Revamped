@@ -34,7 +34,9 @@ fun PillSection(
                     onClick = {
                         //  pass the category at the specific index
                         Log.d("category", HomeConstants.homePills[index].title)
-                    }
+                    },
+                    paddingVertical = 16.dp,
+                    paddingHorizontal = 16.dp
                 )
 
             }
