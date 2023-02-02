@@ -31,7 +31,7 @@ fun CaretakerItem(
 
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
+        shape = CardDefaults.shape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.onSecondary,
             contentColor = MaterialTheme.colorScheme.onSecondary
@@ -58,7 +58,7 @@ fun CaretakerItem(
                 text = caretaker.caretakerName ?: "",
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondary
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
             )
 
         }
