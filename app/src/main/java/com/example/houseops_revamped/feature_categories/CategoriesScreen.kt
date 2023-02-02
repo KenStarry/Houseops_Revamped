@@ -26,13 +26,16 @@ fun CategoriesScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
-    val categories = HomeConstants.homePills.map { it.title }
+    val categories = HomeConstants.homePills
 
     Scaffold(
         topBar = {
             CategoriesTopBar(
                 title = categoryTitle,
-                onBackPressed = {}
+                icon = categories.find { it.title == categoryTitle }?.icon,
+                onBackPressed = {
+
+                }
             )
         }
     ) { contentPadding ->
@@ -47,27 +50,27 @@ fun CategoriesScreen(
             when (categoryTitle) {
 
                 //  House Categories screen
-                categories[0] -> {
+                categories[0].title -> {
 
                 }
                 //  For Rent screen
-                categories[1] -> {
+                categories[1].title -> {
 
                 }
                 //  Apartments screen
-                categories[2] -> {
+                categories[2].title -> {
 
                 }
                 //  For Sale screen
-                categories[3] -> {
+                categories[3].title -> {
 
                 }
                 //  Near You screen
-                categories[4] -> {
+                categories[4].title -> {
 
                 }
                 //  Caretakers screen
-                categories[5] -> {
+                categories[5].title -> {
 
                 }
 

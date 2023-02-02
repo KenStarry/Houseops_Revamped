@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CategoriesTopBar(
     title: String,
-    icon: ImageVector,
+    icon: ImageVector?,
     onBackPressed: () -> Unit
 ) {
 
@@ -38,11 +38,13 @@ fun CategoriesTopBar(
                         .background(MaterialTheme.colorScheme.tertiary),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = "Category icon",
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                    icon?.let {
+                        Icon(
+                            imageVector = it,
+                            contentDescription = "Category icon",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
 
                 Text(
