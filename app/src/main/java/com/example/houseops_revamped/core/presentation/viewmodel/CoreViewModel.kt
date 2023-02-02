@@ -87,7 +87,7 @@ class CoreViewModel @Inject constructor(
         return caretaker
     }
 
-    fun getAllCaretakers() {
+    fun getAllCaretakers(): List<Caretaker> {
         viewModelScope.launch {
             coreUseCases.getAllCaretakers(
                 caretakers = {
@@ -97,6 +97,8 @@ class CoreViewModel @Inject constructor(
                 }
             )
         }
+
+        return caretakersList.value
     }
 
     fun onEvent(event: CoreEvents) {
