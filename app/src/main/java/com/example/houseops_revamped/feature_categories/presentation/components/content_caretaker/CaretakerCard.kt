@@ -61,6 +61,8 @@ fun CaretakerCard(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
 
     }
