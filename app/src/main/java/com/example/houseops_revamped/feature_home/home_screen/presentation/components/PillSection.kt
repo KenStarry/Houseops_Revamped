@@ -36,7 +36,7 @@ fun PillSection(
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         LazyHorizontalStaggeredGrid(
             rows = StaggeredGridCells.Fixed(2),

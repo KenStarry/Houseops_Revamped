@@ -30,7 +30,7 @@ fun CaretakerSection(
 
         //  title
         Text(
-            text = "Spotlight",
+            text = "Caretaker Spotlight",
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
@@ -47,10 +47,7 @@ fun CaretakerSection(
 
                     CaretakerItem(
                         modifier = Modifier
-                            .size(
-                                width = 150.dp,
-                                height = 200.dp
-                            ),
+                            .wrapContentSize(),
                         caretaker = caretaker,
                         context = context
                     )

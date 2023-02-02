@@ -112,17 +112,17 @@ fun HomeScreen(
                         .padding(vertical = 8.dp)
                 )
 
-                //  caretaker section
-                CaretakerSection(
-                    coreVM = coreVM,
-                    context = context
-                )
-
                 //  pill buttons
                 PillSection(
                     modifier = Modifier
                         .wrapContentWidth()
                         .height(150.dp)
+                )
+
+                //  caretaker section
+                CaretakerSection(
+                    coreVM = coreVM,
+                    context = context
                 )
 
                 //  featured section
