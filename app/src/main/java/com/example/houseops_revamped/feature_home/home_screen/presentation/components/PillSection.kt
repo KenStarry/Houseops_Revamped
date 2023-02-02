@@ -11,10 +11,13 @@ import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridS
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -22,6 +25,15 @@ fun PillSection(
     modifier: Modifier = Modifier,
     onPillClicked: (categoryTitle: String) -> Unit
 ) {
+
+    val staggeredGridState = rememberLazyStaggeredGridState()
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = Unit) {
+        scope.launch {
+            staggeredGridState.animateScrollToItem(0)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -49,7 +61,7 @@ fun PillSection(
 
                 }
             },
-            state = rememberLazyStaggeredGridState(),
+            state = staggeredGridState,
             modifier = modifier,
             contentPadding = PaddingValues(vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
