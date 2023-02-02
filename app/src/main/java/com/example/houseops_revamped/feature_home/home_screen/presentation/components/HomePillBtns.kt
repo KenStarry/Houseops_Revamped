@@ -25,7 +25,7 @@ fun HomePillBtns(
     Card(
         modifier = Modifier
             .wrapContentSize(),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiary
         ),

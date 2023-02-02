@@ -18,6 +18,7 @@ import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.presentation.components.CategoriesTopBar
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.ContentCaretaker
 import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
+import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,6 +28,7 @@ fun CategoriesScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     val categories = HomeConstants.homePills
     val caretakers = coreVM.getAllCaretakers()
@@ -37,7 +39,7 @@ fun CategoriesScreen(
                 title = categoryTitle,
                 icon = categories.find { it.title == categoryTitle }?.icon,
                 onBackPressed = {
-
+                    direction.navigateUp()
                 }
             )
         }
