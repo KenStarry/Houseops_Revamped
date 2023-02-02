@@ -19,7 +19,8 @@ import com.example.houseops_revamped.feature_home.home_screen.presentation.utils
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PillSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onPillClicked: (categoryTitle: String) -> Unit
 ) {
 
     Column(
@@ -27,16 +28,6 @@ fun PillSection(
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-
-        //  title
-        Text(
-            text = "Categories",
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         LazyHorizontalStaggeredGrid(
             rows = StaggeredGridCells.Fixed(2),
@@ -50,7 +41,7 @@ fun PillSection(
                         title = pill.title,
                         onClick = {
                             //  pass the category at the specific index
-                            Log.d("category", HomeConstants.homePills[index].title)
+                            onPillClicked(HomeConstants.homePills[index].title)
                         },
                         paddingVertical = 12.dp,
                         paddingHorizontal = 12.dp

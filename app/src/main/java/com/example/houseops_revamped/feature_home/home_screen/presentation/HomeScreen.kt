@@ -38,6 +38,7 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.*
 import com.example.houseops_revamped.feature_home.home_screen.presentation.viewmodel.HomeViewModel
+import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -47,6 +48,7 @@ fun HomeScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val homeVM: HomeViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -116,7 +118,10 @@ fun HomeScreen(
                 PillSection(
                     modifier = Modifier
                         .wrapContentWidth()
-                        .height(150.dp)
+                        .height(150.dp),
+                    onPillClicked = { categoryTitle ->
+                        direction.navigateToCategory(categoryTitle)
+                    }
                 )
 
                 //  caretaker section
