@@ -26,6 +26,9 @@ sealed class Screens(
             category: String
         ): String = "house_view_screen/$apartment/$category"
     }
+
+    //  caretakers screen
+    object Caretakers : Screens(route = "caretakers_screen")
 }
 
 
