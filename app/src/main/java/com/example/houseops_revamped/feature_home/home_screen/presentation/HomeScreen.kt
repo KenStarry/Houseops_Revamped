@@ -113,6 +113,10 @@ fun HomeScreen(
                 )
 
                 //  caretaker section
+                CaretakerSection(
+                    coreVM = coreVM,
+                    context = context
+                )
 
                 //  pill buttons
                 PillSection(
