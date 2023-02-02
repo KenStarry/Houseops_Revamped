@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.presentation.components.CategoriesTopBar
+import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,13 +23,12 @@ fun CategoriesScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
-
-    Toast.makeText(LocalContext.current, categoryTitle, Toast.LENGTH_SHORT).show()
+    val categories = HomeConstants.homePills.map { it.title }
 
     Scaffold(
         topBar = {
             CategoriesTopBar(
-                title = "Caretakers",
+                title = categoryTitle,
                 onBackPressed = {}
             )
         }
@@ -39,6 +39,35 @@ fun CategoriesScreen(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
+
+            when (categoryTitle) {
+
+                //  House Categories screen
+                categories[0] -> {
+
+                }
+                //  For Rent screen
+                categories[1] -> {
+
+                }
+                //  Apartments screen
+                categories[2] -> {
+
+                }
+                //  For Sale screen
+                categories[3] -> {
+
+                }
+                //  Near You screen
+                categories[4] -> {
+
+                }
+                //  Caretakers screen
+                categories[5] -> {
+
+                }
+
+            }
 
         }
 
