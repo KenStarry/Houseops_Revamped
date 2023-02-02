@@ -6,6 +6,7 @@ data class CoreUseCases(
     val userDetails: UserDetails,
     val caretakerDetails: CaretakerDetails,
     val updateField: UpdateField,
-    val updateArrayField: UpdateUsersArrayField
+    val updateArrayField: UpdateUsersArrayField,
+    val getAllCaretakers: GetAllCaretakers
 ) {
 }

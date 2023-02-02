@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.presentation.viewmodel
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -31,7 +32,8 @@ class CoreViewModel @Inject constructor(
     var caretaker by mutableStateOf<Caretaker?>(null)
         private set
 
-    var isThumbsUpClicked by mutableStateOf(false)
+    val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
+    val caretakersList: State<List<Caretaker>> = _caretakersList
 
     fun isUserLoggedIn(): Boolean {
 
@@ -83,6 +85,18 @@ class CoreViewModel @Inject constructor(
         }
 
         return caretaker
+    }
+
+    fun getAllCaretakers() {
+        viewModelScope.launch {
+            coreUseCases.getAllCaretakers(
+                caretakers = {
+                    it?.let { caretakerList ->
+                        _caretakersList.value = caretakerList
+                    }
+                }
+            )
+        }
     }
 
     fun onEvent(event: CoreEvents) {

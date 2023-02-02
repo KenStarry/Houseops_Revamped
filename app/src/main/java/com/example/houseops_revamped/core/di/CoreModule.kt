@@ -35,7 +35,8 @@ object CoreModule {
         userDetails = UserDetails(repo),
         caretakerDetails = CaretakerDetails(repo),
         updateField = UpdateField(repo),
-        updateArrayField = UpdateUsersArrayField(repo)
+        updateArrayField = UpdateUsersArrayField(repo),
+        getAllCaretakers = GetAllCaretakers(repo)
     )
 }
 
