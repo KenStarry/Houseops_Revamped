@@ -13,7 +13,7 @@ sealed class CategoryEvents<out T> {
     data class OpenBottomSheet<out T> @OptIn(ExperimentalMaterialApi::class) constructor(
         val state: ModalBottomSheetState,
         val scope: CoroutineScope,
-        val bottomSheetData: T
+        val bottomSheetData: T?
     ) : CategoryEvents<T>()
 
     data class CloseBottomSheet @OptIn(ExperimentalMaterialApi::class) constructor(
