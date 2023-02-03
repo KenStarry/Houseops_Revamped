@@ -43,6 +43,12 @@ class CategoriesViewModel @Inject constructor(
         return caretakerHouses.value
     }
 
+//    fun addSuffixSToWord(count: Int, word: String): String {
+//        if (count < 2) {
+//
+//        }
+//    }
+
     @OptIn(ExperimentalMaterialApi::class)
     fun onEvent(event: CategoryEvents<*>) {
         when (event) {
