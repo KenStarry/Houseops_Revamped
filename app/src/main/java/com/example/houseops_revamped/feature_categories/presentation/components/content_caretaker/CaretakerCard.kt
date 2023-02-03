@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape

@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -34,6 +35,7 @@ fun ContentCaretaker(
                     caretaker = caretaker,
                     modifier = Modifier
                         .wrapContentSize()
+                        .clickable {  },
                 )
 
             }
