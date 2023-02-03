@@ -6,13 +6,10 @@ import kotlinx.coroutines.CoroutineScope
 
 sealed class CategoryEvents<out T> {
 
-    data class ChangeBottomSheetContent(
-        val categoryTitle: String
-    ) : CategoryEvents<Nothing>()
-
     data class OpenBottomSheet<out T> @OptIn(ExperimentalMaterialApi::class) constructor(
         val state: ModalBottomSheetState,
         val scope: CoroutineScope,
+        val bottomSheetType: String,
         val bottomSheetData: T?
     ) : CategoryEvents<T>()
 

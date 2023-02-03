@@ -25,14 +25,9 @@ class CategoriesViewModel : ViewModel() {
     fun onEvent(event: CategoryEvents<*>) {
         when (event) {
 
-            is CategoryEvents.ChangeBottomSheetContent -> {
-                viewModelScope.launch {
-                    _bottomSheetContent.value = event.categoryTitle
-                }
-            }
-
             is CategoryEvents.OpenBottomSheet<*> -> {
                 event.scope.launch {
+
                     event.state.animateTo(ModalBottomSheetValue.Expanded)
 
                     when (event.bottomSheetData) {
@@ -40,6 +35,10 @@ class CategoriesViewModel : ViewModel() {
                             _caretakerData.value = event.bottomSheetData
                         }
                     }
+                }
+
+                viewModelScope.launch {
+                    _bottomSheetContent.value = event.bottomSheetType
                 }
             }
 

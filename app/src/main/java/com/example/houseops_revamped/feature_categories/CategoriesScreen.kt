@@ -109,17 +109,11 @@ fun CategoriesScreen(
                                         CategoryEvents.OpenBottomSheet(
                                             state = state,
                                             scope = scope,
+                                            bottomSheetType = categoryTitle,
                                             bottomSheetData = it
                                         )
                                     )
                                 }
-                            )
-
-                            //  change bottomsheettype
-                            categoriesVM.onEvent(
-                                CategoryEvents.ChangeBottomSheetContent(
-                                    categoryTitle = categoryTitle
-                                )
                             )
                         }
 
