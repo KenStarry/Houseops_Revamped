@@ -8,11 +8,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
+import com.example.houseops_revamped.feature_categories.domain.use_case.CategoriesUseCases
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CategoriesViewModel : ViewModel() {
+@HiltViewModel
+class CategoriesViewModel @Inject constructor(
+    private val useCases: CategoriesUseCases
+) : ViewModel() {
 
     val _bottomSheetContent = mutableStateOf("")
     val bottomSheetContent: State<String> = _bottomSheetContent
@@ -20,6 +25,23 @@ class CategoriesViewModel : ViewModel() {
     val _caretakerData = mutableStateOf<Caretaker?>(null)
     val caretakerData: State<Caretaker?> = _caretakerData
 
+    val _caretakerHouses = mutableStateOf<List<HouseModel>>(emptyList())
+    val caretakerHouses: State<List<HouseModel>> = _caretakerHouses
+
+    fun getCaretakerHouses(
+        apartmentName: String
+    ): List<HouseModel> {
+        viewModelScope.launch {
+            useCases.getCaretakerHouses(
+                apartmentName = apartmentName,
+                houses = {
+                    _caretakerHouses.value = it
+                }
+            )
+        }
+
+        return caretakerHouses.value
+    }
 
     @OptIn(ExperimentalMaterialApi::class)
     fun onEvent(event: CategoryEvents<*>) {
