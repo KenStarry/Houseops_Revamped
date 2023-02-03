@@ -18,6 +18,7 @@ import androidx.core.net.toUri
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.presentation.components.CoilImage
+import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun CaretakerCard(
@@ -60,6 +61,16 @@ fun CaretakerCard(
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            HomePillBtns(
+                icon = null,
+                title = caretaker.caretakerApartment ?: "none",
+                onClick = {},
+                paddingVertical = 8.dp,
+                paddingHorizontal = 16.dp
             )
 
             Spacer(modifier = Modifier.height(16.dp))

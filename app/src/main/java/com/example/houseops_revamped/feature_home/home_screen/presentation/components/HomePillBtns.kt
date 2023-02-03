@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -53,15 +54,16 @@ fun HomePillBtns(
                     contentDescription = "pill icon",
                     tint = MaterialTheme.colorScheme.primary
                 )
-            }
 
-            Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+            }
 
             Text(
                 text = title,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                overflow = TextOverflow.Ellipsis
             )
 
         }
