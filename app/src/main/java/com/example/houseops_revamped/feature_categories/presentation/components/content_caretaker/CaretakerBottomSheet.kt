@@ -23,9 +23,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
+import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
@@ -119,7 +121,12 @@ fun CaretakerBottomSheet(
 
                     //  caretaker apartments count
                     Text(
-                        text = "${caretakerHouses.size} houses",
+                        text = "${caretakerHouses.size} ${
+                            categoriesVM.addSuffixSToWord(
+                                caretakerHouses.size,
+                                "house"
+                            )
+                        }",
                         fontSize = MaterialTheme.typography.titleMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -142,41 +149,70 @@ fun CaretakerBottomSheet(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        LazyRow(
-            content = {
+        if (caretakerHouses.isEmpty()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
 
-                items(
-                    items = caretakerHouses
-                ) { house ->
+                Lottie(
+                    rawFile = R.raw.search_empty,
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .height(100.dp),
+                    iterations = 1,
+                    isPlaying = true
+                )
 
-                    userDetails?.let {
-                        HouseItem(
-                            context = context,
-                            house = house,
-                            user = it,
-                            snackbarHostState = null,
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(16.dp))
-                                .size(
-                                    width = 190.dp,
-                                    height = 260.dp
-                                )
-                                .background(MaterialTheme.colorScheme.onSecondary)
-                                .clickable {
-                                    //  open house view Screen
-                                    direction.navigateToHouseView(
-                                        house.houseApartmentName, house.houseCategory
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = "No Houses yet...",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+            }
+        } else {
+            LazyRow(
+                content = {
+
+                    items(
+                        items = caretakerHouses
+                    ) { house ->
+
+                        userDetails?.let {
+                            HouseItem(
+                                context = context,
+                                house = house,
+                                user = it,
+                                snackbarHostState = null,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .size(
+                                        width = 190.dp,
+                                        height = 260.dp
                                     )
-                                }
-                                .padding(8.dp)
-                        )
-                        
-                        Spacer(modifier = Modifier.width(16.dp))
+                                    .background(MaterialTheme.colorScheme.onSecondary)
+                                    .clickable {
+                                        //  open house view Screen
+                                        direction.navigateToHouseView(
+                                            house.houseApartmentName, house.houseCategory
+                                        )
+                                    }
+                                    .padding(8.dp)
+                            )
+
+                            Spacer(modifier = Modifier.width(16.dp))
+                        }
                     }
-                }
-            },
-            state = listState
-        )
+                },
+                state = listState
+            )
+        }
     }
 }
 
