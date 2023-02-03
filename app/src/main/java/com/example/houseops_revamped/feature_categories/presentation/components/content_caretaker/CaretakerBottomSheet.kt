@@ -1,8 +1,13 @@
 package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.Minimize
@@ -18,16 +23,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.houseops_revamped.core.domain.model.Caretaker
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
+import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
 
 @Composable
 fun CaretakerBottomSheet(
-    caretaker: Caretaker?
+    categoriesVM: CategoriesViewModel,
+    caretaker: Caretaker?,
+    userDetails: UsersCollection?,
+    direction: com.example.houseops_revamped.navigation.Direction
 ) {
 
     val context = LocalContext.current
-    val caretakerApartments = ""
+    val listState = rememberLazyListState()
+    val caretakerHouses =
+        categoriesVM.getCaretakerHouses(caretaker?.caretakerApartment ?: "none")
 
     //  Main content
     Column(
@@ -124,6 +137,44 @@ fun CaretakerBottomSheet(
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.ExtraBold,
             color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        LazyRow(
+            content = {
+
+                items(
+                    items = caretakerHouses
+                ) { house ->
+
+                    userDetails?.let {
+                        HouseItem(
+                            context = context,
+                            house = house,
+                            user = it,
+                            snackbarHostState = null,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(16.dp))
+                                .size(
+                                    width = 190.dp,
+                                    height = 260.dp
+                                )
+                                .background(MaterialTheme.colorScheme.onSecondary)
+                                .clickable {
+                                    //  open house view Screen
+                                    direction.navigateToHouseView(
+                                        house.houseApartmentName, house.houseCategory
+                                    )
+                                }
+                                .padding(8.dp)
+                        )
+                        
+                        Spacer(modifier = Modifier.width(16.dp))
+                    }
+                }
+            },
+            state = listState
         )
     }
 }

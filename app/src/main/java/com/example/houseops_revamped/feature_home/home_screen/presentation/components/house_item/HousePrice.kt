@@ -28,7 +28,7 @@ fun HousePrice(
     modifier: Modifier = Modifier,
     houseModel: HouseModel,
     user: UsersCollection?,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState?
 ) {
 
     val category = when (houseModel.housePriceCategory) {

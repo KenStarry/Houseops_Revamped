@@ -34,6 +34,9 @@ fun CategoriesScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
+
+    val currentUser = coreVM.currentUser()
+    val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val direction = Direction(navHostController)
 
     val categories = HomeConstants.homePills
@@ -47,12 +50,18 @@ fun CategoriesScreen(
                 //  Caretakers screen
                 categories[5].title -> {
                     CaretakerBottomSheet(
-                        categoriesVM.caretakerData.value
+                        categoriesVM = categoriesVM,
+                        caretaker = categoriesVM.caretakerData.value,
+                        userDetails = userDetails,
+                        direction = direction
                     )
                 }
                 else -> {
                     CaretakerBottomSheet(
-                        categoriesVM.caretakerData.value
+                        categoriesVM = categoriesVM,
+                        caretaker = categoriesVM.caretakerData.value,
+                        userDetails = userDetails,
+                        direction = direction
                     )
                 }
 
