@@ -13,11 +13,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
+import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 
 @Composable
 fun ContentCaretaker(
-    coreVM: CoreViewModel = hiltViewModel(),
-    caretakers: List<Caretaker>
+    caretakers: List<Caretaker>,
+    onCardClicked: (caretaker: Caretaker) -> Unit
 ) {
 
     val context = LocalContext.current
@@ -35,7 +37,9 @@ fun ContentCaretaker(
                     caretaker = caretaker,
                     modifier = Modifier
                         .wrapContentSize()
-                        .clickable {  },
+                        .clickable {
+                            onCardClicked(caretaker)
+                        },
                 )
 
             }
