@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_home.home_screen.presentation.components
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -17,7 +18,8 @@ import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 @Composable
 fun CaretakerSection(
     coreVM: CoreViewModel,
-    context: Context
+    context: Context,
+    onCardClicked: (caretaker: Caretaker) -> Unit
 ) {
 
     val caretakers: List<Caretaker> = coreVM.getAllCaretakers()
@@ -47,7 +49,10 @@ fun CaretakerSection(
 
                     CaretakerItem(
                         modifier = Modifier
-                            .wrapContentSize(),
+                            .wrapContentSize()
+                            .clickable {
+                                  onCardClicked(caretaker)
+                            },
                         caretaker = caretaker,
                         context = context
                     )
