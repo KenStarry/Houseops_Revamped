@@ -30,6 +30,7 @@ import com.example.houseops_revamped.feature_categories.presentation.components.
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
+import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookedHouseBottomSheet
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
@@ -75,9 +76,11 @@ fun HouseViewScreen(
                             )
 
                             //  dismiss bottomshee
-                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
-                                state, scope
-                            ))
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
+                                    state, scope
+                                )
+                            )
                         }
                     )
                 }
@@ -101,9 +104,11 @@ fun HouseViewScreen(
                             )
 
                             //  dismiss bottomshee
-                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
-                                state, scope
-                            ))
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
+                                    state, scope
+                                )
+                            )
                         }
                     )
                 }
@@ -120,6 +125,17 @@ fun HouseViewScreen(
                         onFabClicked = {
 
                             //  update house field
+                            houseViewVM.currentHouse?.let { house ->
+                                userDetails?.userEmail?.let { email ->
+                                    houseViewVM.onEvent(
+                                        HouseViewEvents.AddToBookedHouses(
+                                            houseId = house.houseId,
+                                            email = email,
+                                            isAdd = true
+                                        )
+                                    )
+                                }
+                            }
 
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.OpenBottomSheet(

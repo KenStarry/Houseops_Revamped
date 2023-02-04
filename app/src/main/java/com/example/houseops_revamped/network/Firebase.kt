@@ -62,7 +62,8 @@ suspend fun createUserCollection(
         userImageUri = userImageUri,
         userPassword = userPassword,
         userLikedHouses = listOf(),
-        userBookmarks = listOf()
+        userBookmarks = listOf(),
+        userBookedHouses = listOf()
     )
 
     val db: FirebaseFirestore = Firebase.firestore
@@ -128,30 +129,6 @@ suspend fun logoutUser(
 //        it.signOut()
 //    }
     onLoggedOut()
-}
-
-//  query user details in mainactivity
-suspend fun queryUserDetails(
-    db: FirebaseFirestore,
-    currentUserEmail: String,
-    onQuerySuccess: (user: UsersCollection) -> Unit
-) {
-
-    db.collection(Constants.USERS_COLLECTION)
-        .document(currentUserEmail)
-        .addSnapshotListener { snapshot, error ->
-
-            if (error != null)
-                return@addSnapshotListener
-
-            if (snapshot != null) {
-                val user: UsersCollection = snapshot.toObject()!!
-                onQuerySuccess(user)
-
-            }
-        }
-
-
 }
 
 //  query users based on a criteria
