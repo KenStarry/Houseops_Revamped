@@ -4,18 +4,27 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Book
+import androidx.compose.material.icons.outlined.BookOnline
+import androidx.compose.material.icons.outlined.Paid
+import androidx.compose.material.icons.outlined.Timelapse
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HouseViewScreen(
     navHostController: NavHostController,
@@ -32,34 +41,52 @@ fun HouseViewScreen(
 
     houseViewVM.getHouse(apartment, category)
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimary)
-            .verticalScroll(rememberScrollState())
-            .padding(12.dp)
-    ) {
+    Scaffold(
+        floatingActionButton = {
+            ExtendedFab(
+                icon = Icons.Outlined.Timelapse,
+                title = "Book House"
+            )
+        }
+    ) { contentPadding ->
 
-        houseViewVM.currentHouse?.let {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding)
+        ) {
 
-            //  view pager
-            HouseViewPager(
-                house = it,
-                context = context,
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp),
-                navHostController = navHostController
-            )
-            
-            Spacer(modifier = Modifier.height(24.dp))
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.onPrimary)
+                    .verticalScroll(rememberScrollState())
+                    .padding(12.dp)
+            ) {
 
-            //  main content
-            HouseViewDetails(
-                context = context,
-                house = it,
-                userDetails = userDetails
-            )
+                houseViewVM.currentHouse?.let {
+
+                    //  view pager
+                    HouseViewPager(
+                        house = it,
+                        context = context,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp),
+                        navHostController = navHostController
+                    )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    //  main content
+                    HouseViewDetails(
+                        context = context,
+                        house = it,
+                        userDetails = userDetails
+                    )
+                }
+            }
+
         }
     }
 
