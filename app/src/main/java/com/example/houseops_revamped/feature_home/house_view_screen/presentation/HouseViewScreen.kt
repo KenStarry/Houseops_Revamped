@@ -116,7 +116,7 @@ fun HouseViewScreen(
                 floatingActionButton = {
                     ExtendedFab(
                         icon = Icons.Outlined.Timelapse,
-                        title = "Book House",
+                        title = "Book Now",
                         onFabClicked = {
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.OpenBottomSheet(

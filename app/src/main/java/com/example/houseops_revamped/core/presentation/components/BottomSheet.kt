@@ -25,7 +25,6 @@ fun BottomSheet(
     closeBottomSheet: (state: ModalBottomSheetState, scope: CoroutineScope) -> Unit
 ) {
 
-
     val modalBottomSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden
     )
