@@ -15,7 +15,7 @@ data class HouseModel(
     val housePrice: String,
     val housePriceCategory: String,
     val houseComments: String,
-    val houseUsersBooked: List<UsersCollection>
+    val houseUsersBooked: List<String>
 ) {
 
     constructor() : this ("", "", "For Rent", emptyList(), "", emptyList(), "", "0",

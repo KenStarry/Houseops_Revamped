@@ -13,5 +13,5 @@ sealed class HouseViewEvents {
         val houseCategory: String,
         val userEmail: String,
         val isAdd: Boolean
-    )
+    ) : HouseViewEvents()
 }

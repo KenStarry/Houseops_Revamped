@@ -51,6 +51,17 @@ class HouseViewVM @Inject constructor(
                     )
                 }
             }
+
+            is HouseViewEvents.AddUserToHouseBooked -> {
+                viewModelScope.launch {
+                    useCase.addUserToHouseBooked(
+                        apartmentName = event.apartmentName,
+                        houseCategory = event.apartmentName,
+                        userEmail = event.userEmail,
+                        isAdd = event.isAdd
+                    )
+                }
+            }
         }
     }
 }
