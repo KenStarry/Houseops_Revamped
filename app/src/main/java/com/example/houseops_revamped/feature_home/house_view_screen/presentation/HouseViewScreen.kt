@@ -84,6 +84,8 @@ fun HouseViewScreen(
                         house = it,
                         userDetails = userDetails
                     )
+
+                    Spacer(modifier = Modifier.height(56.dp))
                 }
             }
 
