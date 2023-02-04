@@ -10,4 +10,10 @@ interface HouseViewRepository {
         currentHouse: (house: HouseModel) -> Unit
     )
 
+    suspend fun addHouseToBookedHouses(
+        houseId: String,
+        email: String,
+        isAdd: Boolean
+    )
+
 }

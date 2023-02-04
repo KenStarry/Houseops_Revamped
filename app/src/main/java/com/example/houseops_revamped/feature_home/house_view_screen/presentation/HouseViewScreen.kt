@@ -118,6 +118,9 @@ fun HouseViewScreen(
                         icon = Icons.Outlined.Timelapse,
                         title = "Book Now",
                         onFabClicked = {
+
+                            //  update house field
+
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.OpenBottomSheet(
                                     state = state,

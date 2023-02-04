@@ -6,10 +6,11 @@ data class UsersCollection(
     var userPassword: String?,
     var userImageUri: String?,
     var userLikedHouses: List<LikedHouse>?,
-    var userBookmarks: List<String>?
+    var userBookmarks: List<String>?,
+    var userHousesBooked: List<String>?
 ) {
     //  empty constructor
     constructor() : this("", "", "",
-        "", listOf(), listOf()
+        "", listOf(), listOf(), listOf()
     )
 }
