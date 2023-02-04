@@ -2,10 +2,9 @@ package com.example.houseops_revamped.feature_home.house_view_screen.presentatio
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Minimize
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +22,8 @@ fun BookedHouseBottomSheet(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .wrapContentHeight()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -34,7 +34,7 @@ fun BookedHouseBottomSheet(
             text = "Booked Successfully!",
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
         //  lottie
@@ -44,6 +44,7 @@ fun BookedHouseBottomSheet(
             iterations = 1,
             modifier = Modifier
                 .fillMaxWidth(0.9f)
+                .height(250.dp)
         )
 
         Button(
@@ -53,7 +54,11 @@ fun BookedHouseBottomSheet(
                 contentColor = MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(text = "View")
+            Text(
+                text = "View Status",
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = FontWeight.Bold
+            )
         }
 
     }

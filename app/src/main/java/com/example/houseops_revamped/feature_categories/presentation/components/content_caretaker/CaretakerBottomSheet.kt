@@ -53,17 +53,6 @@ fun CaretakerBottomSheet(
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
 
-        //  Bottom sheet Icon
-        Icon(
-            imageVector = Icons.Outlined.Minimize,
-            contentDescription = "Dash icon",
-            tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
         //  caretaker details
         Row(
             modifier = Modifier
