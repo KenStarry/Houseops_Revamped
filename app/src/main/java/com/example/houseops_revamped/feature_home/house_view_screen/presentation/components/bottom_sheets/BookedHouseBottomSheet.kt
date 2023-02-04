@@ -25,8 +25,7 @@ fun BookedHouseBottomSheet(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         //  title
@@ -37,6 +36,16 @@ fun BookedHouseBottomSheet(
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Glad to see you found something you like!",
+            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+            fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
         //  lottie
         Lottie(
             rawFile = R.raw.successful,
@@ -46,6 +55,7 @@ fun BookedHouseBottomSheet(
                 .fillMaxWidth(0.9f)
                 .height(250.dp)
         )
+        Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = { /*TODO*/ },
