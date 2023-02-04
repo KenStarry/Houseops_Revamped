@@ -2,6 +2,7 @@ package com.example.houseops_revamped.feature_home.house_view_screen.di
 
 import com.example.houseops_revamped.feature_home.house_view_screen.data.repository.HouseViewRepositoryImpl
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.repository.HouseViewRepository
+import com.example.houseops_revamped.feature_home.house_view_screen.domain.use_case.AddToBooked
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.use_case.GetHouse
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.use_case.HouseViewUseCases
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,6 +27,7 @@ object HouseViewModule {
     fun provideHouseViewUseCase(
         repository: HouseViewRepository
     ) = HouseViewUseCases(
-        getHouse = GetHouse(repository)
+        getHouse = GetHouse(repository),
+        addToBooked = AddToBooked(repository)
     )
 }
