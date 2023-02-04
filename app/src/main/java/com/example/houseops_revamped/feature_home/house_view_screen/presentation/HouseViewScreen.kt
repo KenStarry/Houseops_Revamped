@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.domain.model.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
@@ -26,8 +28,10 @@ import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookedHouseBottomSheet
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
@@ -56,7 +60,7 @@ fun HouseViewScreen(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
         sheetContent = { state, scope ->
 
-            when (categoriesVM.bottomSheetContent.value) {
+            when (coreVM.bottomSheetContent.value) {
 
                 HouseViewConstants.HV_CARETAKER_BOTTOM_SHEET -> {
                     CaretakerBottomSheet(
@@ -64,6 +68,12 @@ fun HouseViewScreen(
                         caretaker = categoriesVM.caretakerData.value,
                         userDetails = userDetails,
                         direction = direction
+                    )
+                }
+
+                HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET -> {
+                    BookedHouseBottomSheet(
+                        house = coreVM.bottomSheetData.value as HouseModel
                     )
                 }
 
@@ -84,7 +94,17 @@ fun HouseViewScreen(
                 floatingActionButton = {
                     ExtendedFab(
                         icon = Icons.Outlined.Timelapse,
-                        title = "Book House"
+                        title = "Book House",
+                        onFabClicked = {
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.OpenBottomSheet(
+                                    state = state,
+                                    scope = scope,
+                                    bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
+                                    bottomSheetData = houseViewVM.currentHouse
+                                )
+                            )
+                        }
                     )
                 }
             ) { contentPadding ->
@@ -123,11 +143,11 @@ fun HouseViewScreen(
                                 house = it,
                                 userDetails = userDetails,
                                 onCaretakerClicked = { caretaker ->
-                                    categoriesVM.onEvent(
-                                        CategoryEvents.OpenBottomSheet(
+                                    coreVM.onBottomSheetEvent(
+                                        BottomSheetEvents.OpenBottomSheet(
                                             state = state,
                                             scope = scope,
-                                            bottomSheetType = Constants.CARETAKER_BOTTOM_SHEET_TYPE,
+                                            bottomSheetType = HouseViewConstants.HV_CARETAKER_BOTTOM_SHEET,
                                             bottomSheetData = caretaker
                                         )
                                     )

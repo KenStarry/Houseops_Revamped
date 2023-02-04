@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ExtendedFab(
     icon: ImageVector?,
-    title: String
+    title: String,
+    onFabClicked: () -> Unit
 ) {
 
     ExtendedFloatingActionButton(
-        onClick = { /*TODO*/ },
+        onClick = { onFabClicked() },
         contentColor = Color.White,
         containerColor = MaterialTheme.colorScheme.primary
     ) {

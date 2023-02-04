@@ -1,15 +1,20 @@
 package com.example.houseops_revamped.core.presentation.viewmodel
 
+import android.util.Log
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.core.domain.model.BottomSheetEvents
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
+import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,6 +39,13 @@ class CoreViewModel @Inject constructor(
 
     val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
     val caretakersList: State<List<Caretaker>> = _caretakersList
+
+    //  Bottomsheet
+    val _bottomSheetContent = mutableStateOf("")
+    val bottomSheetContent: State<String> = _bottomSheetContent
+
+    private val _bottomSheetData = mutableStateOf<Any?>(null)
+    val bottomSheetData: State<Any?> = _bottomSheetData
 
     fun isUserLoggedIn(): Boolean {
 
@@ -129,6 +141,31 @@ class CoreViewModel @Inject constructor(
                         fieldValue = event.fieldValue,
                         isAddItem = event.isAddItem,
                     )
+                }
+            }
+        }
+    }
+
+    @OptIn(ExperimentalMaterialApi::class)
+    fun onBottomSheetEvent(event: BottomSheetEvents<*>) {
+        when (event) {
+
+            is BottomSheetEvents.OpenBottomSheet<*> -> {
+                event.scope.launch {
+                    event.state.animateTo(ModalBottomSheetValue.Expanded)
+                }
+
+                viewModelScope.launch {
+                    _bottomSheetContent.value = event.bottomSheetType
+                    _bottomSheetData.value = event.bottomSheetData
+                }
+
+                Log.d("bottomsheet", _bottomSheetData.value.toString())
+            }
+
+            is BottomSheetEvents.CloseBottomSheet -> {
+                event.scope.launch {
+                    event.state.animateTo(ModalBottomSheetValue.Hidden)
                 }
             }
         }
