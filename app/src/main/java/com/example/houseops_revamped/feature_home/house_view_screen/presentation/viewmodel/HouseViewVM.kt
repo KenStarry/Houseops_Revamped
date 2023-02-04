@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
+import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.use_case.HouseViewUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -36,4 +37,39 @@ class HouseViewVM @Inject constructor(
             Log.d("view", "$currentHouse")
         }
     }
+
+    fun onEvent(event: HouseViewEvents) {
+
+        when (event) {
+
+            is HouseViewEvents.AddToBookedHouses -> {
+                viewModelScope.launch {
+                    useCase.addToBooked(
+                        houseId = event.houseId,
+                        email = event.email,
+                        isAdd = event.isAdd
+                    )
+                }
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
