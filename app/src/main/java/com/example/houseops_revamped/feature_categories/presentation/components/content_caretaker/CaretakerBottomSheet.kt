@@ -29,6 +29,7 @@ import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
+import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseops_revamped.navigation.Direction
@@ -38,7 +39,8 @@ fun CaretakerBottomSheet(
     categoriesVM: CategoriesViewModel,
     caretaker: Caretaker?,
     userDetails: UsersCollection?,
-    direction: Direction
+    direction: Direction,
+    onHouseClicked: (house: HouseModel) -> Unit
 ) {
 
     val context = LocalContext.current
@@ -188,10 +190,7 @@ fun CaretakerBottomSheet(
                                     )
                                     .background(MaterialTheme.colorScheme.onSecondary)
                                     .clickable {
-                                        //  open house view Screen
-                                        direction.navigateToHouseView(
-                                            house.houseApartmentName, house.houseCategory
-                                        )
+                                        onHouseClicked(house)
                                     }
                                     .padding(8.dp)
                             )

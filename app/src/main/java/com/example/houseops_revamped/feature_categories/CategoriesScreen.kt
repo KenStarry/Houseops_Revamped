@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.domain.model.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
@@ -53,7 +54,18 @@ fun CategoriesScreen(
                         categoriesVM = categoriesVM,
                         caretaker = categoriesVM.caretakerData.value,
                         userDetails = userDetails,
-                        direction = direction
+                        direction = direction,
+                        onHouseClicked = { house ->
+                            //  open house view Screen
+                            direction.navigateToHouseView(
+                                house.houseApartmentName, house.houseCategory
+                            )
+
+                            //  dismiss bottomshee
+                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                                state, scope
+                            ))
+                        }
                     )
                 }
                 else -> {
@@ -61,7 +73,18 @@ fun CategoriesScreen(
                         categoriesVM = categoriesVM,
                         caretaker = categoriesVM.caretakerData.value,
                         userDetails = userDetails,
-                        direction = direction
+                        direction = direction,
+                        onHouseClicked = { house ->
+                            //  open house view Screen
+                            direction.navigateToHouseView(
+                                house.houseApartmentName, house.houseCategory
+                            )
+
+                            //  dismiss bottomshee
+                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                                state, scope
+                            ))
+                        }
                     )
                 }
             }

@@ -67,7 +67,18 @@ fun HouseViewScreen(
                         categoriesVM = categoriesVM,
                         caretaker = categoriesVM.caretakerData.value,
                         userDetails = userDetails,
-                        direction = direction
+                        direction = direction,
+                        onHouseClicked = { house ->
+                            //  open house view Screen
+                            direction.navigateToHouseView(
+                                house.houseApartmentName, house.houseCategory
+                            )
+
+                            //  dismiss bottomshee
+                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                                state, scope
+                            ))
+                        }
                     )
                 }
 
@@ -82,7 +93,18 @@ fun HouseViewScreen(
                         categoriesVM = categoriesVM,
                         caretaker = categoriesVM.caretakerData.value,
                         userDetails = userDetails,
-                        direction = direction
+                        direction = direction,
+                        onHouseClicked = { house ->
+                            //  open house view Screen
+                            direction.navigateToHouseView(
+                                house.houseApartmentName, house.houseCategory
+                            )
+
+                            //  dismiss bottomshee
+                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                                state, scope
+                            ))
+                        }
                     )
                 }
             }
