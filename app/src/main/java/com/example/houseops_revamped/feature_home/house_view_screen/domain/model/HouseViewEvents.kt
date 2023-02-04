@@ -7,4 +7,11 @@ sealed class HouseViewEvents {
         val email: String,
         val isAdd: Boolean
     ) : HouseViewEvents()
+
+    data class AddUserToHouseBooked(
+        val apartmentName: String,
+        val houseCategory: String,
+        val userEmail: String,
+        val isAdd: Boolean
+    )
 }

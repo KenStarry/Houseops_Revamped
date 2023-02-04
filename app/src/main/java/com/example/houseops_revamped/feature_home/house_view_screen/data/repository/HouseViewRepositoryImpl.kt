@@ -63,4 +63,45 @@ class HouseViewRepositoryImpl(
             Log.d("booked", "$e")
         }
     }
+
+    override suspend fun addUserToHouseBooked(
+        apartmentName: String,
+        houseCategory: String,
+        userEmail: String,
+        isAdd: Boolean
+    ) {
+
+        try {
+
+            val docRef = db.collection(Constants.APARTMENTS_COLLECTION)
+                .document(apartmentName)
+                .collection(Constants.HOUSES_SUB_COLLECTION)
+                .document(houseCategory)
+
+            if (isAdd)
+                docRef.update("houseUsersBooked", FieldValue.arrayUnion(userEmail))
+                    .addOnSuccessListener {  }
+                    .addOnFailureListener {  }
+            else
+                docRef.update("houseUsersBooked", FieldValue.arrayRemove(userEmail))
+                    .addOnSuccessListener {  }
+                    .addOnFailureListener {  }
+
+
+        } catch (e: Exception) {
+            Log.d("booked", "$e")
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
