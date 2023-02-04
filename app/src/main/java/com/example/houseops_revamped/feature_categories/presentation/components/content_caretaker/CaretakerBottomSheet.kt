@@ -31,13 +31,14 @@ import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
+import com.example.houseops_revamped.navigation.Direction
 
 @Composable
 fun CaretakerBottomSheet(
     categoriesVM: CategoriesViewModel,
     caretaker: Caretaker?,
     userDetails: UsersCollection?,
-    direction: com.example.houseops_revamped.navigation.Direction
+    direction: Direction
 ) {
 
     val context = LocalContext.current

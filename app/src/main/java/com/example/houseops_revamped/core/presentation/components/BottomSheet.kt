@@ -26,7 +26,9 @@ fun BottomSheet(
 
     //  modal bottomsheet layout
     ModalBottomSheetLayout(
-        sheetContent = { sheetContent(modalBottomSheetState, scope) },
+        sheetContent = {
+            sheetContent(modalBottomSheetState, scope)
+        },
         sheetState = modalBottomSheetState,
         sheetElevation = 4.dp,
         sheetShape = RoundedCornerShape(

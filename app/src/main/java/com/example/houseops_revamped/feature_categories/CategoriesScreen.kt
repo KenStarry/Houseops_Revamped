@@ -64,7 +64,6 @@ fun CategoriesScreen(
                         direction = direction
                     )
                 }
-
             }
         },
         sheetScope = { state, scope ->

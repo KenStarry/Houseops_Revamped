@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.ui.theme.LimeGreen
@@ -26,7 +28,8 @@ import com.example.houseops_revamped.ui.theme.LimeGreenDull
 fun DetailsCaretaker(
     context: Context,
     apartment: String,
-    coreVM: CoreViewModel = hiltViewModel()
+    coreVM: CoreViewModel = hiltViewModel(),
+    onCardClicked: (caretaker: Caretaker) -> Unit
 ) {
 
     val caretaker = coreVM.getCaretakerDetails(apartment)
@@ -36,7 +39,10 @@ fun DetailsCaretaker(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .wrapContentHeight()
+                .clickable {
+                    onCardClicked(it)
+                },
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.onSecondary,

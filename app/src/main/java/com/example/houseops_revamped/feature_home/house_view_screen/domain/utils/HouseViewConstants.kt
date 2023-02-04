@@ -14,4 +14,6 @@ object HouseViewConstants {
         HouseFeatures("Shops", Icons.Outlined.Shop),
         HouseFeatures("Rooftop", Icons.Outlined.Roofing)
     )
+
+    const val HV_CARETAKER_BOTTOM_SHEET = "house view caretaker"
 }

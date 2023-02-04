@@ -33,6 +33,9 @@ object Constants {
     //  Cloud storage
     const val USER_IMAGES = "user_images"
 
+    //  bottomsheet types
+    const val CARETAKER_BOTTOM_SHEET_TYPE = "caretaker bottomsheet"
+
     val priceCategories = listOf(
         "month",
         "year",

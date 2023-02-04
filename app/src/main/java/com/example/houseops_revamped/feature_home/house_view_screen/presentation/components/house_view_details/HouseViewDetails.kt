@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
@@ -13,7 +14,8 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 fun HouseViewDetails(
     context: Context,
     house: HouseModel,
-    userDetails: UsersCollection?
+    userDetails: UsersCollection?,
+    onCaretakerClicked: (caretaker: Caretaker) -> Unit
 ) {
 
     val spacing = 24.dp
@@ -37,7 +39,10 @@ fun HouseViewDetails(
     //  caretaker information & call / message icons
     DetailsCaretaker(
         context = context,
-        apartment = house.houseApartmentName
+        apartment = house.houseApartmentName,
+        onCardClicked = {
+            onCaretakerClicked(it)
+        }
     )
 
     Spacer(modifier = Modifier.height(spacing))
