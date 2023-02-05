@@ -54,6 +54,8 @@ fun SettingsScreen(
                 .padding(contentPadding)
         ) {
 
+            //  Themes section
+
         }
     }
 }
