@@ -124,6 +124,16 @@ fun HouseViewScreen(
                         title = "Book Now",
                         onFabClicked = {
 
+                            //  add user to house booked
+                            userDetails?.userEmail?.let {
+                                houseViewVM.onEvent(HouseViewEvents.AddUserToHouseBooked(
+                                    apartmentName = apartment,
+                                    houseCategory = category,
+                                    userEmail = it,
+                                    isAdd = true
+                                ))
+                            }
+
                             //  update house field
                             houseViewVM.currentHouse?.let { house ->
                                 userDetails?.userEmail?.let { email ->

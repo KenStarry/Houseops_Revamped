@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.domain.use_case
 
+import android.util.Log
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.repository.HouseViewRepository
 
 class AddUserToHouseBooked(
@@ -10,7 +11,11 @@ class AddUserToHouseBooked(
         houseCategory: String,
         userEmail: String,
         isAdd: Boolean
-    ) = repo.addUserToHouseBooked(
-        apartmentName, houseCategory, userEmail, isAdd
-    )
+    ) {
+        repo.addUserToHouseBooked(
+            apartmentName, houseCategory, userEmail, isAdd
+        )
+
+        Log.d("booked", "use case -> $apartmentName, $houseCategory")
+    }
 }

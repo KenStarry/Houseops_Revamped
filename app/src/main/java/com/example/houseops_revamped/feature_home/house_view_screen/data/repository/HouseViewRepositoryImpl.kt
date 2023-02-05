@@ -80,7 +80,9 @@ class HouseViewRepositoryImpl(
 
             if (isAdd)
                 docRef.update("houseUsersBooked", FieldValue.arrayUnion(userEmail))
-                    .addOnSuccessListener {  }
+                    .addOnSuccessListener {
+                        Log.d("booked", "repo -> $apartmentName, $houseCategory")
+                    }
                     .addOnFailureListener {  }
             else
                 docRef.update("houseUsersBooked", FieldValue.arrayRemove(userEmail))

@@ -56,7 +56,7 @@ class HouseViewVM @Inject constructor(
                 viewModelScope.launch {
                     useCase.addUserToHouseBooked(
                         apartmentName = event.apartmentName,
-                        houseCategory = event.apartmentName,
+                        houseCategory = event.houseCategory,
                         userEmail = event.userEmail,
                         isAdd = event.isAdd
                     )
