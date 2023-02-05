@@ -24,6 +24,7 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.SettingsTopAppBar
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
+import com.example.houseops_revamped.feature_settings.presentation.components.about_section.AboutSection
 import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationSection
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
@@ -88,6 +89,18 @@ fun SettingsScreen(
                         .padding(8.dp),
                     settingsViewModel = settingsViewModel
                 )
+
+                //  About Section
+                AboutSection(
+                    context = context,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .padding(8.dp),
+                    settingsViewModel = settingsViewModel
+                )
+
             }
 
         }
