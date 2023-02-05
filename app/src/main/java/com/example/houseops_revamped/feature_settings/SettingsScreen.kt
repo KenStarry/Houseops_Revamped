@@ -25,6 +25,7 @@ import com.example.houseops_revamped.custom_components.SettingsTopAppBar
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
+import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.example.houseops_revamped.navigation.Direction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -39,6 +40,9 @@ import kotlinx.coroutines.withContext
 fun SettingsScreen(
     navHostController: NavHostController
 ) {
+
+    val settingsViewModel = SettingsViewModel()
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -67,7 +71,9 @@ fun SettingsScreen(
                         .fillMaxWidth()
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
-                        .padding(8.dp)
+                        .padding(8.dp),
+                    settingsViewModel = settingsViewModel,
+                    context = context
                 )
 
             }
