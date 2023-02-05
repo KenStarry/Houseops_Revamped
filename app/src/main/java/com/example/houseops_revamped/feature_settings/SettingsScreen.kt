@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.screens.bottom_nav_screens
+package com.example.houseops_revamped.feature_settings
 
 import android.content.Context
 import androidx.compose.foundation.*
@@ -23,6 +23,7 @@ import coil.request.ImageRequest
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.SettingsTopAppBar
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
 import com.example.houseops_revamped.navigation.Direction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -39,7 +40,6 @@ fun SettingsScreen(
 ) {
 
     val scope = rememberCoroutineScope()
-    val db = Firebase.firestore
     val context = LocalContext.current
     val direction = Direction(navHostController)
 
@@ -62,12 +62,9 @@ fun SettingsScreen(
 
     Scaffold(
         topBar = {
-            SettingsTopAppBar(
-                scope,
-                navHostController,
-                auth,
-                context
-            )
+            SettingsAppBar {
+
+            }
         }
     ) { contentPadding ->
         Column(
