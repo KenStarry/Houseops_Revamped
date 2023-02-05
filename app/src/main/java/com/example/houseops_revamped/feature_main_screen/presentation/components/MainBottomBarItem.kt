@@ -75,7 +75,32 @@ fun RowScope.MainBottomBarItem(
                     contentDescription = "Bottom Nav Icon"
                 )
             }
-        }
+        },
+
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = Color.White,
+            unselectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f),
+            indicatorColor = MaterialTheme.colorScheme.tertiary
+        ),
+
     )
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
