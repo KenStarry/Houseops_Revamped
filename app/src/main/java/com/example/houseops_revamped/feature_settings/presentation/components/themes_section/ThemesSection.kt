@@ -1,11 +1,14 @@
 package com.example.houseops_revamped.feature_settings.presentation.components.themes_section
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -44,6 +47,28 @@ fun ThemesSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
+            )
+
+            var selectedRadioButton by remember {
+                mutableStateOf(SettingsConstants.themeOptions[0])
+            }
+
+            //  content
+            LazyColumn(
+                content = {
+                    items(
+                        items = SettingsConstants.themeOptions
+                    ) {
+
+                        ThemeRadioButton(
+                            description = it,
+                            isSelected = it == selectedRadioButton,
+                            onRadioButtonClicked = { selectedRadioButton = it }
+                        )
+
+                    }
+                },
+                state = rememberLazyListState()
             )
 
         }

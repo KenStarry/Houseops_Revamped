@@ -5,4 +5,8 @@ sealed class SettingsEvents {
     data class ToggleDropdownMenu(
         val isDropdownExpanded: Boolean
     ) : SettingsEvents()
+
+    data class ToggleThemeRadioBtn(
+        val selectedText: String
+    ) : SettingsEvents()
 }

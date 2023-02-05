@@ -15,4 +15,10 @@ object SettingsConstants {
         SettingsSectionModel("Personalization", Icons.Outlined.Settings, BlueAccent, BlueAccentTransparentAlt),
         SettingsSectionModel("About", Icons.Outlined.ContactPage, BlueAccent, BlueAccentTransparentAlt)
     )
+
+    val themeOptions = listOf(
+        "Dark Theme",
+        "Light Theme",
+        "Follow System"
+    )
 }
