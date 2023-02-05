@@ -24,6 +24,7 @@ import com.example.houseops_revamped.R
 import com.example.houseops_revamped.custom_components.SettingsTopAppBar
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
+import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
 import com.example.houseops_revamped.navigation.Direction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -54,7 +55,22 @@ fun SettingsScreen(
                 .padding(contentPadding)
         ) {
 
-            //  Themes section
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+
+                //  Themes section
+                ThemesSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .padding(8.dp)
+                )
+
+            }
 
         }
     }
