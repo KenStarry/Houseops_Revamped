@@ -1,19 +1,16 @@
 package com.example.houseops_revamped.feature_settings.presentation.utils
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Collections
-import androidx.compose.material.icons.outlined.ContactPage
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.*
 import com.example.houseops_revamped.feature_settings.presentation.model.SettingsSectionModel
-import com.example.houseops_revamped.ui.theme.BlueAccent
-import com.example.houseops_revamped.ui.theme.BlueAccentTransparentAlt
+import com.example.houseops_revamped.ui.theme.*
 
 object SettingsConstants {
 
     val settingsSections = listOf(
-        SettingsSectionModel("Theme", Icons.Outlined.Collections, BlueAccent, BlueAccentTransparentAlt),
-        SettingsSectionModel("Personalization", Icons.Outlined.Settings, BlueAccent, BlueAccentTransparentAlt),
-        SettingsSectionModel("About", Icons.Outlined.ContactPage, BlueAccent, BlueAccentTransparentAlt)
+        SettingsSectionModel("Theme", Icons.Outlined.DarkMode, BlueAccent, BlueAccentTransparentAlt),
+        SettingsSectionModel("Personalization", Icons.Outlined.Colorize, RedOrange, RedOrangeDull),
+        SettingsSectionModel("About", Icons.Outlined.ContactPage, LimeGreen, LimeGreenDull)
     )
 
     val themeOptions = listOf(

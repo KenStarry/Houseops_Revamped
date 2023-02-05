@@ -48,7 +48,7 @@ fun SectionTitle(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .size(50.dp)
+                    .size(45.dp)
                     .background(iconBackground),
                 contentAlignment = Alignment.Center
             ) {

@@ -27,6 +27,7 @@ import com.example.houseops_revamped.feature_settings.presentation.components.Se
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.ui.theme.HouseOps_RevampedTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -40,7 +41,6 @@ import kotlinx.coroutines.withContext
 fun SettingsScreen(
     navHostController: NavHostController
 ) {
-
     val settingsViewModel = SettingsViewModel()
     val context = LocalContext.current
 
