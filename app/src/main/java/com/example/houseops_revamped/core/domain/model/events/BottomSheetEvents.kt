@@ -1,8 +1,7 @@
-package com.example.houseops_revamped.core.domain.model
+package com.example.houseops_revamped.core.domain.model.events
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
-import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import kotlinx.coroutines.CoroutineScope
 
 sealed class BottomSheetEvents<out T> {

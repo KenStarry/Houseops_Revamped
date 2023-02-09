@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.core.domain.model
+package com.example.houseops_revamped.core.domain.model.events
 
 sealed class CoreEvents {
 

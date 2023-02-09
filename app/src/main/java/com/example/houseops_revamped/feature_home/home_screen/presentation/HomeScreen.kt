@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.core.domain.model.BottomSheetEvents
+import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
@@ -87,7 +87,8 @@ fun HomeScreen(
                             )
 
                             //  dismiss bottomshee
-                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
                                 state, scope
                             ))
                         }

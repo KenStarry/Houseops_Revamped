@@ -1,6 +1,5 @@
 package com.example.houseops_revamped.feature_categories
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.core.domain.model.BottomSheetEvents
+import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
@@ -62,7 +59,8 @@ fun CategoriesScreen(
                             )
 
                             //  dismiss bottomshee
-                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
                                 state, scope
                             ))
                         }
@@ -81,7 +79,8 @@ fun CategoriesScreen(
                             )
 
                             //  dismiss bottomshee
-                            coreVM.onBottomSheetEvent(BottomSheetEvents.CloseBottomSheet(
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
                                 state, scope
                             ))
                         }

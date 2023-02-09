@@ -1,15 +1,11 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Book
-import androidx.compose.material.icons.outlined.BookOnline
-import androidx.compose.material.icons.outlined.Paid
 import androidx.compose.material.icons.outlined.Timelapse
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -20,17 +16,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.core.domain.model.BottomSheetEvents
+import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
+import com.example.houseops_revamped.core.presentation.components.CustomAlertDialog
 import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
-import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
-import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookedHouseBottomSheet
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
@@ -57,10 +51,16 @@ fun HouseViewScreen(
 
     houseViewVM.getHouse(apartment, category)
 
+    CustomAlertDialog(
+        icon = ,
+        title =,
+        content = {},
+        onConfirm = { /*TODO*/ },
+        onDismiss = {})
+
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
         sheetContent = { state, scope ->
-
             when (coreVM.bottomSheetContent.value) {
 
                 HouseViewConstants.HV_CARETAKER_BOTTOM_SHEET -> {
@@ -113,7 +113,6 @@ fun HouseViewScreen(
                     )
                 }
             }
-
         },
         sheetScope = { state, scope ->
 
@@ -124,37 +123,37 @@ fun HouseViewScreen(
                         title = "Book Now",
                         onFabClicked = {
 
-                            //  add user to house booked
-                            userDetails?.userEmail?.let {
-                                houseViewVM.onEvent(HouseViewEvents.AddUserToHouseBooked(
-                                    apartmentName = apartment,
-                                    houseCategory = category,
-                                    userEmail = it,
-                                    isAdd = true
-                                ))
-                            }
-
-                            //  update house field
-                            houseViewVM.currentHouse?.let { house ->
-                                userDetails?.userEmail?.let { email ->
-                                    houseViewVM.onEvent(
-                                        HouseViewEvents.AddToBookedHouses(
-                                            houseId = house.houseId,
-                                            email = email,
-                                            isAdd = true
-                                        )
-                                    )
-                                }
-                            }
-
-                            coreVM.onBottomSheetEvent(
-                                BottomSheetEvents.OpenBottomSheet(
-                                    state = state,
-                                    scope = scope,
-                                    bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
-                                    bottomSheetData = houseViewVM.currentHouse
-                                )
-                            )
+//                            //  add user to house booked
+//                            userDetails?.userEmail?.let {
+//                                houseViewVM.onEvent(HouseViewEvents.AddUserToHouseBooked(
+//                                    apartmentName = apartment,
+//                                    houseCategory = category,
+//                                    userEmail = it,
+//                                    isAdd = true
+//                                ))
+//                            }
+//
+//                            //  update house field
+//                            houseViewVM.currentHouse?.let { house ->
+//                                userDetails?.userEmail?.let { email ->
+//                                    houseViewVM.onEvent(
+//                                        HouseViewEvents.AddToBookedHouses(
+//                                            houseId = house.houseId,
+//                                            email = email,
+//                                            isAdd = true
+//                                        )
+//                                    )
+//                                }
+//                            }
+//
+//                            coreVM.onBottomSheetEvent(
+//                                BottomSheetEvents.OpenBottomSheet(
+//                                    state = state,
+//                                    scope = scope,
+//                                    bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
+//                                    bottomSheetData = houseViewVM.currentHouse
+//                                )
+//                            )
                         }
                     )
                 }
