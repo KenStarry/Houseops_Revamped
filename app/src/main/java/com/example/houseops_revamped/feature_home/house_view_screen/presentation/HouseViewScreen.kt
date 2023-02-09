@@ -97,7 +97,46 @@ fun HouseViewScreen(
                 }
 
                 HouseViewConstants.HV_BOOK_DATE_BOTTOM_SHEET -> {
-                    BookHouseDatePicker()
+                    BookHouseDatePicker(
+                        onCloseBottomSheet = {
+                            categoriesVM.onEvent(CategoryEvents.CloseBottomSheet(state, scope))
+                        },
+                        onHouseBooked = {
+                            //  book the house
+                            //  add user to house booked
+                            userDetails?.userEmail?.let {
+                                houseViewVM.onEvent(
+                                    HouseViewEvents.AddUserToHouseBooked(
+                                        apartmentName = apartment,
+                                        houseCategory = category,
+                                        userEmail = it,
+                                        isAdd = true
+                                    ))
+                            }
+
+                            //  update house field
+                            houseViewVM.currentHouse?.let { house ->
+                                userDetails?.userEmail?.let { email ->
+                                    houseViewVM.onEvent(
+                                        HouseViewEvents.AddToBookedHouses(
+                                            houseId = house.houseId,
+                                            email = email,
+                                            isAdd = true
+                                        )
+                                    )
+                                }
+                            }
+
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.OpenBottomSheet(
+                                    state = state,
+                                    scope = scope,
+                                    bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
+                                    bottomSheetData = houseViewVM.currentHouse
+                                )
+                            )
+                        }
+                    )
                 }
 
                 else -> {
@@ -144,36 +183,12 @@ fun HouseViewScreen(
                             },
                             onConfirm = {
 
-                                //  add user to house booked
-                                userDetails?.userEmail?.let {
-                                    houseViewVM.onEvent(
-                                        HouseViewEvents.AddUserToHouseBooked(
-                                            apartmentName = apartment,
-                                            houseCategory = category,
-                                            userEmail = it,
-                                            isAdd = true
-                                        ))
-                                }
-
-                                //  update house field
-                                houseViewVM.currentHouse?.let { house ->
-                                    userDetails?.userEmail?.let { email ->
-                                        houseViewVM.onEvent(
-                                            HouseViewEvents.AddToBookedHouses(
-                                                houseId = house.houseId,
-                                                email = email,
-                                                isAdd = true
-                                            )
-                                        )
-                                    }
-                                }
-
                                 coreVM.onBottomSheetEvent(
                                     BottomSheetEvents.OpenBottomSheet(
                                         state = state,
                                         scope = scope,
-                                        bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
-                                        bottomSheetData = houseViewVM.currentHouse
+                                        bottomSheetType = HouseViewConstants.HV_BOOK_DATE_BOTTOM_SHEET,
+                                        bottomSheetData = null
                                     )
                                 )
 

@@ -2,6 +2,7 @@ package com.example.houseops_revamped.feature_home.house_view_screen.data.reposi
 
 import android.util.Log
 import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.repository.HouseViewRepository
 import com.google.firebase.firestore.FieldValue
@@ -39,7 +40,7 @@ class HouseViewRepositoryImpl(
     }
 
     override suspend fun addHouseToBookedHouses(
-        houseId: String,
+        bookedHouse: BookedHouseModel,
         email: String,
         isAdd: Boolean
     ) {
@@ -50,11 +51,11 @@ class HouseViewRepositoryImpl(
                 .document(email)
 
             if (isAdd) {
-                documentRef.update("userBookedHouses", FieldValue.arrayUnion(houseId))
+                documentRef.update("userBookedHouses", FieldValue.arrayUnion(bookedHouse))
                     .addOnSuccessListener { }
                     .addOnFailureListener { }
             } else {
-                documentRef.update("userBookedHouses", FieldValue.arrayRemove(houseId))
+                documentRef.update("userBookedHouses", FieldValue.arrayRemove(bookedHouse))
                     .addOnSuccessListener { }
                     .addOnFailureListener { }
             }

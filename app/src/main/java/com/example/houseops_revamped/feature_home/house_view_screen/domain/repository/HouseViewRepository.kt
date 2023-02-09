@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.domain.repository
 
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
 interface HouseViewRepository {
@@ -12,7 +13,7 @@ interface HouseViewRepository {
     )
 
     suspend fun addHouseToBookedHouses(
-        houseId: String,
+        bookedHouse: BookedHouseModel,
         email: String,
         isAdd: Boolean
     )
