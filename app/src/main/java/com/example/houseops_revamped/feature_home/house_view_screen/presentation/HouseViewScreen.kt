@@ -12,7 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -29,6 +29,7 @@ import com.example.houseops_revamped.feature_categories.domain.model.CategoryEve
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
+import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookedHouseBottomSheet
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
@@ -55,23 +56,7 @@ fun HouseViewScreen(
 
     houseViewVM.getHouse(apartment, category)
 
-    when (coreVM.alertDialogContent.value) {
-        Constants.BOOK_HOUSE_ALERT -> {
-            CustomAlertDialog(
-                icon = Icons.Outlined.Warning,
-                title = "Notice!",
-                content = {
-                    Text(
-                        text = "HouseOps does not ask you to pay" +
-                                "any amount of cash to book a house prior to seeing it. " +
-                                "Do not pay for a house before inspecting it"
-                    )
-                },
-                onConfirm = {
-                },
-                onDismiss = {})
-        }
-    }
+    var openBookAlertDialog by remember { mutableStateOf(false) }
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -131,6 +116,68 @@ fun HouseViewScreen(
         },
         sheetScope = { state, scope ->
 
+            when (coreVM.alertDialogContent.value) {
+                Constants.BOOK_HOUSE_ALERT -> {
+
+                    if (openBookAlertDialog) {
+                        CustomAlertDialog(
+                            icon = Icons.Outlined.Warning,
+                            title = "Notice!",
+                            content = {
+                                Text(
+                                    text = "HouseOps will not ask you to pay " +
+                                            "any amount of money to book a house prior to seeing it. " +
+                                            "Do not pay for a house before inspecting it!",
+                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                                )
+                            },
+                            onConfirm = {
+
+                                //  add user to house booked
+                                userDetails?.userEmail?.let {
+                                    houseViewVM.onEvent(
+                                        HouseViewEvents.AddUserToHouseBooked(
+                                            apartmentName = apartment,
+                                            houseCategory = category,
+                                            userEmail = it,
+                                            isAdd = true
+                                        ))
+                                }
+
+                                //  update house field
+                                houseViewVM.currentHouse?.let { house ->
+                                    userDetails?.userEmail?.let { email ->
+                                        houseViewVM.onEvent(
+                                            HouseViewEvents.AddToBookedHouses(
+                                                houseId = house.houseId,
+                                                email = email,
+                                                isAdd = true
+                                            )
+                                        )
+                                    }
+                                }
+
+                                coreVM.onBottomSheetEvent(
+                                    BottomSheetEvents.OpenBottomSheet(
+                                        state = state,
+                                        scope = scope,
+                                        bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
+                                        bottomSheetData = houseViewVM.currentHouse
+                                    )
+                                )
+
+                                openBookAlertDialog = false
+                            },
+                            onDismiss = {
+                                openBookAlertDialog = false
+                            }
+                        )
+                    }
+                }
+            }
+
             Scaffold(
                 floatingActionButton = {
                     ExtendedFab(
@@ -138,43 +185,13 @@ fun HouseViewScreen(
                         title = "Book Now",
                         onFabClicked = {
 
+                            openBookAlertDialog = true
+
                             coreVM.onAlertEvent(
                                 AlertDialogEvents.OpenAlertDialog(
                                     Constants.BOOK_HOUSE_ALERT
                                 )
                             )
-
-//                            //  add user to house booked
-//                            userDetails?.userEmail?.let {
-//                                houseViewVM.onEvent(HouseViewEvents.AddUserToHouseBooked(
-//                                    apartmentName = apartment,
-//                                    houseCategory = category,
-//                                    userEmail = it,
-//                                    isAdd = true
-//                                ))
-//                            }
-//
-//                            //  update house field
-//                            houseViewVM.currentHouse?.let { house ->
-//                                userDetails?.userEmail?.let { email ->
-//                                    houseViewVM.onEvent(
-//                                        HouseViewEvents.AddToBookedHouses(
-//                                            houseId = house.houseId,
-//                                            email = email,
-//                                            isAdd = true
-//                                        )
-//                                    )
-//                                }
-//                            }
-//
-//                            coreVM.onBottomSheetEvent(
-//                                BottomSheetEvents.OpenBottomSheet(
-//                                    state = state,
-//                                    scope = scope,
-//                                    bottomSheetType = HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET,
-//                                    bottomSheetData = houseViewVM.currentHouse
-//                                )
-//                            )
                         }
                     )
                 }

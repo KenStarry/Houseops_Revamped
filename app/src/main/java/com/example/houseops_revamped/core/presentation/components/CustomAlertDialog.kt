@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +17,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomAlertDialog(
     icon: ImageVector,
+    iconTint: Color = MaterialTheme.colorScheme.primary,
+    iconBackground: Color = MaterialTheme.colorScheme.tertiary,
     title: String,
     content: @Composable ColumnScope.() -> Unit,
     containerColor: Color = MaterialTheme.colorScheme.onPrimary,
@@ -29,13 +32,14 @@ fun CustomAlertDialog(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .size(45.dp),
+                    .size(45.dp)
+                    .background(iconBackground),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = "Alert Icon",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    tint = iconTint
                 )
             }
         },
