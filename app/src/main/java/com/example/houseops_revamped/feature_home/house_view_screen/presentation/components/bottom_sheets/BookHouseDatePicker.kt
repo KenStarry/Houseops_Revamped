@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
@@ -145,7 +146,7 @@ fun BookHouseDatePicker(
 
                 } else {
                     //  book house
-                    pickedDate?.let { onHouseBooked(formattedDate) }
+                    pickedDate?.let { onHouseBooked(it.toString()) }
                 }
             }) {
                 Text(text = "Confirm")
