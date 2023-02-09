@@ -199,13 +199,29 @@ fun HouseViewScreen(
                             containerColor = LimeGreen,
                             onFabClicked = {
 
-                                openBookAlertDialog = true
+                                //  add user to house booked
+                                userDetails?.userEmail?.let {
+                                    houseViewVM.onEvent(
+                                        HouseViewEvents.AddUserToHouseBooked(
+                                            apartmentName = apartment,
+                                            houseCategory = category,
+                                            userEmail = it,
+                                            isAdd = false
+                                        ))
+                                }
 
-                                coreVM.onAlertEvent(
-                                    AlertDialogEvents.OpenAlertDialog(
-                                        Constants.BOOK_HOUSE_ALERT
-                                    )
-                                )
+                                //  update house field
+                                houseViewVM.currentHouse?.let { house ->
+                                    userDetails?.userEmail?.let { email ->
+                                        houseViewVM.onEvent(
+                                            HouseViewEvents.AddToBookedHouses(
+                                                houseId = house.houseId,
+                                                email = email,
+                                                isAdd = false
+                                            )
+                                        )
+                                    }
+                                }
                             }
                         )
 
