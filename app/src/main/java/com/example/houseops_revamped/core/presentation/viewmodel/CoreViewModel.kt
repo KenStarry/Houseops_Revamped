@@ -13,6 +13,7 @@ import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,15 +37,19 @@ class CoreViewModel @Inject constructor(
     var caretaker by mutableStateOf<Caretaker?>(null)
         private set
 
-    val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
+    private val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
     val caretakersList: State<List<Caretaker>> = _caretakersList
 
     //  Bottomsheet
-    val _bottomSheetContent = mutableStateOf("")
+    private val _bottomSheetContent = mutableStateOf("")
     val bottomSheetContent: State<String> = _bottomSheetContent
 
     private val _bottomSheetData = mutableStateOf<Any?>(null)
     val bottomSheetData: State<Any?> = _bottomSheetData
+
+    //  Alert Dialog
+    private val _alertDialogContent = mutableStateOf("")
+    val alertDialogContent: State<String> = _alertDialogContent
 
     fun isUserLoggedIn(): Boolean {
 
@@ -166,6 +171,14 @@ class CoreViewModel @Inject constructor(
                 event.scope.launch {
                     event.state.animateTo(ModalBottomSheetValue.Hidden)
                 }
+            }
+        }
+    }
+
+    fun onAlertEvent(event: AlertDialogEvents) {
+        when (event) {
+            is AlertDialogEvents.OpenAlertDialog -> {
+                _alertDialogContent.value = event.dialogContent
             }
         }
     }

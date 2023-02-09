@@ -49,4 +49,7 @@ object Constants {
         HouseCategoryModel("Bedsitter", Icons.Outlined.LocalCafe),
         HouseCategoryModel("Single", Icons.Outlined.LocalHotel),
     )
+
+    //  alert dialog types
+    const val BOOK_HOUSE_ALERT = "book house alert dialog"
 }

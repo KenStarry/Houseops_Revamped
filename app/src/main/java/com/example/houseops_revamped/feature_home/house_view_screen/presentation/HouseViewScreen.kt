@@ -7,20 +7,24 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Timelapse
+import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.components.CustomAlertDialog
 import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
@@ -51,12 +55,23 @@ fun HouseViewScreen(
 
     houseViewVM.getHouse(apartment, category)
 
-    CustomAlertDialog(
-        icon = ,
-        title =,
-        content = {},
-        onConfirm = { /*TODO*/ },
-        onDismiss = {})
+    when (coreVM.alertDialogContent.value) {
+        Constants.BOOK_HOUSE_ALERT -> {
+            CustomAlertDialog(
+                icon = Icons.Outlined.Warning,
+                title = "Notice!",
+                content = {
+                    Text(
+                        text = "HouseOps does not ask you to pay" +
+                                "any amount of cash to book a house prior to seeing it. " +
+                                "Do not pay for a house before inspecting it"
+                    )
+                },
+                onConfirm = {
+                },
+                onDismiss = {})
+        }
+    }
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -122,6 +137,12 @@ fun HouseViewScreen(
                         icon = Icons.Outlined.Timelapse,
                         title = "Book Now",
                         onFabClicked = {
+
+                            coreVM.onAlertEvent(
+                                AlertDialogEvents.OpenAlertDialog(
+                                    Constants.BOOK_HOUSE_ALERT
+                                )
+                            )
 
 //                            //  add user to house booked
 //                            userDetails?.userEmail?.let {

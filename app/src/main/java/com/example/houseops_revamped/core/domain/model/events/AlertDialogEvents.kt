@@ -5,7 +5,4 @@ sealed class AlertDialogEvents {
     data class OpenAlertDialog(
         val dialogContent: String
     ) : AlertDialogEvents()
-
-    object CloseAlertDialog : AlertDialogEvents()
-
 }

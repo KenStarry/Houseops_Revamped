@@ -50,7 +50,16 @@ fun CustomAlertDialog(
         shape = RoundedCornerShape(16.dp),
         containerColor = containerColor,
         text = { Column { content() } },
-        confirmButton = { onConfirm() }
+        confirmButton = {
+            TextButton(onClick = { onConfirm() }) {
+                Text(text = "Confirm")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(text = "Cancel")
+            }
+        }
     )
 }
 
