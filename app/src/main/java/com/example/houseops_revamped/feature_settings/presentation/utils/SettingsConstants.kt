@@ -9,8 +9,9 @@ object SettingsConstants {
 
     val settingsSections = listOf(
         SettingsSectionModel("Theme", Icons.Outlined.DarkMode, BlueAccent, BlueAccentTransparentAlt),
-        SettingsSectionModel("Personalization", Icons.Outlined.Colorize, RedOrange, RedOrangeDull),
-        SettingsSectionModel("About", Icons.Outlined.ContactPage, LimeGreen, LimeGreenDull)
+        SettingsSectionModel("Personalization", Icons.Outlined.Colorize, LightYellow, LightYellowDull),
+        SettingsSectionModel("About", Icons.Outlined.ContactPage, Violet, VioletDull),
+        SettingsSectionModel("Danger Zone", Icons.Outlined.Warning, RedOrange, RedOrangeDull)
     )
 
     val themeOptions = listOf(

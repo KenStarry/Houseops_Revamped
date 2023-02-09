@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_settings.presentation.components.themes_section
+package com.example.houseops_revamped.feature_settings.presentation.components.danger_section
 
 import android.content.Context
 import android.widget.Toast
@@ -20,7 +20,7 @@ import com.example.houseops_revamped.feature_settings.presentation.utils.Setting
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
-fun ThemesSection(
+fun DangerSection(
     context: Context,
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel = SettingsViewModel()
@@ -46,37 +46,13 @@ fun ThemesSection(
         ) {
 
             SectionTitle(
-                title = SettingsConstants.settingsSections[0].sectionTitle,
-                icon = SettingsConstants.settingsSections[0].sectionIcon,
-                iconColor = SettingsConstants.settingsSections[0].sectionIconColor,
-                iconBackground = SettingsConstants.settingsSections[0].sectionIconBackgroundColor,
+                title = SettingsConstants.settingsSections[3].sectionTitle,
+                icon = SettingsConstants.settingsSections[3].sectionIcon,
+                iconColor = SettingsConstants.settingsSections[3].sectionIconColor,
+                iconBackground = SettingsConstants.settingsSections[3].sectionIconBackgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-            )
-
-            //  content
-            LazyColumn(
-                content = {
-                    items(
-                        items = SettingsConstants.themeOptions
-                    ) {
-
-                        ThemeRadioButton(
-                            description = it,
-                            isSelected = it == settingsViewModel.selectedTheme.value,
-                            onRadioButtonClicked = {
-                                settingsViewModel.onEvent(SettingsEvents.ToggleThemeRadioBtn(it))
-                                Toast.makeText(context, "$it mode activated.", Toast.LENGTH_SHORT).show()
-                            }
-                        )
-
-                    }
-                },
-                state = rememberLazyListState(),
-                contentPadding = PaddingValues(horizontal = 8.dp),
-                modifier = Modifier
-                    .height(150.dp)
             )
 
         }

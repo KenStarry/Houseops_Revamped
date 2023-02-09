@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
 import com.example.houseops_revamped.feature_settings.presentation.components.about_section.AboutSection
+import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerSection
 import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationSection
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
@@ -21,6 +22,7 @@ fun SettingsScreen(
 ) {
     val settingsViewModel = SettingsViewModel()
     val context = LocalContext.current
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -40,7 +42,8 @@ fun SettingsScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
 
@@ -68,6 +71,17 @@ fun SettingsScreen(
 
                 //  About Section
                 AboutSection(
+                    context = context,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .padding(8.dp),
+                    settingsViewModel = settingsViewModel
+                )
+
+                //  Danger Section
+                DangerSection(
                     context = context,
                     modifier = Modifier
                         .fillMaxWidth()
