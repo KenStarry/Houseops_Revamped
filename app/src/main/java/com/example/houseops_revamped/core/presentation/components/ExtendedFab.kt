@@ -18,13 +18,14 @@ import androidx.compose.ui.unit.dp
 fun ExtendedFab(
     icon: ImageVector?,
     title: String,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
     onFabClicked: () -> Unit
 ) {
 
     ExtendedFloatingActionButton(
         onClick = { onFabClicked() },
         contentColor = Color.White,
-        containerColor = MaterialTheme.colorScheme.primary
+        containerColor = containerColor
     ) {
 
         icon?.let {

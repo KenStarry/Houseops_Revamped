@@ -6,6 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Timelapse
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +37,7 @@ import com.example.houseops_revamped.feature_home.house_view_screen.presentation
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.ui.theme.LimeGreen
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -57,6 +59,7 @@ fun HouseViewScreen(
     houseViewVM.getHouse(apartment, category)
 
     var openBookAlertDialog by remember { mutableStateOf(false) }
+    var isHouseBooked by remember { mutableStateOf(false) }
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -180,20 +183,48 @@ fun HouseViewScreen(
 
             Scaffold(
                 floatingActionButton = {
-                    ExtendedFab(
-                        icon = Icons.Outlined.Timelapse,
-                        title = "Book Now",
-                        onFabClicked = {
 
-                            openBookAlertDialog = true
-
-                            coreVM.onAlertEvent(
-                                AlertDialogEvents.OpenAlertDialog(
-                                    Constants.BOOK_HOUSE_ALERT
-                                )
-                            )
+                    //  check if house is booked or not
+                    userDetails?.userBookedHouses?.let {
+                        isHouseBooked = it.any { houseId ->
+                            houseId == houseViewVM.currentHouse?.houseId
                         }
-                    )
+                    }
+
+                    if (isHouseBooked) {
+
+                        ExtendedFab(
+                            icon = Icons.Outlined.Check,
+                            title = "House Booked",
+                            containerColor = LimeGreen,
+                            onFabClicked = {
+
+                                openBookAlertDialog = true
+
+                                coreVM.onAlertEvent(
+                                    AlertDialogEvents.OpenAlertDialog(
+                                        Constants.BOOK_HOUSE_ALERT
+                                    )
+                                )
+                            }
+                        )
+
+                    } else {
+                        ExtendedFab(
+                            icon = Icons.Outlined.Timelapse,
+                            title = "Book Now",
+                            onFabClicked = {
+
+                                openBookAlertDialog = true
+
+                                coreVM.onAlertEvent(
+                                    AlertDialogEvents.OpenAlertDialog(
+                                        Constants.BOOK_HOUSE_ALERT
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
             ) { contentPadding ->
 
