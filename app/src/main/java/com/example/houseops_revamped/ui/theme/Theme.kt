@@ -82,21 +82,6 @@ fun HouseOps_RevampedTheme(
                 color = colorScheme.onPrimary,
                 darkIcons = !darkTheme
             )
-
-
-//            val window = (view.context as Activity).window
-//
-//            //  change status bar and navigationbar background colors
-//            window.statusBarColor = colorScheme.onPrimary.toArgb()
-//            window.navigationBarColor = colorScheme.onPrimary.toArgb()
-//
-//            //  change status bar and navigationbar text color
-//            WindowCompat.getInsetsController(window, view)
-//                .isAppearanceLightStatusBars = darkTheme
-//            WindowCompat.getInsetsController(window, view)
-//                .isAppearanceLightNavigationBars = darkTheme
-//
-//            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
         }
     }
 
