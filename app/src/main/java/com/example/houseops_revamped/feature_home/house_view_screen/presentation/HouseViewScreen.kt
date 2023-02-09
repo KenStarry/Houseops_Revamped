@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -222,6 +223,9 @@ fun HouseViewScreen(
                                         )
                                     }
                                 }
+
+                                //  toast message
+                                Toast.makeText(context, "House dropped successfully", Toast.LENGTH_SHORT).show()
                             }
                         )
 
