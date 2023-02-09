@@ -165,22 +165,6 @@ fun HomeScreen(
                             }
                         )
 
-                        //  caretaker section
-                        CaretakerSection(
-                            coreVM = coreVM,
-                            context = context,
-                            onCardClicked = { caretaker ->
-                                categoriesVM.onEvent(
-                                    CategoryEvents.OpenBottomSheet(
-                                        state = state,
-                                        scope = scope,
-                                        bottomSheetType = HomeConstants.homePills[5].title,
-                                        bottomSheetData = caretaker
-                                    )
-                                )
-                            }
-                        )
-
                         //  featured section
                         FeaturedSection(
                             title = "Featured",
