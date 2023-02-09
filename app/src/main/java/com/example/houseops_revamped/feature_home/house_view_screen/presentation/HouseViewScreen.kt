@@ -33,6 +33,7 @@ import com.example.houseops_revamped.feature_categories.presentation.viewmodel.C
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
+import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookHouseDatePicker
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookedHouseBottomSheet
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details.HouseViewDetails
@@ -93,6 +94,10 @@ fun HouseViewScreen(
                     BookedHouseBottomSheet(
                         house = coreVM.bottomSheetData.value as HouseModel
                     )
+                }
+
+                HouseViewConstants.HV_BOOK_DATE_BOTTOM_SHEET -> {
+                    BookHouseDatePicker()
                 }
 
                 else -> {

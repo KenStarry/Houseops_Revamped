@@ -24,7 +24,9 @@ fun BookedScreen(
     Scaffold(
         topBar = {
             BookedAppBar(
-                onBackPressed = {}
+                onBackPressed = {
+                    //  go back to home screen
+                }
             )
         }
     ) { contentPadding ->

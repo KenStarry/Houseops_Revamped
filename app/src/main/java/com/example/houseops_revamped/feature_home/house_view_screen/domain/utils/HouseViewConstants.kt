@@ -17,4 +17,5 @@ object HouseViewConstants {
 
     const val HV_CARETAKER_BOTTOM_SHEET = "hv caretaker"
     const val HV_BOOK_HOUSE_BOTTOM_SHEET = "hv book house"
+    const val HV_BOOK_DATE_BOTTOM_SHEET = "hv book house date picker"
 }
