@@ -27,6 +27,7 @@ import com.example.houseops_revamped.core.presentation.components.CustomAlertDia
 import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
@@ -62,6 +63,7 @@ fun HouseViewScreen(
 
     var openBookAlertDialog by remember { mutableStateOf(false) }
     var isHouseBooked by remember { mutableStateOf(false) }
+    var dateBooked by remember { mutableStateOf("") }
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -101,7 +103,9 @@ fun HouseViewScreen(
                         onCloseBottomSheet = {
                             categoriesVM.onEvent(CategoryEvents.CloseBottomSheet(state, scope))
                         },
-                        onHouseBooked = {
+                        onHouseBooked = { date ->
+                            dateBooked = date
+
                             //  book the house
                             //  add user to house booked
                             userDetails?.userEmail?.let {
@@ -119,7 +123,10 @@ fun HouseViewScreen(
                                 userDetails?.userEmail?.let { email ->
                                     houseViewVM.onEvent(
                                         HouseViewEvents.AddToBookedHouses(
-                                            houseId = house.houseId,
+                                            bookedHouse = BookedHouseModel(
+                                                houseId = house.houseId,
+                                                dateBooked = dateBooked
+                                            ),
                                             email = email,
                                             isAdd = true
                                         )
@@ -207,8 +214,8 @@ fun HouseViewScreen(
 
                     //  check if house is booked or not
                     userDetails?.userBookedHouses?.let {
-                        isHouseBooked = it.any { houseId ->
-                            houseId == houseViewVM.currentHouse?.houseId
+                        isHouseBooked = it.any { bookedHouse ->
+                            bookedHouse.houseId == houseViewVM.currentHouse?.houseId
                         }
                     }
 
@@ -236,7 +243,10 @@ fun HouseViewScreen(
                                     userDetails?.userEmail?.let { email ->
                                         houseViewVM.onEvent(
                                             HouseViewEvents.AddToBookedHouses(
-                                                houseId = house.houseId,
+                                                bookedHouse = BookedHouseModel(
+                                                    houseId = house.houseId,
+                                                    dateBooked = dateBooked
+                                                ),
                                                 email = email,
                                                 isAdd = false
                                             )

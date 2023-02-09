@@ -45,7 +45,7 @@ class HouseViewVM @Inject constructor(
             is HouseViewEvents.AddToBookedHouses -> {
                 viewModelScope.launch {
                     useCase.addToBooked(
-                        houseId = event.houseId,
+                        bookedHouse = event.bookedHouse,
                         email = event.email,
                         isAdd = event.isAdd
                     )

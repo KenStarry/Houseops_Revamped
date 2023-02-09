@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun BookHouseDatePicker(
     onCloseBottomSheet: () -> Unit,
-    onHouseBooked: (date: LocalDate) -> Unit
+    onHouseBooked: (date: String) -> Unit
 ) {
 
     var pickedDate by remember {
@@ -145,7 +145,7 @@ fun BookHouseDatePicker(
 
                 } else {
                     //  book house
-                    pickedDate?.let { onHouseBooked(it) }
+                    pickedDate?.let { onHouseBooked(formattedDate) }
                 }
             }) {
                 Text(text = "Confirm")
