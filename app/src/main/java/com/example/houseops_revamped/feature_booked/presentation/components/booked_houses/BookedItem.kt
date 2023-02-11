@@ -3,10 +3,12 @@ package com.example.houseops_revamped.feature_booked.presentation.components.boo
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -24,12 +26,14 @@ import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.use_cases.UserDetails
 import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
+import com.example.houseops_revamped.feature_bookmark.presentation.components.HouseItemAlt
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseops_revamped.navigation.Direction
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BookedItem(
     modifier: Modifier = Modifier,
@@ -63,19 +67,20 @@ fun BookedItem(
         //  header
         Column(
             modifier = Modifier
-                .weight(1f),
+                .weight(1f)
+                .fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             //  ring
             Ring()
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Divider(
                 modifier = Modifier
                     .width(2.dp)
-                    .height(50.dp)
+                    .height(146.dp * validHouses.size)
                     .background(MaterialTheme.colorScheme.primary)
             )
         }
@@ -97,22 +102,23 @@ fun BookedItem(
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             //  display all booked houses
-            LazyRow(
+            LazyColumn(
                 content = {
                     items(
                         items = validHouses
                     ) {
 
-                        HouseItem(
+                        HouseItemAlt(
                             context = context,
                             house = it,
+                            user = user,
                             modifier = Modifier
                                 .clip(RoundedCornerShape(16.dp))
-                                .size(
-                                    width = 190.dp,
-                                    height = 260.dp
-                                )
+                                .fillMaxWidth()
+                                .height(130.dp)
                                 .background(MaterialTheme.colorScheme.onSecondary)
                                 .clickable {
                                     //  open house view Screen
@@ -120,18 +126,40 @@ fun BookedItem(
                                         it.houseApartmentName, it.houseCategory
                                     )
                                 }
-                                .padding(8.dp),
-                            user = user,
+                                .padding(8.dp)
+                                .animateItemPlacement(),
                             snackbarHostState = null
                         )
+
+//                        HouseItem(
+//                            context = context,
+//                            house = it,
+//                            modifier = Modifier
+//                                .clip(RoundedCornerShape(16.dp))
+//                                .size(
+//                                    width = 190.dp,
+//                                    height = 260.dp
+//                                )
+//                                .background(MaterialTheme.colorScheme.onSecondary)
+//                                .clickable {
+//                                    //  open house view Screen
+//                                    direction.navigateToHouseView(
+//                                        it.houseApartmentName, it.houseCategory
+//                                    )
+//                                }
+//                                .padding(8.dp),
+//                            user = user,
+//                            snackbarHostState = null
+//                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
 
                     }
                 },
                 state = listState,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
-                contentPadding = PaddingValues(8.dp)
+                    .height(150.dp * validHouses.size)
             )
         }
 

@@ -30,7 +30,7 @@ fun HouseItemAlt(
     context: Context,
     house: HouseModel,
     user: UsersCollection?,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState?
 ) {
 
     Row(
