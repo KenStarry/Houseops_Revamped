@@ -34,7 +34,7 @@ fun BookedItem(
         modifier = modifier
     ) {
 
-        //  headerit a
+        //  header
         Column(
             modifier = Modifier
                 .weight(1f),
@@ -70,7 +70,8 @@ fun BookedItem(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
             )
-            
+
+            //  display all booked houses
 
         }
 
