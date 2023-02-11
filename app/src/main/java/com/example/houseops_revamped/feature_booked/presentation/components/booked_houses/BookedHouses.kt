@@ -33,22 +33,26 @@ fun BookedHouses(
     val listState = rememberLazyListState()
     val houseIds = bookedHouses.map { it.houseId }
 
-    val bookedHouseDates = bookedHouses.map { it.dateBooked }.distinct()
+    val bookedHouseDates = bookedHouses.map { it.dateBooked }
+        .distinct()
+        .sortedDescending()
 
-    bookedVm.onEvent(BookedEvents.GetBookedHouses(
-        houseIds = houseIds
-    ))
+    bookedVm.onEvent(
+        BookedEvents.GetBookedHouses(
+            houseIds = houseIds
+        )
+    )
 
     LazyColumn(
         content = {
             items(
                 items = bookedHouseDates
-            ) {houseDate ->
+            ) { houseDate ->
                 //  bookedItem
                 BookedItem(
                     context = context,
                     user = user,
-                    bookedHouse = bookedHouses.filter { it.dateBooked ==  houseDate},
+                    bookedHouse = bookedHouses.filter { it.dateBooked == houseDate },
                     houses = bookedVm.bookedHouses.value,
                     direction = direction,
                     modifier = Modifier

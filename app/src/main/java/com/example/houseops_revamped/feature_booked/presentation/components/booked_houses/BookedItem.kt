@@ -152,14 +152,13 @@ fun BookedItem(
 //                            snackbarHostState = null
 //                        )
 
-                        Spacer(modifier = Modifier.height(16.dp))
-
                     }
                 },
                 state = listState,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp * validHouses.size)
+                    .height(150.dp * validHouses.size),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             )
         }
 
