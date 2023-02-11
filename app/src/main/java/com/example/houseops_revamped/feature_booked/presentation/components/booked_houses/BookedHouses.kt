@@ -33,25 +33,22 @@ fun BookedHouses(
     val listState = rememberLazyListState()
     val houseIds = bookedHouses.map { it.houseId }
 
-    bookedVm.getBookedHouses(houseIds)
+    val bookedHouseDates = bookedHouses.map { it.dateBooked }.distinct()
 
-    val allBookedHouses = bookedVm.bookedHouses.value
-    Log.d("bookedScreen", "all booked houses = ${allBookedHouses.size}\n" +
-            "houseIds = $houseIds")
-
-    val sortedHouses = bookedHouses.map { LocalDate.parse(it.dateBooked) }
-        .sortedBy { it }
+    bookedVm.onEvent(BookedEvents.GetBookedHouses(
+        houseIds = houseIds
+    ))
 
     LazyColumn(
         content = {
             items(
-                items = bookedHouses
-            ) {
+                items = bookedHouseDates
+            ) {houseDate ->
                 //  bookedItem
                 BookedItem(
                     context = context,
                     user = user,
-                    bookedHouse = it,
+                    bookedHouse = bookedHouses.filter { it.dateBooked ==  houseDate},
                     houses = bookedVm.bookedHouses.value,
                     direction = direction
                 )

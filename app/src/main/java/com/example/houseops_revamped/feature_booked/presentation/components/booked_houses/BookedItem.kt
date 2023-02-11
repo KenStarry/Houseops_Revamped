@@ -35,25 +35,26 @@ fun BookedItem(
     modifier: Modifier = Modifier,
     context: Context,
     user: UsersCollection,
-    bookedHouse: BookedHouseModel,
+    bookedHouse: List<BookedHouseModel>,
     houses: List<HouseModel>,
     direction: Direction
 ) {
-
-    Log.d("bookedItem", "all booked houses = ${houses.size}")
 
     val formattedDate by remember {
         mutableStateOf(
             DateTimeFormatter
                 .ofPattern("MMM dd yyyy")
-                .format(LocalDate.parse(bookedHouse.dateBooked))
+                .format(LocalDate.parse(bookedHouse[0].dateBooked))
         )
     }
 
-    val validHouses = houses.filter { it.houseId == bookedHouse.houseId }
+    //  if any of the ids maches the ids in the houses queried
+    val validHouses = houses.filter { house ->
+        bookedHouse.any { bookedHouse ->
+            bookedHouse.houseId == house.houseId
+        }
+    }
     val listState = rememberLazyListState()
-
-    Toast.makeText(context, "valid houses in ${bookedHouse.dateBooked} = ${validHouses.size}", Toast.LENGTH_SHORT).show()
 
     Row(
         modifier = modifier
