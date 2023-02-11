@@ -17,6 +17,7 @@ import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_booked.domain.model.BookedEvents
 import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_booked.presentation.viewmodel.BookedViewModel
+import com.example.houseops_revamped.navigation.Direction
 import java.time.LocalDate
 
 @Composable
@@ -25,7 +26,8 @@ fun BookedHouses(
     context: Context,
     user: UsersCollection,
     bookedVm: BookedViewModel = hiltViewModel(),
-    bookedHouses: List<BookedHouseModel>
+    bookedHouses: List<BookedHouseModel>,
+    direction: Direction
 ) {
 
     val listState = rememberLazyListState()
@@ -50,7 +52,8 @@ fun BookedHouses(
                     context = context,
                     user = user,
                     bookedHouse = it,
-                    houses = bookedVm.bookedHouses.value
+                    houses = bookedVm.bookedHouses.value,
+                    direction = direction
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))

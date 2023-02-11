@@ -5,11 +5,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,6 +26,7 @@ import com.example.houseops_revamped.core.domain.use_cases.UserDetails
 import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
+import com.example.houseops_revamped.navigation.Direction
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -33,7 +36,8 @@ fun BookedItem(
     context: Context,
     user: UsersCollection,
     bookedHouse: BookedHouseModel,
-    houses: List<HouseModel>
+    houses: List<HouseModel>,
+    direction: Direction
 ) {
 
     Log.d("bookedItem", "all booked houses = ${houses.size}")
@@ -102,6 +106,20 @@ fun BookedItem(
                         HouseItem(
                             context = context,
                             house = it,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(16.dp))
+                                .size(
+                                    width = 190.dp,
+                                    height = 260.dp
+                                )
+                                .background(MaterialTheme.colorScheme.onSecondary)
+                                .clickable {
+                                    //  open house view Screen
+                                    direction.navigateToHouseView(
+                                        it.houseApartmentName, it.houseCategory
+                                    )
+                                }
+                                .padding(8.dp),
                             user = user,
                             snackbarHostState = null
                         )

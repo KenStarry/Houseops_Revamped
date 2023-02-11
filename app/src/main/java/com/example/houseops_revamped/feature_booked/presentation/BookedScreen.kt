@@ -21,6 +21,7 @@ import com.example.houseops_revamped.feature_booked.presentation.components.book
 import com.example.houseops_revamped.feature_booked.presentation.viewmodel.BookedViewModel
 import com.example.houseops_revamped.feature_bookmark.presentation.components.BookmarkCategories
 import com.example.houseops_revamped.feature_home.home_screen.presentation.viewmodel.HomeViewModel
+import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,6 +31,7 @@ fun BookedScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val bookedVM: BookedViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
     val context = LocalContext.current
 
     val currentUser = coreVM.currentUser()
@@ -60,7 +62,8 @@ fun BookedScreen(
                     bookedHouses = it,
                     modifier = Modifier
                         .fillMaxSize(),
-                    bookedVm = bookedVM
+                    bookedVm = bookedVM,
+                    direction = direction
                 )
             }
 
