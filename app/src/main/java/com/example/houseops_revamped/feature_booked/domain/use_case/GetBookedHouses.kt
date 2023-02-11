@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_booked.domain.use_case
 
+import android.util.Log
 import com.example.houseops_revamped.feature_booked.domain.repository.BookedRepository
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
@@ -14,6 +15,8 @@ class GetBookedHouses(
         houseIds = houseIds,
         bookedHouses = {
             bookedHouses(it)
+
+            Log.d("bookedUseCase", "all booked houses = ${it.size}")
         }
     )
 }

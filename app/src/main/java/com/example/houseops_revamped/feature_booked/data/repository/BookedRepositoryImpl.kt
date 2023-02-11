@@ -19,7 +19,7 @@ class BookedRepositoryImpl @Inject constructor(
         try {
 
             db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
-                .whereEqualTo("houseId", houseIds)
+                .whereIn("houseId", houseIds)
                 .addSnapshotListener { querySnaphot, error ->
 
                     if (error != null)
@@ -32,6 +32,8 @@ class BookedRepositoryImpl @Inject constructor(
                             housesList.add(it)
                         }
                     }
+
+                    Log.d("bookedRepo", "all booked houses = ${housesList.size}")
 
                     //  pass the houses to our function
                     bookedHouses(housesList)

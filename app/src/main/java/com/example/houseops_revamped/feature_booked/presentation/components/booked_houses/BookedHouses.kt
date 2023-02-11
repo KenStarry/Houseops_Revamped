@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_booked.presentation.components.booked_houses
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -23,18 +24,18 @@ fun BookedHouses(
     modifier: Modifier = Modifier,
     context: Context,
     user: UsersCollection,
-    bookedVm: BookedViewModel,
+    bookedVm: BookedViewModel = hiltViewModel(),
     bookedHouses: List<BookedHouseModel>
 ) {
 
     val listState = rememberLazyListState()
     val houseIds = bookedHouses.map { it.houseId }
 
-    bookedVm.onEvent(
-        BookedEvents.GetBookedHouses(
-            houseIds = houseIds
-        )
-    )
+    bookedVm.getBookedHouses(houseIds)
+
+    val allBookedHouses = bookedVm.bookedHouses.value
+    Log.d("bookedScreen", "all booked houses = ${allBookedHouses.size}\n" +
+            "houseIds = $houseIds")
 
     val sortedHouses = bookedHouses.map { LocalDate.parse(it.dateBooked) }
         .sortedBy { it }

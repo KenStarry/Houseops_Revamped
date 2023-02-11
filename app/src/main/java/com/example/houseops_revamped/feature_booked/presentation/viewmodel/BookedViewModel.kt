@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_booked.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,24 @@ class BookedViewModel @Inject constructor(
     private val _bookedHouses = mutableStateOf<List<HouseModel>>(emptyList())
     val bookedHouses: State<List<HouseModel>> = _bookedHouses
 
+    fun getBookedHouses(
+        houseIds: List<String>
+    ) {
+        Log.d("bookedVM", "viewmodel reached")
+
+
+        viewModelScope.launch {
+            useCase.getBookedHouses(
+                houseIds = houseIds,
+                bookedHouses = {
+                    _bookedHouses.value = it
+
+                    Log.d("bookedVM", "all booked houses = ${it.size}")
+                }
+            )
+        }
+
+    }
     fun onEvent(event: BookedEvents) {
         when(event) {
 
@@ -28,6 +47,8 @@ class BookedViewModel @Inject constructor(
                         houseIds = event.houseIds,
                         bookedHouses = {
                             _bookedHouses.value = it
+
+                            Log.d("bookedVM", "all booked houses = ${it.size}")
                         }
                     )
                 }
