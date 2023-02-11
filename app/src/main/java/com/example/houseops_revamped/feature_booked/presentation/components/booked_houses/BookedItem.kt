@@ -1,6 +1,8 @@
 package com.example.houseops_revamped.feature_booked.presentation.components.booked_houses
 
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -34,6 +36,8 @@ fun BookedItem(
     houses: List<HouseModel>
 ) {
 
+    Log.d("bookedItem", "all booked houses = ${houses.size}")
+
     val formattedDate by remember {
         mutableStateOf(
             DateTimeFormatter
@@ -44,6 +48,8 @@ fun BookedItem(
 
     val validHouses = houses.filter { it.houseId == bookedHouse.houseId }
     val listState = rememberLazyListState()
+
+    Toast.makeText(context, "valid houses in ${bookedHouse.dateBooked} = ${validHouses.size}", Toast.LENGTH_SHORT).show()
 
     Row(
         modifier = modifier

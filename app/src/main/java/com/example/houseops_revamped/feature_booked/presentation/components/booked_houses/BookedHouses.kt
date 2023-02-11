@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_booked.presentation.components.booked_houses
 
+import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -8,8 +9,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_booked.domain.model.BookedEvents
 import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_booked.presentation.viewmodel.BookedViewModel
@@ -18,6 +21,8 @@ import java.time.LocalDate
 @Composable
 fun BookedHouses(
     modifier: Modifier = Modifier,
+    context: Context,
+    user: UsersCollection,
     bookedVm: BookedViewModel,
     bookedHouses: List<BookedHouseModel>
 ) {
@@ -41,6 +46,8 @@ fun BookedHouses(
             ) {
                 //  bookedItem
                 BookedItem(
+                    context = context,
+                    user = user,
                     bookedHouse = it,
                     houses = bookedVm.bookedHouses.value
                 )

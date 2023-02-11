@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
@@ -29,6 +30,8 @@ fun BookedScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val bookedVM: BookedViewModel = hiltViewModel()
+    val context = LocalContext.current
+
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
 
@@ -52,6 +55,8 @@ fun BookedScreen(
             //  booked houses list
             userDetails?.userBookedHouses?.let {
                 BookedHouses(
+                    context = context,
+                    user = userDetails,
                     bookedHouses = it,
                     modifier = Modifier
                         .fillMaxSize(),

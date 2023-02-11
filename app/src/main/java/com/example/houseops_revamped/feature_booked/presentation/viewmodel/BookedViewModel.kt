@@ -9,9 +9,10 @@ import com.example.houseops_revamped.feature_booked.domain.use_case.BookedUseCas
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class BookedViewModel(
+class BookedViewModel @Inject constructor(
     private val useCase: BookedUseCases
 ) : ViewModel() {
 
