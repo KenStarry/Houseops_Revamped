@@ -14,8 +14,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.feature_booked.domain.model.BookedEvents
 import com.example.houseops_revamped.feature_booked.presentation.components.BookedAppBar
 import com.example.houseops_revamped.feature_booked.presentation.components.booked_houses.BookedHouses
+import com.example.houseops_revamped.feature_booked.presentation.viewmodel.BookedViewModel
 import com.example.houseops_revamped.feature_bookmark.presentation.components.BookmarkCategories
 import com.example.houseops_revamped.feature_home.home_screen.presentation.viewmodel.HomeViewModel
 
@@ -26,6 +28,7 @@ fun BookedScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val bookedVM: BookedViewModel = hiltViewModel()
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
 
@@ -51,7 +54,8 @@ fun BookedScreen(
                 BookedHouses(
                     bookedHouses = it,
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxSize(),
+                    bookedVm = bookedVM
                 )
             }
 

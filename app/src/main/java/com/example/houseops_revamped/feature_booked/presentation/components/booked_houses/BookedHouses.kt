@@ -9,16 +9,27 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.feature_booked.domain.model.BookedEvents
 import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
+import com.example.houseops_revamped.feature_booked.presentation.viewmodel.BookedViewModel
 import java.time.LocalDate
 
 @Composable
 fun BookedHouses(
     modifier: Modifier = Modifier,
+    bookedVm: BookedViewModel,
     bookedHouses: List<BookedHouseModel>
 ) {
 
     val listState = rememberLazyListState()
+    val houseIds = bookedHouses.map { it.houseId }
+
+    bookedVm.onEvent(
+        BookedEvents.GetBookedHouses(
+            houseIds = houseIds
+        )
+    )
 
     val sortedHouses = bookedHouses.map { LocalDate.parse(it.dateBooked) }
         .sortedBy { it }
@@ -29,8 +40,11 @@ fun BookedHouses(
                 items = bookedHouses
             ) {
                 //  bookedItem
-                BookedItem(date = it.dateBooked)
-                
+                BookedItem(
+                    bookedHouse = it,
+                    houses = bookedVm.bookedHouses.value
+                )
+
                 Spacer(modifier = Modifier.height(24.dp))
             }
         },

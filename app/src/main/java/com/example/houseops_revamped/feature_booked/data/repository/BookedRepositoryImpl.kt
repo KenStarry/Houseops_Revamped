@@ -12,14 +12,14 @@ class BookedRepositoryImpl @Inject constructor(
 ) : BookedRepository {
 
     override suspend fun getAllBookedHouses(
-        houseId: String,
+        houseIds: List<String>,
         bookedHouses: (houses: List<HouseModel>) -> Unit
     ) {
 
         try {
 
             db.collectionGroup(Constants.HOUSES_SUB_COLLECTION)
-                .whereEqualTo("houseId", houseId)
+                .whereEqualTo("houseId", houseIds)
                 .addSnapshotListener { querySnaphot, error ->
 
                     if (error != null)

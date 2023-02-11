@@ -5,7 +5,7 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 interface BookedRepository {
 
     suspend fun getAllBookedHouses(
-        houseId: String,
+        houseIds: List<String>,
         bookedHouses: (houses: List<HouseModel>) -> Unit
     )
 

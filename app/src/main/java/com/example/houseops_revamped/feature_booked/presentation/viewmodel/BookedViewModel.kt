@@ -24,7 +24,7 @@ class BookedViewModel(
             is BookedEvents.GetBookedHouses -> {
                 viewModelScope.launch {
                     useCase.getBookedHouses(
-                        houseId = event.houseId,
+                        houseIds = event.houseIds,
                         bookedHouses = {
                             _bookedHouses.value = it
                         }

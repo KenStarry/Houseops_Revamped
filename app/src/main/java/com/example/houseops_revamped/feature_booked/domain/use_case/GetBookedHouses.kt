@@ -8,10 +8,10 @@ class GetBookedHouses(
 ) {
 
     suspend operator fun invoke(
-        houseId: String,
+        houseIds: List<String>,
         bookedHouses: (houses: List<HouseModel>) -> Unit
     ) = repo.getAllBookedHouses(
-        houseId = houseId,
+        houseIds = houseIds,
         bookedHouses = {
             bookedHouses(it)
         }
