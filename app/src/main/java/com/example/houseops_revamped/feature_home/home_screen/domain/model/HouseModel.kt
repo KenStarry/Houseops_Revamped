@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_home.home_screen.domain.model
 
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.UserBooked
 
 data class HouseModel(
     val houseId: String,
@@ -15,7 +16,7 @@ data class HouseModel(
     val housePrice: String,
     val housePriceCategory: String,
     val houseComments: String,
-    val houseUsersBooked: List<String>
+    val houseUsersBooked: List<UserBooked>
 ) {
 
     constructor() : this ("", "", "For Rent", emptyList(), "", emptyList(), "", "0",

@@ -33,6 +33,7 @@ import com.example.houseops_revamped.feature_categories.presentation.components.
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.HouseViewEvents
+import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.UserBooked
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookHouseDatePicker
 import com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.bottom_sheets.BookedHouseBottomSheet
@@ -62,7 +63,11 @@ fun HouseViewScreen(
     houseViewVM.getHouse(apartment, category)
 
     var openBookAlertDialog by remember { mutableStateOf(false) }
-    var isHouseBooked by remember { mutableStateOf(false) }
+    var isHouseBooked by remember {
+        mutableStateOf(false)
+    }
+
+    Toast.makeText(context, "$isHouseBooked", Toast.LENGTH_SHORT).show()
     var dateBooked by remember { mutableStateOf("") }
 
     BottomSheet(
@@ -104,18 +109,22 @@ fun HouseViewScreen(
                             categoriesVM.onEvent(CategoryEvents.CloseBottomSheet(state, scope))
                         },
                         onHouseBooked = { date ->
+
                             dateBooked = date
 
-                            //  book the house
                             //  add user to house booked
                             userDetails?.userEmail?.let {
                                 houseViewVM.onEvent(
                                     HouseViewEvents.AddUserToHouseBooked(
                                         apartmentName = apartment,
                                         houseCategory = category,
-                                        userEmail = it,
+                                        userBooked = UserBooked(
+                                            userEmail = it,
+                                            dateBooked = date
+                                        ),
                                         isAdd = true
-                                    ))
+                                    )
+                                )
                             }
 
                             //  update house field
@@ -185,7 +194,9 @@ fun HouseViewScreen(
                                             "Do not pay for a house before inspecting it!",
                                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                                     fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.8f
+                                    )
                                 )
                             },
                             onConfirm = {
@@ -227,15 +238,24 @@ fun HouseViewScreen(
                             containerColor = LimeGreen,
                             onFabClicked = {
 
-                                //  add user to house booked
+                                val currentUserBookedDate =
+                                    houseViewVM.currentHouse?.houseUsersBooked?.filter {
+                                        it.userEmail == userDetails?.userEmail
+                                    }?.map { it.dateBooked }?.first()
+
+                                //  remove user from house booked
                                 userDetails?.userEmail?.let {
                                     houseViewVM.onEvent(
                                         HouseViewEvents.AddUserToHouseBooked(
                                             apartmentName = apartment,
                                             houseCategory = category,
-                                            userEmail = it,
+                                            userBooked = UserBooked(
+                                                userEmail = it,
+                                                dateBooked = currentUserBookedDate ?: "no date"
+                                            ),
                                             isAdd = false
-                                        ))
+                                        )
+                                    )
                                 }
 
                                 //  update house field
@@ -245,7 +265,7 @@ fun HouseViewScreen(
                                             HouseViewEvents.AddToBookedHouses(
                                                 bookedHouse = BookedHouseModel(
                                                     houseId = house.houseId,
-                                                    dateBooked = dateBooked
+                                                    dateBooked = currentUserBookedDate ?: "no date"
                                                 ),
                                                 email = email,
                                                 isAdd = false
@@ -255,7 +275,11 @@ fun HouseViewScreen(
                                 }
 
                                 //  toast message
-                                Toast.makeText(context, "House dropped successfully", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "House dropped successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         )
 

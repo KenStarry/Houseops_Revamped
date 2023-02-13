@@ -13,7 +13,7 @@ sealed class HouseViewEvents {
     data class AddUserToHouseBooked(
         val apartmentName: String,
         val houseCategory: String,
-        val userEmail: String,
+        val userBooked: UserBooked,
         val isAdd: Boolean
     ) : HouseViewEvents()
 

@@ -57,7 +57,7 @@ class HouseViewVM @Inject constructor(
                     useCase.addUserToHouseBooked(
                         apartmentName = event.apartmentName,
                         houseCategory = event.houseCategory,
-                        userEmail = event.userEmail,
+                        userBooked = event.userBooked,
                         isAdd = event.isAdd
                     )
                 }
