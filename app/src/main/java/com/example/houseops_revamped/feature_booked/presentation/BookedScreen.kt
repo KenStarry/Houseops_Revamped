@@ -1,18 +1,22 @@
 package com.example.houseops_revamped.feature_booked.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.R
+import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_booked.domain.model.BookedEvents
@@ -51,20 +55,53 @@ fun BookedScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.onPrimary)
-                .padding(contentPadding)
+                .padding(contentPadding),
+            contentAlignment = Alignment.Center
         ) {
 
             //  booked houses list
             userDetails?.userBookedHouses?.let {
-                BookedHouses(
-                    context = context,
-                    user = userDetails,
-                    bookedHouses = it,
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    bookedVm = bookedVM,
-                    direction = direction
-                )
+
+                if (it.isNotEmpty()) {
+                    BookedHouses(
+                        context = context,
+                        user = userDetails,
+                        bookedHouses = it,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        bookedVm = bookedVM,
+                        direction = direction
+                    )
+                } else {
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+
+                        //  display lottie animation
+                        Lottie(
+                            rawFile = R.raw.paperplane,
+                            isPlaying = true,
+                            iterations = Integer.MAX_VALUE,
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .height(250.dp)
+                        )
+                        
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Text(
+                            text = "No Booked Houses yet...",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+
+                    }
+                }
             }
 
         }
