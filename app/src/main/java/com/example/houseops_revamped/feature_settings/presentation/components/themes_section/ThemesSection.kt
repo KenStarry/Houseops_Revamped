@@ -13,7 +13,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.components.SectionTitle
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
@@ -23,8 +25,11 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 fun ThemesSection(
     context: Context,
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = SettingsViewModel()
+    settingsViewModel: SettingsViewModel
 ) {
+
+    val savedTheme =
+        settingsViewModel.themeFlow.collectAsState(initial = SettingsConstants.themeOptions[2])
 
     Card(
         modifier = Modifier
@@ -64,10 +69,17 @@ fun ThemesSection(
 
                         ThemeRadioButton(
                             description = it,
-                            isSelected = it == settingsViewModel.selectedTheme.value,
+                            isSelected = it == savedTheme.value,
                             onRadioButtonClicked = {
+
+                                //  toggle radio button theme
                                 settingsViewModel.onEvent(SettingsEvents.ToggleThemeRadioBtn(it))
-                                Toast.makeText(context, "$it mode activated.", Toast.LENGTH_SHORT).show()
+
+                                //  toggle theme
+                                settingsViewModel.onEvent(SettingsEvents.SetTheme(it))
+
+                                Toast.makeText(context, "$it activated", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         )
 

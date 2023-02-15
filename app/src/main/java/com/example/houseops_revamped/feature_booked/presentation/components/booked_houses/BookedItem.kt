@@ -52,8 +52,6 @@ fun BookedItem(
         )
     }
 
-    val from = LocalDate.parse(formattedDate, )
-
     //  if any of the ids maches the ids in the houses queried
     val validHouses = houses.filter { house ->
         bookedHouse.any { bookedHouse ->

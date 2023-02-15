@@ -23,7 +23,7 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 fun AboutSection(
     context: Context,
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = SettingsViewModel()
+    settingsViewModel: SettingsViewModel
 ) {
 
     Card(

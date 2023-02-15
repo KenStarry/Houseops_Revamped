@@ -17,7 +17,7 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsAppBar(
-    settingsViewModel: SettingsViewModel = SettingsViewModel(),
+    settingsViewModel: SettingsViewModel,
     onBackPressed: () -> Unit
 ) {
 

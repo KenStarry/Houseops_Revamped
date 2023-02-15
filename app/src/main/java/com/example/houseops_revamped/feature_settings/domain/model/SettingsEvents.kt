@@ -9,4 +9,7 @@ sealed class SettingsEvents {
     data class ToggleThemeRadioBtn(
         val selectedTheme: String
     ) : SettingsEvents()
+
+    data class SetTheme(val theme: String) : SettingsEvents()
+
 }

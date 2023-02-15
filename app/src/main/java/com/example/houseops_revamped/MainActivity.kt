@@ -10,9 +10,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.example.houseops_revamped.screens.MainScreen
@@ -27,7 +29,26 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
 
         setContent {
-            HouseOps_RevampedTheme {
+
+            val context = LocalContext.current
+            val settingsViewModel = SettingsViewModel(ThemePreference(context))
+
+            HouseOps_RevampedTheme(
+                darkTheme = when (settingsViewModel.themeFlow.collectAsState(initial = "").value) {
+                    SettingsConstants.themeOptions[0] -> {
+                        true
+                    }
+                    SettingsConstants.themeOptions[1] -> {
+                        false
+                    }
+                    SettingsConstants.themeOptions[2] -> {
+                        isSystemInDarkTheme()
+                    }
+                    else -> {
+                        isSystemInDarkTheme()
+                    }
+                }
+            ) {
                 MainScreen(rememberNavController())
             }
         }

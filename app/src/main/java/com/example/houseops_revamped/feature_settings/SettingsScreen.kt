@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
 import com.example.houseops_revamped.feature_settings.presentation.components.about_section.AboutSection
 import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerSection
@@ -20,14 +21,19 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 fun SettingsScreen(
     navHostController: NavHostController
 ) {
-    val settingsViewModel = SettingsViewModel()
     val context = LocalContext.current
+
+    val settingsViewModel = SettingsViewModel(
+        themePreference = ThemePreference(context)
+    )
+
     val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
             SettingsAppBar(
-                onBackPressed = {}
+                onBackPressed = {},
+                settingsViewModel = settingsViewModel
             )
         }
     ) { contentPadding ->
@@ -54,8 +60,8 @@ fun SettingsScreen(
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
-                    settingsViewModel = settingsViewModel,
-                    context = context
+                    context = context,
+                    settingsViewModel = settingsViewModel
                 )
 
                 //  PersonalizationSection
