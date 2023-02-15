@@ -172,7 +172,7 @@ fun HomeScreen(
                             houses = homeVM.houses,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .wrapContentSize(),
+                                .wrapContentHeight(),
                             user = userDetails,
                             navHostController = navHostController,
                             snackbarHostState = snackbarHostState
