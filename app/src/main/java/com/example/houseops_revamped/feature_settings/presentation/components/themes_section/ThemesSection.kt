@@ -61,15 +61,7 @@ fun ThemesSection(
                 iconBackground = SettingsConstants.settingsSections[0].sectionIconBackgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .clickable {
-                        settingsViewModel.onEvent(
-                            SettingsEvents.ToggleSectionVisibility(
-                                sectionTitle = SettingsConstants.settingsSections[0].sectionTitle,
-                                isSectionVisible = !settingsViewModel.isThemeSectionVisible.value
-                            )
-                        )
-                    },
+                    .wrapContentHeight(),
                 settingsViewModel = settingsViewModel
             )
 
