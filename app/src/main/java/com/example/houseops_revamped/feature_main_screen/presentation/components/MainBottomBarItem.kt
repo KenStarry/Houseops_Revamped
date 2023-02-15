@@ -40,41 +40,17 @@ fun RowScope.MainBottomBarItem(
             }
         },
 
-        alwaysShowLabel = false,
+        alwaysShowLabel = true,
 
         label = {
             Text(text = screen.title)
         },
 
         icon = {
-            if (screen.badgeCount > 0) {
-                BadgedBox(
-                    badge = {
-                        Text(
-                            text = screen.badgeCount.toString(),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = Color.White,
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.tertiary)
-                                .wrapContentSize()
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                ) {
-                    Icon(
-                        imageVector = screen.icon,
-                        contentDescription = "Bottom Nav Icon"
-                    )
-                }
-            } else {
-                Icon(
-                    imageVector = screen.icon,
-                    contentDescription = "Bottom Nav Icon"
-                )
-            }
+            Icon(
+                imageVector = screen.icon,
+                contentDescription = "Bottom Nav Icon"
+            )
         },
 
         colors = NavigationBarItemDefaults.colors(
@@ -83,7 +59,7 @@ fun RowScope.MainBottomBarItem(
             indicatorColor = MaterialTheme.colorScheme.tertiary
         ),
 
-    )
+        )
 
 }
 

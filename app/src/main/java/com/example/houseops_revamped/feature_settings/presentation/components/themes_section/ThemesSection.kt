@@ -82,7 +82,6 @@ fun ThemesSection(
                                     .show()
                             }
                         )
-
                     }
                 },
                 state = rememberLazyListState(),
