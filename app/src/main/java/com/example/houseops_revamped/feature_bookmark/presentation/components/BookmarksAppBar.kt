@@ -2,9 +2,7 @@ package com.example.houseops_revamped.feature_bookmark.presentation.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.ArrowRight
-import androidx.compose.material.icons.outlined.Sort
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,7 +13,8 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarksAppBar(
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onViewClicked: () -> Unit
 ) {
 
     LargeTopAppBar(
@@ -46,7 +45,7 @@ fun BookmarksAppBar(
                 ) {
 
                     Text(
-                        text = "Sort",
+                        text = "View",
                         fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                         fontWeight = FontWeight.Bold
                     )
@@ -57,14 +56,16 @@ fun BookmarksAppBar(
                     )
 
                     IconButton(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            onViewClicked()
+                        },
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = MaterialTheme.colorScheme.tertiary
                         )
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Sort,
-                            contentDescription = "Sort icon",
+                            imageVector = Icons.Outlined.DashboardCustomize,
+                            contentDescription = "view icon",
                             tint = MaterialTheme.colorScheme.primary
                         )
                     }

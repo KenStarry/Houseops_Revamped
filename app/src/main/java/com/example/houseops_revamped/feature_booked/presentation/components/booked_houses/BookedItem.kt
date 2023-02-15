@@ -52,6 +52,8 @@ fun BookedItem(
         )
     }
 
+    val from = LocalDate.parse(formattedDate, )
+
     //  if any of the ids maches the ids in the houses queried
     val validHouses = houses.filter { house ->
         bookedHouse.any { bookedHouse ->
@@ -80,7 +82,7 @@ fun BookedItem(
             Divider(
                 modifier = Modifier
                     .width(2.dp)
-                    .height(146.dp * validHouses.size)
+                    .height(260.dp)
                     .background(MaterialTheme.colorScheme.primary)
             )
         }
@@ -94,31 +96,49 @@ fun BookedItem(
             horizontalAlignment = Alignment.Start
         ) {
 
-            //  date
-            Text(
-                text = formattedDate,
-                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-            )
+            //  date and date remining
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            ) {
+
+                //  date
+                Text(
+                    text = formattedDate,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+
+                //  days remaining
+                Text(
+                    text = formattedDate,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             //  display all booked houses
-            LazyColumn(
+            LazyRow(
                 content = {
                     items(
                         items = validHouses
                     ) {
 
-                        HouseItemAlt(
+                        HouseItem(
                             context = context,
                             house = it,
-                            user = user,
                             modifier = Modifier
                                 .clip(RoundedCornerShape(16.dp))
-                                .fillMaxWidth()
-                                .height(130.dp)
+                                .size(
+                                    width = 190.dp,
+                                    height = 260.dp
+                                )
                                 .background(MaterialTheme.colorScheme.onSecondary)
                                 .clickable {
                                     //  open house view Screen
@@ -126,39 +146,18 @@ fun BookedItem(
                                         it.houseApartmentName, it.houseCategory
                                     )
                                 }
-                                .padding(8.dp)
-                                .animateItemPlacement(),
+                                .padding(8.dp),
+                            user = user,
                             snackbarHostState = null
                         )
-
-//                        HouseItem(
-//                            context = context,
-//                            house = it,
-//                            modifier = Modifier
-//                                .clip(RoundedCornerShape(16.dp))
-//                                .size(
-//                                    width = 190.dp,
-//                                    height = 260.dp
-//                                )
-//                                .background(MaterialTheme.colorScheme.onSecondary)
-//                                .clickable {
-//                                    //  open house view Screen
-//                                    direction.navigateToHouseView(
-//                                        it.houseApartmentName, it.houseCategory
-//                                    )
-//                                }
-//                                .padding(8.dp),
-//                            user = user,
-//                            snackbarHostState = null
-//                        )
 
                     }
                 },
                 state = listState,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp * validHouses.size),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                    .height(260.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             )
         }
 

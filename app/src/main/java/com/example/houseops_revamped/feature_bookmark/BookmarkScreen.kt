@@ -40,6 +40,9 @@ fun BookmarkScreen(
             BookmarksAppBar(
                 onBackPressed = {
                     //  navigate to home screen
+                },
+                onViewClicked = {
+
                 }
             )
         }
