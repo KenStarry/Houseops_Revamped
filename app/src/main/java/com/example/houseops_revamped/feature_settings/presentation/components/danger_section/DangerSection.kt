@@ -52,7 +52,8 @@ fun DangerSection(
                 iconBackground = SettingsConstants.settingsSections[3].sectionIconBackgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .wrapContentHeight(),
+                settingsViewModel
             )
 
         }

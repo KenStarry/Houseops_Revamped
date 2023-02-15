@@ -2,6 +2,9 @@ package com.example.houseops_revamped.feature_settings.presentation.components.t
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -60,42 +63,51 @@ fun ThemesSection(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .clickable {
-                        settingsViewModel.onEvent(SettingsEvents.ToggleSectionVisibility(
-                            sectionTitle = SettingsConstants.settingsSections[0].sectionTitle,
-                            isSectionVisible = true
-                        ))
-                    }
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ToggleSectionVisibility(
+                                sectionTitle = SettingsConstants.settingsSections[0].sectionTitle,
+                                isSectionVisible = !settingsViewModel.isThemeSectionVisible.value
+                            )
+                        )
+                    },
+                settingsViewModel = settingsViewModel
             )
 
             //  content
-            LazyColumn(
-                content = {
-                    items(
-                        items = SettingsConstants.themeOptions
-                    ) {
+            AnimatedVisibility(
+                visible = settingsViewModel.isThemeSectionVisible.value,
+                enter = expandIn(),
+                exit = shrinkOut()
+            ) {
+                LazyColumn(
+                    content = {
+                        items(
+                            items = SettingsConstants.themeOptions
+                        ) {
 
-                        ThemeRadioButton(
-                            description = it,
-                            isSelected = it == savedTheme.value,
-                            onRadioButtonClicked = {
+                            ThemeRadioButton(
+                                description = it,
+                                isSelected = it == savedTheme.value,
+                                onRadioButtonClicked = {
 
-                                //  toggle radio button theme
-                                settingsViewModel.onEvent(SettingsEvents.ToggleThemeRadioBtn(it))
+                                    //  toggle radio button theme
+                                    settingsViewModel.onEvent(SettingsEvents.ToggleThemeRadioBtn(it))
 
-                                //  toggle theme
-                                settingsViewModel.onEvent(SettingsEvents.SetTheme(it))
+                                    //  toggle theme
+                                    settingsViewModel.onEvent(SettingsEvents.SetTheme(it))
 
-                                Toast.makeText(context, "$it activated", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        )
-                    }
-                },
-                state = rememberLazyListState(),
-                contentPadding = PaddingValues(horizontal = 8.dp),
-                modifier = Modifier
-                    .height(150.dp)
-            )
+                                    Toast.makeText(context, "$it activated", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            )
+                        }
+                    },
+                    state = rememberLazyListState(),
+                    contentPadding = PaddingValues(horizontal = 8.dp),
+                    modifier = Modifier
+                        .height(150.dp)
+                )
+            }
 
         }
 

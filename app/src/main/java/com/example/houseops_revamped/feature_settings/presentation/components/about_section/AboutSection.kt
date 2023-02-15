@@ -52,7 +52,8 @@ fun AboutSection(
                 iconBackground = SettingsConstants.settingsSections[2].sectionIconBackgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .wrapContentHeight(),
+                settingsViewModel = settingsViewModel
             )
 
         }

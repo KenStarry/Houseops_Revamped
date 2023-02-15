@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.ArrowDropUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
+import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
+import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun SectionTitle(
@@ -27,7 +31,8 @@ fun SectionTitle(
     icon: ImageVector,
     iconColor: Color,
     iconBackground: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    settingsViewModel: SettingsViewModel
 ) {
 
     Row(
@@ -74,9 +79,51 @@ fun SectionTitle(
             contentAlignment = Alignment.Center
         ) {
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                when (title) {
+
+                    SettingsConstants.settingsSections[0].sectionTitle -> {
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ToggleSectionVisibility(
+                                sectionTitle = title,
+                                isSectionVisible = !settingsViewModel.isThemeSectionVisible.value
+                            )
+                        )
+                    }
+
+                    SettingsConstants.settingsSections[1].sectionTitle -> {
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ToggleSectionVisibility(
+                                sectionTitle = title,
+                                isSectionVisible = !settingsViewModel.isPersonalizationSectionVisible.value
+                            )
+                        )
+                    }
+
+                    SettingsConstants.settingsSections[2].sectionTitle -> {
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ToggleSectionVisibility(
+                                sectionTitle = title,
+                                isSectionVisible = !settingsViewModel.isAboutSectionVisible.value
+                            )
+                        )
+                    }
+
+                    SettingsConstants.settingsSections[3].sectionTitle -> {
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ToggleSectionVisibility(
+                                sectionTitle = title,
+                                isSectionVisible = !settingsViewModel.isDangerSectionVisible.value
+                            )
+                        )
+                    }
+                }
+            }) {
                 Icon(
-                    imageVector = Icons.Outlined.ArrowDropDown,
+                    imageVector = if (settingsViewModel.isThemeSectionVisible.value)
+                        Icons.Outlined.ArrowDropUp
+                    else
+                        Icons.Outlined.ArrowDropDown,
                     contentDescription = "dropdown arrow",
                     tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
                 )
