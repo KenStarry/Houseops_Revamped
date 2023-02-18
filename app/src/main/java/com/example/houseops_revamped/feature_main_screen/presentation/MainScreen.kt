@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.screens
+package com.example.houseops_revamped.feature_main_screen.presentation
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -51,7 +51,6 @@ fun MainScreen(
                 isLoggedIn = coreVM.isUserLoggedIn()
             )
         }
-
     }
 }
 

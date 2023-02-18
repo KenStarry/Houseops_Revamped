@@ -6,7 +6,7 @@ import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.screens.AdminScreen
-import com.example.houseops_revamped.screens.MainScreen
+import com.example.houseops_revamped.feature_main_screen.presentation.MainScreen
 import com.example.houseops_revamped.feature_booked.presentation.BookedScreen
 import com.example.houseops_revamped.feature_settings.SettingsScreen
 import com.example.houseops_revamped.feature_bookmark.BookmarkScreen

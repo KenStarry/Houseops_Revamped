@@ -110,12 +110,12 @@ fun BookedItem(
                 )
 
                 //  days remaining
-                Text(
-                    text = formattedDate,
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
+//                Text(
+//                    text = formattedDate,
+//                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
+//                    fontWeight = FontWeight.Bold,
+//                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+//                )
 
             }
 

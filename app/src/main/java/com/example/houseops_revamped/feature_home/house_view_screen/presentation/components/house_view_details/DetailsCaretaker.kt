@@ -29,7 +29,8 @@ fun DetailsCaretaker(
     context: Context,
     apartment: String,
     coreVM: CoreViewModel = hiltViewModel(),
-    onCardClicked: (caretaker: Caretaker) -> Unit
+    onCardClicked: (caretaker: Caretaker) -> Unit,
+    onPhoneClicked: (phone: String) -> Unit
 ) {
 
     val caretaker = coreVM.getCaretakerDetails(apartment)
@@ -108,7 +109,10 @@ fun DetailsCaretaker(
                 ) {
 
                     IconButton(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            //    add caretaker
+                            onPhoneClicked("0717446607")
+                        },
                         colors = IconButtonDefaults.iconButtonColors(
                             contentColor = LimeGreen,
                             containerColor = LimeGreenDull

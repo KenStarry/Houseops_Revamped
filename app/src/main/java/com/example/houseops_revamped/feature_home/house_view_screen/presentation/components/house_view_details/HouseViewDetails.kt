@@ -1,6 +1,9 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -42,6 +45,19 @@ fun HouseViewDetails(
         apartment = house.houseApartmentName,
         onCardClicked = {
             onCaretakerClicked(it)
+        },
+        onPhoneClicked = { phoneNumber ->
+
+            val parsePhone = Uri.parse("tel:$phoneNumber")
+            val intent = Intent(Intent.ACTION_DIAL, parsePhone)
+
+            //  open intent
+            try {
+                context.startActivity(intent)
+
+            } catch (e: SecurityException) {
+                Toast.makeText(context, "An error occurred", Toast.LENGTH_SHORT).show()
+            }
         }
     )
 
