@@ -30,6 +30,9 @@ fun ThemeRadioButton(
             .selectable(
                 selected = isSelected,
                 onClick = { onRadioButtonClicked() }
+            )
+            .padding(
+                end = 12.dp
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
