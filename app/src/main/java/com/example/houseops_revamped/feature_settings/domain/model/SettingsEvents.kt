@@ -1,5 +1,7 @@
 package com.example.houseops_revamped.feature_settings.domain.model
 
+import com.example.houseops_revamped.core.presentation.model.AccentColor
+
 sealed class SettingsEvents {
 
     data class ToggleDropdownMenu(
@@ -16,5 +18,7 @@ sealed class SettingsEvents {
     ) : SettingsEvents()
 
     data class SetTheme(val theme: String) : SettingsEvents()
+
+    data class SetAccent(val accent: AccentColor) : SettingsEvents()
 
 }
