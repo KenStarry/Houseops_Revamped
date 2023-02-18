@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
-import com.example.houseops_revamped.feature_settings.presentation.components.about_section.AboutSection
+import com.example.houseops_revamped.feature_settings.presentation.components.miscellaneous_section.MiscellaneousSection
 import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerSection
 import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationSection
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
@@ -77,7 +77,7 @@ fun SettingsScreen(
                 )
 
                 //  About Section
-                AboutSection(
+                MiscellaneousSection(
                     context = context,
                     modifier = Modifier
                         .fillMaxWidth()

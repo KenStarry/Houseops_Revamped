@@ -21,8 +21,16 @@ object SettingsConstants {
             LightYellow,
             LightYellowDull
         ),
-        SettingsSectionModel("About", Icons.Outlined.ContactPage, Violet, VioletDull),
-        SettingsSectionModel("Danger Zone", Icons.Outlined.Warning, RedOrange, RedOrangeDull)
+        SettingsSectionModel(
+            "Miscellaneous",
+            Icons.Outlined.MiscellaneousServices,
+            Violet,
+            VioletDull
+        ),
+        SettingsSectionModel("Danger Zone",
+            Icons.Outlined.Warning,
+            RedOrange,
+            RedOrangeDull)
     )
 
     //  theme section
