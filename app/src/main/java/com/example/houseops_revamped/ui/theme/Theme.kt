@@ -18,21 +18,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import com.example.houseops_revamped.core.utils.Constants
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BlueAccent,
+    primary = Constants.primaryCol,
     secondary = PinkAccent,
-    tertiary = BlueAccentTransparentAlt,
+    tertiary = Constants.tertiaryCol,
     onPrimary = BlackBackgroundAlt,
     onSecondary = DarkBackground,
     onSecondaryContainer = TextWhite900
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BlueAccent,
+    primary = Constants.primaryCol,
     secondary = PinkAccent,
-    tertiary = BlueAccentTransparentAlt,
+    tertiary = Constants.tertiaryCol,
     onPrimary = WhiteBackground,
     onSecondary = GreyBackground,
     onSecondaryContainer = TextBlack900

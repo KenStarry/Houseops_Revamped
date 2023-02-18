@@ -5,10 +5,12 @@ import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.Hotel
 import androidx.compose.material.icons.outlined.LocalCafe
 import androidx.compose.material.icons.outlined.LocalHotel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
+import com.example.houseops_revamped.core.presentation.model.AccentColor
 
 object Constants {
-
     //  routes
     //  constants for the routes
     const val ROOT_ROUTE = "root_route"
@@ -52,4 +54,68 @@ object Constants {
 
     //  alert dialog types
     const val BOOK_HOUSE_ALERT = "book house alert dialog"
+
+    //  colors
+    val primaryCol = mutableStateOf(Color(0xFF3DB2EC))
+    val tertiaryCol = mutableStateOf(Color(0xFF3DB2EC).copy(alpha = 0.1f))
+
+    val accentColors = listOf(
+        AccentColor(
+            darkColor = Color(0xFF3DB2EC),
+            lightColor = Color(0xFF3DB2EC).copy(alpha = 0.1f)
+        ),
+        AccentColor(
+            darkColor = Color(0xFFFF4309),
+            lightColor = Color(0xFFFF4309).copy(alpha = 0.1f)
+        ),
+        AccentColor(
+            darkColor = Color(0xFF288B0D),
+            lightColor = Color(0xFF288B0D).copy(alpha = 0.1f)
+        ),
+        AccentColor(
+            darkColor = Color(0xFFFF0A5B),
+            lightColor = Color(0xFFFF0A5B).copy(alpha = 0.1f)
+        ),
+        AccentColor(
+            darkColor = Color(0xFF0BCDE6),
+            lightColor = Color(0xFF0BCDE6).copy(alpha = 0.1f)
+        ),
+        AccentColor(
+            darkColor = Color(0xffcf94da),
+            lightColor = Color(0xffcf94da).copy(alpha = 0.1f)
+        ),
+        AccentColor(
+            darkColor = Color(0xFFDDEE0B),
+            lightColor = Color(0xFFDDEE0B).copy(alpha = 0.1f)
+        ),
+    )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

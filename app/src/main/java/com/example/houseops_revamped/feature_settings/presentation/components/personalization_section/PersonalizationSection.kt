@@ -80,6 +80,9 @@ fun PersonalizationSection(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp)
+                                    .padding(
+                                        end = 16.dp
+                                    )
                             )
                         }
                     },

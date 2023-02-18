@@ -1,10 +1,7 @@
 package com.example.houseops_revamped.feature_settings.presentation.components.personalization_section
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,29 +24,44 @@ fun PersonalizationItem(
 
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
+
+        Row(
+            modifier = Modifier
+                .wrapContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(40.dp)
+                    .background(SettingsConstants.settingsSections[1].sectionIconBackgroundColor),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "icon",
+                    tint =SettingsConstants.settingsSections[1].sectionIconColor
+                )
+            }
+
+            Text(
+                text = title,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
+            )
+        }
 
         Box(
             modifier = Modifier
                 .clip(CircleShape)
-                .size(40.dp)
-                .background(SettingsConstants.settingsSections[1].sectionIconBackgroundColor),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = "icon",
-                tint =SettingsConstants.settingsSections[1].sectionIconColor
-            )
-        }
-
-        Text(
-            text = title,
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
+                .size(30.dp)
+                .background(MaterialTheme.colorScheme.primary)
         )
 
     }
