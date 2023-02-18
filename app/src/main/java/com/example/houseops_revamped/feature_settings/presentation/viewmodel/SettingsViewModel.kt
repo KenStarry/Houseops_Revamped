@@ -16,7 +16,7 @@ class SettingsViewModel(
 
     val themeFlow: Flow<String?> get() = themePreference.getTheme
 
-    private val _isDropdownExpanded = mutableStateOf(true)
+    private val _isDropdownExpanded = mutableStateOf(false)
     val isDropdownExpanded: State<Boolean> = _isDropdownExpanded
 
     private val _selectedTheme = mutableStateOf(SettingsConstants.themeOptions[2].title)
