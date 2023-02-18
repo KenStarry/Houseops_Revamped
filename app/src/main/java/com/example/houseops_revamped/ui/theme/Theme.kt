@@ -22,18 +22,18 @@ import com.example.houseops_revamped.core.utils.Constants
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Constants.primaryCol,
+    primary = Constants.primaryCol.value,
     secondary = PinkAccent,
-    tertiary = Constants.tertiaryCol,
+    tertiary = Constants.tertiaryCol.value,
     onPrimary = BlackBackgroundAlt,
     onSecondary = DarkBackground,
     onSecondaryContainer = TextWhite900
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Constants.primaryCol,
+    primary = Constants.primaryCol.value,
     secondary = PinkAccent,
-    tertiary = Constants.tertiaryCol,
+    tertiary = Constants.tertiaryCol.value,
     onPrimary = WhiteBackground,
     onSecondary = GreyBackground,
     onSecondaryContainer = TextBlack900

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.components.SectionTitle
 import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerItem
@@ -80,6 +82,25 @@ fun PersonalizationSection(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp)
+                                    .clickable {
+                                        when (it.title) {
+                                            SettingsConstants.personalizationOptions[0].title -> {
+                                                //  change accent color
+                                                Constants.primaryCol.value =
+                                                    Constants.accentColors[1].darkColor
+
+                                                Constants.tertiaryCol.value =
+                                                    Constants.accentColors[1].lightColor
+
+                                                Toast
+                                                    .makeText(
+                                                        context,
+                                                        "${Constants.primaryCol.value}", Toast.LENGTH_SHORT
+                                                    )
+                                                    .show()
+                                            }
+                                        }
+                                    }
                                     .padding(
                                         end = 16.dp
                                     )

@@ -7,4 +7,7 @@ object DatastoreConstants {
 
     //  keys
     const val THEME_KEY = "houseops_theme"
+    const val PRIMARY_ACCENT_KEY = "houseops_primary_accent"
+    const val TERTIARY_ACCENT_KEY = "houseops_tertiary_accent"
+
 }

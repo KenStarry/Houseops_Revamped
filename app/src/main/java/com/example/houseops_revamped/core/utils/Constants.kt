@@ -7,6 +7,7 @@ import androidx.compose.material.icons.outlined.LocalCafe
 import androidx.compose.material.icons.outlined.LocalHotel
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import com.example.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.example.houseops_revamped.core.presentation.model.AccentColor
 
@@ -61,32 +62,32 @@ object Constants {
 
     val accentColors = listOf(
         AccentColor(
-            darkColor = Color(0xFF3DB2EC),
-            lightColor = Color(0xFF3DB2EC).copy(alpha = 0.1f)
+            darkColor = Color(0xFF3DB2EC).toArgb(),
+            lightColor = Color(0xFF3DB2EC).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xFFFF4309),
-            lightColor = Color(0xFFFF4309).copy(alpha = 0.1f)
+            darkColor = Color(0xFFFF4309).toArgb(),
+            lightColor = Color(0xFFFF4309).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xFF288B0D),
-            lightColor = Color(0xFF288B0D).copy(alpha = 0.1f)
+            darkColor = Color(0xFF288B0D).toArgb(),
+            lightColor = Color(0xFF288B0D).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xFFFF0A5B),
-            lightColor = Color(0xFFFF0A5B).copy(alpha = 0.1f)
+            darkColor = Color(0xFFFF0A5B).toArgb(),
+            lightColor = Color(0xFFFF0A5B).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xFF0BCDE6),
-            lightColor = Color(0xFF0BCDE6).copy(alpha = 0.1f)
+            darkColor = Color(0xFF0BCDE6).toArgb(),
+            lightColor = Color(0xFF0BCDE6).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xffcf94da),
-            lightColor = Color(0xffcf94da).copy(alpha = 0.1f)
+            darkColor = Color(0xffcf94da).toArgb(),
+            lightColor = Color(0xffcf94da).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xFFDDEE0B),
-            lightColor = Color(0xFFDDEE0B).copy(alpha = 0.1f)
+            darkColor = Color(0xFFDDEE0B).toArgb(),
+            lightColor = Color(0xFFDDEE0B).copy(alpha = 0.1f).toArgb()
         ),
     )
 }
