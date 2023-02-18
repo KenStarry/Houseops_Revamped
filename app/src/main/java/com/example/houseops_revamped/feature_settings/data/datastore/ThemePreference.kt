@@ -19,7 +19,7 @@ class ThemePreference(
 
     val getTheme: Flow<String?> = context.datastore.data
         .map { preferences ->
-            preferences[THEME_KEY] ?: SettingsConstants.themeOptions[2]
+            preferences[THEME_KEY] ?: SettingsConstants.themeOptions[2].title
         }
 
     suspend fun setTheme(theme: String) {

@@ -40,7 +40,8 @@ fun SettingsScreen(
 
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .wrapContentHeight()
                 .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(contentPadding)
         ) {

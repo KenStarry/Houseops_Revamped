@@ -78,26 +78,27 @@ fun ThemesSection(
                         ) {
 
                             ThemeRadioButton(
-                                description = it,
-                                isSelected = it == savedTheme.value,
+                                description = it.title,
+                                icon = it.icon,
+                                isSelected = it.title == savedTheme.value,
                                 onRadioButtonClicked = {
 
                                     //  toggle radio button theme
-                                    settingsViewModel.onEvent(SettingsEvents.ToggleThemeRadioBtn(it))
+                                    settingsViewModel.onEvent(SettingsEvents.ToggleThemeRadioBtn(it.title))
 
                                     //  toggle theme
-                                    settingsViewModel.onEvent(SettingsEvents.SetTheme(it))
+                                    settingsViewModel.onEvent(SettingsEvents.SetTheme(it.title))
 
-                                    Toast.makeText(context, "$it activated", Toast.LENGTH_SHORT)
+                                    Toast.makeText(context, "${it.title} activated", Toast.LENGTH_SHORT)
                                         .show()
                                 }
                             )
                         }
                     },
                     state = rememberLazyListState(),
-                    contentPadding = PaddingValues(horizontal = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier
-                        .height(150.dp)
+                        .height((50.dp + 16.dp) * SettingsConstants.themeOptions.size)
                 )
             }
 

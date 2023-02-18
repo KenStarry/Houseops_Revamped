@@ -27,9 +27,9 @@ object SettingsConstants {
 
     //  theme section
     val themeOptions = listOf(
-        "Dark Theme",
-        "Light Theme",
-        "Follow System"
+        SettingsSectionItem("Dark Theme", Icons.Outlined.Nightlight),
+        SettingsSectionItem("Light Theme", Icons.Outlined.LightMode),
+        SettingsSectionItem("Follow System", Icons.Outlined.Light)
     )
 
     //  danger section

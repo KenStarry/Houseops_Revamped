@@ -19,7 +19,7 @@ class SettingsViewModel(
     private val _isDropdownExpanded = mutableStateOf(false)
     val isDropdownExpanded: State<Boolean> = _isDropdownExpanded
 
-    private val _selectedTheme = mutableStateOf(SettingsConstants.themeOptions[2])
+    private val _selectedTheme = mutableStateOf(SettingsConstants.themeOptions[2].title)
     val selectedTheme: State<String> = _selectedTheme
 
     private val _isThemeSectionVisible = mutableStateOf(false)

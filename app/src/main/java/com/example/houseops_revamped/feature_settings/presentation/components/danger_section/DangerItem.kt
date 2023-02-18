@@ -34,7 +34,7 @@ fun DangerItem(
         Box(
             modifier = Modifier
                 .clip(CircleShape)
-                .size(45.dp)
+                .size(40.dp)
                 .background(SettingsConstants.settingsSections[3].sectionIconBackgroundColor),
             contentAlignment = Alignment.Center
         ) {

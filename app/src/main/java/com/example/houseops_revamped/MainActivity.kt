@@ -29,13 +29,13 @@ class MainActivity : ComponentActivity() {
 
             HouseOps_RevampedTheme(
                 darkTheme = when (settingsViewModel.themeFlow.collectAsState(initial = "").value) {
-                    SettingsConstants.themeOptions[0] -> {
+                    SettingsConstants.themeOptions[0].title -> {
                         true
                     }
-                    SettingsConstants.themeOptions[1] -> {
+                    SettingsConstants.themeOptions[1].title -> {
                         false
                     }
-                    SettingsConstants.themeOptions[2] -> {
+                    SettingsConstants.themeOptions[2].title -> {
                         isSystemInDarkTheme()
                     }
                     else -> {
