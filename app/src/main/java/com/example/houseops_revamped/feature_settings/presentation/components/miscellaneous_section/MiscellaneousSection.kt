@@ -1,7 +1,13 @@
 package com.example.houseops_revamped.feature_settings.presentation.components.miscellaneous_section
 
 import android.content.Context
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,6 +25,7 @@ fun MiscellaneousSection(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel
 ) {
+    val listState = rememberLazyListState()
 
     Card(
         modifier = Modifier
@@ -49,6 +56,36 @@ fun MiscellaneousSection(
                     .wrapContentHeight(),
                 settingsViewModel = settingsViewModel
             )
+
+            AnimatedVisibility(
+                visible = settingsViewModel.isMiscSectionVisible.value,
+                enter = expandIn(),
+                exit = shrinkOut()
+            ) {
+
+                LazyColumn(
+                    content = {
+                        items(
+                            items = SettingsConstants.miscOptions
+                        ) {
+                            //  danger item
+                            MiscellaneousItem(
+                                title = it.title,
+                                icon = it.icon,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp)
+                            )
+                        }
+                    },
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height((50.dp + 16.dp) * SettingsConstants.miscOptions.size),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                )
+
+            }
 
         }
 

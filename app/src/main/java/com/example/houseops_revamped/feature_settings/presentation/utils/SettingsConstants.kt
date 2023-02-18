@@ -40,6 +40,15 @@ object SettingsConstants {
         SettingsSectionItem("Follow System", Icons.Outlined.Light)
     )
 
+    //  miscellaneous section
+    val miscOptions = listOf(
+        SettingsSectionItem("About", Icons.Outlined.AccountBox),
+        SettingsSectionItem("Leave us a feedback", Icons.Outlined.Feedback),
+        SettingsSectionItem("Share", Icons.Outlined.Share),
+        SettingsSectionItem("Rate us on Google Play", Icons.Outlined.StarRate),
+        SettingsSectionItem("Version", Icons.Outlined.History),
+    )
+
     //  danger section
     val dangerOptions = listOf(
         SettingsSectionItem(title = "Logout", icon = Icons.Outlined.Logout),

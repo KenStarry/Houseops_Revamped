@@ -61,7 +61,7 @@ fun SectionTitle(
                             }
 
                             SettingsConstants.settingsSections[2].sectionTitle -> {
-                                val visibility = !settingsViewModel.isAboutSectionVisible.value
+                                val visibility = !settingsViewModel.isMiscSectionVisible.value
                                 isSectionVisible = visibility
                                 visibility
                             }
@@ -149,11 +149,11 @@ fun SectionTitle(
                         settingsViewModel.onEvent(
                             SettingsEvents.ToggleSectionVisibility(
                                 sectionTitle = title,
-                                isSectionVisible = !settingsViewModel.isAboutSectionVisible.value
+                                isSectionVisible = !settingsViewModel.isMiscSectionVisible.value
                             )
                         )
 
-                        isSectionVisible = settingsViewModel.isAboutSectionVisible.value
+                        isSectionVisible = settingsViewModel.isMiscSectionVisible.value
                     }
 
                     SettingsConstants.settingsSections[3].sectionTitle -> {
