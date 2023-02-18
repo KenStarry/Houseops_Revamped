@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.core.utils.datastore
+package com.example.houseops_revamped.core.data.datastore
 
 object DatastoreConstants {
 

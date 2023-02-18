@@ -1,9 +1,6 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -11,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.core.utils.intents.phoneCallIntent
+import com.example.houseops_revamped.core.utils.intents.phoneDialIntent
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
 @Composable
@@ -47,17 +46,7 @@ fun HouseViewDetails(
             onCaretakerClicked(it)
         },
         onPhoneClicked = { phoneNumber ->
-
-            val parsePhone = Uri.parse("tel:$phoneNumber")
-            val intent = Intent(Intent.ACTION_DIAL, parsePhone)
-
-            //  open intent
-            try {
-                context.startActivity(intent)
-
-            } catch (e: SecurityException) {
-                Toast.makeText(context, "An error occurred", Toast.LENGTH_SHORT).show()
-            }
+            phoneCallIntent(context, phoneNumber)
         }
     )
 

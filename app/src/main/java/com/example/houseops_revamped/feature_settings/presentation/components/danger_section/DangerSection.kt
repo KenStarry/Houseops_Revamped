@@ -2,6 +2,9 @@ package com.example.houseops_revamped.feature_settings.presentation.components.d
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,6 +28,8 @@ fun DangerSection(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel
 ) {
+
+    val listState = rememberLazyListState()
 
     Card(
         modifier = Modifier
@@ -55,6 +60,36 @@ fun DangerSection(
                     .wrapContentHeight(),
                 settingsViewModel
             )
+
+            AnimatedVisibility(
+                visible = settingsViewModel.isDangerSectionVisible.value,
+                enter = expandIn(),
+                exit = shrinkOut()
+            ) {
+
+                LazyColumn(
+                    content = {
+                        items(
+                            items = SettingsConstants.dangerOptions
+                        ) {
+                            //  danger item
+                            DangerItem(
+                                title = it.title,
+                                icon = it.icon,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp)
+                            )
+                        }
+                    },
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height((50.dp + 16.dp) * SettingsConstants.dangerOptions.size),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                )
+
+            }
 
         }
 
