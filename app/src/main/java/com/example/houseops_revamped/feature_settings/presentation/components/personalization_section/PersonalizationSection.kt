@@ -2,6 +2,9 @@ package com.example.houseops_revamped.feature_settings.presentation.components.p
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.components.SectionTitle
+import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerItem
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 
@@ -25,6 +29,8 @@ fun PersonalizationSection(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel
 ) {
+
+    val listState = rememberLazyListState()
 
     Card(
         modifier = Modifier
@@ -56,6 +62,35 @@ fun PersonalizationSection(
                 settingsViewModel = settingsViewModel
             )
 
+            AnimatedVisibility(
+                visible = settingsViewModel.isPersonalizationSectionVisible.value,
+                enter = expandIn(),
+                exit = shrinkOut()
+            ) {
+
+                LazyColumn(
+                    content = {
+                        items(
+                            items = SettingsConstants.personalizationOptions
+                        ) {
+                            //  danger item
+                            PersonalizationItem(
+                                title = it.title,
+                                icon = it.icon,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp)
+                            )
+                        }
+                    },
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height((50.dp + 16.dp) * SettingsConstants.personalizationOptions.size),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                )
+
+            }
         }
 
     }

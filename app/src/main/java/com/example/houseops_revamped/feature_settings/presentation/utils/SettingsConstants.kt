@@ -40,6 +40,11 @@ object SettingsConstants {
         SettingsSectionItem("Follow System", Icons.Outlined.Light)
     )
 
+    //  personalization section
+    val personalizationOptions = listOf(
+        SettingsSectionItem("Accent Color", Icons.Outlined.FormatPaint)
+    )
+
     //  miscellaneous section
     val miscOptions = listOf(
         SettingsSectionItem("About", Icons.Outlined.AccountBox),
