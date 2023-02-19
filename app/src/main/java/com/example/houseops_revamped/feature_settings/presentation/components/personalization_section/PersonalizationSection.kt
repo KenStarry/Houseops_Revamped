@@ -94,28 +94,14 @@ fun PersonalizationSection(
                                     .clickable {
                                         when (it.title) {
                                             SettingsConstants.personalizationOptions[0].title -> {
-                                                //  change accent color
 
+                                                //  change accent color
                                                 coreViewModel.onEvent(CoreEvents.ChangeAccent(
                                                     accentColor = AccentColor(
                                                         Constants.accentColors[3].darkColor,
                                                         Constants.accentColors[3].lightColor
                                                     )
                                                 ))
-
-//                                                Constants.primaryCol.value =
-//                                                    Color(primaryColor)
-//
-//                                                Constants.tertiaryCol.value =
-//                                                    Color(tertiaryColor)
-
-                                                Toast
-                                                    .makeText(
-                                                        context,
-                                                        "${Constants.primaryCol.value}",
-                                                        Toast.LENGTH_SHORT
-                                                    )
-                                                    .show()
                                             }
                                         }
                                     }

@@ -66,28 +66,96 @@ object Constants {
             lightColor = Color(0xFF3DB2EC).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
+            darkColor = Color(0xFF2AABEB).toArgb(),
+            lightColor = Color(0xFF2AABEB).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF11A0E7).toArgb(),
+            lightColor = Color(0xFF11A0E7).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF00A3F3).toArgb(),
+            lightColor = Color(0xFF00A3F3).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
             darkColor = Color(0xFFFF4309).toArgb(),
             lightColor = Color(0xFFFF4309).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFFF5825).toArgb(),
+            lightColor = Color(0xFFFF5825).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFFF6C40).toArgb(),
+            lightColor = Color(0xFFFF6C40).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFFF8C69).toArgb(),
+            lightColor = Color(0xFFFF8C69).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
             darkColor = Color(0xFF288B0D).toArgb(),
             lightColor = Color(0xFF288B0D).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
+            darkColor = Color(0xFF3ED515).toArgb(),
+            lightColor = Color(0xFF3ED515).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF54CF32).toArgb(),
+            lightColor = Color(0xFF54CF32).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF74D15B).toArgb(),
+            lightColor = Color(0xFF74D15B).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
             darkColor = Color(0xFFFF0A5B).toArgb(),
             lightColor = Color(0xFFFF0A5B).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xFF0BCDE6).toArgb(),
-            lightColor = Color(0xFF0BCDE6).copy(alpha = 0.1f).toArgb()
+            darkColor = Color(0xFFFF3A7B).toArgb(),
+            lightColor = Color(0xFFFF3A7B).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
-            darkColor = Color(0xffcf94da).toArgb(),
-            lightColor = Color(0xffcf94da).copy(alpha = 0.1f).toArgb()
+            darkColor = Color(0xFFFF5990).toArgb(),
+            lightColor = Color(0xFFFF5990).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFFF80AA).toArgb(),
+            lightColor = Color(0xFFFF80AA).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF012BFF).toArgb(),
+            lightColor = Color(0xFF012BFF).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF2247FF).toArgb(),
+            lightColor = Color(0xFF2247FF).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF4A68FF).toArgb(),
+            lightColor = Color(0xFF4A68FF).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFF7088FF).toArgb(),
+            lightColor = Color(0xFF7088FF).copy(alpha = 0.1f).toArgb()
         ),
         AccentColor(
             darkColor = Color(0xFFDDEE0B).toArgb(),
             lightColor = Color(0xFFDDEE0B).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFDEEC34).toArgb(),
+            lightColor = Color(0xFFDEEC34).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFDDE952).toArgb(),
+            lightColor = Color(0xFFDDE952).copy(alpha = 0.1f).toArgb()
+        ),
+        AccentColor(
+            darkColor = Color(0xFFDDE676).toArgb(),
+            lightColor = Color(0xFFDDE676).copy(alpha = 0.1f).toArgb()
         ),
     )
 }
