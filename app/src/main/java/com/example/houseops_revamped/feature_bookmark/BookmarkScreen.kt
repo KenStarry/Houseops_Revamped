@@ -57,7 +57,9 @@ fun BookmarkScreen(
                 },
                 onViewClicked = {
 
-                }
+                },
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
     ) { contentPadding ->

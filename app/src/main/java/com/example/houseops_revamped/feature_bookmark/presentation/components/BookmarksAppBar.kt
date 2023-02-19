@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
@@ -14,7 +15,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun BookmarksAppBar(
     onBackPressed: () -> Unit,
-    onViewClicked: () -> Unit
+    onViewClicked: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     LargeTopAppBar(
@@ -60,13 +63,13 @@ fun BookmarksAppBar(
                             onViewClicked()
                         },
                         colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.tertiary
+                            containerColor = tertiaryColor
                         )
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.DashboardCustomize,
                             contentDescription = "view icon",
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = primaryColor
                         )
                     }
 

@@ -79,7 +79,7 @@ fun HouseItemAlt(
                     modifier = Modifier
                         .wrapContentSize(),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        containerColor = tertiaryColor,
                         contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     ),
                     shape = RoundedCornerShape(16.dp)

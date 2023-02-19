@@ -65,13 +65,13 @@ fun CategoryItem(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(35.dp)
-                    .background(MaterialTheme.colorScheme.tertiary),
+                    .background(tertiaryColor),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = houseCategory.icon,
                     contentDescription = "House category",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = primaryColor
                 )
             }
 
