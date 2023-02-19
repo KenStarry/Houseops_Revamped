@@ -26,7 +26,16 @@ fun HouseViewDetails(
     val spacing = 24.dp
 
     //  number of users that have booked a house
+    DetailsUsersBooked(
+        house = house,
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor,
+        onClicked = {
 
+        }
+    )
+
+    Spacer(modifier = Modifier.height(spacing))
 
     //  action icons
     DetailActionIcons(

@@ -1,18 +1,18 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.presentation.components.house_view_details
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Expand
+import androidx.compose.material.icons.outlined.OpenInFull
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -28,8 +28,9 @@ fun DetailsUsersBooked(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(MaterialTheme.colorScheme.onSecondary),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .background(MaterialTheme.colorScheme.onPrimary),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
     ) {
 
         Text(
@@ -42,8 +43,10 @@ fun DetailsUsersBooked(
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
+        Spacer(modifier = Modifier.width(16.dp))
+
         HomePillBtns(
-            icon = Icons.Outlined.Expand,
+            icon = Icons.Outlined.OpenInFull,
             title = "See all",
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor,
