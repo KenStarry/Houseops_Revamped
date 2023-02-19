@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
 import com.example.houseops_revamped.feature_settings.presentation.components.miscellaneous_section.MiscellaneousSection
@@ -24,7 +25,8 @@ fun SettingsScreen(
     val context = LocalContext.current
 
     val settingsViewModel = SettingsViewModel(
-        themePreference = ThemePreference(context)
+        themePreference = ThemePreference(context),
+        accentPreference = AccentPreference(context)
     )
 
     val scrollState = rememberScrollState()

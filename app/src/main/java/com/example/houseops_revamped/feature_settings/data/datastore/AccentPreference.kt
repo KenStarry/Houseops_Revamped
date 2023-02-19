@@ -22,12 +22,12 @@ class AccentPreference(
 
     val getPrimaryAccent: Flow<Int?> = context.datastore.data
         .map { preferences ->
-            preferences[PRIMARY_ACCENT_KEY] ?: Constants.accentColors[0].darkColor
+            preferences[PRIMARY_ACCENT_KEY] ?: Constants.accentColors[1].darkColor
         }
 
     val getTertiaryAccent: Flow<Int?> = context.datastore.data
         .map { preferences ->
-            preferences[TERTIARY_ACCENT_KEY] ?: Constants.accentColors[0].lightColor
+            preferences[TERTIARY_ACCENT_KEY] ?: Constants.accentColors[1].lightColor
         }
 
     suspend fun setAccent(accent: AccentColor) {

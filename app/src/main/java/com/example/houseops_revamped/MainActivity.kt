@@ -12,6 +12,7 @@ import com.example.houseops_revamped.feature_settings.data.datastore.ThemePrefer
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.example.houseops_revamped.feature_main_screen.presentation.MainScreen
+import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseops_revamped.ui.theme.HouseOps_RevampedTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,10 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val context = LocalContext.current
-            val settingsViewModel = SettingsViewModel(ThemePreference(context))
+            val settingsViewModel = SettingsViewModel(
+                ThemePreference(context),
+                AccentPreference(context)
+            )
 
             HouseOps_RevampedTheme(
                 darkTheme = when (settingsViewModel.themeFlow.collectAsState(initial = "").value) {
