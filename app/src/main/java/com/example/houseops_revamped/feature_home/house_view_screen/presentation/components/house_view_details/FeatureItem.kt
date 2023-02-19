@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -16,7 +17,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FeatureItem(
     featureIcon: ImageVector?,
-    featureName: String
+    featureName: String,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Card(
@@ -46,14 +49,14 @@ fun FeatureItem(
                     modifier = Modifier
                         .clip(CircleShape)
                         .size(50.dp)
-                        .background(MaterialTheme.colorScheme.tertiary),
+                        .background(tertiaryColor),
                     contentAlignment = Alignment.Center
                 ) {
 
                     Icon(
                         imageVector = it,
                         contentDescription = "feature icon",
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = primaryColor
                     )
 
                 }

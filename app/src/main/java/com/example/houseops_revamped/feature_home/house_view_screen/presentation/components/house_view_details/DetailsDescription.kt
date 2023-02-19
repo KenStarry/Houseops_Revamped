@@ -8,13 +8,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun DetailsDescription(
-    description: String
+    description: String,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Card(
@@ -46,7 +49,7 @@ fun DetailsDescription(
                 Icon(
                     imageVector = Icons.Outlined.Description,
                     contentDescription = "description",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = primaryColor
                 )
 
                 Text(

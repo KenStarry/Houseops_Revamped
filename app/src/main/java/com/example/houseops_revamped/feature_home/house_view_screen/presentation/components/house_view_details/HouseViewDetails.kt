@@ -61,14 +61,18 @@ fun HouseViewDetails(
 
     //  features
     DetailsFeatures(
-        features = house.houseFeatures
+        features = house.houseFeatures,
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor
     )
 
     Spacer(modifier = Modifier.height(spacing))
 
     //  description
     DetailsDescription(
-        description = house.houseDescription
+        description = house.houseDescription,
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor
     )
 
 }

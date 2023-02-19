@@ -80,7 +80,6 @@ fun HouseViewScreen(
         mutableStateOf(false)
     }
 
-    Toast.makeText(context, "$isHouseBooked", Toast.LENGTH_SHORT).show()
     var dateBooked by remember { mutableStateOf("") }
 
     BottomSheet(

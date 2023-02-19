@@ -10,13 +10,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FilterNone
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.utils.HouseViewConstants.featuresList
 
 @Composable
 fun DetailsFeatures(
-    features: List<String>
+    features: List<String>,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     LazyRow(
@@ -37,7 +40,9 @@ fun DetailsFeatures(
 
                 FeatureItem(
                     featureIcon = icon,
-                    featureName = it
+                    featureName = it,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
             }
         },
