@@ -14,6 +14,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_settings.presentation.components.SectionTitle
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
@@ -23,7 +24,9 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 fun MiscellaneousSection(
     context: Context,
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
     val listState = rememberLazyListState()
 
@@ -49,8 +52,8 @@ fun MiscellaneousSection(
             SectionTitle(
                 title = SettingsConstants.settingsSections[2].sectionTitle,
                 icon = SettingsConstants.settingsSections[2].sectionIcon,
-                iconColor = SettingsConstants.settingsSections[2].sectionIconColor,
-                iconBackground = SettingsConstants.settingsSections[2].sectionIconBackgroundColor,
+                iconColor = primaryColor,
+                iconBackground = tertiaryColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
@@ -74,7 +77,9 @@ fun MiscellaneousSection(
                                 icon = it.icon,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(50.dp)
+                                    .height(50.dp),
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
                         }
                     },

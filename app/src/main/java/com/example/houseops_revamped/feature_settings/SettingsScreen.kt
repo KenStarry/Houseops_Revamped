@@ -103,7 +103,9 @@ fun SettingsScreen(
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
                     context = context,
-                    settingsViewModel = settingsViewModel
+                    settingsViewModel = settingsViewModel,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
                 //  PersonalizationSection
@@ -138,7 +140,9 @@ fun SettingsScreen(
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
-                    settingsViewModel = settingsViewModel
+                    settingsViewModel = settingsViewModel,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
                 //  Danger Section
@@ -149,7 +153,9 @@ fun SettingsScreen(
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
-                    settingsViewModel = settingsViewModel
+                    settingsViewModel = settingsViewModel,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
             }

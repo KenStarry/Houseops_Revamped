@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.components.SectionTitle
@@ -26,7 +27,9 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 fun DangerSection(
     context: Context,
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val listState = rememberLazyListState()

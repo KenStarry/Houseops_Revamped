@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,7 +23,9 @@ import com.example.houseops_revamped.feature_settings.presentation.utils.Setting
 fun MiscellaneousItem(
     modifier: Modifier = Modifier,
     title: String,
-    icon: ImageVector
+    icon: ImageVector,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Row(
@@ -35,13 +38,13 @@ fun MiscellaneousItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(40.dp)
-                .background(SettingsConstants.settingsSections[2].sectionIconBackgroundColor),
+                .background(tertiaryColor),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = "icon",
-                tint = SettingsConstants.settingsSections[2].sectionIconColor
+                tint = primaryColor
             )
         }
 
