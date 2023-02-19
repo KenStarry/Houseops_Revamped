@@ -21,7 +21,8 @@ fun PersonalizationItem(
     modifier: Modifier = Modifier,
     title: String,
     icon: ImageVector,
-    primaryColor: Color
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Row(
@@ -41,13 +42,13 @@ fun PersonalizationItem(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(40.dp)
-                    .background(SettingsConstants.settingsSections[1].sectionIconBackgroundColor),
+                    .background(tertiaryColor),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = "icon",
-                    tint = SettingsConstants.settingsSections[1].sectionIconColor
+                    tint = primaryColor
                 )
             }
 

@@ -3,6 +3,7 @@ package com.example.houseops_revamped.feature_home.home_screen.presentation.comp
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -62,11 +63,11 @@ fun BookmarkIcon(
         )
     ) {
         if (isBookmarked) {
-            Lottie(
-                rawFile = R.raw.bookmark,
-                isPlaying = true,
-                modifier = Modifier
-                    .fillMaxSize()
+
+            Icon(
+                imageVector = Icons.Filled.Bookmark,
+                contentDescription = "Bookmark",
+                tint = primaryColor
             )
         } else {
             Icon(

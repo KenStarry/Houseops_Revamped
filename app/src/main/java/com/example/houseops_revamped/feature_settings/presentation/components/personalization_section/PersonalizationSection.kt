@@ -67,8 +67,8 @@ fun PersonalizationSection(
             SectionTitle(
                 title = SettingsConstants.settingsSections[1].sectionTitle,
                 icon = SettingsConstants.settingsSections[1].sectionIcon,
-                iconColor = SettingsConstants.settingsSections[1].sectionIconColor,
-                iconBackground = SettingsConstants.settingsSections[1].sectionIconBackgroundColor,
+                iconColor = primaryColor,
+                iconBackground = tertiaryColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
@@ -104,7 +104,8 @@ fun PersonalizationSection(
                                     .padding(
                                         end = 16.dp
                                     ),
-                                primaryColor = primaryColor
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
                         }
                     },
