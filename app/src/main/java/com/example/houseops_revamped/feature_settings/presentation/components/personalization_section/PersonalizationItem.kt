@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,7 +20,8 @@ import com.example.houseops_revamped.feature_settings.presentation.utils.Setting
 fun PersonalizationItem(
     modifier: Modifier = Modifier,
     title: String,
-    icon: ImageVector
+    icon: ImageVector,
+    primaryColor: Color
 ) {
 
     Row(
@@ -45,7 +47,7 @@ fun PersonalizationItem(
                 Icon(
                     imageVector = icon,
                     contentDescription = "icon",
-                    tint =SettingsConstants.settingsSections[1].sectionIconColor
+                    tint = SettingsConstants.settingsSections[1].sectionIconColor
                 )
             }
 
@@ -61,7 +63,7 @@ fun PersonalizationItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(30.dp)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(primaryColor)
         )
 
     }

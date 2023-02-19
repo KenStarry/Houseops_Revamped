@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,7 +41,9 @@ fun CaretakerBottomSheet(
     caretaker: Caretaker?,
     userDetails: UsersCollection?,
     direction: Direction,
-    onHouseClicked: (house: HouseModel) -> Unit
+    onHouseClicked: (house: HouseModel) -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val context = LocalContext.current
@@ -108,7 +111,9 @@ fun CaretakerBottomSheet(
                     HomePillBtns(
                         icon = Icons.Outlined.Apartment,
                         title = caretaker?.caretakerApartment ?: "none",
-                        onClick = {}
+                        onClick = {},
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
 
                     //  caretaker apartments count
@@ -192,7 +197,9 @@ fun CaretakerBottomSheet(
                                     .clickable {
                                         onHouseClicked(house)
                                     }
-                                    .padding(8.dp)
+                                    .padding(8.dp),
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
 
                             Spacer(modifier = Modifier.width(16.dp))

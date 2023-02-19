@@ -20,7 +20,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColor
+import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.model.AccentColor
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.components.SectionTitle
@@ -33,17 +35,13 @@ import com.example.houseops_revamped.ui.theme.BlueAccent
 fun PersonalizationSection(
     context: Context,
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
+    coreViewModel: CoreViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val listState = rememberLazyListState()
-    val primaryColor = settingsViewModel.primaryAccentFlow.collectAsState(
-        initial = 0
-    ).value ?: Constants.accentColors[1].darkColor
-
-    val tertiaryColor = settingsViewModel.primaryAccentFlow.collectAsState(
-        initial = 0
-    ).value ?: Constants.accentColors[1].lightColor
 
     Card(
         modifier = Modifier
@@ -98,18 +96,18 @@ fun PersonalizationSection(
                                             SettingsConstants.personalizationOptions[0].title -> {
                                                 //  change accent color
 
-                                                settingsViewModel.onEvent(SettingsEvents.SetAccent(
-                                                    accent = AccentColor(
-                                                        Constants.accentColors[2].darkColor,
-                                                        Constants.accentColors[2].lightColor
+                                                coreViewModel.onEvent(CoreEvents.ChangeAccent(
+                                                    accentColor = AccentColor(
+                                                        Constants.accentColors[3].darkColor,
+                                                        Constants.accentColors[3].lightColor
                                                     )
                                                 ))
 
-                                                Constants.primaryCol.value =
-                                                    Color(primaryColor)
-
-                                                Constants.tertiaryCol.value =
-                                                    Color(tertiaryColor)
+//                                                Constants.primaryCol.value =
+//                                                    Color(primaryColor)
+//
+//                                                Constants.tertiaryCol.value =
+//                                                    Color(tertiaryColor)
 
                                                 Toast
                                                     .makeText(
@@ -123,7 +121,8 @@ fun PersonalizationSection(
                                     }
                                     .padding(
                                         end = 16.dp
-                                    )
+                                    ),
+                                primaryColor = primaryColor
                             )
                         }
                     },

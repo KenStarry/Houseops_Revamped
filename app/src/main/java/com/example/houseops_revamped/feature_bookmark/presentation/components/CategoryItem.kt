@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -34,7 +35,9 @@ fun CategoryItem(
     houseCategory: HouseCategoryModel,
     bookmarkedHouses: List<HouseModel>,
     currentUser: UsersCollection?,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val direction = Direction(navHostController)
@@ -115,7 +118,9 @@ fun CategoryItem(
                                 }
                                 .padding(8.dp)
                                 .animateItemPlacement(),
-                            snackbarHostState = snackbarHostState
+                            snackbarHostState = snackbarHostState,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
                         )
 
                         Spacer(modifier = Modifier.height(24.dp))

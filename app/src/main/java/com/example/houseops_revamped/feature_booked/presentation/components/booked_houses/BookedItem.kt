@@ -21,6 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -41,7 +42,9 @@ fun BookedItem(
     user: UsersCollection,
     bookedHouse: List<BookedHouseModel>,
     houses: List<HouseModel>,
-    direction: Direction
+    direction: Direction,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val formattedDate by remember {
@@ -146,7 +149,9 @@ fun BookedItem(
                                 }
                                 .padding(8.dp),
                             user = user,
-                            snackbarHostState = null
+                            snackbarHostState = null,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
                         )
 
                     }

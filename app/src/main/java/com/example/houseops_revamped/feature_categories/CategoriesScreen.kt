@@ -9,12 +9,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.CategoriesTopBar
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
@@ -32,6 +35,18 @@ fun CategoriesScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -63,7 +78,9 @@ fun CategoriesScreen(
                                 BottomSheetEvents.CloseBottomSheet(
                                 state, scope
                             ))
-                        }
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
                 else -> {
@@ -83,7 +100,9 @@ fun CategoriesScreen(
                                 BottomSheetEvents.CloseBottomSheet(
                                 state, scope
                             ))
-                        }
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
             }
@@ -143,7 +162,9 @@ fun CategoriesScreen(
                                             bottomSheetData = it
                                         )
                                     )
-                                }
+                                },
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
                         }
 

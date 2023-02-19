@@ -7,6 +7,7 @@ import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.R
@@ -20,7 +21,9 @@ import com.example.houseops_revamped.feature_home.home_screen.domain.model.House
 @Composable
 fun BookmarkIcon(
     house: HouseModel,
-    user: UsersCollection?
+    user: UsersCollection?,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
@@ -55,7 +58,7 @@ fun BookmarkIcon(
             )
         },
         colors = IconButtonDefaults.iconButtonColors(
-            containerColor = MaterialTheme.colorScheme.tertiary
+            containerColor = tertiaryColor
         )
     ) {
         if (isBookmarked) {
@@ -69,7 +72,7 @@ fun BookmarkIcon(
             Icon(
                 imageVector = Icons.Outlined.BookmarkBorder,
                 contentDescription = "Bookmark",
-                tint = MaterialTheme.colorScheme.primary
+                tint = primaryColor
             )
         }
 

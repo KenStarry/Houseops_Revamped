@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +29,9 @@ fun HousePrice(
     modifier: Modifier = Modifier,
     houseModel: HouseModel,
     user: UsersCollection?,
-    snackbarHostState: SnackbarHostState?
+    snackbarHostState: SnackbarHostState?,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val category = when (houseModel.housePriceCategory) {
@@ -68,7 +71,7 @@ fun HousePrice(
                 ) { append(houseModel.housePrice) }
                 withStyle(
                     style = SpanStyle(
-                        color = MaterialTheme.colorScheme.primary
+                        color = primaryColor
                     )
                 ) { append("/$category") }
             },
@@ -84,7 +87,9 @@ fun HousePrice(
 
         BookmarkIcon(
             house = houseModel,
-            user = user
+            user = user,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
         )
 
 

@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
@@ -23,7 +24,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun PillSection(
     modifier: Modifier = Modifier,
-    onPillClicked: (categoryTitle: String) -> Unit
+    onPillClicked: (categoryTitle: String) -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color,
 ) {
 
     val staggeredGridState = rememberLazyStaggeredGridState()
@@ -56,7 +59,9 @@ fun PillSection(
                             onPillClicked(HomeConstants.homePills[index].title)
                         },
                         paddingVertical = 12.dp,
-                        paddingHorizontal = 12.dp
+                        paddingHorizontal = 12.dp,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
 
                 }

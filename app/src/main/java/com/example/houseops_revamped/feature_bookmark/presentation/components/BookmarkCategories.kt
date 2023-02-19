@@ -11,6 +11,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -39,7 +40,9 @@ fun BookmarkCategories(
     houseCategories: List<HouseCategoryModel>,
     bookmarkedHouses: List<HouseModel>,
     currentUser: UsersCollection?,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val pagerState = rememberPagerState()
@@ -86,7 +89,9 @@ fun BookmarkCategories(
                     houseCategory = bookmarksVM.listOfCategories.value[page],
                     bookmarkedHouses = bookmarkedHouses,
                     currentUser = currentUser,
-                    snackbarHostState = snackbarHostState
+                    snackbarHostState = snackbarHostState,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
             }
         }

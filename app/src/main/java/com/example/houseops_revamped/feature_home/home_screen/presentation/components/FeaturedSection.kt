@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,7 +41,9 @@ fun FeaturedSection(
     title: String,
     houses: List<HouseModel>,
     user: UsersCollection?,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val homeVM: HomeViewModel = hiltViewModel()
@@ -94,7 +97,9 @@ fun FeaturedSection(
                             }
                             .padding(8.dp),
                         user = user,
-                        snackbarHostState = snackbarHostState
+                        snackbarHostState = snackbarHostState,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
             },

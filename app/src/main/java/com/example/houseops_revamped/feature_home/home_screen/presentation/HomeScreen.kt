@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -17,6 +18,7 @@ import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
@@ -37,12 +39,23 @@ fun HomeScreen(
     val coreVM: CoreViewModel = hiltViewModel()
     val homeVM: HomeViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
-
     val direction = Direction(navHostController)
 
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -69,9 +82,12 @@ fun HomeScreen(
                             //  dismiss bottomshee
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.CloseBottomSheet(
-                                state, scope
-                            ))
-                        }
+                                    state, scope
+                                )
+                            )
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
                 else -> {
@@ -89,9 +105,12 @@ fun HomeScreen(
                             //  dismiss bottomshee
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.CloseBottomSheet(
-                                state, scope
-                            ))
-                        }
+                                    state, scope
+                                )
+                            )
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
 
@@ -125,7 +144,7 @@ fun HomeScreen(
                         },
                         onClick = { /*TODO*/ },
                         expanded = true,
-                        containerColor = MaterialTheme.colorScheme.primary
+                        containerColor = primaryColor
                     )
                 }
             ) {
@@ -162,7 +181,9 @@ fun HomeScreen(
                                 .height(150.dp),
                             onPillClicked = { categoryTitle ->
                                 direction.navigateToCategory(categoryTitle)
-                            }
+                            },
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
                         )
 
                         //  featured section
@@ -175,7 +196,9 @@ fun HomeScreen(
                                 .wrapContentHeight(),
                             user = userDetails,
                             navHostController = navHostController,
-                            snackbarHostState = snackbarHostState
+                            snackbarHostState = snackbarHostState,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
                         )
 
                         ApartmentsSection(

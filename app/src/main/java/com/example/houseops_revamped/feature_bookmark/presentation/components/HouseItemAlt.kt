@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,7 +31,9 @@ fun HouseItemAlt(
     context: Context,
     house: HouseModel,
     user: UsersCollection?,
-    snackbarHostState: SnackbarHostState?
+    snackbarHostState: SnackbarHostState?,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Row(
@@ -122,7 +125,9 @@ fun HouseItemAlt(
                     .weight(1f),
                 houseModel = house,
                 user = user,
-                snackbarHostState = snackbarHostState
+                snackbarHostState = snackbarHostState,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
 

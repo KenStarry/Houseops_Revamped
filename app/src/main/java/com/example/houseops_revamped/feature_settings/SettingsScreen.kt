@@ -5,9 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
@@ -23,6 +27,15 @@ fun SettingsScreen(
     navHostController: NavHostController
 ) {
     val context = LocalContext.current
+    val coreVM: CoreViewModel = hiltViewModel()
+
+    val primaryColor = coreVM.primaryAccentFlow.collectAsState(
+        initial = Constants.accentColors[0].darkColor
+    ).value ?: Constants.accentColors[0].darkColor
+
+    val tertiaryColor = coreVM.tertiaryAccentFlow.collectAsState(
+        initial = Constants.accentColors[0].lightColor
+    ).value ?: Constants.accentColors[0].lightColor
 
     val settingsViewModel = SettingsViewModel(
         themePreference = ThemePreference(context),
@@ -75,7 +88,10 @@ fun SettingsScreen(
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
-                    settingsViewModel = settingsViewModel
+                    settingsViewModel = settingsViewModel,
+                    coreViewModel = coreVM,
+                    primaryColor = Color(primaryColor),
+                    tertiaryColor = Color(tertiaryColor)
                 )
 
                 //  About Section

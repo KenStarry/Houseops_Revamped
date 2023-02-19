@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -25,7 +26,9 @@ import com.example.houseops_revamped.feature_home.home_screen.presentation.compo
 @Composable
 fun DetailActionIcons(
     house: HouseModel,
-    userDetails: UsersCollection?
+    userDetails: UsersCollection?,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Row(
@@ -55,7 +58,9 @@ fun DetailActionIcons(
             HomePillBtns(
                 icon = Icons.Outlined.AlternateEmail,
                 title = house.housePriceCategory,
-                onClick = {}
+                onClick = {},
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
 
         }
@@ -77,7 +82,9 @@ fun DetailActionIcons(
 
             BookmarkIcon(
                 house = house,
-                user = userDetails
+                user = userDetails,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
 
         }

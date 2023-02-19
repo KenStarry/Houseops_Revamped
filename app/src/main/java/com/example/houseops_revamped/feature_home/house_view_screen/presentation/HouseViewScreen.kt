@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -55,6 +56,18 @@ fun HouseViewScreen(
     val coreVM: CoreViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
 
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
+
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val direction = Direction(navHostController)
@@ -93,7 +106,9 @@ fun HouseViewScreen(
                                     state, scope
                                 )
                             )
-                        }
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
 
@@ -151,7 +166,9 @@ fun HouseViewScreen(
                                     bottomSheetData = houseViewVM.currentHouse
                                 )
                             )
-                        }
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
 
@@ -173,7 +190,9 @@ fun HouseViewScreen(
                                     state, scope
                                 )
                             )
-                        }
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
             }
@@ -296,7 +315,8 @@ fun HouseViewScreen(
                                         Constants.BOOK_HOUSE_ALERT
                                     )
                                 )
-                            }
+                            },
+                            containerColor = primaryColor
                         )
                     }
                 }
@@ -344,7 +364,9 @@ fun HouseViewScreen(
                                             bottomSheetData = caretaker
                                         )
                                     )
-                                }
+                                },
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
 
                             Spacer(modifier = Modifier.height(56.dp))

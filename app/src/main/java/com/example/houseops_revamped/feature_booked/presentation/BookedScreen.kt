@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +38,18 @@ fun BookedScreen(
     val bookedVM: BookedViewModel = hiltViewModel()
     val direction = Direction(navHostController)
     val context = LocalContext.current
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -70,7 +83,9 @@ fun BookedScreen(
                         modifier = Modifier
                             .fillMaxSize(),
                         bookedVm = bookedVM,
-                        direction = direction
+                        direction = direction,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 } else {
 

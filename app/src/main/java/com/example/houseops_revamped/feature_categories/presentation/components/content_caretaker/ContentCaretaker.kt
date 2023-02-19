@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,7 +20,9 @@ import com.example.houseops_revamped.feature_categories.presentation.viewmodel.C
 @Composable
 fun ContentCaretaker(
     caretakers: List<Caretaker>,
-    onCardClicked: (caretaker: Caretaker) -> Unit
+    onCardClicked: (caretaker: Caretaker) -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val context = LocalContext.current
@@ -40,6 +43,8 @@ fun ContentCaretaker(
                         .clickable {
                             onCardClicked(caretaker)
                         },
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
             }

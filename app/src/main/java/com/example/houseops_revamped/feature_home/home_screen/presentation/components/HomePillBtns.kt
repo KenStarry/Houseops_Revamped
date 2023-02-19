@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -18,6 +19,8 @@ import androidx.compose.ui.unit.dp
 fun HomePillBtns(
     icon: ImageVector?,
     title: String,
+    primaryColor: Color,
+    tertiaryColor: Color,
     paddingHorizontal: Dp = 16.dp,
     paddingVertical: Dp = 8.dp,
     onClick: () -> Unit
@@ -28,7 +31,7 @@ fun HomePillBtns(
             .wrapContentSize(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary
+            containerColor = tertiaryColor
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp
@@ -52,7 +55,7 @@ fun HomePillBtns(
                 Icon(
                     imageVector = it,
                     contentDescription = "pill icon",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = primaryColor
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))

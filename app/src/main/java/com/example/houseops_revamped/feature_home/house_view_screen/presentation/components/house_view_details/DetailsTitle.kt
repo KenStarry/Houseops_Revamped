@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
@@ -17,7 +18,9 @@ import com.example.houseops_revamped.feature_home.home_screen.presentation.compo
 @Composable
 fun DetailsTitle(
     apartmentName: String,
-    houseCategory: String
+    houseCategory: String,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Card(
@@ -83,7 +86,9 @@ fun DetailsTitle(
                 HomePillBtns(
                     icon = Icons.Outlined.LocationOn,
                     title = "Lurambi, Kakamega",
-                    onClick = {}
+                    onClick = {},
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
             }

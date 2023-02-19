@@ -27,7 +27,9 @@ fun BookedHouses(
     user: UsersCollection,
     bookedVm: BookedViewModel = hiltViewModel(),
     bookedHouses: List<BookedHouseModel>,
-    direction: Direction
+    direction: Direction,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val listState = rememberLazyListState()
@@ -57,7 +59,9 @@ fun BookedHouses(
                     direction = direction,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
+                        .wrapContentHeight(),
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))

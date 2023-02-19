@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -25,7 +26,9 @@ import com.example.houseops_revamped.feature_home.home_screen.presentation.compo
 fun CaretakerCard(
     modifier: Modifier = Modifier,
     context: Context,
-    caretaker: Caretaker
+    caretaker: Caretaker,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Card(
@@ -71,7 +74,9 @@ fun CaretakerCard(
                 title = caretaker.caretakerApartment ?: "none",
                 onClick = {},
                 paddingVertical = 8.dp,
-                paddingHorizontal = 16.dp
+                paddingHorizontal = 16.dp,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
 
             Spacer(modifier = Modifier.height(16.dp))

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -17,7 +18,9 @@ fun HouseViewDetails(
     context: Context,
     house: HouseModel,
     userDetails: UsersCollection?,
-    onCaretakerClicked: (caretaker: Caretaker) -> Unit
+    onCaretakerClicked: (caretaker: Caretaker) -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val spacing = 24.dp
@@ -25,7 +28,9 @@ fun HouseViewDetails(
     //  action icons
     DetailActionIcons(
         house = house,
-        userDetails = userDetails
+        userDetails = userDetails,
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor
     )
 
     Spacer(modifier = Modifier.height(spacing))
@@ -33,7 +38,9 @@ fun HouseViewDetails(
     //  title
     DetailsTitle(
         apartmentName = house.houseApartmentName,
-        houseCategory = house.houseCategory
+        houseCategory = house.houseCategory,
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor
     )
 
     Spacer(modifier = Modifier.height(spacing))
