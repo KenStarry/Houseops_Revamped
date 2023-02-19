@@ -8,17 +8,17 @@ import com.example.houseops_revamped.feature_settings.data.datastore.AccentPrefe
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel(
-    private val themePreference: ThemePreference,
-    private val accentPreference: AccentPreference
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val themePreference: ThemePreference
 ) : ViewModel() {
 
     val themeFlow: Flow<String?> get() = themePreference.getTheme
-    val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
-    val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
 
     private val _isDropdownExpanded = mutableStateOf(false)
     val isDropdownExpanded: State<Boolean> = _isDropdownExpanded
@@ -86,12 +86,6 @@ class SettingsViewModel(
             is SettingsEvents.SetTheme -> {
                 viewModelScope.launch {
                     themePreference.setTheme(event.theme)
-                }
-            }
-
-            is SettingsEvents.SetAccent -> {
-                viewModelScope.launch {
-                    accentPreference.setAccent(event.accent)
                 }
             }
         }

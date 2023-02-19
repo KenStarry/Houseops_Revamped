@@ -7,6 +7,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
@@ -26,10 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val context = LocalContext.current
-            val settingsViewModel = SettingsViewModel(
-                ThemePreference(context),
-                AccentPreference(context)
-            )
+            val settingsViewModel: SettingsViewModel = hiltViewModel()
 
             HouseOps_RevampedTheme(
                 darkTheme = when (settingsViewModel.themeFlow.collectAsState(initial = "").value) {

@@ -53,11 +53,7 @@ fun SettingsScreen(
         ).value ?: Constants.accentColors[0].lightColor
     )
 
-    val settingsViewModel = SettingsViewModel(
-        themePreference = ThemePreference(context),
-        accentPreference = AccentPreference(context)
-    )
-
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -94,6 +90,8 @@ fun SettingsScreen(
                     .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
+
+                //  user profile section
 
                 //  Themes section
                 ThemesSection(

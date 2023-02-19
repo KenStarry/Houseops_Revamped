@@ -24,6 +24,4 @@ sealed class SettingsEvents {
 
     data class SetTheme(val theme: String) : SettingsEvents()
 
-    data class SetAccent(val accent: AccentColor) : SettingsEvents()
-
 }
