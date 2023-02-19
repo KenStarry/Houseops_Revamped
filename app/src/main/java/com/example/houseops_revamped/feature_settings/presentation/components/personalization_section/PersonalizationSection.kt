@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColor
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
+import com.example.houseops_revamped.core.presentation.components.CustomAlertDialog
 import com.example.houseops_revamped.core.presentation.model.AccentColor
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
@@ -38,7 +39,8 @@ fun PersonalizationSection(
     settingsViewModel: SettingsViewModel,
     coreViewModel: CoreViewModel,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onChangeAccentClicked: () -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -95,13 +97,7 @@ fun PersonalizationSection(
                                         when (it.title) {
                                             SettingsConstants.personalizationOptions[0].title -> {
 
-                                                //  change accent color
-                                                coreViewModel.onEvent(CoreEvents.ChangeAccent(
-                                                    accentColor = AccentColor(
-                                                        Constants.accentColors[3].darkColor,
-                                                        Constants.accentColors[3].lightColor
-                                                    )
-                                                ))
+                                                onChangeAccentClicked()
                                             }
                                         }
                                     }

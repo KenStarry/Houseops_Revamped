@@ -38,6 +38,10 @@ class SettingsViewModel(
     private val _isDangerSectionVisible = mutableStateOf(true)
     val isDangerSectionVisible: State<Boolean> = _isDangerSectionVisible
 
+    //  ALERT DIALOGS
+    private val _isAccentDialogVisible = mutableStateOf(false)
+    val isAccentDialogVisible: State<Boolean> = _isAccentDialogVisible
+
     fun onEvent(event: SettingsEvents) {
         when (event) {
 

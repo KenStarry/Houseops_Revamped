@@ -25,7 +25,9 @@ import com.example.houseops_revamped.navigation.BottomNavScreens
 fun RowScope.MainBottomBarItem(
     navHostController: NavHostController,
     currentDestination: NavDestination?,
-    screen: BottomNavScreens
+    screen: BottomNavScreens,
+    primaryColor: Color,
+    tertiaryColor: Color,
 ) {
 
     NavigationBarItem(
@@ -56,7 +58,7 @@ fun RowScope.MainBottomBarItem(
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = Color.White,
             unselectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f),
-            indicatorColor = MaterialTheme.colorScheme.tertiary
+            indicatorColor = tertiaryColor
         ),
 
         )

@@ -23,6 +23,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_main_screen.presentation.components.MainBottomBar
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.graphs.RootNavGraph
@@ -35,9 +36,25 @@ fun MainScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
 
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
+
     Scaffold(
         bottomBar = {
-            MainBottomBar(navHostController = navHostController)
+            MainBottomBar(
+                navHostController = navHostController,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
+            )
         },
     ) { contentPadding ->
 

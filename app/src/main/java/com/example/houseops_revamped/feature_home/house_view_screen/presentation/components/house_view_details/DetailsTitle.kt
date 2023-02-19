@@ -56,7 +56,7 @@ fun DetailsTitle(
                 Icon(
                     imageVector = Icons.Outlined.Apartment,
                     contentDescription = "Apartment",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = primaryColor
                 )
 
                 Text(
