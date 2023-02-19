@@ -18,7 +18,8 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 @Composable
 fun SettingsAppBar(
     settingsViewModel: SettingsViewModel,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior
 ) {
 
     LargeTopAppBar(
@@ -88,7 +89,8 @@ fun SettingsAppBar(
                 )
 
             }
-        }
+        },
+        scrollBehavior = scrollBehavior
     )
 }
 

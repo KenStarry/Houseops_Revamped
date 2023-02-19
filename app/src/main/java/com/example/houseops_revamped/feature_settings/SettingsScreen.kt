@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -45,6 +46,7 @@ fun SettingsScreen(
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -65,9 +67,11 @@ fun SettingsScreen(
         topBar = {
             SettingsAppBar(
                 onBackPressed = {},
-                settingsViewModel = settingsViewModel
+                settingsViewModel = settingsViewModel,
+                scrollBehavior = scrollBehavior
             )
-        }
+        },
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { contentPadding ->
 
         //  accent alert dialog
