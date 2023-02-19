@@ -1,13 +1,16 @@
 package com.example.houseops_revamped.core.di
 
+import android.content.Context
 import com.example.houseops_revamped.core.data.repository.CoreRepositoryImpl
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 import com.example.houseops_revamped.core.domain.use_cases.*
+import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -38,6 +41,13 @@ object CoreModule {
         updateArrayField = UpdateUsersArrayField(repo),
         getAllCaretakers = GetAllCaretakers(repo)
     )
+
+    //  provide datastore accent preference
+    @Provides
+    @Singleton
+    fun provideAccentPreference(
+        @ApplicationContext context: Context
+    ) = AccentPreference(context)
 }
 
 

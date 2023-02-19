@@ -1,5 +1,7 @@
 package com.example.houseops_revamped.core.domain.model.events
 
+import com.example.houseops_revamped.core.presentation.model.AccentColor
+
 sealed class CoreEvents {
 
     data class UpdateFirestoreField(
@@ -18,4 +20,6 @@ sealed class CoreEvents {
         val fieldValue: String,
         val isAddItem: Boolean
     ) : CoreEvents()
+
+    data class ChangeAccent(val accentColor: AccentColor) : CoreEvents()
 }

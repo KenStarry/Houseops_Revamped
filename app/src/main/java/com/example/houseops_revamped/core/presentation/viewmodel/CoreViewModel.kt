@@ -15,15 +15,21 @@ import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
+import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CoreViewModel @Inject constructor(
-    private val coreUseCases: CoreUseCases
+    private val coreUseCases: CoreUseCases,
+    private val accentPreference: AccentPreference
 ) : ViewModel() {
+
+    val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
+    val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
 
     var loggedInStatus by mutableStateOf(false)
         private set
@@ -145,6 +151,12 @@ class CoreViewModel @Inject constructor(
                         fieldValue = event.fieldValue,
                         isAddItem = event.isAddItem,
                     )
+                }
+            }
+
+            is CoreEvents.ChangeAccent -> {
+                viewModelScope.launch {
+                    accentPreference.setAccent(event.accentColor)
                 }
             }
         }
