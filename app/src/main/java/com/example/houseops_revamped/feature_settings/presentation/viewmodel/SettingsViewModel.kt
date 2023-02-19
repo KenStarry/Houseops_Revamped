@@ -75,6 +75,14 @@ class SettingsViewModel(
                 }
             }
 
+            is SettingsEvents.ToggleAlertDialog -> {
+                when (event.alertType) {
+                    SettingsConstants.ACCENT_ALERT_DIALOG -> {
+                        _isAccentDialogVisible.value = event.isVisible
+                    }
+                }
+            }
+
             is SettingsEvents.SetTheme -> {
                 viewModelScope.launch {
                     themePreference.setTheme(event.theme)

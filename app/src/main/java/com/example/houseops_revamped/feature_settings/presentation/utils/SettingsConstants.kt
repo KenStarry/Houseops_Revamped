@@ -60,5 +60,7 @@ object SettingsConstants {
         SettingsSectionItem(title = "Delete Account", icon = Icons.Outlined.DeleteForever)
     )
 
+    //  ALERT DIALOGS
+    const val ACCENT_ALERT_DIALOG = "accent_alert_dialog"
 
 }

@@ -17,6 +17,11 @@ sealed class SettingsEvents {
         val isSectionVisible: Boolean
     ) : SettingsEvents()
 
+    data class ToggleAlertDialog(
+        val alertType: String,
+        val isVisible: Boolean
+    ) : SettingsEvents()
+
     data class SetTheme(val theme: String) : SettingsEvents()
 
     data class SetAccent(val accent: AccentColor) : SettingsEvents()

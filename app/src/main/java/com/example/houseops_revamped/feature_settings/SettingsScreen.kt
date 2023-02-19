@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_settings
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -22,7 +23,9 @@ import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
+import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
 import com.example.houseops_revamped.feature_settings.presentation.components.SettingsAppBar
+import com.example.houseops_revamped.feature_settings.presentation.components.alert_dialogs.AccentDialog
 import com.example.houseops_revamped.feature_settings.presentation.components.miscellaneous_section.MiscellaneousSection
 import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerSection
 import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationSection
@@ -63,34 +66,12 @@ fun SettingsScreen(
     ) { contentPadding ->
 
         //  accent alert dialog
-        CustomAlertDialog(
-            icon = SettingsConstants.settingsSections[1].sectionIcon,
-            title = "Pick Accent Color",
-            content = {
-                LazyHorizontalGrid(
-                    rows = GridCells.Fixed(2),
-                    content = {
-                        items(Constants.accentColors) { accentColor ->
-                            Box(
-                                modifier = Modifier
-                                    .clip(CircleShape)
-                                    .size(50.dp)
-                                    .background(Color(accentColor.darkColor))
-                                    .border(
-                                        width = 5.dp,
-                                        color = Color(accentColor.lightColor),
-                                        shape = CircleShape
-                                    )
-                            )
-                        }
-                    }
-                )
-            },
-            onConfirm = {
-                //  pass the accent color
-            },
-            onDismiss = {}
-        )
+        AnimatedVisibility(visible = settingsViewModel.isAccentDialogVisible.value) {
+            AccentDialog(
+                coreVM = coreVM,
+                settingsViewModel = settingsViewModel
+            )
+        }
 
         Box(
             modifier = Modifier
@@ -132,13 +113,12 @@ fun SettingsScreen(
                     primaryColor = Color(primaryColor),
                     tertiaryColor = Color(tertiaryColor),
                     onChangeAccentClicked = {
-                        //  change accent color
-                        coreVM.onEvent(
-                            CoreEvents.ChangeAccent(
-                                accentColor = AccentColor(
-                                    Constants.accentColors[3].darkColor,
-                                    Constants.accentColors[3].lightColor
-                                )
+
+                        // open the alert dialog
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ToggleAlertDialog(
+                                alertType = SettingsConstants.ACCENT_ALERT_DIALOG,
+                                isVisible = true
                             )
                         )
                     }
