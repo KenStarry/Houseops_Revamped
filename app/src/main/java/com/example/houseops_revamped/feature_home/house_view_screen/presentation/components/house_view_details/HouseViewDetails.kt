@@ -2,7 +2,9 @@ package com.example.houseops_revamped.feature_home.house_view_screen.presentatio
 
 import android.content.Context
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -75,7 +77,10 @@ fun HouseViewDetails(
     DetailsFeatures(
         features = house.houseFeatures,
         primaryColor = primaryColor,
-        tertiaryColor = tertiaryColor
+        tertiaryColor = tertiaryColor,
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
     )
 
     Spacer(modifier = Modifier.height(spacing))
