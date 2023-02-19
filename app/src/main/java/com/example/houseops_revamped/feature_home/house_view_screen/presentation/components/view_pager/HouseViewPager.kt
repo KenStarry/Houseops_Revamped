@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.navigation.NavHostController
@@ -29,7 +30,9 @@ fun HouseViewPager(
     modifier: Modifier = Modifier,
     house: HouseModel,
     context: Context,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    primaryColor: Color,
+    tertiaryColor: Color,
 ) {
 
     Box(
@@ -72,7 +75,7 @@ fun HouseViewPager(
                 indicatorWidth = 6.dp,
                 indicatorHeight = 6.dp,
                 indicatorShape = CircleShape,
-                activeColor = MaterialTheme.colorScheme.primary,
+                activeColor = primaryColor,
                 inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))

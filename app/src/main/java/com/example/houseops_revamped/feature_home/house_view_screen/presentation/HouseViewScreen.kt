@@ -346,7 +346,9 @@ fun HouseViewScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(300.dp),
-                                navHostController = navHostController
+                                navHostController = navHostController,
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
 
                             Spacer(modifier = Modifier.height(24.dp))
