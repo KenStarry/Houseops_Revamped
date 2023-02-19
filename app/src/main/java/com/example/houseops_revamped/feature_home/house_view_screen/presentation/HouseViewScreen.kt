@@ -205,6 +205,8 @@ fun HouseViewScreen(
                     if (openBookAlertDialog) {
                         CustomAlertDialog(
                             icon = Icons.Outlined.Warning,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
                             title = "Notice!",
                             content = {
                                 Text(

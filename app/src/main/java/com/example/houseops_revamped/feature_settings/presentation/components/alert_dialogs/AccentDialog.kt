@@ -26,13 +26,17 @@ import com.example.houseops_revamped.feature_settings.presentation.viewmodel.Set
 @Composable
 fun AccentDialog(
     coreVM: CoreViewModel = hiltViewModel(),
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color,
 ) {
 
     val gridListState = rememberLazyGridState()
 
     CustomAlertDialog(
         icon = SettingsConstants.settingsSections[1].sectionIcon,
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor,
         title = "Pick Accent Color",
         content = {
             LazyHorizontalGrid(

@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomAlertDialog(
     icon: ImageVector,
-    iconTint: Color = MaterialTheme.colorScheme.primary,
-    iconBackground: Color = MaterialTheme.colorScheme.tertiary,
+    primaryColor: Color,
+    tertiaryColor: Color,
     title: String,
     content: @Composable ColumnScope.() -> Unit,
     containerColor: Color = MaterialTheme.colorScheme.onPrimary,
@@ -33,13 +33,13 @@ fun CustomAlertDialog(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(45.dp)
-                    .background(iconBackground),
+                    .background(tertiaryColor),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = "Alert Icon",
-                    tint = iconTint
+                    tint = primaryColor
                 )
             }
         },

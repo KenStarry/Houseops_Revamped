@@ -41,13 +41,17 @@ fun SettingsScreen(
     val context = LocalContext.current
     val coreVM: CoreViewModel = hiltViewModel()
 
-    val primaryColor = coreVM.primaryAccentFlow.collectAsState(
-        initial = Constants.accentColors[0].darkColor
-    ).value ?: Constants.accentColors[0].darkColor
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
 
-    val tertiaryColor = coreVM.tertiaryAccentFlow.collectAsState(
-        initial = Constants.accentColors[0].lightColor
-    ).value ?: Constants.accentColors[0].lightColor
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     val settingsViewModel = SettingsViewModel(
         themePreference = ThemePreference(context),
@@ -69,7 +73,9 @@ fun SettingsScreen(
         AnimatedVisibility(visible = settingsViewModel.isAccentDialogVisible.value) {
             AccentDialog(
                 coreVM = coreVM,
-                settingsViewModel = settingsViewModel
+                settingsViewModel = settingsViewModel,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
 
@@ -110,8 +116,8 @@ fun SettingsScreen(
                         .padding(8.dp),
                     settingsViewModel = settingsViewModel,
                     coreViewModel = coreVM,
-                    primaryColor = Color(primaryColor),
-                    tertiaryColor = Color(tertiaryColor),
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
                     onChangeAccentClicked = {
 
                         // open the alert dialog
