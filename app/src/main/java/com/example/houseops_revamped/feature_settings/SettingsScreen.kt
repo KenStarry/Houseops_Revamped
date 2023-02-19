@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -29,6 +30,7 @@ import com.example.houseops_revamped.feature_settings.presentation.components.al
 import com.example.houseops_revamped.feature_settings.presentation.components.miscellaneous_section.MiscellaneousSection
 import com.example.houseops_revamped.feature_settings.presentation.components.danger_section.DangerSection
 import com.example.houseops_revamped.feature_settings.presentation.components.personalization_section.PersonalizationSection
+import com.example.houseops_revamped.feature_settings.presentation.components.profile_section.ProfileSection
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
@@ -40,6 +42,9 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val coreVM: CoreViewModel = hiltViewModel()
+
+    val currentUser = coreVM.currentUser()
+    val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -88,10 +93,20 @@ fun SettingsScreen(
                     .fillMaxSize()
                     .padding(16.dp)
                     .verticalScroll(scrollState),
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
 
                 //  user profile section
+                ProfileSection(
+                    userDetails = userDetails,
+                    context = context,
+                    settingsViewModel = settingsViewModel,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    modifier = Modifier
+                        .wrapContentSize()
+                )
 
                 //  Themes section
                 ThemesSection(
