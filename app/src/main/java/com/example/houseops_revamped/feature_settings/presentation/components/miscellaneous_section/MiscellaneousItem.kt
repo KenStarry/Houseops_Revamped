@@ -38,13 +38,13 @@ fun MiscellaneousItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(40.dp)
-                .background(tertiaryColor),
+                .background(MaterialTheme.colorScheme.onPrimary),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = "icon",
-                tint = primaryColor
+                tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
             )
         }
 

@@ -25,6 +25,9 @@ fun HouseViewDetails(
 
     val spacing = 24.dp
 
+    //  number of users that have booked a house
+
+
     //  action icons
     DetailActionIcons(
         house = house,
