@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,7 +20,9 @@ fun ThemeRadioButton(
     description: String,
     icon: ImageVector,
     isSelected: Boolean,
-    onRadioButtonClicked: () -> Unit
+    onRadioButtonClicked: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Row(
@@ -46,13 +49,13 @@ fun ThemeRadioButton(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(40.dp)
-                    .background(SettingsConstants.settingsSections[0].sectionIconBackgroundColor),
+                    .background(tertiaryColor),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = "icon",
-                    tint =SettingsConstants.settingsSections[0].sectionIconColor
+                    tint = primaryColor
                 )
             }
 
@@ -69,8 +72,8 @@ fun ThemeRadioButton(
             selected = isSelected,
             onClick = { onRadioButtonClicked() },
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.primary,
-                unselectedColor = MaterialTheme.colorScheme.tertiary
+                selectedColor = primaryColor,
+                unselectedColor = tertiaryColor
             )
         )
 

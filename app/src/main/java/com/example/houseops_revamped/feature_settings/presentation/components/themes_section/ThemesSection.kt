@@ -60,8 +60,8 @@ fun ThemesSection(
             SectionTitle(
                 title = SettingsConstants.settingsSections[0].sectionTitle,
                 icon = SettingsConstants.settingsSections[0].sectionIcon,
-                iconColor = SettingsConstants.settingsSections[0].sectionIconColor,
-                iconBackground = SettingsConstants.settingsSections[0].sectionIconBackgroundColor,
+                iconColor = primaryColor,
+                iconBackground = tertiaryColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
@@ -94,7 +94,9 @@ fun ThemesSection(
 
                                     Toast.makeText(context, "${it.title} activated", Toast.LENGTH_SHORT)
                                         .show()
-                                }
+                                },
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
                             )
                         }
                     },
