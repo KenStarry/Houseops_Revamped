@@ -10,13 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.components.CustomLargeAppBar
 import com.example.houseops_revamped.core.presentation.components.Lottie
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForgotPasswordScreen() {
+fun ForgotPasswordScreen(
+    navHostController: NavHostController
+) {
 
     Scaffold(
         topBar = {

@@ -26,9 +26,8 @@ import com.example.houseops_revamped.feature_authentication.login.presentation.c
 fun ForgotPasswordDialog(
     primaryColor: Color,
     tertiaryColor: Color,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
-    onEmailInput: (email: String) -> Unit
+    onConfirm: (email: String) -> Unit,
+    onDismiss: () -> Unit
 ) {
 
     var emailInput by remember {
@@ -79,7 +78,6 @@ fun ForgotPasswordDialog(
                             tertiaryColor = tertiaryColor
                         ) {
                             emailInput = it
-                            onEmailInput(emailInput)
                         }
                     }
 
@@ -87,6 +85,6 @@ fun ForgotPasswordDialog(
 
             }
         },
-        onConfirm = { onConfirm() },
+        onConfirm = { onConfirm(emailInput) },
         onDismiss = { onDismiss() })
 }

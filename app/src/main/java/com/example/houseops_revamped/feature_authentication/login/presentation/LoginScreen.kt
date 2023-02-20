@@ -44,6 +44,7 @@ import com.example.houseops_revamped.feature_authentication.login.presentation.c
 import com.example.houseops_revamped.feature_authentication.login.presentation.components.LoginButton
 import com.example.houseops_revamped.feature_authentication.login.presentation.components.alert_dialogs.ForgotPasswordDialog
 import com.example.houseops_revamped.feature_authentication.login.presentation.utils.LoginConstants
+import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,6 +55,7 @@ fun LoginScreen(
 
     val loginVM: LoginViewModel = hiltViewModel()
     val coreVM: CoreViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     val context = LocalContext.current
 
@@ -91,19 +93,7 @@ fun LoginScreen(
             ForgotPasswordDialog(
                 primaryColor = primaryColor,
                 tertiaryColor = tertiaryColor,
-                onConfirm = {
-                    //  send password reset email
-                },
-                onDismiss = {
-                    //  close dialog
-                    loginVM.onEvent(
-                        LoginEvents.ToggleAlertDialog(
-                            dialogType = LoginConstants.FORGOT_PASSWORD_DIALOG,
-                            isDialogVisible = false
-                        )
-                    )
-                },
-                onEmailInput = { email ->
+                onConfirm = { email ->
                     //  send password reset email
                     loginVM.onEvent(LoginEvents.PasswordResetEmail(
                         email = email,
@@ -111,6 +101,10 @@ fun LoginScreen(
                             when (it) {
                                 is Response.Success -> {
                                     //  show the reset email page
+                                    direction.navigateToRoute(
+                                        Screens.ForgotPassword.route,
+                                        false
+                                    )
                                 }
 
                                 is Response.Failure -> {
@@ -125,6 +119,15 @@ fun LoginScreen(
                             }
                         }
                     ))
+                },
+                onDismiss = {
+                    //  close dialog
+                    loginVM.onEvent(
+                        LoginEvents.ToggleAlertDialog(
+                            dialogType = LoginConstants.FORGOT_PASSWORD_DIALOG,
+                            isDialogVisible = false
+                        )
+                    )
                 }
             )
         }

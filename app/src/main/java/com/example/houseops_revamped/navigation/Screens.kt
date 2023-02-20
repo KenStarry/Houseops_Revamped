@@ -10,6 +10,8 @@ sealed class Screens(
     //  login screen
     object Login : Screens(route = "login_screen")
 
+    object ForgotPassword : Screens(route = "forgot_password_screen")
+
     //  signup screen
     object SignUp : Screens(route = "sign_up_screen")
 
