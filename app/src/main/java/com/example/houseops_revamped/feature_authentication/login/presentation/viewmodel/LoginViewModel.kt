@@ -45,6 +45,17 @@ class LoginViewModel @Inject constructor(
                 }
             }
 
+            is LoginEvents.PasswordResetEmail -> {
+                viewModelScope.launch {
+                    useCase.passwordResetEmail(
+                        email = event.email,
+                        onResponse = {
+                            event.onResponse(it)
+                        }
+                    )
+                }
+            }
+
             is LoginEvents.ToggleAlertDialog -> {
                 when (event.dialogType) {
                     LoginConstants.FORGOT_PASSWORD_DIALOG -> {
