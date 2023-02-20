@@ -4,6 +4,6 @@ sealed class Response {
 
     object Success : Response()
     object Loading : Response()
-    object Failure : Response()
+    data class Failure(val e: Exception) : Response()
 
 }

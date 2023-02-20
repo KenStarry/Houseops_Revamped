@@ -18,7 +18,7 @@ class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCases
 ) : ViewModel() {
 
-    var loginResponse by mutableStateOf<Response>(Response.Failure)
+    var loginResponse by mutableStateOf<Response>(Response.Loading)
         private set
 
     fun onEvent(event: LoginEvents) {
@@ -33,8 +33,7 @@ class LoginViewModel @Inject constructor(
                         password = event.password,
                         onResponse = { response ->
                             response?.let { loginResponse = it }
-
-                            Log.d("response", response.toString())
+                            event.onResponse(response)
                         }
                     )
 

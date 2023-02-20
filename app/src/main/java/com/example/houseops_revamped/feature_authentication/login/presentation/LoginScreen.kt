@@ -3,6 +3,7 @@ package com.example.houseops_revamped.feature_authentication.login.presentation
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -35,10 +36,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.core.presentation.components.Lottie
+import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_authentication.login.domain.model.LoginEvents
 import com.example.houseops_revamped.feature_authentication.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.feature_authentication.login.presentation.components.LoginButton
 import com.example.houseops_revamped.navigation.Screens
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -130,60 +134,68 @@ fun LoginScreen(
             contentAlignment = Alignment.Center
         ) {
 
-            Button(
-                onClick = {
+            var isLoading by remember {
+                mutableStateOf(false)
+            }
 
-                    loginVM.onEvent(LoginEvents.Login(
-                        email = loginEmailState,
-                        password = loginPassState
-                    ))
-
-                    //  check login event
-                    when (loginVM.loginResponse) {
-
-                        is Response.Success -> {
-
-                            Log.d("login", "Login Successful")
-
-                            navHostController.navigate(HOME_ROUTE) {
-                                popUpTo(AUTHENTICATION_ROUTE)
-                                launchSingleTop = true
-                            }
-                        }
-                        is Response.Loading -> {
-                            Log.d("login", "Login Loading")
-                        }
-                        is Response.Failure -> {
-                            Log.d("login", "Login Failed")
-                        }
-                    }
-
-//                    scope.launch(Dispatchers.IO) {
-//                        loginUser(
-//                            auth = auth,
-//                            context = context,
-//                            email = loginEmailState,
-//                            password = loginPassState
-//                        ) {
-//                            navHostController.navigate(HOME_ROUTE) {
-//                                popUpTo(AUTHENTICATION_ROUTE)
-//                                launchSingleTop = true
-//                            }
-//                        }
-//                    }
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3f),
-                    disabledContentColor = Color.White.copy(alpha = 0.3f)
-                ),
-                enabled = true
-            ) {
-                Text(
-                    text = "Login",
-                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                    color = Color.White
+            if (isLoading) {
+                Lottie(
+                    rawFile = R.raw.circle_progress,
+                    isPlaying = true,
+                    iterations = Int.MAX_VALUE,
+                    modifier = Modifier
+                        .size(50.dp)
                 )
+
+            } else {
+                LoginButton {
+
+                    isLoading = true
+
+                    loginVM.onEvent(
+                        LoginEvents.Login(
+                            email = loginEmailState,
+                            password = loginPassState,
+                            onResponse = {
+                                //  check login event
+                                when (val response = it) {
+
+                                    is Response.Success -> {
+
+                                        isLoading = false
+
+                                        navHostController.navigate(HOME_ROUTE) {
+                                            popUpTo(AUTHENTICATION_ROUTE)
+                                            launchSingleTop = true
+                                        }
+
+                                        Toast.makeText(
+                                            context,
+                                            "Login successful!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    is Response.Loading -> {
+                                        isLoading = true
+                                    }
+                                    is Response.Failure -> {
+
+                                        isLoading = false
+
+                                        Toast.makeText(
+                                            context,
+                                            "${response.e}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        Log.d("login", "$response")
+                                    }
+                                    else -> {
+                                        isLoading = true
+                                    }
+                                }
+                            }
+                        ))
+                }
             }
 
         }
@@ -226,10 +238,8 @@ fun LoginScreen(
             normalText = "New to HouseOps? ",
             clickableText = "Create Account"
         ) {
-
             //  navigate to signup screen
             navHostController.navigate(Screens.SignUp.route)
-
         }
 
     }
@@ -427,27 +437,6 @@ fun AnnotatedClickableString(
         }
     )
 
-}
-
-//  ----------------- previews --------------------
-//  dark mode preview
-@Preview(
-    showSystemUi = true,
-    uiMode = UI_MODE_NIGHT_YES
-)
-@Composable
-fun LoginScreenPrevDarkMode() {
-    LoginScreen(navHostController = rememberNavController())
-}
-
-//  light mode preview
-@Preview(
-    showSystemUi = true,
-    uiMode = UI_MODE_NIGHT_NO
-)
-@Composable
-fun LoginScreenPrevLightMode() {
-    LoginScreen(navHostController = rememberNavController())
 }
 
 

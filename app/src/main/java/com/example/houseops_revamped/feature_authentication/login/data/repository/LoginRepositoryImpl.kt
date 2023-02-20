@@ -24,12 +24,12 @@ class LoginRepositoryImpl @Inject constructor(
                     onResponse(Response.Success)
                 }
                 .addOnFailureListener {
-                    onResponse(Response.Failure)
+                    onResponse(Response.Failure(it))
                     Log.d("LOGIN", "Login Failed")
                 }
 
         } catch (e: Exception) {
-            onResponse(Response.Failure)
+            onResponse(Response.Failure(e))
         }
     }
 }
