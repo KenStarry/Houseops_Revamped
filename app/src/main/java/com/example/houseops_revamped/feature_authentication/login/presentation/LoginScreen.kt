@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AlternateEmail
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -173,11 +170,15 @@ fun LoginScreen(
             loginEmailState = it
         }
 
-        //  password
-        PasswordTextField(
-            startIcon = Icons.Outlined.Lock,
+        CustomTextField(
+            startIcon = Icons.Outlined.Key,
+            endIcon = null,
             placeholder = "Password",
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Done,
+            keyboardType = KeyboardType.Password,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor,
+            isPassword = true
         ) {
             loginPassState = it
         }
@@ -187,7 +188,7 @@ fun LoginScreen(
             text = "Forgot Password?",
             fontSize = MaterialTheme.typography.bodySmall.fontSize,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
+            color = primaryColor,
             modifier = Modifier
                 .align(Alignment.End)
                 .clickable {
@@ -312,7 +313,8 @@ fun LoginScreen(
         //  create Account Text
         AnnotatedClickableString(
             normalText = "New to HouseOps? ",
-            clickableText = "Create Account"
+            clickableText = "Create Account",
+            primaryColor = primaryColor
         ) {
             //  navigate to signup screen
             navHostController.navigate(Screens.SignUp.route)
@@ -403,6 +405,7 @@ fun ColumnScope.PasswordTextField(
 fun AnnotatedClickableString(
     normalText: String,
     clickableText: String,
+    primaryColor: Color,
     onTextClicked: () -> Unit
 ) {
 
@@ -426,7 +429,7 @@ fun AnnotatedClickableString(
 
         withStyle(
             style = SpanStyle(
-                color = MaterialTheme.colorScheme.primary,
+                color = primaryColor,
                 fontWeight = FontWeight.ExtraBold
             )
         ) {

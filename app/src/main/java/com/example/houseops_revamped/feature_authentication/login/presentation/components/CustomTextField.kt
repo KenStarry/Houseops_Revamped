@@ -6,6 +6,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AlternateEmail
+import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,9 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 
 //  email input textfield
@@ -31,12 +31,22 @@ fun ColumnScope.CustomTextField(
     keyboardType: KeyboardType,
     primaryColor: Color,
     tertiaryColor: Color,
+    isPassword: Boolean = false,
     onInput: (input: String) -> Unit
 ) {
 
     var textFieldState by remember {
         mutableStateOf("")
     }
+
+    var passVisibilityState by remember {
+        mutableStateOf(false)
+    }
+
+    val icon = if (passVisibilityState)
+        Icons.Outlined.Visibility
+    else
+        Icons.Outlined.VisibilityOff
 
     Row(
         modifier = Modifier
@@ -59,39 +69,91 @@ fun ColumnScope.CustomTextField(
             )
         }
 
-        TextField(
-            value = textFieldState,
-            onValueChange = {
-                textFieldState = it
-                onInput(textFieldState)
-            },
-            placeholder = {
-                Text(text = placeholder)
-            },
-            maxLines = 1,
-            keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.None,
-                imeAction = imeAction,
-                keyboardType = keyboardType
-            ),
-            modifier = Modifier
-                .fillMaxWidth(),
+        if (isPassword) {
+            TextField(
+                value = textFieldState,
+                onValueChange = {
+                    textFieldState = it
+                    onInput(textFieldState)
+                },
+                placeholder = {
+                    Text(text = placeholder)
+                },
+                maxLines = 1,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.None,
+                    imeAction = imeAction,
+                    keyboardType = keyboardType
+                ),
+                modifier = Modifier
+                    .fillMaxWidth(),
 
-            singleLine = true,
+                singleLine = true,
 
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = MaterialTheme.colorScheme.onPrimary,
-                cursorColor = primaryColor,
-                unfocusedIndicatorColor = tertiaryColor,
-                focusedIndicatorColor = primaryColor
-            ),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    cursorColor = primaryColor,
+                    unfocusedIndicatorColor = tertiaryColor,
+                    focusedIndicatorColor = primaryColor
+                ),
 
-            textStyle = TextStyle(
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Normal
+                trailingIcon = {
+                    IconButton(onClick = {
+                        passVisibilityState = !passVisibilityState
+                    }) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "Trailing Icon"
+                        )
+                    }
+                },
+
+                textStyle = TextStyle(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Normal
+                ),
+
+                visualTransformation = if (passVisibilityState)
+                    VisualTransformation.None
+                else
+                    PasswordVisualTransformation()
             )
-        )
+        } else {
+            TextField(
+                value = textFieldState,
+                onValueChange = {
+                    textFieldState = it
+                    onInput(textFieldState)
+                },
+                placeholder = {
+                    Text(text = placeholder)
+                },
+                maxLines = 1,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.None,
+                    imeAction = imeAction,
+                    keyboardType = keyboardType
+                ),
+                modifier = Modifier
+                    .fillMaxWidth(),
+
+                singleLine = true,
+
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    cursorColor = primaryColor,
+                    unfocusedIndicatorColor = tertiaryColor,
+                    focusedIndicatorColor = primaryColor
+                ),
+
+                textStyle = TextStyle(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Normal
+                )
+            )
+        }
 
     }
 }
