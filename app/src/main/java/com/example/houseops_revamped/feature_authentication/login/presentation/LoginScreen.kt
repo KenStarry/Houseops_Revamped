@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -37,12 +38,15 @@ import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.components.Lottie
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.feature_authentication.login.domain.model.LoginEvents
 import com.example.houseops_revamped.feature_authentication.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.feature_authentication.login.presentation.components.LoginButton
+import com.example.houseops_revamped.feature_authentication.login.presentation.components.alert_dialogs.ForgotPasswordDialog
+import com.example.houseops_revamped.feature_authentication.login.presentation.utils.LoginConstants
 import com.example.houseops_revamped.navigation.Screens
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -54,10 +58,21 @@ fun LoginScreen(
 ) {
 
     val loginVM: LoginViewModel = hiltViewModel()
+    val coreVM: CoreViewModel = hiltViewModel()
 
-    val scope = rememberCoroutineScope()
-    val auth = Firebase.auth
     val context = LocalContext.current
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     var loginEmailState by remember {
         mutableStateOf("")
@@ -75,6 +90,27 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
+
+        //  alert dialogs
+        AnimatedVisibility(visible = loginVM.isForgotPasswordDialogVisible.value) {
+            ForgotPasswordDialog(
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
+                onConfirm = {
+                    //  send password reset email
+                },
+                onDismiss = {
+                    //  close dialog
+                    loginVM.onEvent(
+                        LoginEvents.ToggleAlertDialog(
+                            dialogType = LoginConstants.FORGOT_PASSWORD_DIALOG,
+                            isDialogVisible = false
+                        )
+                    )
+                }
+            )
+        }
+
 
         //  svg icon
         Image(
@@ -125,7 +161,12 @@ fun LoginScreen(
                 .align(Alignment.End)
                 .clickable {
                     //  forgot password screen
-
+                    loginVM.onEvent(
+                        LoginEvents.ToggleAlertDialog(
+                            dialogType = LoginConstants.FORGOT_PASSWORD_DIALOG,
+                            isDialogVisible = true
+                        )
+                    )
                 }
         )
 
@@ -151,7 +192,10 @@ fun LoginScreen(
                 )
 
             } else {
-                LoginButton {
+                LoginButton(
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
+                ) {
 
                     isLoading = true
 

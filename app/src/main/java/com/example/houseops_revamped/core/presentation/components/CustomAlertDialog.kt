@@ -55,7 +55,8 @@ fun CustomAlertDialog(
         containerColor = containerColor,
         text = { Column { content() } },
         confirmButton = {
-            TextButton(onClick = { onConfirm() }) {
+            TextButton(
+                onClick = { onConfirm() }) {
                 Text(text = "Confirm")
             }
         },
