@@ -1,7 +1,5 @@
 package com.example.houseops_revamped.feature_authentication.login.presentation
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -30,11 +28,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.components.Lottie
@@ -44,12 +40,11 @@ import com.example.houseops_revamped.feature_authentication.login.domain.model.L
 import com.example.houseops_revamped.feature_authentication.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.feature_authentication.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.login.presentation.components.LoginButton
 import com.example.houseops_revamped.feature_authentication.login.presentation.components.alert_dialogs.ForgotPasswordDialog
 import com.example.houseops_revamped.feature_authentication.login.presentation.utils.LoginConstants
 import com.example.houseops_revamped.navigation.Screens
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,6 +102,9 @@ fun LoginScreen(
                             isDialogVisible = false
                         )
                     )
+                },
+                onEmailInput = { email ->
+                    //  send email verification
                 }
             )
         }
@@ -137,7 +135,9 @@ fun LoginScreen(
             endIcon = null,
             placeholder = "Email Address",
             imeAction = ImeAction.Next,
-            keyboardType = KeyboardType.Email
+            keyboardType = KeyboardType.Email,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
         ) {
             loginEmailState = it
         }
@@ -290,68 +290,6 @@ fun LoginScreen(
         }
 
     }
-}
-
-//  email input textfield
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ColumnScope.CustomTextField(
-    startIcon: ImageVector?,
-    endIcon: ImageVector?,
-    placeholder: String,
-    imeAction: ImeAction,
-    keyboardType: KeyboardType,
-    onEmailInput: (input: String) -> Unit
-) {
-
-    var emailTextFieldState by remember {
-        mutableStateOf("")
-    }
-
-    TextField(
-        value = emailTextFieldState,
-        onValueChange = {
-            emailTextFieldState = it
-            onEmailInput(emailTextFieldState)
-        },
-        leadingIcon = {
-            if (startIcon != null) {
-                Icon(
-                    imageVector = startIcon,
-                    contentDescription = "Leading Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        trailingIcon = {
-            if (endIcon != null) {
-                Icon(
-                    imageVector = endIcon,
-                    contentDescription = "Trailing Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        placeholder = {
-            Text(text = placeholder)
-        },
-        maxLines = 1,
-        keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.None,
-            imeAction = imeAction,
-            keyboardType = keyboardType
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.Start),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.5f),
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        )
-    )
 }
 
 //  password input textfield

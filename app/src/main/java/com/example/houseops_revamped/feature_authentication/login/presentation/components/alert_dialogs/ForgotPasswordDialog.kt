@@ -4,27 +4,36 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AlternateEmail
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.QuestionMark
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.presentation.components.CustomAlertDialog
+import com.example.houseops_revamped.feature_authentication.login.presentation.components.CustomTextField
 
 @Composable
 fun ForgotPasswordDialog(
     primaryColor: Color,
     tertiaryColor: Color,
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onEmailInput: (email: String) -> Unit
 ) {
+
+    var emailInput by remember {
+        mutableStateOf("")
+    }
 
     CustomAlertDialog(
         icon = Icons.Outlined.QuestionMark,
@@ -57,22 +66,22 @@ fun ForgotPasswordDialog(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    Box(
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(40.dp)
-                            .background(tertiaryColor),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Email,
-                            contentDescription = "icon",
-                            tint = primaryColor
-                        )
-                    }
-
                     //  email address input field
-
+                    Column {
+                        //  email address
+                        CustomTextField(
+                            startIcon = null,
+                            endIcon = null,
+                            placeholder = "Email Address",
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Email,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
+                        ) {
+                            emailInput = it
+                            onEmailInput(emailInput)
+                        }
+                    }
 
                 }
 
