@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.components.CustomLargeAppBar
 import com.example.houseops_revamped.core.presentation.components.Lottie
+import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,11 +22,15 @@ fun ForgotPasswordScreen(
     navHostController: NavHostController
 ) {
 
+    val direction = Direction(navHostController)
+
     Scaffold(
         topBar = {
             CustomLargeAppBar(
                 title = "Verification Complete!",
-                onBackPressed = {}
+                onBackPressed = {
+                    direction.navigateUp()
+                }
             )
         }
     ) { contentPadding ->
@@ -43,7 +48,8 @@ fun ForgotPasswordScreen(
                 isPlaying = true,
                 iterations = 1,
                 modifier = Modifier
-                    .size(100.dp)
+                    .fillMaxWidth(0.8f)
+                    .fillMaxSize(0.8f)
             )
 
             Text(

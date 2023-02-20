@@ -100,6 +100,13 @@ fun LoginScreen(
                         onResponse = {
                             when (it) {
                                 is Response.Success -> {
+
+                                    //  dismiss dialog
+                                    LoginEvents.ToggleAlertDialog(
+                                        dialogType = LoginConstants.FORGOT_PASSWORD_DIALOG,
+                                        isDialogVisible = false
+                                    )
+
                                     //  show the reset email page
                                     direction.navigateToRoute(
                                         Screens.ForgotPassword.route,
