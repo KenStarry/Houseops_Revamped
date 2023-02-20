@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -29,7 +30,9 @@ fun DangerSection(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onLogout: () -> Unit,
+    onDeleteAccount: () -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -82,6 +85,19 @@ fun DangerSection(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp)
+                                    .clickable {
+                                        when (it.title) {
+                                            SettingsConstants.dangerOptions[0].title -> {
+                                                //  logout
+                                                onLogout()
+                                            }
+
+                                            SettingsConstants.dangerOptions[1].title -> {
+                                                //  delete account
+                                                onDeleteAccount()
+                                            }
+                                        }
+                                    }
                             )
                         }
                     },

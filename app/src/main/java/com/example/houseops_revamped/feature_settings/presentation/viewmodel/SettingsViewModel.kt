@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents
+import com.example.houseops_revamped.feature_settings.domain.use_case.SettingsUseCases
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val themePreference: ThemePreference
+    private val themePreference: ThemePreference,
+    private val useCases: SettingsUseCases
 ) : ViewModel() {
 
     val themeFlow: Flow<String?> get() = themePreference.getTheme
@@ -86,6 +88,14 @@ class SettingsViewModel @Inject constructor(
             is SettingsEvents.SetTheme -> {
                 viewModelScope.launch {
                     themePreference.setTheme(event.theme)
+                }
+            }
+
+            is SettingsEvents.Logout -> {
+                viewModelScope.launch {
+                    useCases.logout(
+                        onLogout = event.onLogout
+                    )
                 }
             }
         }

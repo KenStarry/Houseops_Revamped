@@ -24,4 +24,8 @@ sealed class SettingsEvents {
 
     data class SetTheme(val theme: String) : SettingsEvents()
 
+    data class Logout(
+        val onLogout: () -> Unit
+    ) : SettingsEvents()
+
 }

@@ -5,5 +5,9 @@ import com.example.houseops_revamped.feature_settings.domain.repository.Settings
 class Logout(
     private val repository: SettingsRepository
 ) {
-    suspend operator fun invoke() = repository.logout()
+    suspend operator fun invoke(
+        onLogout: () -> Unit
+    ) = repository.logout(
+        onLogout = onLogout
+    )
 }

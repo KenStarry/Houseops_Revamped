@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_settings
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -35,6 +36,7 @@ import com.example.houseops_revamped.feature_settings.presentation.components.pr
 import com.example.houseops_revamped.feature_settings.presentation.components.themes_section.ThemesSection
 import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
 import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
+import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,10 +45,12 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val coreVM: CoreViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -172,7 +176,24 @@ fun SettingsScreen(
                         .padding(8.dp),
                     settingsViewModel = settingsViewModel,
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    onLogout = {
+                        settingsViewModel.onEvent(SettingsEvents.Logout(
+                            onLogout = {
+
+                                //  navigate to login screen
+                                direction.navigateToRoute(
+                                    Constants.AUTHENTICATION_ROUTE,
+                                    true
+                                )
+
+                                Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                            }
+                        ))
+                    },
+                    onDeleteAccount = {
+                        //  delete account
+                    }
                 )
 
             }
