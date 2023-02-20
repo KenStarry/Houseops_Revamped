@@ -104,7 +104,27 @@ fun LoginScreen(
                     )
                 },
                 onEmailInput = { email ->
-                    //  send email verification
+                    //  send password reset email
+                    loginVM.onEvent(LoginEvents.PasswordResetEmail(
+                        email = email,
+                        onResponse = {
+                            when (it) {
+                                is Response.Success -> {
+                                    //  show the reset email page
+                                }
+
+                                is Response.Failure -> {
+
+                                }
+                                Response.Loading -> {
+                                    //  show loading
+                                }
+                                null -> {
+                                    //  give error message
+                                }
+                            }
+                        }
+                    ))
                 }
             )
         }
