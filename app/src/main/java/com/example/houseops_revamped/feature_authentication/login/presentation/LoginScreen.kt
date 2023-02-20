@@ -123,7 +123,10 @@ fun LoginScreen(
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .align(Alignment.End)
-                .clickable { }
+                .clickable {
+                    //  forgot password screen
+
+                }
         )
 
         //  login button
