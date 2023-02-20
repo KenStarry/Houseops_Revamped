@@ -10,4 +10,10 @@ interface LoginRepository {
         password: String,
         onResponse: (res: Response?) -> Unit
     )
+
+    //  send password reset email
+    suspend fun passwordResetEmail(
+        email: String,
+        onResponse: (res: Response?) -> Unit
+    )
 }

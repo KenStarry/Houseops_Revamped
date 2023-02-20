@@ -32,6 +32,21 @@ class LoginRepositoryImpl @Inject constructor(
             onResponse(Response.Failure(e))
         }
     }
+
+    override suspend fun passwordResetEmail(email: String, onResponse: (res: Response?) -> Unit) {
+
+        try {
+            auth.sendPasswordResetEmail(email)
+                .addOnSuccessListener {
+                    onResponse(Response.Success)
+                }
+                .addOnFailureListener {
+                    onResponse(Response.Failure(it))
+                }
+        } catch (e: Exception) {
+            onResponse(Response.Failure(e))
+        }
+    }
 }
 
 
