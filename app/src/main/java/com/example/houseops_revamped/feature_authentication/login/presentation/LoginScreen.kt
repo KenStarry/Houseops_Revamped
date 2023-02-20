@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
@@ -200,6 +201,11 @@ fun LoginScreen(
                 }
         )
 
+        LoadingCircle(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
+
         //  login button
         Box(
             modifier = Modifier
@@ -213,13 +219,6 @@ fun LoginScreen(
             }
 
             if (isLoading) {
-                Lottie(
-                    rawFile = R.raw.circle_progress,
-                    isPlaying = true,
-                    iterations = Int.MAX_VALUE,
-                    modifier = Modifier
-                        .size(50.dp)
-                )
 
             } else {
                 LoginButton(
