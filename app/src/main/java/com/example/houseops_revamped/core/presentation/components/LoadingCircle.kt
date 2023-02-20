@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,9 +23,9 @@ fun LoadingCircle(
     modifier: Modifier = Modifier,
     primaryColor: Color,
     tertiaryColor: Color,
-    circleSize: Dp = 25.dp,
+    circleSize: Dp = 20.dp,
     spaceBetween: Dp = 10.dp,
-    travelDistance: Dp = 20.dp
+    travelDistance: Dp = 24.dp
 ) {
 
     val circles = listOf(
@@ -69,10 +70,20 @@ fun LoadingCircle(
                         translationY = -value * distance
                     }
                     .background(
-                        color = primaryColor,
+                        color = tertiaryColor,
                         shape = CircleShape
-                    )
-            )
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(circleSize / 2)
+                        .background(
+                            color = primaryColor,
+                            shape = CircleShape
+                        )
+                )
+            }
 
             if (index != lastCircle) {
                 Spacer(modifier = Modifier.width(spaceBetween))

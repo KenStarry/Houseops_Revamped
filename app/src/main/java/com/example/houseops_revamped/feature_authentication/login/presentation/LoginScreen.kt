@@ -201,11 +201,6 @@ fun LoginScreen(
                 }
         )
 
-        LoadingCircle(
-            primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor
-        )
-
         //  login button
         Box(
             modifier = Modifier
@@ -219,6 +214,11 @@ fun LoginScreen(
             }
 
             if (isLoading) {
+
+                LoadingCircle(
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
+                )
 
             } else {
                 LoginButton(
