@@ -4,6 +4,10 @@ import com.example.houseops_revamped.core.domain.model.Response
 
 sealed class SignUpEvents {
 
+    data class ToggleLoadingCircles(
+        val isLoading: Boolean
+    ) : SignUpEvents()
+
     data class CreateAccount(
         val email: String,
         val password: String,

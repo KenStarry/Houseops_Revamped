@@ -71,17 +71,21 @@ class AuthenticationViewModel @Inject constructor(
         ).any { !it.successful }
 
         if (hasError) {
+
             formState = formState.copy(
                 emailError = emailResult.errorMessage,
                 usernameError = usernameResult.errorMessage,
                 passwordError = passResult.errorMessage,
                 repeatedPasswordError = repeatedPassResult.errorMessage
             )
-            return
-        }
+            viewModelScope.launch {
+                validationEventChannel.send(ValidationEvent.Failure)
+            }
 
-        viewModelScope.launch {
-            validationEventChannel.send(ValidationEvent.Success)
+        } else {
+            viewModelScope.launch {
+                validationEventChannel.send(ValidationEvent.Success)
+            }
         }
 
     }

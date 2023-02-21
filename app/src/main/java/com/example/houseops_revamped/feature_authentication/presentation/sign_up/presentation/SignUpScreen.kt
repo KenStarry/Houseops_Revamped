@@ -40,6 +40,7 @@ import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.PickImage
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.TermsAndConditions
@@ -83,9 +84,13 @@ fun SignUpScreen(
         authVM.validationEvents.collect { event ->
             when (event) {
                 is ValidationEvent.Success -> {
-
                     //  toast success!
                     Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
+                    signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(false))
+                }
+
+                is ValidationEvent.Failure -> {
+                    signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(false))
                 }
             }
         }
@@ -273,17 +278,7 @@ fun SignUpScreen(
 
                     Button(
                         onClick = {
-//                            validateDetails(
-//                                scope = scope,
-//                                navHostController = navHostController,
-//                                context = context,
-//                                auth = auth,
-//                                imageUri = if (imageUri == null) null else imageUri,
-//                                email = emailInputState,
-//                                name = fullNameInputState,
-//                                newPass = newPassInputState,
-//                                confirmPass = confirmPassInputState
-//                            )
+                            signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(true))
                             authVM.onEvent(RegistrationFormEvent.Submit)
                         },
                         colors = ButtonDefaults.buttonColors(
