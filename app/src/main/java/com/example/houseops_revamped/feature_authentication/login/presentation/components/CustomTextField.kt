@@ -110,7 +110,7 @@ fun ColumnScope.CustomTextField(
 
                 textStyle = TextStyle(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     fontWeight = FontWeight.Normal
                 ),
 
@@ -149,7 +149,7 @@ fun ColumnScope.CustomTextField(
 
                 textStyle = TextStyle(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     fontWeight = FontWeight.Normal
                 )
             )

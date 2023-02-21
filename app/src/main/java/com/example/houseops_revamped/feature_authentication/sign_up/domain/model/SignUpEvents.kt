@@ -4,9 +4,9 @@ import com.example.houseops_revamped.core.domain.model.Response
 
 sealed class SignUpEvents {
 
-    data class createAccount(
+    data class CreateAccount(
         val email: String,
         val password: String,
         val response: (response: Response) -> Unit
-    )
+    ) : SignUpEvents()
 }

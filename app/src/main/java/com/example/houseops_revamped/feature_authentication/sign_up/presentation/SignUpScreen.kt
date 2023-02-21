@@ -36,6 +36,9 @@ import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.feature_authentication.login.presentation.components.CustomTextField
+import com.example.houseops_revamped.feature_authentication.sign_up.presentation.components.PickImage
+import com.example.houseops_revamped.feature_authentication.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseops_revamped.network.createAccount
 import com.example.houseops_revamped.network.createUserCollection
 import com.example.houseops_revamped.network.uploadImageToFirestore
@@ -53,6 +56,7 @@ fun SignUpScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val signUpVM: SignUpViewModel = hiltViewModel()
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -121,7 +125,7 @@ fun SignUpScreen(
                     .padding(16.dp)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+                verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
 
                 //  signup text
@@ -134,88 +138,67 @@ fun SignUpScreen(
                 )
 
                 //  pick image icon
-                Column(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(100.dp)
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                        .align(Alignment.CenterHorizontally)
-                        .clickable {
-                            launcher.launch("image/*")
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-
-                    if (imageUri == null) {
-                        Icon(
-                            imageVector = Icons.Outlined.ImageSearch,
-                            contentDescription = "Image Picker Icon",
-                            modifier = Modifier
-                                .size(60.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        //  pick image text
-                        Text(
-                            text = "Pick Image",
-                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                            fontWeight = MaterialTheme.typography.bodySmall.fontWeight
-                        )
-                    } else {
-                        imageUri?.let {
-                            Image(
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                                painter = rememberAsyncImagePainter(it),
-                                contentDescription = "User Profile Image",
-                                contentScale = ContentScale.Crop
-                            )
-                        }
-                    }
-
+                PickImage(imageUri = imageUri) {
+                    launcher.launch("image/*")
                 }
 
                 //  email address
-                SignUpEmailTextField(
+                CustomTextField(
                     startIcon = Icons.Outlined.AlternateEmail,
                     endIcon = null,
                     placeholder = "Email Address",
                     imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Email
-                ) { email ->
-                    emailInputState = email
-                }
+                    keyboardType = KeyboardType.Email,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onInput = {
+                        emailInputState = it
+                    }
+                )
 
                 //  full name
-                SignUpFullNameTextField(
-                    startIcon = Icons.Outlined.Person4,
+                CustomTextField(
+                    startIcon = Icons.Outlined.Person,
                     endIcon = null,
-                    placeholder = "Full Name",
+                    placeholder = "UserName",
                     imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Text
-                ) { fullName ->
-                    fullNameInputState = fullName
-                }
+                    keyboardType = KeyboardType.Text,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onInput = {
+                        fullNameInputState = it
+                    }
+                )
 
                 //  password
-                SignUpPasswordTextField(
+                CustomTextField(
                     startIcon = Icons.Outlined.Key,
+                    endIcon = null,
                     placeholder = "New Password",
-                    imeAction = ImeAction.Next
-                ) { pass ->
-                    newPassInputState = pass
-                }
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Password,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    isPassword = true,
+                    onInput = {
+                        newPassInputState = it
+                    }
+                )
 
                 //  confirm password
-                SignUpConfirmPasswordTextField(
+                CustomTextField(
                     startIcon = Icons.Outlined.Key,
+                    endIcon = null,
                     placeholder = "Confirm Password",
-                    imeAction = ImeAction.Done
-                ) { confirmPass ->
-                    confirmPassInputState = confirmPass
-                }
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Password,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    isPassword = true,
+                    onInput = {
+                        confirmPassInputState = it
+                    }
+                )
 
                 //  terms and conditions text
                 Text(
@@ -234,7 +217,7 @@ fun SignUpScreen(
 
                         withStyle(
                             style = SpanStyle(
-                                color = MaterialTheme.colorScheme.primary
+                                color = primaryColor
                             )
                         ) {
                             append(
@@ -253,7 +236,7 @@ fun SignUpScreen(
                         }
                         withStyle(
                             style = SpanStyle(
-                                color = MaterialTheme.colorScheme.primary
+                                color = primaryColor
                             )
                         ) {
                             append(
@@ -261,8 +244,8 @@ fun SignUpScreen(
                             )
                         }
                     },
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    fontWeight = MaterialTheme.typography.bodySmall.fontWeight
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
                 )
 
                 //  Signup button
@@ -288,7 +271,7 @@ fun SignUpScreen(
                             )
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
+                            containerColor = tertiaryColor,
                             disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(
                                 alpha = 0.3f
                             ),
@@ -299,7 +282,7 @@ fun SignUpScreen(
                         Text(
                             text = "Create Account",
                             fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                            color = Color.White
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
 
@@ -335,320 +318,36 @@ fun validateDetails(
         Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
     else {
 
+
+
         //  create the user account
-        scope.launch(Dispatchers.IO) {
-            //   create account
-            createAccount(
-                auth = auth,
-                context = context,
-                navHostController = navHostController,
-                email = email,
-                password = newPass
-            )
-            //  create user in database
-            createUserCollection(
-                userName = name,
-                userEmail = email,
-                userImageUri = "",
-                userPassword = newPass,
-                userIsCaretaker = false,
-                userExtraDetails = listOf(),
-                userHasMadeRequest = false
-            )
-            // upload image to firestore
-            uploadImageToFirestore(
-                imageUri = imageUri!!,
-                email = email,
-                context = context,
-                onUploadFailure = {},
-                onUploadProgress = {}
-            )
-        }
-
+//        scope.launch(Dispatchers.IO) {
+//            //   create account
+//            createAccount(
+//                auth = auth,
+//                context = context,
+//                navHostController = navHostController,
+//                email = email,
+//                password = newPass
+//            )
+//            //  create user in database
+//            createUserCollection(
+//                userName = name,
+//                userEmail = email,
+//                userImageUri = "",
+//                userPassword = newPass,
+//                userIsCaretaker = false,
+//                userExtraDetails = listOf(),
+//                userHasMadeRequest = false
+//            )
+//            // upload image to firestore
+//            uploadImageToFirestore(
+//                imageUri = imageUri!!,
+//                email = email,
+//                context = context,
+//                onUploadFailure = {},
+//                onUploadProgress = {}
+//            )
+//        }
     }
-
-}
-
-//  email input textfield
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ColumnScope.SignUpEmailTextField(
-    startIcon: ImageVector?,
-    endIcon: ImageVector?,
-    placeholder: String,
-    imeAction: ImeAction,
-    keyboardType: KeyboardType,
-    onInputFieldChanged: (input: String) -> Unit
-) {
-
-    var emailTextFieldState by remember {
-        mutableStateOf("")
-    }
-
-    TextField(
-        value = emailTextFieldState,
-        onValueChange = {
-            emailTextFieldState = it
-            onInputFieldChanged(emailTextFieldState)
-        },
-        leadingIcon = {
-            if (startIcon != null) {
-                Icon(
-                    imageVector = startIcon,
-                    contentDescription = "Leading Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        trailingIcon = {
-            if (endIcon != null) {
-                Icon(
-                    imageVector = endIcon,
-                    contentDescription = "Trailing Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        placeholder = {
-            Text(text = placeholder)
-        },
-        maxLines = 1,
-        keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.None,
-            imeAction = imeAction,
-            keyboardType = keyboardType
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.Start),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.5f),
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        )
-    )
-}
-
-//  fullname input textfield
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ColumnScope.SignUpFullNameTextField(
-    startIcon: ImageVector?,
-    endIcon: ImageVector?,
-    placeholder: String,
-    imeAction: ImeAction,
-    keyboardType: KeyboardType,
-    onInputFieldChanged: (input: String) -> Unit
-) {
-
-    var fullNameTextFieldState by remember {
-        mutableStateOf("")
-    }
-
-    TextField(
-        value = fullNameTextFieldState,
-        onValueChange = {
-            fullNameTextFieldState = it
-            onInputFieldChanged(fullNameTextFieldState)
-        },
-        leadingIcon = {
-            if (startIcon != null) {
-                Icon(
-                    imageVector = startIcon,
-                    contentDescription = "Leading Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        trailingIcon = {
-            if (endIcon != null) {
-                Icon(
-                    imageVector = endIcon,
-                    contentDescription = "Trailing Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        placeholder = {
-            Text(text = placeholder)
-        },
-        maxLines = 1,
-        keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.None,
-            imeAction = imeAction,
-            keyboardType = keyboardType
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.Start),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.5f),
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        )
-    )
-}
-
-//  password input textfield
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ColumnScope.SignUpPasswordTextField(
-    startIcon: ImageVector?,
-    placeholder: String,
-    imeAction: ImeAction,
-    onInputFieldChanged: (input: String) -> Unit
-) {
-
-    var passValueState by remember {
-        mutableStateOf("")
-    }
-    var passVisibilityState by remember {
-        mutableStateOf(false)
-    }
-
-    val icon = if (passVisibilityState)
-        Icons.Outlined.Visibility
-    else
-        Icons.Outlined.VisibilityOff
-
-    TextField(
-        value = passValueState,
-        onValueChange = {
-            passValueState = it
-            onInputFieldChanged(passValueState)
-        },
-        leadingIcon = {
-            if (startIcon != null) {
-                Icon(
-                    imageVector = startIcon,
-                    contentDescription = "Leading Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        trailingIcon = {
-            IconButton(onClick = {
-                passVisibilityState = !passVisibilityState
-            }) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "Trailing Icon"
-                )
-            }
-        },
-        placeholder = {
-            Text(text = placeholder)
-        },
-        maxLines = 1,
-        singleLine = true,
-
-        keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.None,
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Password
-        ),
-
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.Start),
-
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.3f),
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        ),
-
-        visualTransformation = if (passVisibilityState)
-            VisualTransformation.None
-        else
-            PasswordVisualTransformation()
-    )
-}
-
-//  password input textfield
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ColumnScope.SignUpConfirmPasswordTextField(
-    startIcon: ImageVector?,
-    placeholder: String,
-    imeAction: ImeAction,
-    onInputFieldChanged: (input: String) -> Unit
-) {
-
-    var passValueState by remember {
-        mutableStateOf("")
-    }
-    var passVisibilityState by remember {
-        mutableStateOf(false)
-    }
-
-    val icon = if (passVisibilityState)
-        Icons.Outlined.Visibility
-    else
-        Icons.Outlined.VisibilityOff
-
-    TextField(
-        value = passValueState,
-        onValueChange = {
-            passValueState = it
-            onInputFieldChanged(passValueState)
-        },
-        leadingIcon = {
-            if (startIcon != null) {
-                Icon(
-                    imageVector = startIcon,
-                    contentDescription = "Leading Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        trailingIcon = {
-            IconButton(onClick = {
-                passVisibilityState = !passVisibilityState
-            }) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "Trailing Icon"
-                )
-            }
-        },
-        placeholder = {
-            Text(text = placeholder)
-        },
-        maxLines = 1,
-        singleLine = true,
-
-        keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.None,
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Password
-        ),
-
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.Start),
-
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.3f),
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        ),
-
-        visualTransformation = if (passVisibilityState)
-            VisualTransformation.None
-        else
-            PasswordVisualTransformation()
-    )
-}
-
-@Preview
-@Composable
-fun SignUpPrev() {
-    SignUpScreen(navHostController = rememberNavController())
 }
