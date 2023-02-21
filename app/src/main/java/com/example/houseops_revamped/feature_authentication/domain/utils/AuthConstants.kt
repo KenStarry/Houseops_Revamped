@@ -8,10 +8,15 @@ object AuthConstants {
 
     //  password validation
     const val PASSWORD_LENGTH = 8
+
     const val PASSWORD_LENGTH_ERROR =
         "The password needs to contain at least $PASSWORD_LENGTH characters"
+
     const val PASSWORD_LETTERS_ERROR =
         "The password needs to contain at least one letter and digit"
+
     const val PASSWORD_MATCH_ERROR = "The passwords don't match"
+
+    const val BLANK_PASSWORD_ERROR = "Password cannot be blank"
 
 }
