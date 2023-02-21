@@ -206,6 +206,7 @@ fun LoginScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(50.dp)
                 .background(MaterialTheme.colorScheme.onPrimary),
             contentAlignment = Alignment.Center
         ) {
@@ -304,7 +305,7 @@ fun LoginScreen(
                 Text(
                     text = "Sign In With Google",
                     fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
             }
 

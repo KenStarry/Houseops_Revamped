@@ -34,7 +34,7 @@ fun LoginButton(
             text = "Login",
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
     }
 }
