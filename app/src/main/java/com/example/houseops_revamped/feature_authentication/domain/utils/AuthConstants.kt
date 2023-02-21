@@ -3,7 +3,7 @@ package com.example.houseops_revamped.feature_authentication.domain.utils
 object AuthConstants {
 
     //  email validation
-    const val BLANK_EMAIL_ERROR = "Email can't be blank"
+    const val BLANK_EMAIL_ERROR = "Email cannnot be blank"
     const val INVALID_EMAIL_ERROR = "That's not a valid email"
 
     //  password validation
@@ -18,5 +18,10 @@ object AuthConstants {
     const val PASSWORD_MATCH_ERROR = "The passwords don't match"
 
     const val BLANK_PASSWORD_ERROR = "Password cannot be blank"
+
+    //  username validation
+    const val BLANK_USERNAME_ERROR = "Username cannot be blank."
+    const val SHORT_USERNAME_ERROR = "Username is too short."
+    const val DIGITS_ONLY_USERNAME_ERROR = "Username must have at least one alphabet."
 
 }

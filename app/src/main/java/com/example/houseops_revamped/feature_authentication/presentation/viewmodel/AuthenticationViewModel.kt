@@ -34,6 +34,10 @@ class AuthenticationViewModel @Inject constructor(
                 formState = formState.copy(email = event.email)
             }
 
+            is RegistrationFormEvent.UserNameChanged -> {
+                formState = formState.copy(username = event.username)
+            }
+
             is RegistrationFormEvent.PasswordChanged -> {
                 formState = formState.copy(password = event.password)
             }
@@ -52,6 +56,7 @@ class AuthenticationViewModel @Inject constructor(
 
         //  validate input
         val emailResult: ValidationResult = useCases.validateEmail.execute(formState.email)
+        val usernameResult: ValidationResult = useCases.validateUserName.execute(formState.username)
         val passResult: ValidationResult = useCases.validatePassword.execute(formState.password)
         val repeatedPassResult: ValidationResult =
             useCases.validateRepeatedPassword.execute(
@@ -60,6 +65,7 @@ class AuthenticationViewModel @Inject constructor(
 
         val hasError = listOf(
             emailResult,
+            usernameResult,
             passResult,
             repeatedPassResult
         ).any { !it.successful }
@@ -67,6 +73,7 @@ class AuthenticationViewModel @Inject constructor(
         if (hasError) {
             formState = formState.copy(
                 emailError = emailResult.errorMessage,
+                usernameError = usernameResult.errorMessage,
                 passwordError = passResult.errorMessage,
                 repeatedPasswordError = repeatedPassResult.errorMessage
             )
@@ -74,7 +81,7 @@ class AuthenticationViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-
+            validationEventChannel.send(ValidationEvent.Success)
         }
 
     }

@@ -1,9 +1,6 @@
 package com.example.houseops_revamped.feature_authentication.di
 
-import com.example.houseops_revamped.feature_authentication.domain.use_cases.ValidateEmail
-import com.example.houseops_revamped.feature_authentication.domain.use_cases.ValidatePassword
-import com.example.houseops_revamped.feature_authentication.domain.use_cases.ValidateRepeatedPassword
-import com.example.houseops_revamped.feature_authentication.domain.use_cases.ValidateUseCases
+import com.example.houseops_revamped.feature_authentication.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +15,7 @@ object AuthenticationModule {
     @Singleton
     fun provideValidateUseCases() = ValidateUseCases(
         validateEmail = ValidateEmail(),
+        validateUserName = ValidateUserName(),
         validatePassword = ValidatePassword(),
         validateRepeatedPassword = ValidateRepeatedPassword()
     )

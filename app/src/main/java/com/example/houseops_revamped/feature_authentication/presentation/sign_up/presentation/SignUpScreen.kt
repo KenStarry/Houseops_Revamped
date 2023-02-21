@@ -102,10 +102,6 @@ fun SignUpScreen(
         }
     ) { contentPadding ->
 
-        var fullNameInputState by remember {
-            mutableStateOf("")
-        }
-
         //  Image Picker
         var imageUri by remember {
             mutableStateOf<Uri?>(null)
@@ -178,18 +174,31 @@ fun SignUpScreen(
                 }
 
                 //  full name
-                CustomTextField(
-                    startIcon = Icons.Outlined.Person,
-                    endIcon = null,
-                    placeholder = "UserName",
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Text,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    onInput = {
-                        fullNameInputState = it
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+
+                    CustomTextField(
+                        textFieldValue = authVM.formState.username,
+                        startIcon = Icons.Outlined.Person,
+                        endIcon = null,
+                        placeholder = "UserName",
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Text,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onInput = {
+                            authVM.onEvent(RegistrationFormEvent.UserNameChanged(it))
+                        }
+                    )
+
+                    AnimatedVisibility(visible = authVM.formState.usernameError != null) {
+                        ErrorMessage(message = authVM.formState.usernameError)
                     }
-                )
+                }
 
                 //  password
                 Column(
@@ -257,6 +266,7 @@ fun SignUpScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .height(50.dp)
                         .background(MaterialTheme.colorScheme.onPrimary),
                     contentAlignment = Alignment.Center
                 ) {
