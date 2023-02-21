@@ -10,11 +10,13 @@ import com.example.houseops_revamped.feature_authentication.domain.model.Validat
 import com.example.houseops_revamped.feature_authentication.domain.use_cases.ValidateUseCases
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class AuthenticationViewModel @Inject constructor(
     private val useCases: ValidateUseCases
 ) : ViewModel() {

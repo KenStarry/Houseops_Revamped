@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColumnScope.CustomTextField(
+    textFieldValue: String = "",
     startIcon: ImageVector?,
     endIcon: ImageVector?,
     placeholder: String,
@@ -36,7 +37,7 @@ fun ColumnScope.CustomTextField(
 ) {
 
     var textFieldState by remember {
-        mutableStateOf("")
+        mutableStateOf(textFieldValue)
     }
 
     var passVisibilityState by remember {

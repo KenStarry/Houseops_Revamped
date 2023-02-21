@@ -5,6 +5,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -36,10 +37,14 @@ import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.utils.Constants
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
+import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.PickImage
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.TermsAndConditions
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
+import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.network.createAccount
 import com.example.houseops_revamped.network.createUserCollection
 import com.example.houseops_revamped.network.uploadImageToFirestore
@@ -48,6 +53,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,6 +64,8 @@ fun SignUpScreen(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val signUpVM: SignUpViewModel = hiltViewModel()
+    val authVM: AuthenticationViewModel = hiltViewModel()
+    val context = LocalContext.current
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -71,7 +79,17 @@ fun SignUpScreen(
         ).value ?: Constants.accentColors[0].lightColor
     )
 
-    val auth = Firebase.auth
+    LaunchedEffect(key1 = context) {
+        authVM.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+
+                    //  toast success!
+                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -84,19 +102,7 @@ fun SignUpScreen(
         }
     ) { contentPadding ->
 
-        val context = LocalContext.current
-        val scope = rememberCoroutineScope()
-
-        var emailInputState by remember {
-            mutableStateOf("")
-        }
         var fullNameInputState by remember {
-            mutableStateOf("")
-        }
-        var newPassInputState by remember {
-            mutableStateOf("")
-        }
-        var confirmPassInputState by remember {
             mutableStateOf("")
         }
 
@@ -144,18 +150,32 @@ fun SignUpScreen(
                 }
 
                 //  email address
-                CustomTextField(
-                    startIcon = Icons.Outlined.AlternateEmail,
-                    endIcon = null,
-                    placeholder = "Email Address",
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Email,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    onInput = {
-                        emailInputState = it
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    CustomTextField(
+                        textFieldValue = authVM.formState.email,
+                        startIcon = Icons.Outlined.AlternateEmail,
+                        endIcon = null,
+                        placeholder = "Email Address",
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Email,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onInput = {
+                            authVM.onEvent(RegistrationFormEvent.EmailChanged(it))
+                        }
+                    )
+
+                    AnimatedVisibility(visible = authVM.formState.emailError != null) {
+                        ErrorMessage(
+                            message = authVM.formState.emailError
+                        )
                     }
-                )
+                }
 
                 //  full name
                 CustomTextField(
@@ -172,34 +192,60 @@ fun SignUpScreen(
                 )
 
                 //  password
-                CustomTextField(
-                    startIcon = Icons.Outlined.Key,
-                    endIcon = null,
-                    placeholder = "New Password",
-                    imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Password,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    isPassword = true,
-                    onInput = {
-                        newPassInputState = it
-                    }
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    CustomTextField(
+                        textFieldValue = authVM.formState.password,
+                        startIcon = Icons.Outlined.Key,
+                        endIcon = null,
+                        placeholder = "New Password",
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Password,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        isPassword = true,
+                        onInput = {
+                            authVM.onEvent(RegistrationFormEvent.PasswordChanged(it))
+                        }
+                    )
 
-                //  confirm password
-                CustomTextField(
-                    startIcon = Icons.Outlined.Key,
-                    endIcon = null,
-                    placeholder = "Confirm Password",
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Password,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    isPassword = true,
-                    onInput = {
-                        confirmPassInputState = it
+                    AnimatedVisibility(visible = authVM.formState.passwordError != null) {
+                        ErrorMessage(message = authVM.formState.passwordError)
                     }
-                )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+
+                    //  confirm password
+                    CustomTextField(
+                        textFieldValue = authVM.formState.repeatedPassword,
+                        startIcon = Icons.Outlined.Key,
+                        endIcon = null,
+                        placeholder = "Confirm Password",
+                        imeAction = ImeAction.Done,
+                        keyboardType = KeyboardType.Password,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        isPassword = true,
+                        onInput = {
+                            authVM.onEvent(RegistrationFormEvent.RepeatedPasswordChanged(it))
+                        }
+                    )
+
+                    AnimatedVisibility(visible = authVM.formState.repeatedPasswordError != null) {
+                        ErrorMessage(message = authVM.formState.repeatedPasswordError)
+                    }
+
+                }
 
                 //  terms and conditions text
                 TermsAndConditions(
@@ -217,17 +263,18 @@ fun SignUpScreen(
 
                     Button(
                         onClick = {
-                            validateDetails(
-                                scope = scope,
-                                navHostController = navHostController,
-                                context = context,
-                                auth = auth,
-                                imageUri = if (imageUri == null) null else imageUri,
-                                email = emailInputState,
-                                name = fullNameInputState,
-                                newPass = newPassInputState,
-                                confirmPass = confirmPassInputState
-                            )
+//                            validateDetails(
+//                                scope = scope,
+//                                navHostController = navHostController,
+//                                context = context,
+//                                auth = auth,
+//                                imageUri = if (imageUri == null) null else imageUri,
+//                                email = emailInputState,
+//                                name = fullNameInputState,
+//                                newPass = newPassInputState,
+//                                confirmPass = confirmPassInputState
+//                            )
+                            authVM.onEvent(RegistrationFormEvent.Submit)
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = tertiaryColor,
