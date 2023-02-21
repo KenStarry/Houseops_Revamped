@@ -46,6 +46,9 @@ class CoreViewModel @Inject constructor(
     private val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
     val caretakersList: State<List<Caretaker>> = _caretakersList
 
+    private val _isLoading = mutableStateOf(false)
+    val isLoading: State<Boolean> = _isLoading
+
     //  Bottomsheet
     private val _bottomSheetContent = mutableStateOf("")
     val bottomSheetContent: State<String> = _bottomSheetContent
@@ -158,6 +161,10 @@ class CoreViewModel @Inject constructor(
                 viewModelScope.launch {
                     accentPreference.setAccent(event.accentColor)
                 }
+            }
+
+            is CoreEvents.ToggleLoadingCircles -> {
+                _isLoading.value = true
             }
         }
     }

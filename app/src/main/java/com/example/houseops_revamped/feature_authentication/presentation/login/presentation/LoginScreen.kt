@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
@@ -38,10 +39,16 @@ import com.example.houseops_revamped.feature_authentication.presentation.login.d
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
+import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginFormEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.LoginButton
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.alert_dialogs.ForgotPasswordDialog
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.utils.LoginConstants
+import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
+import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.navigation.Screens
 
@@ -53,6 +60,7 @@ fun LoginScreen(
 
     val loginVM: LoginViewModel = hiltViewModel()
     val coreVM: CoreViewModel = hiltViewModel()
+    val authVM: AuthenticationViewModel = hiltViewModel()
     val direction = Direction(navHostController)
 
     val context = LocalContext.current
@@ -74,6 +82,69 @@ fun LoginScreen(
     }
     var loginPassState by remember {
         mutableStateOf("")
+    }
+
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(key1 = context) {
+        loginVM.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+
+                    isLoading = true
+
+                    loginVM.onEvent(
+                        LoginEvents.Login(
+                            email = loginVM.formState.email,
+                            password = loginPassState,
+                            onResponse = {
+                                //  check login event
+                                when (val response = it) {
+
+                                    is Response.Success -> {
+
+                                        isLoading = false
+
+                                        navHostController.navigate(HOME_ROUTE) {
+                                            popUpTo(AUTHENTICATION_ROUTE)
+                                            launchSingleTop = true
+                                        }
+
+                                        Toast.makeText(
+                                            context,
+                                            "Login successful!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    is Response.Loading -> {
+                                        isLoading = true
+                                    }
+                                    is Response.Failure -> {
+
+                                        isLoading = false
+
+                                        Toast.makeText(
+                                            context,
+                                            "${response.e.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        Log.d("login", "$response")
+                                    }
+                                    else -> {
+                                        isLoading = true
+                                    }
+                                }
+                            }
+                        ))
+                }
+
+                is ValidationEvent.Failure -> {
+                    Toast.makeText(context, "Check details!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     Column(
@@ -156,18 +227,30 @@ fun LoginScreen(
             fontWeight = MaterialTheme.typography.titleLarge.fontWeight
         )
 
-        //  input fields
         //  email address
-        CustomTextField(
-            startIcon = Icons.Outlined.AlternateEmail,
-            endIcon = null,
-            placeholder = "Email Address",
-            imeAction = ImeAction.Next,
-            keyboardType = KeyboardType.Email,
-            primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            loginEmailState = it
+            CustomTextField(
+                textFieldValue = loginVM.formState.email,
+                startIcon = Icons.Outlined.AlternateEmail,
+                endIcon = null,
+                placeholder = "Email Address",
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Email,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
+            ) {
+                loginVM.onFormEvent(LoginFormEvent.EmailChanged(it))
+            }
+
+            AnimatedVisibility(visible = loginVM.formState.emailError != null) {
+                isLoading = false
+                ErrorMessage(message = loginVM.formState.emailError)
+            }
         }
 
         CustomTextField(
@@ -211,10 +294,6 @@ fun LoginScreen(
             contentAlignment = Alignment.Center
         ) {
 
-            var isLoading by remember {
-                mutableStateOf(false)
-            }
-
             if (isLoading) {
 
                 LoadingCircle(
@@ -227,52 +306,8 @@ fun LoginScreen(
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor
                 ) {
-
                     isLoading = true
-
-                    loginVM.onEvent(
-                        LoginEvents.Login(
-                            email = loginEmailState,
-                            password = loginPassState,
-                            onResponse = {
-                                //  check login event
-                                when (val response = it) {
-
-                                    is Response.Success -> {
-
-                                        isLoading = false
-
-                                        navHostController.navigate(HOME_ROUTE) {
-                                            popUpTo(AUTHENTICATION_ROUTE)
-                                            launchSingleTop = true
-                                        }
-
-                                        Toast.makeText(
-                                            context,
-                                            "Login successful!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    is Response.Loading -> {
-                                        isLoading = true
-                                    }
-                                    is Response.Failure -> {
-
-                                        isLoading = false
-
-                                        Toast.makeText(
-                                            context,
-                                            "${response.e}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        Log.d("login", "$response")
-                                    }
-                                    else -> {
-                                        isLoading = true
-                                    }
-                                }
-                            }
-                        ))
+                    loginVM.onFormEvent(LoginFormEvent.Submit)
                 }
             }
 
