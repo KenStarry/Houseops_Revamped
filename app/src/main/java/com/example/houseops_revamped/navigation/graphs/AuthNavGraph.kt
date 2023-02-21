@@ -5,10 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.feature_authentication.forgot_password.presentation.ForgotPasswordScreen
+import com.example.houseops_revamped.feature_authentication.presentation.forgot_password.presentation.ForgotPasswordScreen
 import com.example.houseops_revamped.navigation.Screens
-import com.example.houseops_revamped.feature_authentication.login.presentation.LoginScreen
-import com.example.houseops_revamped.feature_authentication.sign_up.presentation.SignUpScreen
+import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.LoginScreen
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.SignUpScreen
 
 fun NavGraphBuilder.authNavGraph(
     navHostController: NavHostController

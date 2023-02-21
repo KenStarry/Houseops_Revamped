@@ -1,13 +1,11 @@
-package com.example.houseops_revamped.di
+package com.example.houseops_revamped.feature_authentication.presentation.login.di
 
 import com.example.houseops_revamped.feature_authentication.presentation.login.data.repository.LoginRepositoryImpl
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.repository.LoginRepository
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.Login
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.LoginUseCases
+import com.example.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.PasswordResetEmail
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,19 +14,25 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object LoginModule {
 
-    //  FIREBASE
-    //  Firestore instance
     @Provides
     @Singleton
-    fun provideFirebaseFiresore() = Firebase.firestore
+    fun provideLoginRepository(
+        auth: FirebaseAuth
+    ) : LoginRepository = LoginRepositoryImpl(auth)
 
-    //  Authentication instance
     @Provides
     @Singleton
-    fun provideFirebaseAuthentication() = Firebase.auth
+    fun provideLoginUseCases(
+        repository: LoginRepository
+    ) = LoginUseCases(
+        login = Login(repository),
+        passwordResetEmail = PasswordResetEmail(repository)
+    )
 }
+
+
 
 
 
