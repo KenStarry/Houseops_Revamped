@@ -38,12 +38,15 @@ import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
+import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
+import com.example.houseops_revamped.feature_authentication.presentation.model.UserType
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.PickImage
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.TermsAndConditions
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.UserTypeToggle
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.network.createAccount
@@ -146,7 +149,7 @@ fun SignUpScreen(
                 )
 
                 //  choose user type
-
+                UserTypeToggle(userTypes = AuthConstants.userTypes)
 
                 //  pick image icon
                 PickImage(imageUri = imageUri) {

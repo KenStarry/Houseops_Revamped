@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,11 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.feature_authentication.presentation.model.UserType
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 
 @Composable
 fun UserTypeToggle(
-    userTypes: List<UserType>
+    userTypes: List<UserType>,
+    signUpVM: SignUpViewModel = hiltViewModel()
 ) {
 
     val listState = rememberLazyListState()
@@ -30,10 +35,20 @@ fun UserTypeToggle(
 
                 Row(
                     modifier = Modifier
+                        .clip(RoundedCornerShape(48.dp))
                         .wrapContentHeight()
-                        .width(100.dp)
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                        .padding(16.dp),
+                        .fillMaxWidth()
+                        .background(
+                            color = if (user == signUpVM.chosenUserType.value)
+                                MaterialTheme.colorScheme.tertiary
+                            else
+                                MaterialTheme.colorScheme.onSecondary
+                        )
+                        .clickable {
+                            //  change user type
+                            signUpVM.onEvent(SignUpEvents.ToggleUserType(user))
+                        }
+                        .padding(12.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
 
@@ -52,10 +67,12 @@ fun UserTypeToggle(
         },
         state = listState,
         modifier = Modifier
-            .clip(RoundedCornerShape(24.dp))
-            .fillMaxWidth(0.6f)
-            .height(72.dp),
-        contentPadding = PaddingValues(16.dp)
+            .clip(RoundedCornerShape(48.dp))
+            .wrapContentWidth()
+            .wrapContentHeight()
+            .background(MaterialTheme.colorScheme.onSecondary),
+        contentPadding = PaddingValues(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     )
 
 }
