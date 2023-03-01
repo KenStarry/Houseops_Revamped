@@ -10,7 +10,7 @@ class Login(
     suspend operator fun invoke(
         email: String,
         password: String,
-        onResponse: (res: Response?) -> Unit
+        onResponse: (res: Response<*>) -> Unit
     ) {
 
         repo.loginUser(

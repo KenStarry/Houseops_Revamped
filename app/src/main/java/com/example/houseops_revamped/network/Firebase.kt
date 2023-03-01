@@ -5,9 +5,9 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.core.utils.Constants
-import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

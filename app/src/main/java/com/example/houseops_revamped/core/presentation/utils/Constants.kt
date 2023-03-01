@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.core.utils
+package com.example.houseops_revamped.core.presentation.utils
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
@@ -18,6 +18,7 @@ object Constants {
     const val SPLASH_ROUTE = "splash_route"
     const val HOME_ROUTE = "home_route"
     const val AUTHENTICATION_ROUTE = "authentication_route"
+    const val LANDLORD_ROUTE = "landlord"
     const val CARETAKER_ROUTE = "caretaker_route"
 
     //  route arguments
@@ -30,6 +31,7 @@ object Constants {
     //  Cloud firestore
     const val USERS_COLLECTION = "users"
     const val CARETAKER_COLLECTION = "caretakers"
+    const val LANDLORD_COLLECTION = "landlords"
     const val APARTMENTS_COLLECTION = "apartments"
     const val HOUSES_SUB_COLLECTION = "houses"
 

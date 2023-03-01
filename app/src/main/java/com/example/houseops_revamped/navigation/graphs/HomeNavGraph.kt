@@ -2,7 +2,7 @@ package com.example.houseops_revamped.navigation.graphs
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.Screens
 import com.example.houseops_revamped.screens.AdminScreen

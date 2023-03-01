@@ -23,7 +23,7 @@ import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.CustomAlertDialog
 import com.example.houseops_revamped.core.presentation.model.AccentColor
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
 import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
 import com.example.houseops_revamped.feature_settings.domain.model.SettingsEvents

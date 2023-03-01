@@ -1,9 +1,11 @@
 package com.example.houseops_revamped.core.domain.model
 
-sealed class Response {
+sealed class Response<out T> {
 
-    object Success : Response()
-    object Loading : Response()
-    data class Failure(val e: Exception) : Response()
+    //  success status
+    data class Success<out T>(val data: T) : Response<T>()
+
+    //  failure status
+    data class Failure<out T>(val error: T?) : Response<T>()
 
 }

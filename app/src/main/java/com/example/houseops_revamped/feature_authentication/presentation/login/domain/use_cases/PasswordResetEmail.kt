@@ -8,7 +8,7 @@ class PasswordResetEmail(
 ) {
     suspend operator fun invoke(
         email: String,
-        onResponse: (res: Response?) -> Unit
+        onResponse: (res: Response<*>) -> Unit
     ) = repository.passwordResetEmail(
         email = email,
         onResponse = {

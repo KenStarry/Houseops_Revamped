@@ -34,9 +34,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
-import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
@@ -144,6 +144,9 @@ fun SignUpScreen(
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     fontWeight = MaterialTheme.typography.titleLarge.fontWeight
                 )
+
+                //  choose user type
+
 
                 //  pick image icon
                 PickImage(imageUri = imageUri) {

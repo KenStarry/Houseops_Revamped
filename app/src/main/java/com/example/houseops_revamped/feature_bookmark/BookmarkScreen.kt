@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_bookmark.presentation.components.BookmarkCategories
 import com.example.houseops_revamped.feature_bookmark.presentation.components.BookmarksAppBar
 import com.example.houseops_revamped.feature_bookmark.presentation.viewmodel.BookmarksViewModel

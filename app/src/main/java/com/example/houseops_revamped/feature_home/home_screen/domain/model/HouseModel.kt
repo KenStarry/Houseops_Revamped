@@ -20,6 +20,6 @@ data class HouseModel(
 ) {
 
     constructor() : this ("", "", "For Rent", emptyList(), "", emptyList(), "", "0",
-        "Blessing", "23,000", "month", "", emptyList()
+        "Pangani Palace", "23,000", "month", "", emptyList()
     )
 }

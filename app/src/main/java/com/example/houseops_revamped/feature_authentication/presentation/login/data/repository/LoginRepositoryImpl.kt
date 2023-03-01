@@ -1,7 +1,6 @@
 package com.example.houseops_revamped.feature_authentication.presentation.login.data.repository
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.repository.LoginRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -14,14 +13,14 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun loginUser(
         email: String,
         password: String,
-        onResponse: (res: Response?) -> Unit
+        onResponse: (res: Response<*>) -> Unit
     ) {
 
         try {
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    onResponse(Response.Success)
+                    onResponse(Response.Success(true))
                 }
                 .addOnFailureListener {
                     onResponse(Response.Failure(it))
@@ -33,12 +32,12 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun passwordResetEmail(email: String, onResponse: (res: Response?) -> Unit) {
+    override suspend fun passwordResetEmail(email: String, onResponse: (res: Response<*>) -> Unit) {
 
         try {
             auth.sendPasswordResetEmail(email)
                 .addOnSuccessListener {
-                    onResponse(Response.Success)
+                    onResponse(Response.Success(true))
                 }
                 .addOnFailureListener {
                     onResponse(Response.Failure(it))

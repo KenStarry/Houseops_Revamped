@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.UsersCollection
-import com.example.houseops_revamped.core.utils.intents.phoneCallIntent
-import com.example.houseops_revamped.core.utils.intents.phoneDialIntent
+import com.example.houseops_revamped.core.presentation.utils.intents.phoneCallIntent
+import com.example.houseops_revamped.core.presentation.utils.intents.phoneDialIntent
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 
 @Composable

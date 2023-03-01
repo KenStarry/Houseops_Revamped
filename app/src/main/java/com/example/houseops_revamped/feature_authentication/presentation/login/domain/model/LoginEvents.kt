@@ -8,12 +8,12 @@ sealed class LoginEvents {
     data class Login (
         val email: String,
         val password: String,
-        val onResponse: (response: Response?) -> Unit
+        val onResponse: (response: Response<*>) -> Unit
     ) : LoginEvents()
 
     data class PasswordResetEmail(
         val email: String,
-        val onResponse: (res: Response?) -> Unit
+        val onResponse: (res: Response<*>) -> Unit
     ) : LoginEvents()
 
     data class ToggleAlertDialog(

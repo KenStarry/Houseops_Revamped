@@ -9,7 +9,7 @@ class CreateAccount(
     suspend operator fun invoke(
         email: String,
         password: String,
-        response: (response: Response) -> Unit
+        response: (response: Response<*>) -> Unit
     ) = repository.createAccount(
         email = email,
         password = password,

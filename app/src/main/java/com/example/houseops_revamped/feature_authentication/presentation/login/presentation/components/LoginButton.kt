@@ -1,7 +1,5 @@
 package com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -9,9 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import com.example.houseops_revamped.core.domain.model.Response
-import com.example.houseops_revamped.core.utils.Constants
-import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginEvents
 
 @Composable
 fun LoginButton(

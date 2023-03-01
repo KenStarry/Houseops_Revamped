@@ -21,6 +21,21 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()) {
+            properties.load(
+                    rootProject
+                            .file("local.properties")
+                            .newDataInputStream()
+            )
+        }
+
+        buildConfigField(
+                "String",
+                "MAPS_API_KEY",
+                properties.getProperty("MAPS_API_KEY")
+        )
     }
 
     buildTypes {
@@ -64,6 +79,11 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+    //  Google maps sdk
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    //  places api
+    implementation 'com.google.android.libraries.places:places:3.0.0'
 
     //  Preferences DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"

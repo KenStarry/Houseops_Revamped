@@ -10,4 +10,7 @@ object DatastoreConstants {
     const val PRIMARY_ACCENT_KEY = "houseops_primary_accent"
     const val TERTIARY_ACCENT_KEY = "houseops_tertiary_accent"
 
+    //  User Details key
+    const val DETAILS_USER_TYPE_KEY = "houseops_caretakers_details_user_type"
+
 }

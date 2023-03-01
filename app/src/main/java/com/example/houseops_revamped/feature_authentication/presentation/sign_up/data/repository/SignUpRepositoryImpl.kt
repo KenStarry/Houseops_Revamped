@@ -2,7 +2,7 @@ package com.example.houseops_revamped.feature_authentication.presentation.sign_u
 
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.UsersCollection
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.repository.SignUpRepository
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -17,31 +17,31 @@ class SignUpRepositoryImpl @Inject constructor(
     override suspend fun createAccount(
         email: String,
         password: String,
-        response: (response: Response) -> Unit
+        response: (response: Response<*>) -> Unit
     ) {
         try {
             auth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener { Response.Success }
-                .addOnFailureListener { Response.Failure(it) }
+                .addOnSuccessListener { Response.Success(true) }
+                .addOnFailureListener { Response.Failure(it.message) }
         } catch (e: Exception) {
-            Response.Failure(e)
+            Response.Failure(e.message)
         }
     }
 
     override suspend fun createUserCollection(
         user: UsersCollection,
-        response: (response: Response) -> Unit
+        response: (response: Response<*>) -> Unit
     ) {
         try {
             user.userEmail?.let { email ->
                 db.collection(Constants.USERS_COLLECTION)
                     .document(email)
                     .set(user)
-                    .addOnSuccessListener { Response.Success }
-                    .addOnFailureListener { Response.Failure(it) }
+                    .addOnSuccessListener { Response.Success(true) }
+                    .addOnFailureListener { Response.Failure(it.message) }
             }
         } catch (e: FirebaseException) {
-            Response.Failure(e)
+            Response.Failure(e.message)
         }
     }
 }

@@ -24,4 +24,8 @@ sealed class CoreEvents {
     data class ChangeAccent(val accentColor: AccentColor) : CoreEvents()
 
     data class ToggleLoadingCircles(val isLoading: Boolean) : CoreEvents()
+
+    data class DatastoreSaveUserType(
+        val userType: String
+    ) : CoreEvents()
 }

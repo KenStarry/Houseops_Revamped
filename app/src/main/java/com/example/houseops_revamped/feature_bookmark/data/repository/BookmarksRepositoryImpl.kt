@@ -2,7 +2,7 @@ package com.example.houseops_revamped.feature_bookmark.data.repository
 
 import android.util.Log
 import com.example.houseops_revamped.core.domain.model.UsersCollection
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_bookmark.domain.repository.BookmarksRepository
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.google.firebase.firestore.FirebaseFirestore

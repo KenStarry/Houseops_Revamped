@@ -6,7 +6,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,23 +28,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
-import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
-import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginEvents
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.viewmodel.LoginViewModel
-import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginFormEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.LoginButton
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.alert_dialogs.ForgotPasswordDialog
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.utils.LoginConstants
-import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
-import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
 import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.navigation.Direction
@@ -76,10 +70,6 @@ fun LoginScreen(
             initial = Constants.accentColors[0].lightColor
         ).value ?: Constants.accentColors[0].lightColor
     )
-
-    var loginEmailState by remember {
-        mutableStateOf("")
-    }
     var loginPassState by remember {
         mutableStateOf("")
     }
@@ -105,7 +95,7 @@ fun LoginScreen(
 
                                     is Response.Success -> {
 
-                                        isLoading = false
+                                        isLoading = true
 
                                         navHostController.navigate(HOME_ROUTE) {
                                             popUpTo(AUTHENTICATION_ROUTE)
@@ -118,16 +108,13 @@ fun LoginScreen(
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
-                                    is Response.Loading -> {
-                                        isLoading = true
-                                    }
                                     is Response.Failure -> {
 
                                         isLoading = false
 
                                         Toast.makeText(
                                             context,
-                                            "${response.e.message}",
+                                            "${response.error}",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         Log.d("login", "$response")
@@ -185,9 +172,6 @@ fun LoginScreen(
 
                                 is Response.Failure -> {
 
-                                }
-                                Response.Loading -> {
-                                    //  show loading
                                 }
                                 null -> {
                                     //  give error message
@@ -357,83 +341,6 @@ fun LoginScreen(
         }
 
     }
-}
-
-//  password input textfield
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ColumnScope.PasswordTextField(
-    startIcon: ImageVector?,
-    placeholder: String,
-    imeAction: ImeAction,
-    onPasswordInput: (input: String) -> Unit
-) {
-
-    var passValueState by remember {
-        mutableStateOf("")
-    }
-    var passVisibilityState by remember {
-        mutableStateOf(false)
-    }
-
-    val icon = if (passVisibilityState)
-        Icons.Outlined.Visibility
-    else
-        Icons.Outlined.VisibilityOff
-
-    TextField(
-        value = passValueState,
-        onValueChange = {
-            passValueState = it
-            onPasswordInput(passValueState)
-        },
-        leadingIcon = {
-            if (startIcon != null) {
-                Icon(
-                    imageVector = startIcon,
-                    contentDescription = "Leading Icon",
-                    tint = Color.LightGray.copy(alpha = 0.9f)
-                )
-            }
-        },
-        trailingIcon = {
-            IconButton(onClick = {
-                passVisibilityState = !passVisibilityState
-            }) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "Trailing Icon"
-                )
-            }
-        },
-        placeholder = {
-            Text(text = placeholder)
-        },
-        maxLines = 1,
-        singleLine = true,
-
-        keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.None,
-            imeAction = imeAction,
-            keyboardType = KeyboardType.Password
-        ),
-
-        modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.Start),
-
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.primary,
-            unfocusedIndicatorColor = Color.LightGray.copy(alpha = 0.3f),
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        ),
-
-        visualTransformation = if (passVisibilityState)
-            VisualTransformation.None
-        else
-            PasswordVisualTransformation()
-    )
 }
 
 //  clickable text parts

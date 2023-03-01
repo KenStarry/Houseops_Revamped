@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
@@ -25,11 +26,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CoreViewModel @Inject constructor(
     private val coreUseCases: CoreUseCases,
-    private val accentPreference: AccentPreference
+    private val accentPreference: AccentPreference,
+    private val userDetailsPreference: UserDetailsPreference
 ) : ViewModel() {
 
     val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
     val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
+
+    val userTypeFlow: Flow<String?> get() = userDetailsPreference.getUserType
 
     var loggedInStatus by mutableStateOf(false)
         private set
@@ -165,6 +169,12 @@ class CoreViewModel @Inject constructor(
 
             is CoreEvents.ToggleLoadingCircles -> {
                 _isLoading.value = true
+            }
+
+            is CoreEvents.DatastoreSaveUserType -> {
+                viewModelScope.launch {
+                    userDetailsPreference.setUserType(event.userType)
+                }
             }
         }
     }

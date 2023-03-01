@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.core.utils.intents
+package com.example.houseops_revamped.core.presentation.utils.intents
 
 import android.content.Context
 import android.content.Intent

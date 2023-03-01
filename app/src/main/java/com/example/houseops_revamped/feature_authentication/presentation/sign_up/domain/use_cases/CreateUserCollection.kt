@@ -9,7 +9,7 @@ class CreateUserCollection(
 ) {
     suspend operator fun invoke(
         user: UsersCollection,
-        response: (response: Response) -> Unit
+        response: (response: Response<*>) -> Unit
     ) = repository.createUserCollection(
         user = user,
         response = { response(it) }

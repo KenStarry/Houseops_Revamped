@@ -8,11 +8,11 @@ interface SignUpRepository {
     suspend fun createAccount(
         email: String,
         password: String,
-        response: (response: Response) -> Unit
+        response: (response: Response<*>) -> Unit
     )
 
     suspend fun createUserCollection(
         user: UsersCollection,
-        response: (response: Response) -> Unit
+        response: (response: Response<*>) -> Unit
     )
 }

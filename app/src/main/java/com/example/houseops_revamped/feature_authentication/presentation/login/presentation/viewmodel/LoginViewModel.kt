@@ -15,7 +15,6 @@ import com.example.houseops_revamped.feature_authentication.presentation.login.d
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.LoginUseCases
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.validation.LoginValidateUseCases
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.utils.LoginConstants
-import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -28,7 +27,7 @@ class LoginViewModel @Inject constructor(
     private val validateUseCases: LoginValidateUseCases
 ) : ViewModel() {
 
-    var loginResponse by mutableStateOf<Response>(Response.Loading)
+    var loginResponse by mutableStateOf<Response<*>>(Response.Failure(""))
         private set
 
     var formState by mutableStateOf(LoginFormState())

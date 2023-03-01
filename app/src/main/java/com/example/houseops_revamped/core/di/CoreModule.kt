@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.core.di
 
 import android.content.Context
+import com.example.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
 import com.example.houseops_revamped.core.data.repository.CoreRepositoryImpl
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 import com.example.houseops_revamped.core.domain.use_cases.*
@@ -48,6 +49,12 @@ object CoreModule {
     fun provideAccentPreference(
         @ApplicationContext context: Context
     ) = AccentPreference(context)
+
+    @Provides
+    @Singleton
+    fun provideUserDetailsPreference(
+        @ApplicationContext context: Context
+    ) = UserDetailsPreference(context)
 }
 
 

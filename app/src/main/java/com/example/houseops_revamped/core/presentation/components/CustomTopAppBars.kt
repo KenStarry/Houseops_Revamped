@@ -22,8 +22,8 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.houseops_revamped.R
-import com.example.houseops_revamped.core.utils.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.core.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.models.TopbarDropdown
 import com.example.houseops_revamped.navigation.BottomNavScreens
 import com.example.houseops_revamped.navigation.Direction

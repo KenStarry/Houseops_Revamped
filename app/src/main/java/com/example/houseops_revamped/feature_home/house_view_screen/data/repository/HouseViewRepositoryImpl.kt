@@ -1,7 +1,7 @@
 package com.example.houseops_revamped.feature_home.house_view_screen.data.repository
 
 import android.util.Log
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.house_view_screen.domain.model.UserBooked

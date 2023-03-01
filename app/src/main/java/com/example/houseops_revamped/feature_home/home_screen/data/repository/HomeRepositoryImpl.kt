@@ -1,6 +1,6 @@
 package com.example.houseops_revamped.feature_home.home_screen.data.repository
 
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_home.home_screen.domain.repository.HomeRepository
 import com.google.firebase.firestore.FirebaseFirestore

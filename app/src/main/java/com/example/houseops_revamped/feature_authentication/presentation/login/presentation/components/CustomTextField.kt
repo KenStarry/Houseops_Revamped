@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 //  email input textfield
@@ -32,6 +33,11 @@ fun ColumnScope.CustomTextField(
     keyboardType: KeyboardType,
     primaryColor: Color,
     tertiaryColor: Color,
+    containerColor: Color = MaterialTheme.colorScheme.onPrimary,
+    fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
+    fontWeight: FontWeight = FontWeight.Normal,
+    singleLine: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
     isPassword: Boolean = false,
     onInput: (input: String) -> Unit
 ) {

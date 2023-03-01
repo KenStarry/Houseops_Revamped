@@ -11,6 +11,6 @@ sealed class SignUpEvents {
     data class CreateAccount(
         val email: String,
         val password: String,
-        val response: (response: Response) -> Unit
+        val response: (response: Response<*>) -> Unit
     ) : SignUpEvents()
 }

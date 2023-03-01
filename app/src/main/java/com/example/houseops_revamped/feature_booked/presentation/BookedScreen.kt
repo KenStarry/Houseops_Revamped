@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_booked.domain.model.BookedEvents
 import com.example.houseops_revamped.feature_booked.presentation.components.BookedAppBar
 import com.example.houseops_revamped.feature_booked.presentation.components.booked_houses.BookedHouses
