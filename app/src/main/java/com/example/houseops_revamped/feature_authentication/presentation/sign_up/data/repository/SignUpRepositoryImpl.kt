@@ -54,8 +54,8 @@ class SignUpRepositoryImpl @Inject constructor(
                 is Landlord -> {
 
                     //  Login as landlord
-                    user.landlordEmail?.let { email ->
-                        db.collection(Constants.LANDLORD_COLLECTION)
+                    user.userEmail?.let { email ->
+                        db.collection(Constants.USERS_COLLECTION)
                             .document(email)
                             .set(user)
                             .addOnSuccessListener { response(Response.Success(true)) }

@@ -89,114 +89,86 @@ fun SignUpScreen(
 
                                     Toast.makeText(
                                         context,
-                                        signUpVM.chosenUserType.value.userTitle, Toast.LENGTH_SHORT
+                                        signUpVM.chosenUserType.value.userTitle,
+                                        Toast.LENGTH_SHORT
                                     ).show()
 
-                                    if (signUpVM.chosenUserType.value == AuthConstants.userTypes[0]) {
-                                        //  create landlord collection
-                                        signUpVM.onEvent(SignUpEvents.CreateUserCollection(
-                                            user = Landlord(
-                                                landlordEmail = authVM.formState.email,
-                                                landlordPassword = authVM.formState.password,
-                                                landlordName = authVM.formState.username,
-                                                landlordImage = authVM.formState.imageUri.toString(),
-                                                isLandlordVerified = false,
-                                                userType = AuthConstants.userTypes[0].userTitle
-                                            ),
-                                            response = { res ->
-                                                when (res) {
-                                                    is Response.Success -> {
+                                    //  create tenant collection
+                                    signUpVM.onEvent(SignUpEvents.CreateUserCollection(
+                                        user = UsersCollection(
+                                            userName = authVM.formState.username,
+                                            userEmail = authVM.formState.email,
+                                            userPassword = authVM.formState.password,
+                                            userImageUri = authVM.formState.imageUri.toString(),
+                                            userLikedHouses = listOf(),
+                                            userBookmarks = listOf(),
+                                            userBookedHouses = listOf(),
+                                            userType = signUpVM.chosenUserType.value.userTitle
+                                        ),
+                                        response = { res ->
+                                            when (res) {
+                                                is Response.Success -> {
 
-                                                        Log.d("signUp", "firestore success")
+                                                    //  upload user image
+                                                    coreVM.onEvent(CoreEvents.UploadImageToStorage(
+                                                        imageUriList = listOf(authVM.formState.imageUri),
+                                                        context = context,
+                                                        storageRef = "user_images/${authVM.formState.email}",
+                                                        collectionName = Constants.USERS_COLLECTION,
+                                                        email = authVM.formState.email,
+                                                        fieldToUpdate = "userImageUri",
+                                                        onResponse = { response ->
+                                                            when (response) {
+                                                                is Response.Success -> {}
+                                                                is Response.Failure -> {}
+                                                            }
+                                                        }
+                                                    ))
 
+                                                    if (signUpVM.chosenUserType.value.userTitle == AuthConstants.userTypes[0].userTitle) {
                                                         //  navigate to landlord screen
                                                         direction.navigateToRoute(
                                                             LANDLORD_ROUTE,
                                                             true
                                                         )
-
-                                                        Toast.makeText(
-                                                            context,
-                                                            "created account successfully",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-
-                                                        signUpVM.onEvent(
-                                                            SignUpEvents.ToggleLoadingCircles(
-                                                                false
-                                                            )
-                                                        )
-                                                    }
-
-                                                    is Response.Failure -> {
-                                                        Toast.makeText(
-                                                            context,
-                                                            "could not create account.",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-
-                                                        signUpVM.onEvent(
-                                                            SignUpEvents.ToggleLoadingCircles(
-                                                                false
-                                                            )
-                                                        )
-                                                    }
-                                                }
-                                            }
-                                        ))
-                                    } else if (signUpVM.chosenUserType.value == AuthConstants.userTypes[1]) {
-                                        //  create tenant collection
-                                        signUpVM.onEvent(SignUpEvents.CreateUserCollection(
-                                            user = UsersCollection(
-                                                userName = authVM.formState.username,
-                                                userEmail = authVM.formState.email,
-                                                userPassword = authVM.formState.password,
-                                                userImageUri = authVM.formState.imageUri.toString(),
-                                                userLikedHouses = listOf(),
-                                                userBookmarks = listOf(),
-                                                userBookedHouses = listOf(),
-                                                userType = AuthConstants.userTypes[1].userTitle
-                                            ),
-                                            response = { res ->
-                                                when (res) {
-                                                    is Response.Success -> {
-
+                                                    } else if (signUpVM.chosenUserType.value.userTitle == AuthConstants.userTypes[1].userTitle) {
                                                         //  navigate to tenant screen
                                                         direction.navigateToRoute(
                                                             HOME_ROUTE,
                                                             true
                                                         )
-
-                                                        Toast.makeText(
-                                                            context,
-                                                            "created account successfully",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-
-                                                        signUpVM.onEvent(
-                                                            SignUpEvents.ToggleLoadingCircles(
-                                                                false
-                                                            )
-                                                        )
                                                     }
 
-                                                    is Response.Failure -> {
-                                                        Toast.makeText(
-                                                            context,
-                                                            "could not create account.",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
+                                                    Toast.makeText(
+                                                        context,
+                                                        "created account successfully",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
 
-                                                        signUpVM.onEvent(
-                                                            SignUpEvents.ToggleLoadingCircles(
-                                                                false
-                                                            )
+                                                    signUpVM.onEvent(
+                                                        SignUpEvents.ToggleLoadingCircles(
+                                                            false
                                                         )
-                                                    }
+                                                    )
+                                                }
+
+                                                is Response.Failure -> {
+
+                                                    Toast.makeText(
+                                                        context,
+                                                        "could not create account.",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+
+                                                    signUpVM.onEvent(
+                                                        SignUpEvents.ToggleLoadingCircles(
+                                                            false
+                                                        )
+                                                    )
                                                 }
                                             }
-                                        ))
-                                    }
+                                        }
+                                    ))
                                 }
 
                                 is Response.Failure -> {

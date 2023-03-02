@@ -19,7 +19,7 @@ class LndHomeRepositoryImpl @Inject constructor(
     ) {
 
         try {
-            db.collection(Constants.LANDLORD_COLLECTION)
+            db.collection(Constants.USERS_COLLECTION)
                 .document(email)
                 .addSnapshotListener { snaphot, error ->
 

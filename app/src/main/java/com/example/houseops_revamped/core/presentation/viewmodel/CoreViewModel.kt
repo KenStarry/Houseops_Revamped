@@ -161,6 +161,21 @@ class CoreViewModel @Inject constructor(
                 }
             }
 
+            is CoreEvents.UploadImageToStorage -> {
+
+                viewModelScope.launch {
+                    coreUseCases.uploadImagesToStorage(
+                        imageUriList = event.imageUriList,
+                        context = event.context,
+                        storageRef = event.storageRef,
+                        collectionName = event.collectionName,
+                        email = event.email,
+                        fieldToUpdate = event.fieldToUpdate,
+                        onResponse = { event.onResponse(it) }
+                    )
+                }
+            }
+
             is CoreEvents.ChangeAccent -> {
                 viewModelScope.launch {
                     accentPreference.setAccent(event.accentColor)

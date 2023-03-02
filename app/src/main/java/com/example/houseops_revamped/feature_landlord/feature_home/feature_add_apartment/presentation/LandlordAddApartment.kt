@@ -147,7 +147,7 @@ fun LandlordAddApartment(
                     lndAddApartmentVM.onEvent(
                         LndApartmentEvents.AddApartment(
                             apartment = Apartment(
-                                apartmentLandlordEmail = landlord?.landlordEmail ?: "no email",
+                                apartmentLandlordEmail = landlord?.userEmail ?: "no email",
                                 apartmentName = lndAddApartmentVM.apartmentName.value,
                                 apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
                                 apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,

@@ -1,9 +1,11 @@
 package com.example.houseops_revamped.core.data.repository
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
-import com.example.houseops_revamped.core.domain.model.BookmarkHouse
+import android.webkit.MimeTypeMap
 import com.example.houseops_revamped.core.domain.model.Caretaker
-import com.example.houseops_revamped.core.domain.model.LikedHouse
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 import com.example.houseops_revamped.core.presentation.utils.Constants
@@ -11,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import javax.inject.Inject
 
 class CoreRepositoryImpl @Inject constructor(
@@ -144,8 +147,82 @@ class CoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun uploadImagesToStorage(
+        imageUriList: List<Uri?>,
+        context: Context,
+        storageRef: String,
+        collectionName: String,
+        email: String,
+        fieldToUpdate: String,
+        onResponse: (response: Response<*>) -> Unit
+    ) {
+
+        val ref = FirebaseStorage.getInstance()
+            .getReference(storageRef)
+
+        imageUriList.forEach { uri ->
+
+            try {
+                uri?.let {
+
+                    val fileRef = ref.child(
+                        "${System.currentTimeMillis()}.${getFileExtension(uri, context)}"
+                    )
+
+                    fileRef.putFile(it)
+                        .addOnSuccessListener {
+
+                            //  Grab the download url
+                            try {
+                                fileRef.downloadUrl.addOnSuccessListener { url ->
+                                    //  add url to the user collection
+                                    val userCollection =
+                                        db.collection(collectionName)
+                                            .document(email)
+
+                                    if (imageUriList.size < 2) {
+                                        userCollection.update(
+                                            fieldToUpdate,
+                                            url
+                                        )
+                                    } else {
+                                        userCollection.update(
+                                            fieldToUpdate,
+                                            FieldValue.arrayUnion(url)
+                                        )
+                                    }
+
+                                    onResponse(Response.Success(url))
+                                }
+                                    .addOnFailureListener { e ->
+                                        onResponse(Response.Failure(e))
+                                    }
+
+                            } catch (e: Exception) {
+                                //  Return Failure
+                                onResponse(Response.Failure(e))
+                            }
+                        }
+                }
+
+            } catch (e: Exception) {
+                onResponse(Response.Failure(e))
+            }
+
+        }
+
+    }
+
     override suspend fun getApartments() {
 
+    }
+
+    fun getFileExtension(uri: Uri, context: Context): String? {
+
+        val cr = context.contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+
+        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri))
     }
 }
 

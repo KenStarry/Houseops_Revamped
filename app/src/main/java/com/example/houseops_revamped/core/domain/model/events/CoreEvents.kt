@@ -1,5 +1,8 @@
 package com.example.houseops_revamped.core.domain.model.events
 
+import android.content.Context
+import android.net.Uri
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.model.AccentColor
 
 sealed class CoreEvents {
@@ -19,6 +22,16 @@ sealed class CoreEvents {
         val fieldName: String,
         val fieldValue: String,
         val isAddItem: Boolean
+    ) : CoreEvents()
+
+    data class UploadImageToStorage(
+        val imageUriList: List<Uri?>,
+        val context: Context,
+        val storageRef: String,
+        val collectionName: String,
+        val email: String,
+        val fieldToUpdate: String,
+        val onResponse: (response: Response<*>) -> Unit
     ) : CoreEvents()
 
     data class ChangeAccent(val accentColor: AccentColor) : CoreEvents()

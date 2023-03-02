@@ -1,8 +1,9 @@
 package com.example.houseops_revamped.core.domain.repository
 
-import com.example.houseops_revamped.core.domain.model.BookmarkHouse
+import android.content.Context
+import android.net.Uri
 import com.example.houseops_revamped.core.domain.model.Caretaker
-import com.example.houseops_revamped.core.domain.model.LikedHouse
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.google.firebase.auth.FirebaseUser
 
@@ -41,6 +42,17 @@ interface CoreRepository {
         fieldName: String,
         fieldValue: String,
         isAddItem: Boolean
+    )
+
+    //  upload images to firestore
+    suspend fun uploadImagesToStorage(
+        imageUriList: List<Uri?>,
+        context: Context,
+        storageRef: String,
+        collectionName: String,
+        email: String,
+        fieldToUpdate: String,
+        onResponse: (response: Response<*>) -> Unit
     )
 
     suspend fun getApartments()

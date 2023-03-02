@@ -48,7 +48,7 @@ fun LandlordHome(
 
     lndHomeVM.onEvent(
         LndHomeEvents.GetLandlordApartments(
-            email = lndHomeVM.landlordDetails.value?.landlordEmail ?: "no email",
+            email = lndHomeVM.landlordDetails.value?.userEmail ?: "no email",
             response = {}
         )
     )
@@ -73,7 +73,7 @@ fun LandlordHome(
         topBar = {
             LndHomeAppBar(
                 context = context,
-                imageUri = landlord?.landlordImage?.toUri()
+                imageUri = landlord?.userImageUri?.toUri()
             )
         },
         floatingActionButton = {
@@ -103,7 +103,7 @@ fun LandlordHome(
 
                 //  greetings text
                 LndHomeGreetings(
-                    landlordName = landlord?.landlordName ?: "",
+                    landlordName = landlord?.userName ?: "",
                     greetingsText = greetingsText,
                     greetingsIcon = greetingsIcon,
                     modifier = Modifier

@@ -16,4 +16,10 @@ interface LoginRepository {
         email: String,
         onResponse: (res: Response<*>) -> Unit
     )
+
+    //  grab user details from either tenants side or landlord's side
+    suspend fun getUserDetails(
+        email: String,
+        onResponse: (res: Response<*>) -> Unit
+    )
 }

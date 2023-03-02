@@ -46,6 +46,10 @@ class LoginRepositoryImpl @Inject constructor(
             onResponse(Response.Failure(e))
         }
     }
+
+    override suspend fun getUserDetails(email: String, onResponse: (res: Response<*>) -> Unit) {
+
+    }
 }
 
 

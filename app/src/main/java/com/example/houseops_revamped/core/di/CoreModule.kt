@@ -40,7 +40,8 @@ object CoreModule {
         caretakerDetails = CaretakerDetails(repo),
         updateField = UpdateField(repo),
         updateArrayField = UpdateUsersArrayField(repo),
-        getAllCaretakers = GetAllCaretakers(repo)
+        getAllCaretakers = GetAllCaretakers(repo),
+        uploadImagesToStorage = UploadImagesToStorage(repo)
     )
 
     //  provide datastore accent preference

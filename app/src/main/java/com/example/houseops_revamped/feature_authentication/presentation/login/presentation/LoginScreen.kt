@@ -70,6 +70,9 @@ fun LoginScreen(
             initial = Constants.accentColors[0].lightColor
         ).value ?: Constants.accentColors[0].lightColor
     )
+
+    val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
+
     var loginPassState by remember {
         mutableStateOf("")
     }
@@ -95,16 +98,19 @@ fun LoginScreen(
 
                                     is Response.Success -> {
 
+                                        val currentUser = coreVM.currentUser()
+                                        val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
+
                                         isLoading = true
 
-                                        navHostController.navigate(HOME_ROUTE) {
-                                            popUpTo(AUTHENTICATION_ROUTE)
-                                            launchSingleTop = true
-                                        }
+//                                        navHostController.navigate(HOME_ROUTE) {
+//                                            popUpTo(AUTHENTICATION_ROUTE)
+//                                            launchSingleTop = true
+//                                        }
 
                                         Toast.makeText(
                                             context,
-                                            "Login successful!",
+                                            "${coreVM.currentUser()?.email}",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
