@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants
@@ -35,7 +36,10 @@ import com.example.houseops_revamped.feature_authentication.presentation.login.d
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.LOADING_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
+import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginFormEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.LoginButton
@@ -58,6 +62,7 @@ fun LoginScreen(
     val direction = Direction(navHostController)
 
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -73,6 +78,27 @@ fun LoginScreen(
 
     val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
 
+    val userDetails = coreVM.getUserDetails(loginVM.formState.email)
+
+//    userDetails?.let { user ->
+//
+//        Log.d("login", "userType -> ${user.userType}")
+//
+//        if (user.userType == AuthConstants.userTypes[0].userTitle) {
+//            //  landlord
+//            navHostController.navigate(LANDLORD_ROUTE) {
+//                popUpTo(AUTHENTICATION_ROUTE)
+//                launchSingleTop = true
+//            }
+//        } else if (user.userType == AuthConstants.userTypes[1].userTitle) {
+//            //  tenant
+//            navHostController.navigate(HOME_ROUTE) {
+//                popUpTo(AUTHENTICATION_ROUTE)
+//                launchSingleTop = true
+//            }
+//        }
+//    }
+
     var loginPassState by remember {
         mutableStateOf("")
     }
@@ -80,6 +106,12 @@ fun LoginScreen(
     var isLoading by remember {
         mutableStateOf(false)
     }
+
+    var isLoggedIn by remember {
+        mutableStateOf(false)
+    }
+
+
 
     LaunchedEffect(key1 = context) {
         loginVM.validationEvents.collect { event ->
@@ -98,21 +130,16 @@ fun LoginScreen(
 
                                     is Response.Success -> {
 
-                                        val currentUser = coreVM.currentUser()
-                                        val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
+                                        isLoading = false
+                                        isLoggedIn = true
 
-                                        isLoading = true
+                                        //  take user to loading screen then determine the type of user
+                                        navHostController.navigate(Screens.Loading.passEmail(loginVM.formState.email)) {
+                                            popUpTo(AUTHENTICATION_ROUTE)
+                                            launchSingleTop = true
+                                        }
 
-//                                        navHostController.navigate(HOME_ROUTE) {
-//                                            popUpTo(AUTHENTICATION_ROUTE)
-//                                            launchSingleTop = true
-//                                        }
-
-                                        Toast.makeText(
-                                            context,
-                                            "${coreVM.currentUser()?.email}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        Log.d("login", "Logged in successfully")
                                     }
                                     is Response.Failure -> {
 
@@ -214,7 +241,8 @@ fun LoginScreen(
                 .align(Alignment.Start),
             text = "Login",
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            fontWeight = MaterialTheme.typography.titleLarge.fontWeight
+            fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
         //  email address

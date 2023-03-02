@@ -10,7 +10,9 @@ sealed class Screens(
     //  login screen
     object Login : Screens(route = "login_screen")
 
-    object Loading : Screens(route = "loading_screen")
+    object Loading : Screens(route = "loading_screen/{email}") {
+        fun passEmail(email: String) = "loading_screen/$email"
+    }
 
     object ForgotPassword : Screens(route = "forgot_password_screen")
 
