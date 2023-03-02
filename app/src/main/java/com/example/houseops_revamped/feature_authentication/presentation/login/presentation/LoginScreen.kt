@@ -335,7 +335,8 @@ fun LoginScreen(
         Text(
             text = "OR",
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
+            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
         //  Sign in with Google Button
