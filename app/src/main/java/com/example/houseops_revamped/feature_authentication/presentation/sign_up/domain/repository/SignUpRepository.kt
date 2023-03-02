@@ -11,8 +11,8 @@ interface SignUpRepository {
         response: (response: Response<*>) -> Unit
     )
 
-    suspend fun createUserCollection(
-        user: UsersCollection,
+    suspend fun <T> createUserCollection(
+        user: T,
         response: (response: Response<*>) -> Unit
     )
 }

@@ -20,6 +20,7 @@ object Constants {
     const val AUTHENTICATION_ROUTE = "authentication_route"
     const val LANDLORD_ROUTE = "landlord"
     const val CARETAKER_ROUTE = "caretaker_route"
+    const val LOADING_ROUTE = "loading"
 
     //  route arguments
     //  caretaker registration

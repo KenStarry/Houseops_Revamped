@@ -42,7 +42,8 @@ fun ColumnScope.PickImage(
                 imageVector = Icons.Outlined.ImageSearch,
                 contentDescription = "Image Picker Icon",
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(40.dp),
+                tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
             )
 
             Spacer(modifier = Modifier.height(8.dp))

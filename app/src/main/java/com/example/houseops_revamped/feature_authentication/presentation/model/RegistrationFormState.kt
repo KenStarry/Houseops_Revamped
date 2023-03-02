@@ -1,6 +1,9 @@
 package com.example.houseops_revamped.feature_authentication.presentation.model
 
+import android.net.Uri
+
 data class RegistrationFormState(
+    val imageUri: Uri? = null,
     val email: String = "",
     val emailError: String? = null,
     val username: String = "",

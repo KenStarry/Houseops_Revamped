@@ -7,8 +7,8 @@ import com.example.houseops_revamped.feature_authentication.presentation.sign_up
 class CreateUserCollection(
     private val repository: SignUpRepository
 ) {
-    suspend operator fun invoke(
-        user: UsersCollection,
+    suspend operator fun <T> invoke(
+        user: T,
         response: (response: Response<*>) -> Unit
     ) = repository.createUserCollection(
         user = user,

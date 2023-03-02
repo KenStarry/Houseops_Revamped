@@ -46,6 +46,10 @@ class AuthenticationViewModel @Inject constructor(
                 formState = formState.copy(repeatedPassword = event.repeatedPassword)
             }
 
+            is RegistrationFormEvent.ImageUriChanged -> {
+                formState = formState.copy(imageUri = event.uri)
+            }
+
             is RegistrationFormEvent.Submit -> {
                 submitData()
             }

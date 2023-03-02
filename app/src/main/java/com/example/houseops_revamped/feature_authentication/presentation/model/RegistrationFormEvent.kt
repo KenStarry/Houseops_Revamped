@@ -1,5 +1,7 @@
 package com.example.houseops_revamped.feature_authentication.presentation.model
 
+import android.net.Uri
+
 sealed class RegistrationFormEvent {
 
     data class EmailChanged(val email: String) : RegistrationFormEvent()
@@ -9,6 +11,8 @@ sealed class RegistrationFormEvent {
     data class PasswordChanged(val password: String) : RegistrationFormEvent()
 
     data class RepeatedPasswordChanged(val repeatedPassword: String) : RegistrationFormEvent()
+
+    data class ImageUriChanged(val uri: Uri?) : RegistrationFormEvent()
 
     object Submit : RegistrationFormEvent()
 }

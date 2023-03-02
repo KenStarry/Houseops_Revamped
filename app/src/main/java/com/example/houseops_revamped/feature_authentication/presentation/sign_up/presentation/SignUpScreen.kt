@@ -2,61 +2,46 @@ package com.example.houseops_revamped.feature_authentication.presentation.sign_u
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.*
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
+import com.example.houseops_revamped.core.domain.model.Landlord
+import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
-import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.utils.Constants
-import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.custom_components.BackPressTopAppBar
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
-import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
-import com.example.houseops_revamped.feature_authentication.presentation.model.UserType
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.*
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
-import com.example.houseops_revamped.network.createAccount
-import com.example.houseops_revamped.network.createUserCollection
-import com.example.houseops_revamped.network.uploadImageToFirestore
+import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.navigation.LandlordScreens
+import com.example.houseops_revamped.navigation.Screens
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,6 +52,7 @@ fun SignUpScreen(
     val coreVM: CoreViewModel = hiltViewModel()
     val signUpVM: SignUpViewModel = hiltViewModel()
     val authVM: AuthenticationViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
     val context = LocalContext.current
 
     val primaryColor = Color(
@@ -87,9 +73,143 @@ fun SignUpScreen(
         authVM.validationEvents.collect { event ->
             when (event) {
                 is ValidationEvent.Success -> {
-                    //  toast success!
-                    Toast.makeText(context, "Success!", Toast.LENGTH_SHORT).show()
-                    signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(false))
+
+                    Log.d("signUp", "Validation success")
+
+                    //  signup user
+                    signUpVM.onEvent(SignUpEvents.CreateAccount(
+                        email = authVM.formState.email,
+                        password = authVM.formState.password,
+                        response = {
+                            when (it) {
+
+                                is Response.Success -> {
+
+                                    Log.d("signUp", "create account success")
+
+                                    Toast.makeText(
+                                        context,
+                                        signUpVM.chosenUserType.value.userTitle, Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    if (signUpVM.chosenUserType.value == AuthConstants.userTypes[0]) {
+                                        //  create landlord collection
+                                        signUpVM.onEvent(SignUpEvents.CreateUserCollection(
+                                            user = Landlord(
+                                                landlordEmail = authVM.formState.email,
+                                                landlordPassword = authVM.formState.password,
+                                                landlordName = authVM.formState.username,
+                                                landlordImage = authVM.formState.imageUri.toString(),
+                                                isLandlordVerified = false,
+                                                userType = AuthConstants.userTypes[0].userTitle
+                                            ),
+                                            response = { res ->
+                                                when (res) {
+                                                    is Response.Success -> {
+
+                                                        Log.d("signUp", "firestore success")
+
+                                                        //  navigate to landlord screen
+                                                        direction.navigateToRoute(
+                                                            LANDLORD_ROUTE,
+                                                            true
+                                                        )
+
+                                                        Toast.makeText(
+                                                            context,
+                                                            "created account successfully",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+
+                                                        signUpVM.onEvent(
+                                                            SignUpEvents.ToggleLoadingCircles(
+                                                                false
+                                                            )
+                                                        )
+                                                    }
+
+                                                    is Response.Failure -> {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "could not create account.",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+
+                                                        signUpVM.onEvent(
+                                                            SignUpEvents.ToggleLoadingCircles(
+                                                                false
+                                                            )
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        ))
+                                    } else if (signUpVM.chosenUserType.value == AuthConstants.userTypes[1]) {
+                                        //  create tenant collection
+                                        signUpVM.onEvent(SignUpEvents.CreateUserCollection(
+                                            user = UsersCollection(
+                                                userName = authVM.formState.username,
+                                                userEmail = authVM.formState.email,
+                                                userPassword = authVM.formState.password,
+                                                userImageUri = authVM.formState.imageUri.toString(),
+                                                userLikedHouses = listOf(),
+                                                userBookmarks = listOf(),
+                                                userBookedHouses = listOf(),
+                                                userType = AuthConstants.userTypes[1].userTitle
+                                            ),
+                                            response = { res ->
+                                                when (res) {
+                                                    is Response.Success -> {
+
+                                                        //  navigate to tenant screen
+                                                        direction.navigateToRoute(
+                                                            HOME_ROUTE,
+                                                            true
+                                                        )
+
+                                                        Toast.makeText(
+                                                            context,
+                                                            "created account successfully",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+
+                                                        signUpVM.onEvent(
+                                                            SignUpEvents.ToggleLoadingCircles(
+                                                                false
+                                                            )
+                                                        )
+                                                    }
+
+                                                    is Response.Failure -> {
+                                                        Toast.makeText(
+                                                            context,
+                                                            "could not create account.",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+
+                                                        signUpVM.onEvent(
+                                                            SignUpEvents.ToggleLoadingCircles(
+                                                                false
+                                                            )
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        ))
+                                    }
+                                }
+
+                                is Response.Failure -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Something went wrong!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(false))
+                                }
+                            }
+                        }
+                    ))
                 }
 
                 is ValidationEvent.Failure -> {
@@ -120,6 +240,7 @@ fun SignUpScreen(
             contract = ActivityResultContracts.GetContent()
         ) { uri: Uri? ->
 
+            authVM.onEvent(RegistrationFormEvent.ImageUriChanged(uri))
             imageUri = uri
         }
 
@@ -187,25 +308,34 @@ fun SignUpScreen(
                     contentAlignment = Alignment.Center
                 ) {
 
-                    Button(
-                        onClick = {
-                            signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(true))
-                            authVM.onEvent(RegistrationFormEvent.Submit)
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = tertiaryColor,
-                            disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(
-                                alpha = 0.3f
-                            ),
-                            disabledContentColor = Color.White.copy(alpha = 0.3f)
-                        ),
-                        enabled = true
-                    ) {
-                        Text(
-                            text = "Create Account",
-                            fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                    if (signUpVM.isLoading.value) {
+
+                        LoadingCircle(
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
                         )
+
+                    } else {
+                        Button(
+                            onClick = {
+                                signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(true))
+                                authVM.onEvent(RegistrationFormEvent.Submit)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = tertiaryColor,
+                                disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(
+                                    alpha = 0.3f
+                                ),
+                                disabledContentColor = Color.White.copy(alpha = 0.3f)
+                            ),
+                            enabled = true
+                        ) {
+                            Text(
+                                text = "Create Account",
+                                fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        }
                     }
 
                 }

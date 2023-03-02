@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.use_cases
 
+import android.util.Log
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.repository.SignUpRepository
 
@@ -15,6 +16,7 @@ class CreateAccount(
         password = password,
         response = {
             response(it)
+            Log.d("signUp", "use case res -> $it")
         }
     )
 }

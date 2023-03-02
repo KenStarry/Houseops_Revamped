@@ -9,10 +9,11 @@ data class UsersCollection(
     var userImageUri: String?,
     var userLikedHouses: List<LikedHouse>?,
     var userBookmarks: List<String>?,
-    var userBookedHouses: List<BookedHouseModel>?
+    var userBookedHouses: List<BookedHouseModel>?,
+    var userType: String
 ) {
     //  empty constructor
     constructor() : this("", "", "",
-        "", listOf(), listOf(), listOf()
+        "", listOf(), listOf(), listOf(), ""
     )
 }

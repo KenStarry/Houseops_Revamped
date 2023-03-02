@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -23,7 +24,7 @@ class SignUpViewModel @Inject constructor(
     private val _chosenUserType = mutableStateOf(AuthConstants.userTypes[1])
     val chosenUserType: State<UserType> = _chosenUserType
 
-    fun onEvent(event: SignUpEvents) {
+    fun onEvent(event: SignUpEvents<Any>) {
 
         when (event) {
             is SignUpEvents.CreateAccount -> {
@@ -34,6 +35,18 @@ class SignUpViewModel @Inject constructor(
                         password = event.password,
                         response = { response ->
                             event.response(response)
+                            Log.d("signUp", "$response")
+                        }
+                    )
+                }
+            }
+
+            is SignUpEvents.CreateUserCollection -> {
+                viewModelScope.launch {
+                    useCases.createUserCollection(
+                        user = event.user,
+                        response = {
+                            event.response(it)
                         }
                     )
                 }

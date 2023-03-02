@@ -3,19 +3,53 @@ package com.example.houseops_revamped.feature_authentication.presentation.sign_u
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.feature_authentication.presentation.model.UserType
 
-sealed class SignUpEvents {
+sealed class SignUpEvents<out T> {
 
     data class ToggleLoadingCircles(
         val isLoading: Boolean
-    ) : SignUpEvents()
+    ) : SignUpEvents<Nothing>()
 
     data class ToggleUserType(
         val chosenUserType: UserType
-    ) : SignUpEvents()
+    ) : SignUpEvents<Nothing>()
 
     data class CreateAccount(
         val email: String,
         val password: String,
         val response: (response: Response<*>) -> Unit
-    ) : SignUpEvents()
+    ) : SignUpEvents<Nothing>()
+
+    data class CreateUserCollection<out T>(
+        val user: T,
+        val response: (response: Response<*>) -> Unit
+    ) : SignUpEvents<T>()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -63,10 +63,10 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-            RootNavGraph(
-                navHostController = navHostController,
-                isLoggedIn = coreVM.isUserLoggedIn()
-            )
+//            RootNavGraph(
+//                navHostController = navHostController,
+//                isLoggedIn = coreVM.isUserLoggedIn()
+//            )
         }
     }
 }
