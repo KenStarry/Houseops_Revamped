@@ -33,22 +33,15 @@ class CoreRepositoryImpl @Inject constructor(
         try {
             db.collection(Constants.USERS_COLLECTION)
                 .document(email)
-                .get()
-                .addOnSuccessListener { snapshot ->
+                .addSnapshotListener { snapshot, error ->
+
+                    if (error != null)
+                        return@addSnapshotListener
+
                     snapshot?.toObject(UsersCollection::class.java)?.let {
                         user(it)
                     }
                 }
-                .addOnFailureListener {  }
-//                .addSnapshotListener { snapshot, error ->
-//
-//                    if (error != null)
-//                        return@addSnapshotListener
-//
-//                    snapshot?.toObject(UsersCollection::class.java)?.let {
-//                        user(it)
-//                    }
-//                }
         } catch (e: Exception) {
             Log.d("userDetails", e.message.toString())
         }

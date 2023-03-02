@@ -119,8 +119,12 @@ fun SignUpScreen(
                                                         fieldToUpdate = "userImageUri",
                                                         onResponse = { response ->
                                                             when (response) {
-                                                                is Response.Success -> {}
-                                                                is Response.Failure -> {}
+                                                                is Response.Success -> {
+                                                                    Log.d("storage", "url : $response")
+                                                                }
+                                                                is Response.Failure -> {
+                                                                    Log.d("storage", "error : $response")
+                                                                }
                                                             }
                                                         }
                                                     ))
@@ -292,6 +296,10 @@ fun SignUpScreen(
                             onClick = {
                                 signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(true))
                                 authVM.onEvent(RegistrationFormEvent.Submit)
+
+                                coreVM.onEvent(CoreEvents.DatastoreSaveUserType(
+                                    signUpVM.chosenUserType.value.userTitle
+                                ))
                             },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = tertiaryColor,

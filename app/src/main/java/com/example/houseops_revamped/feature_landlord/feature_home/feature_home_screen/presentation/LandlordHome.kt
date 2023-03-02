@@ -3,6 +3,7 @@ package com.example.houseops_revamped.feature_landlord.feature_home.feature_home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ModeNight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +19,7 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
+import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
@@ -26,6 +28,7 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
+import com.example.houseops_revamped.navigation.LandlordScreens
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,13 +80,13 @@ fun LandlordHome(
             )
         },
         floatingActionButton = {
-//            ExtendedFab(
-//                icon = Icons.Outlined.Apartment,
-//                text = "Add Apartment",
-//                onClick = {
-//                    direction.navigateToRoute(LandlordScreens.AddApartment.route)
-//                }
-//            )
+            ExtendedFab(
+                icon = Icons.Outlined.Apartment,
+                title = "Add Apartment",
+                onFabClicked = {
+                    direction.navigateToRoute(LandlordScreens.AddApartment.route, false)
+                }
+            )
         },
     ) { contentPadding ->
 
