@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.custom_components.BackPressTopAppBar
@@ -43,10 +44,7 @@ import com.example.houseops_revamped.feature_authentication.presentation.login.p
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
 import com.example.houseops_revamped.feature_authentication.presentation.model.UserType
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
-import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
-import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.PickImage
-import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.TermsAndConditions
-import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.UserTypeToggle
+import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.*
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.network.createAccount
@@ -82,6 +80,8 @@ fun SignUpScreen(
             initial = Constants.accentColors[0].lightColor
         ).value ?: Constants.accentColors[0].lightColor
     )
+
+    val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
 
     LaunchedEffect(key1 = context) {
         authVM.validationEvents.collect { event ->
@@ -149,123 +149,28 @@ fun SignUpScreen(
                 )
 
                 //  choose user type
-                UserTypeToggle(userTypes = AuthConstants.userTypes)
+                UserTypeToggle(
+                    userTypes = AuthConstants.userTypes,
+                    signUpVM = signUpVM,
+                    onSelectUserType = {
+
+                        signUpVM.onEvent(SignUpEvents.ToggleUserType(it))
+                        //  save user type to datastore
+                        coreVM.onEvent(CoreEvents.DatastoreSaveUserType(it.userTitle))
+                    }
+                )
 
                 //  pick image icon
                 PickImage(imageUri = imageUri) {
                     launcher.launch("image/*")
                 }
 
-                //  email address
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    CustomTextField(
-                        textFieldValue = authVM.formState.email,
-                        startIcon = Icons.Outlined.AlternateEmail,
-                        endIcon = null,
-                        placeholder = "Email Address",
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Email,
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        onInput = {
-                            authVM.onEvent(RegistrationFormEvent.EmailChanged(it))
-                        }
-                    )
-
-                    AnimatedVisibility(visible = authVM.formState.emailError != null) {
-                        ErrorMessage(
-                            message = authVM.formState.emailError
-                        )
-                    }
-                }
-
-                //  full name
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-
-                    CustomTextField(
-                        textFieldValue = authVM.formState.username,
-                        startIcon = Icons.Outlined.Person,
-                        endIcon = null,
-                        placeholder = "UserName",
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Text,
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        onInput = {
-                            authVM.onEvent(RegistrationFormEvent.UserNameChanged(it))
-                        }
-                    )
-
-                    AnimatedVisibility(visible = authVM.formState.usernameError != null) {
-                        ErrorMessage(message = authVM.formState.usernameError)
-                    }
-                }
-
-                //  password
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    CustomTextField(
-                        textFieldValue = authVM.formState.password,
-                        startIcon = Icons.Outlined.Key,
-                        endIcon = null,
-                        placeholder = "New Password",
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Password,
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        isPassword = true,
-                        onInput = {
-                            authVM.onEvent(RegistrationFormEvent.PasswordChanged(it))
-                        }
-                    )
-
-                    AnimatedVisibility(visible = authVM.formState.passwordError != null) {
-                        ErrorMessage(message = authVM.formState.passwordError)
-                    }
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-
-                    //  confirm password
-                    CustomTextField(
-                        textFieldValue = authVM.formState.repeatedPassword,
-                        startIcon = Icons.Outlined.Key,
-                        endIcon = null,
-                        placeholder = "Confirm Password",
-                        imeAction = ImeAction.Done,
-                        keyboardType = KeyboardType.Password,
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        isPassword = true,
-                        onInput = {
-                            authVM.onEvent(RegistrationFormEvent.RepeatedPasswordChanged(it))
-                        }
-                    )
-
-                    AnimatedVisibility(visible = authVM.formState.repeatedPasswordError != null) {
-                        ErrorMessage(message = authVM.formState.repeatedPasswordError)
-                    }
-
-                }
+                //  signup fields
+                SignUpFields(
+                    authVM = authVM,
+                    primaryColor = MaterialTheme.colorScheme.primary,
+                    tertiaryColor = MaterialTheme.colorScheme.tertiary
+                )
 
                 //  terms and conditions text
                 TermsAndConditions(

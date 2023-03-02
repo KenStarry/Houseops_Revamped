@@ -23,7 +23,8 @@ import com.example.houseops_revamped.feature_authentication.presentation.sign_up
 @Composable
 fun UserTypeToggle(
     userTypes: List<UserType>,
-    signUpVM: SignUpViewModel = hiltViewModel()
+    signUpVM: SignUpViewModel = hiltViewModel(),
+    onSelectUserType: (userType: UserType) -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -46,7 +47,7 @@ fun UserTypeToggle(
                         )
                         .clickable {
                             //  change user type
-                            signUpVM.onEvent(SignUpEvents.ToggleUserType(user))
+                            onSelectUserType(user)
                         }
                         .padding(12.dp),
                     horizontalArrangement = Arrangement.Center
