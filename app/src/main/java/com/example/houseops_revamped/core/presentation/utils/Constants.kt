@@ -42,6 +42,17 @@ object Constants {
     //  bottomsheet types
     const val CARETAKER_BOTTOM_SHEET_TYPE = "caretaker bottomsheet"
 
+    //  ADMIN EMAILS
+    val adminEmails = listOf(
+        "kennethmichuki17@gmail.com"
+    )
+
+    val agentEmails = listOf(
+        "sheillakemboi68@gmail.com",
+        "starrycodes@gmail.com",
+        "chibobo@gmail.com"
+    )
+
     val priceCategories = listOf(
         "month",
         "year",

@@ -1,7 +1,6 @@
 package com.example.houseops_revamped
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -11,11 +10,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_settings.data.datastore.ThemePreference
-import com.example.houseops_revamped.feature_settings.presentation.utils.SettingsConstants
-import com.example.houseops_revamped.feature_settings.presentation.viewmodel.SettingsViewModel
-import com.example.houseops_revamped.feature_main_screen.presentation.MainScreen
-import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
+import com.example.houseops_revamped.feature_tenant.feature_settings.presentation.utils.SettingsConstants
+import com.example.houseops_revamped.feature_tenant.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.example.houseops_revamped.navigation.graphs.RootNavGraph
 import com.example.houseops_revamped.ui.theme.HouseOps_RevampedTheme
 import dagger.hilt.android.AndroidEntryPoint

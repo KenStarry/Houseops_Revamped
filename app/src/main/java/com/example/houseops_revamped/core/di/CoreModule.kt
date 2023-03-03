@@ -5,7 +5,7 @@ import com.example.houseops_revamped.core.data.datastore.preferences.UserDetails
 import com.example.houseops_revamped.core.data.repository.CoreRepositoryImpl
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 import com.example.houseops_revamped.core.domain.use_cases.*
-import com.example.houseops_revamped.feature_settings.data.datastore.AccentPreference
+import com.example.houseops_revamped.feature_tenant.feature_settings.data.datastore.AccentPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
