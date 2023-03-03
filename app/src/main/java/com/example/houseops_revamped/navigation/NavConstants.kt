@@ -11,6 +11,12 @@ object NavConstants {
     const val PATH_SCREEN_ROUTE = "path_screen"
     const val LOADING_SCREEN_ROUTE = "loading_screen"
 
+    //  ADMIN SCREEN ROUTES
+    const val ADMIN_MAIN_ROUTE = "admin_main_screen"
+
+    //  AGENT SCREEN ROUTES
+    const val AGENT_MAIN_ROUTE = "agent_main_screen"
+
     //  Landlord screen
     const val LANDLORD_MAIN_SCREEN_ROUTE = "landlord_main"
     const val LANDLORD_ADD_APARTMENT_SCREEN_ROUTE = "landlord_add_apartment"

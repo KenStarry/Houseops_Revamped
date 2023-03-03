@@ -9,6 +9,7 @@ import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_
 import com.example.houseops_revamped.core.presentation.utils.Constants.LOADING_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.ROOT_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
+import com.example.houseops_revamped.navigation.graphs.agent_graphs.agentNavGraph
 
 @Composable
 fun RootNavGraph(
@@ -35,6 +36,8 @@ fun RootNavGraph(
         authNavGraph(navHostController = navHostController)
         homeNavGraph(navHostController = navHostController)
         landlordNavGraph(navHostController = navHostController)
+        adminNavGraph(navHostController = navHostController)
+        agentNavGraph(navHostController = navHostController)
     }
 
 }

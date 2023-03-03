@@ -24,6 +24,8 @@ import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.utils.Constants
+import com.example.houseops_revamped.core.presentation.utils.Constants.ADMIN_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.AGENT_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
@@ -63,6 +65,8 @@ fun SignUpScreen(
             initial = Constants.accentColors[0].lightColor
         ).value ?: Constants.accentColors[0].lightColor
     )
+
+    Log.d("userType", "selected User : ${signUpVM.chosenUserType.value.userTitle}")
 
     val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
 
@@ -126,18 +130,35 @@ fun SignUpScreen(
                                                         }
                                                     ))
 
-                                                    if (signUpVM.chosenUserType.value.userTitle == AuthConstants.userTypes[0].userTitle) {
-                                                        //  navigate to landlord screen
-                                                        direction.navigateToRoute(
-                                                            LANDLORD_ROUTE,
-                                                            true
-                                                        )
-                                                    } else if (signUpVM.chosenUserType.value.userTitle == AuthConstants.userTypes[1].userTitle) {
-                                                        //  navigate to tenant screen
-                                                        direction.navigateToRoute(
-                                                            HOME_ROUTE,
-                                                            true
-                                                        )
+                                                    when (signUpVM.chosenUserType.value.userTitle) {
+                                                        AuthConstants.userTypes[0].userTitle -> {
+                                                            //  navigate to landlord screen
+                                                            direction.navigateToRoute(
+                                                                LANDLORD_ROUTE,
+                                                                true
+                                                            )
+                                                        }
+                                                        AuthConstants.userTypes[1].userTitle -> {
+                                                            //  navigate to tenant screen
+                                                            direction.navigateToRoute(
+                                                                HOME_ROUTE,
+                                                                true
+                                                            )
+                                                        }
+                                                        AuthConstants.userTypes[2].userTitle -> {
+                                                            //  navigate to admin screen
+                                                            direction.navigateToRoute(
+                                                                ADMIN_ROUTE,
+                                                                true
+                                                            )
+                                                        }
+                                                        AuthConstants.userTypes[3].userTitle -> {
+                                                            //  navigate to agent screen
+                                                            direction.navigateToRoute(
+                                                                AGENT_ROUTE,
+                                                                true
+                                                            )
+                                                        }
                                                     }
 
                                                     Toast.makeText(

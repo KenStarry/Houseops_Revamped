@@ -13,6 +13,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
+import com.example.houseops_revamped.core.presentation.utils.Constants.ADMIN_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.AGENT_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
@@ -53,16 +55,38 @@ fun LoadingScreen(
             when (val userType = userDetails?.userType) {
 
                 AuthConstants.userTypes[0].userTitle -> {
+
+                    //  Landlord
                     LaunchedEffect(key1 = Unit) {
                         direction.navigateToRoute(LANDLORD_ROUTE, true)
-                        Log.d("login", "userType landlord -> $userType")
+                        Log.d("login", "userType -> $userType")
                     }
                 }
 
                 AuthConstants.userTypes[1].userTitle -> {
+
+                    //  tenant
                     LaunchedEffect(key1 = Unit) {
                         direction.navigateToRoute(HOME_ROUTE, true)
-                        Log.d("login", "userType tenant -> $userType")
+                        Log.d("login", "userType -> $userType")
+                    }
+                }
+
+                AuthConstants.userTypes[2].userTitle -> {
+
+                    //  admin
+                    LaunchedEffect(key1 = Unit) {
+                        direction.navigateToRoute(ADMIN_ROUTE, true)
+                        Log.d("login", "userType -> $userType")
+                    }
+                }
+
+                AuthConstants.userTypes[3].userTitle -> {
+
+                    //  agent
+                    LaunchedEffect(key1 = Unit) {
+                        direction.navigateToRoute(AGENT_ROUTE, true)
+                        Log.d("login", "userType -> $userType")
                     }
                 }
 

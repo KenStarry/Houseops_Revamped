@@ -19,12 +19,9 @@ object Constants {
     const val HOME_ROUTE = "home_route"
     const val AUTHENTICATION_ROUTE = "authentication_route"
     const val LANDLORD_ROUTE = "landlord"
-    const val CARETAKER_ROUTE = "caretaker_route"
+    const val ADMIN_ROUTE = "admin_route"
+    const val AGENT_ROUTE = "agent_route"
     const val LOADING_ROUTE = "loading"
-
-    //  route arguments
-    //  caretaker registration
-    const val CARETAKER_HAS_REGISTERED = "has_registered"
 
     //  Arguments
     const val CURRENT_USER = "user"
@@ -44,7 +41,8 @@ object Constants {
 
     //  ADMIN EMAILS
     val adminEmails = listOf(
-        "kennethmichuki17@gmail.com"
+        "kennethmichuki17@gmail.com",
+        "axeljohnson@gmail.com"
     )
 
     val agentEmails = listOf(

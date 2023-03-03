@@ -1,15 +1,16 @@
 package com.example.houseops_revamped.feature_authentication.domain.utils
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AdminPanelSettings
-import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.*
 import com.example.houseops_revamped.feature_authentication.presentation.model.UserType
 
 object AuthConstants {
 
     val userTypes = listOf(
-        UserType(Icons.Outlined.AdminPanelSettings, "Landlord"),
-        UserType(Icons.Outlined.VerifiedUser, "Tenant")
+        UserType(Icons.Outlined.RealEstateAgent, "Landlord"),
+        UserType(Icons.Outlined.Person, "Tenant"),
+        UserType(Icons.Outlined.VerifiedUser, "Admin"),
+        UserType(Icons.Outlined.SupportAgent, "Agent"),
     )
 
     //  email validation
