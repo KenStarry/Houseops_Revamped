@@ -1,6 +1,6 @@
 package com.example.houseops_revamped.feature_categories.domain.repository
 
-import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 
 interface CategoriesRepository {
 

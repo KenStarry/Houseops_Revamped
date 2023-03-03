@@ -1,10 +1,8 @@
 package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +18,7 @@ import androidx.core.net.toUri
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.presentation.components.CoilImage
-import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun CaretakerCard(

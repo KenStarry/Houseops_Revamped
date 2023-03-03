@@ -10,12 +10,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
-import androidx.compose.material.icons.outlined.Minimize
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,9 +27,9 @@ import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
-import com.example.houseops_revamped.feature_home.home_screen.domain.model.HouseModel
-import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
-import com.example.houseops_revamped.feature_home.home_screen.presentation.components.house_item.HouseItem
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseItem
 import com.example.houseops_revamped.navigation.Direction
 
 @Composable

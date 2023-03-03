@@ -16,14 +16,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
-import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
 import com.example.houseops_revamped.feature_categories.presentation.components.CategoriesTopBar
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.ContentCaretaker
 import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
-import com.example.houseops_revamped.feature_home.home_screen.presentation.utils.HomeConstants
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.utils.HomeConstants
 import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)

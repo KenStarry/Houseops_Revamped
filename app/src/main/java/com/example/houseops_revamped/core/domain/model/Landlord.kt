@@ -1,7 +1,7 @@
 package com.example.houseops_revamped.core.domain.model
 
 import android.net.Uri
-import com.example.houseops_revamped.feature_booked.domain.model.BookedHouseModel
+import com.example.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedHouseModel
 
 data class Landlord(
     var userName: String?,

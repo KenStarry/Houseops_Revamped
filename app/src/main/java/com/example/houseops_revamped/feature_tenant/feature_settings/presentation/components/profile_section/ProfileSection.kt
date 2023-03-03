@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
-import com.example.houseops_revamped.feature_home.home_screen.presentation.components.HomePillBtns
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_tenant.feature_settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
