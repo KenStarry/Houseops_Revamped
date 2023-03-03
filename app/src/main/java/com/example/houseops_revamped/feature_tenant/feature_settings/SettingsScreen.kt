@@ -174,7 +174,7 @@ fun SettingsScreen(
                                 //  navigate to login screen
                                 direction.navigateToRoute(
                                     Constants.AUTHENTICATION_ROUTE,
-                                    true
+                                    Constants.HOME_ROUTE
                                 )
 
                                 Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()

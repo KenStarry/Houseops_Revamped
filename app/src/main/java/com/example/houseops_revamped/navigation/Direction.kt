@@ -21,13 +21,13 @@ class Direction(
     //  navigate to route
     val navigateToRoute: (
         route: String,
-        isPop: Boolean
-    ) -> Unit = { route, isPop ->
+        popRoute: String?
+    ) -> Unit = { route, popRoute ->
 
-        if (isPop) {
+        if (popRoute != null) {
 
             navHostController.navigate(route = route) {
-                popUpTo(route = route)
+                popUpTo(route = popRoute)
                 launchSingleTop = true
             }
 

@@ -58,7 +58,7 @@ fun LoadingScreen(
 
                     //  Landlord
                     LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(LANDLORD_ROUTE, true)
+                        direction.navigateToRoute(LANDLORD_ROUTE, AUTHENTICATION_ROUTE)
                         Log.d("login", "userType -> $userType")
                     }
                 }
@@ -67,7 +67,7 @@ fun LoadingScreen(
 
                     //  tenant
                     LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(HOME_ROUTE, true)
+                        direction.navigateToRoute(HOME_ROUTE, AUTHENTICATION_ROUTE)
                         Log.d("login", "userType -> $userType")
                     }
                 }
@@ -76,7 +76,7 @@ fun LoadingScreen(
 
                     //  admin
                     LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(ADMIN_ROUTE, true)
+                        direction.navigateToRoute(ADMIN_ROUTE, AUTHENTICATION_ROUTE)
                         Log.d("login", "userType -> $userType")
                     }
                 }
@@ -85,7 +85,7 @@ fun LoadingScreen(
 
                     //  agent
                     LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(AGENT_ROUTE, true)
+                        direction.navigateToRoute(AGENT_ROUTE, AUTHENTICATION_ROUTE)
                         Log.d("login", "userType -> $userType")
                     }
                 }

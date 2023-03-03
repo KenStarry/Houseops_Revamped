@@ -84,7 +84,7 @@ fun LandlordHome(
                 icon = Icons.Outlined.Apartment,
                 title = "Add Apartment",
                 onFabClicked = {
-                    direction.navigateToRoute(LandlordScreens.AddApartment.route, false)
+                    direction.navigateToRoute(LandlordScreens.AddApartment.route, null)
                 }
             )
         },

@@ -135,28 +135,28 @@ fun SignUpScreen(
                                                             //  navigate to landlord screen
                                                             direction.navigateToRoute(
                                                                 LANDLORD_ROUTE,
-                                                                true
+                                                                AUTHENTICATION_ROUTE
                                                             )
                                                         }
                                                         AuthConstants.userTypes[1].userTitle -> {
                                                             //  navigate to tenant screen
                                                             direction.navigateToRoute(
                                                                 HOME_ROUTE,
-                                                                true
+                                                                AUTHENTICATION_ROUTE
                                                             )
                                                         }
                                                         AuthConstants.userTypes[2].userTitle -> {
                                                             //  navigate to admin screen
                                                             direction.navigateToRoute(
                                                                 ADMIN_ROUTE,
-                                                                true
+                                                                AUTHENTICATION_ROUTE
                                                             )
                                                         }
                                                         AuthConstants.userTypes[3].userTitle -> {
                                                             //  navigate to agent screen
                                                             direction.navigateToRoute(
                                                                 AGENT_ROUTE,
-                                                                true
+                                                                AUTHENTICATION_ROUTE
                                                             )
                                                         }
                                                     }

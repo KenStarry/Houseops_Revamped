@@ -42,12 +42,10 @@ object Constants {
     //  ADMIN EMAILS
     val adminEmails = listOf(
         "kennethmichuki17@gmail.com",
-        "axeljohnson@gmail.com",
-        "pookiebear@gmail.com"
+        "sheillakemboi68@gmail.com"
     )
 
     val agentEmails = listOf(
-        "sheillakemboi68@gmail.com",
         "starrycodes@gmail.com",
         "chibobo@gmail.com"
     )

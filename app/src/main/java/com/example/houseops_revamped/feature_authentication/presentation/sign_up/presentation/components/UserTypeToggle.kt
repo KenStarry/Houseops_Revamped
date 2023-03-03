@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,8 +39,7 @@ fun UserTypeToggle(
 
     val listState = rememberLazyListState()
 
-    val userTypesFiltered = userTypes.filter { it != AuthConstants.userTypes[2] }
-        .filter { it != AuthConstants.userTypes[3] }
+    val userTypesFiltered = userTypes.filter { it == AuthConstants.userTypes[0] || it == AuthConstants.userTypes[1] }
 
     Box(
         modifier = Modifier
@@ -53,7 +53,7 @@ fun UserTypeToggle(
         }) {
 
             //  toggle tenant type
-            signUpVM.onEvent(SignUpEvents.ToggleUserType(AuthConstants.userTypes[1]))
+//            signUpVM.onEvent(SignUpEvents.ToggleUserType(AuthConstants.userTypes[1]))
 
             LazyRow(
                 content = {
@@ -74,6 +74,8 @@ fun UserTypeToggle(
                                 .clickable {
                                     //  change user type
                                     onSelectUserType(user)
+
+                                    Log.d("userType", "type : $user")
                                 }
                                 .padding(12.dp),
                             horizontalArrangement = Arrangement.Center

@@ -203,15 +203,12 @@ fun LoginScreen(
                                     //  show the reset email page
                                     direction.navigateToRoute(
                                         Screens.ForgotPassword.route,
-                                        false
+                                        null
                                     )
                                 }
 
                                 is Response.Failure -> {
 
-                                }
-                                null -> {
-                                    //  give error message
                                 }
                             }
                         }
