@@ -13,6 +13,10 @@ interface CoreRepository {
 
     suspend fun currentUser() : FirebaseUser?
 
+    suspend fun sendEmailVerification(
+        response: (response: Response<*>) -> Unit
+    )
+
     suspend fun getUserDetails(
         email: String,
         user: (user: UsersCollection?) -> Unit
