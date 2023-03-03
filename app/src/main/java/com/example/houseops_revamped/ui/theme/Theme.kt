@@ -25,8 +25,8 @@ private val DarkColorScheme = darkColorScheme(
     primary = Constants.primaryCol.value,
     secondary = PinkAccent,
     tertiary = Constants.tertiaryCol.value,
-    onPrimary = BlackBackgroundAlt,
-    onSecondary = DarkBackground,
+    onPrimary = DarkBackground,
+    onSecondary = BlackBackgroundAlt,
     onSecondaryContainer = TextWhite900
 )
 

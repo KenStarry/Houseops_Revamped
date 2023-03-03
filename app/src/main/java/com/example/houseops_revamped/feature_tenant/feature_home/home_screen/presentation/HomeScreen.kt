@@ -164,8 +164,8 @@ fun HomeScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.onPrimary)
-                            .padding(horizontal = 16.dp)
-                            .verticalScroll(scrollState),
+                            .verticalScroll(scrollState)
+                            .padding(horizontal = 12.dp),
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {

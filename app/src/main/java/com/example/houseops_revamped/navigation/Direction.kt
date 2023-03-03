@@ -7,11 +7,6 @@ class Direction(
     navHostController: NavHostController
 ) {
 
-    //  navigate to admin page
-    val navigateToAdminPage: () -> Unit = {
-        navHostController.navigate(Screens.Admin.route)
-    }
-
     val navigateToHouseView: (
         apartment: String,
         category: String
