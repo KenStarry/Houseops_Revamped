@@ -8,6 +8,7 @@ data class CoreUseCases(
     val updateField: UpdateField,
     val updateArrayField: UpdateUsersArrayField,
     val getAllCaretakers: GetAllCaretakers,
-    val uploadImagesToStorage: UploadImagesToStorage
+    val uploadImagesToStorage: UploadImagesToStorage,
+    val verificationEmail: VerificationEmail
 ) {
 }

@@ -7,6 +7,10 @@ import com.example.houseops_revamped.core.presentation.model.AccentColor
 
 sealed class CoreEvents {
 
+    data class SendVerificationEmail(
+        val response: (response: Response<*>) -> Unit
+    ) : CoreEvents()
+
     data class UpdateFirestoreField(
         val collectionName: String,
         val documentName: String,

@@ -13,7 +13,7 @@ interface CoreRepository {
 
     suspend fun currentUser() : FirebaseUser?
 
-    suspend fun sendEmailVerification(
+    suspend fun sendVerificationEmail(
         response: (response: Response<*>) -> Unit
     )
 

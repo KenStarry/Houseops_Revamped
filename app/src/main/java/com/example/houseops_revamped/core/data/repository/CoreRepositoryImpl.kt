@@ -25,7 +25,7 @@ class CoreRepositoryImpl @Inject constructor(
 
     override suspend fun currentUser(): FirebaseUser? = auth.currentUser
 
-    override suspend fun sendEmailVerification(response: (response: Response<*>) -> Unit) {
+    override suspend fun sendVerificationEmail(response: (response: Response<*>) -> Unit) {
         try {
 
             auth.currentUser?.let { user ->

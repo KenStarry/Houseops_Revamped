@@ -134,6 +134,14 @@ class CoreViewModel @Inject constructor(
 
         when (event) {
 
+            is CoreEvents.SendVerificationEmail -> {
+                viewModelScope.launch {
+                    coreUseCases.verificationEmail(
+                        response = { event.response(it) }
+                    )
+                }
+            }
+
             is CoreEvents.UpdateFirestoreField -> {
 
                 viewModelScope.launch {
