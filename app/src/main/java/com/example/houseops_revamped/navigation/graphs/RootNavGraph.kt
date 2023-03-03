@@ -3,6 +3,8 @@ package com.example.houseops_revamped.navigation.graphs
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.example.houseops_revamped.core.presentation.utils.Constants.ADMIN_ROUTE
+import com.example.houseops_revamped.core.presentation.utils.Constants.AGENT_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
@@ -24,6 +26,10 @@ fun RootNavGraph(
             LANDLORD_ROUTE
         else if (isLoggedIn && userType == AuthConstants.userTypes[1].userTitle)
             HOME_ROUTE
+        else if (isLoggedIn && userType == AuthConstants.userTypes[2].userTitle)
+            ADMIN_ROUTE
+        else if (isLoggedIn && userType == AuthConstants.userTypes[3].userTitle)
+            AGENT_ROUTE
         else if (!isLoggedIn)
             AUTHENTICATION_ROUTE
         else
