@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_landlord.feature_main.presentation.components.bottom_nav
+package com.example.houseops_revamped.feature_admin.feature_main.presentation.components.bottom_nav
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.MaterialTheme
@@ -9,18 +9,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.houseops_revamped.navigation.screens.AdminBottomNavScreens
 import com.example.houseops_revamped.navigation.screens.LandlordBottomNavScreens
 import com.example.houseopscaretakers.feature_landlord.feature_main.presentation.components.bottom_nav.MainBottomNavItem
 
 @Composable
-fun MainBottomNav(
+fun AdminBottomNav(
     navHostController: NavHostController
 ) {
 
     val screens = listOf(
-        LandlordBottomNavScreens.Home,
-        LandlordBottomNavScreens.Caretakers,
-        LandlordBottomNavScreens.Settings
+        AdminBottomNavScreens.Home,
+        AdminBottomNavScreens.Agents,
+        AdminBottomNavScreens.Settings
     )
 
     //  current destination
@@ -42,7 +43,7 @@ fun MainBottomNav(
         ) {
 
             screens.forEach { screen ->
-                MainBottomNavItem(
+                AdminBottomNavItem(
                     navHostController = navHostController,
                     currentDestination = currentDestination,
                     screen = screen

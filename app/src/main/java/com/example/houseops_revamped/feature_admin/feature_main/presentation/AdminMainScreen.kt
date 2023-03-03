@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_admin.presentation
+package com.example.houseops_revamped.feature_admin.feature_main.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,6 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.feature_admin.feature_main.presentation.components.bottom_nav.AdminBottomNav
+import com.example.houseops_revamped.navigation.graphs.admin_graphs.AdminBottomNavGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,7 +23,12 @@ fun AdminMainScreen(
     navHostController: NavHostController
 ) {
 
+    val navController = rememberNavController()
+
     Scaffold(
+        bottomBar = {
+            AdminBottomNav(navHostController = navController)
+        }
 
     ) { contentPadding ->
 
@@ -30,16 +38,7 @@ fun AdminMainScreen(
                 .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(contentPadding)
         ) {
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(16.dp)
-            ) {
-
-            }
-
+            AdminBottomNavGraph(navHostController = navController)
         }
 
     }

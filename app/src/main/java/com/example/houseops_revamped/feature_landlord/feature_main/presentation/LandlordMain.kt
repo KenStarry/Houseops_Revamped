@@ -13,8 +13,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.navigation.graphs.LandlordBottomNavGraph
-import com.example.houseopscaretakers.feature_landlord.feature_main.presentation.components.bottom_nav.MainBottomNav
+import com.example.houseops_revamped.navigation.graphs.landlord_graphs.LandlordBottomNavGraph
+import com.example.houseops_revamped.feature_landlord.feature_main.presentation.components.bottom_nav.MainBottomNav
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
