@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.navigation
+package com.example.houseops_revamped.navigation.screens
 
 sealed class Screens(
     val route: String
@@ -18,9 +18,6 @@ sealed class Screens(
 
     //  signup screen
     object SignUp : Screens(route = "sign_up_screen")
-
-    //  admin screen
-    object Admin : Screens(route = "admin_screen")
 
     //  house view screen
     object HouseView : Screens(route = "house_view_screen/{apartment}/{category}") {

@@ -4,7 +4,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.houseops_revamped.core.presentation.LoadingScreen
 import com.example.houseops_revamped.core.presentation.utils.Constants
-import com.example.houseops_revamped.navigation.Screens
+import com.example.houseops_revamped.navigation.screens.Screens
 
 fun NavGraphBuilder.loadingNavGraph(
     navHostController: NavHostController

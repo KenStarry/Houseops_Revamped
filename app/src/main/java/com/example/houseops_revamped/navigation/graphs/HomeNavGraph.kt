@@ -3,16 +3,15 @@ package com.example.houseops_revamped.navigation.graphs
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
-import com.example.houseops_revamped.feature_categories.CategoriesScreen
+import com.example.houseops_revamped.feature_tenant.feature_categories.CategoriesScreen
 import com.example.houseops_revamped.feature_tenant.feature_booked.presentation.BookedScreen
 import com.example.houseops_revamped.feature_tenant.feature_bookmark.BookmarkScreen
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.HomeScreen
 import com.example.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.HouseViewScreen
 import com.example.houseops_revamped.feature_tenant.feature_main_screen.presentation.MainScreen
 import com.example.houseops_revamped.feature_tenant.feature_settings.SettingsScreen
-import com.example.houseops_revamped.navigation.BottomNavScreens
-import com.example.houseops_revamped.navigation.Screens
-import com.example.houseops_revamped.screens.AdminScreen
+import com.example.houseops_revamped.navigation.screens.BottomNavScreens
+import com.example.houseops_revamped.navigation.screens.Screens
 
 fun NavGraphBuilder.homeNavGraph(
     navHostController: NavHostController
@@ -27,11 +26,6 @@ fun NavGraphBuilder.homeNavGraph(
         //  main screen
         composable(route = Screens.Main.route) {
             MainScreen(navHostController = navHostController)
-        }
-
-        //  admin screen
-        composable(route = Screens.Admin.route) {
-            AdminScreen(navHostController = navHostController)
         }
 
         //  Home screen

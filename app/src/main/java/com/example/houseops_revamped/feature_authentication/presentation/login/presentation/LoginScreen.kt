@@ -28,18 +28,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.Response
-import com.example.houseops_revamped.core.domain.model.UsersCollection
+import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginEvents
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.viewmodel.LoginViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
-import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
-import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
-import com.example.houseops_revamped.core.presentation.utils.Constants.LOADING_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
-import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.example.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginFormEvent
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.LoginButton
@@ -48,7 +44,7 @@ import com.example.houseops_revamped.feature_authentication.presentation.login.p
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
 import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.navigation.Direction
-import com.example.houseops_revamped.navigation.Screens
+import com.example.houseops_revamped.navigation.screens.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,7 +73,6 @@ fun LoginScreen(
     )
 
     val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
-
     val userDetails = coreVM.getUserDetails(loginVM.formState.email)
 
 //    userDetails?.let { user ->
@@ -111,6 +106,15 @@ fun LoginScreen(
         mutableStateOf(false)
     }
 
+    if (isLoggedIn) {
+        //  save user to datastore
+        LaunchedEffect(key1 = Unit) {
+            coreVM.onEvent(
+                CoreEvents.DatastoreSaveUserType(
+                    userDetails?.userType ?: "none"
+                ))
+        }
+    }
 
 
     LaunchedEffect(key1 = context) {
@@ -139,7 +143,7 @@ fun LoginScreen(
                                             launchSingleTop = true
                                         }
 
-                                        Log.d("login", "Logged in successfully")
+                                        Log.d("login", "Logged in successfully as $userType")
                                     }
                                     is Response.Failure -> {
 

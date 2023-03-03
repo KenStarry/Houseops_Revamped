@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.navigation
 
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.navigation.screens.Screens
 
 class Direction(
     navHostController: NavHostController

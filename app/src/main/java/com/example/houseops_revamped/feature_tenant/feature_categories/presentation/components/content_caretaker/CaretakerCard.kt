@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
+package com.example.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker
 
 import android.content.Context
 import androidx.compose.foundation.layout.*

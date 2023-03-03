@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.houseops_revamped.navigation.LandlordBottomNavScreens
-import com.example.houseops_revamped.navigation.LandlordScreens
+import com.example.houseops_revamped.navigation.screens.LandlordBottomNavScreens
+import com.example.houseops_revamped.navigation.screens.LandlordScreens
 import com.example.houseopscaretakers.feature_landlord.feature_caretakers.LandlordCaretakers
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.LandlordAddApartment
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.LandlordHome

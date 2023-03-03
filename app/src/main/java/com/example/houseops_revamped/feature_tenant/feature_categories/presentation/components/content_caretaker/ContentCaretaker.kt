@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
+package com.example.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
-import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
+import com.example.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
 
 @Composable
 fun ContentCaretaker(

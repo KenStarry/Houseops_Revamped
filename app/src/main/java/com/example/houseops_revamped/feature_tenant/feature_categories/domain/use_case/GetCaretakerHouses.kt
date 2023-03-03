@@ -1,6 +1,6 @@
-package com.example.houseops_revamped.feature_categories.domain.use_case
+package com.example.houseops_revamped.feature_tenant.feature_categories.domain.use_case
 
-import com.example.houseops_revamped.feature_categories.domain.repository.CategoriesRepository
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.repository.CategoriesRepository
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 
 class GetCaretakerHouses(

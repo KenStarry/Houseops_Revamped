@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_categories.presentation.viewmodel
+package com.example.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.core.domain.model.Caretaker
-import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
-import com.example.houseops_revamped.feature_categories.domain.use_case.CategoriesUseCases
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.use_case.CategoriesUseCases
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

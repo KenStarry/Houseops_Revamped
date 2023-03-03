@@ -28,7 +28,7 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
-import com.example.houseops_revamped.navigation.LandlordScreens
+import com.example.houseops_revamped.navigation.screens.LandlordScreens
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_categories.domain.model
+package com.example.houseops_revamped.feature_tenant.feature_categories.domain.model
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState

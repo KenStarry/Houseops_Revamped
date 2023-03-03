@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.houseops_revamped.navigation.LandlordBottomNavScreens
+import com.example.houseops_revamped.navigation.screens.LandlordBottomNavScreens
 
 @Composable
 fun MainBottomNav(

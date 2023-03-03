@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.navigation.LandlordBottomNavScreens
+import com.example.houseops_revamped.navigation.screens.LandlordBottomNavScreens
 
 @Composable
 fun RowScope.MainBottomNavItem(

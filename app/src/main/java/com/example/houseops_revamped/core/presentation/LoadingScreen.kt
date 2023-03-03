@@ -49,21 +49,21 @@ fun LoadingScreen(
         emailAddress?.let {
 
             val userDetails = coreVM.getUserDetails(emailAddress)
-            val userType = userDetails?.userType
 
-            when (userType) {
+            when (val userType = userDetails?.userType) {
+
                 AuthConstants.userTypes[0].userTitle -> {
                     LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(LANDLORD_ROUTE, false)
+                        direction.navigateToRoute(LANDLORD_ROUTE, true)
+                        Log.d("login", "userType landlord -> $userType")
                     }
-                    Log.d("login", "userType landlord -> $userType")
                 }
 
                 AuthConstants.userTypes[1].userTitle -> {
                     LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(HOME_ROUTE, false)
+                        direction.navigateToRoute(HOME_ROUTE, true)
+                        Log.d("login", "userType tenant -> $userType")
                     }
-                    Log.d("login", "userType tenant -> $userType")
                 }
 
                 else -> {}

@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_categories.presentation.components
+package com.example.houseops_revamped.feature_tenant.feature_categories.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

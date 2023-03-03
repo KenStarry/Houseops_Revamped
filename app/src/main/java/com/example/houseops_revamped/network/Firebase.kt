@@ -16,51 +16,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
-//  create a user account in FirebaseAuth
-suspend fun createAccount(
-    auth: FirebaseAuth,
-    context: Context,
-    navHostController: NavHostController,
-    email: String,
-    password: String
-) {
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener { task ->
-
-            if (task.isSuccessful) {
-
-                Toast.makeText(context, "Account Created Successfully!", Toast.LENGTH_SHORT).show()
-
-                //  navigate to home screen
-                navHostController.navigate(HOME_ROUTE) {
-                    popUpTo(AUTHENTICATION_ROUTE)
-                    launchSingleTop = true
-                }
-
-            } else {
-
-                Toast.makeText(context, "Something went wrong...", Toast.LENGTH_SHORT).show()
-            }
-        }
-}
-
-//  logout user
-suspend fun logoutUser(
-    auth: FirebaseAuth,
-    context: Context,
-    navHostController: NavHostController,
-    onLoggedOut: () -> Unit
-) {
-
-//    val myAuth = FirebaseAuth.getInstance()
-//    myAuth.addAuthStateListener {
-//        //  logout user
-//        it.signOut()
-//    }
-    onLoggedOut()
-}
-
 //  query users based on a criteria
 suspend fun queryRegisteredCaretakers(
     db: FirebaseFirestore,

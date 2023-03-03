@@ -28,9 +28,9 @@ import com.example.houseops_revamped.core.presentation.components.CustomAlertDia
 import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_categories.domain.model.CategoryEvents
-import com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
-import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
+import com.example.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
+import com.example.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedHouseModel
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.HouseViewEvents

@@ -1,9 +1,9 @@
-package com.example.houseops_revamped.feature_categories.di
+package com.example.houseops_revamped.feature_tenant.feature_categories.di
 
-import com.example.houseops_revamped.feature_categories.data.repository.CategoriesRepositoryImpl
-import com.example.houseops_revamped.feature_categories.domain.repository.CategoriesRepository
-import com.example.houseops_revamped.feature_categories.domain.use_case.CategoriesUseCases
-import com.example.houseops_revamped.feature_categories.domain.use_case.GetCaretakerHouses
+import com.example.houseops_revamped.feature_tenant.feature_categories.data.repository.CategoriesRepositoryImpl
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.repository.CategoriesRepository
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.use_case.CategoriesUseCases
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.use_case.GetCaretakerHouses
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides

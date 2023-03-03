@@ -19,7 +19,6 @@ import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseops_revamped.core.domain.model.Landlord
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
@@ -38,8 +37,6 @@ import com.example.houseops_revamped.feature_authentication.presentation.sign_up
 import com.example.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 import com.example.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.example.houseops_revamped.navigation.Direction
-import com.example.houseops_revamped.navigation.LandlordScreens
-import com.example.houseops_revamped.navigation.Screens
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 

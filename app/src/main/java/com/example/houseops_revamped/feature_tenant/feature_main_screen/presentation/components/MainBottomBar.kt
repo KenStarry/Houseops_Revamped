@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.houseops_revamped.navigation.BottomNavScreens
+import com.example.houseops_revamped.navigation.screens.BottomNavScreens
 
 //  navigation bar
 @Composable

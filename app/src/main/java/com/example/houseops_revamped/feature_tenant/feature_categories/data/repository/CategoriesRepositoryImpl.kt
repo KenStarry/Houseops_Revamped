@@ -1,8 +1,8 @@
-package com.example.houseops_revamped.feature_categories.data.repository
+package com.example.houseops_revamped.feature_tenant.feature_categories.data.repository
 
 import android.util.Log
 import com.example.houseops_revamped.core.presentation.utils.Constants
-import com.example.houseops_revamped.feature_categories.domain.repository.CategoriesRepository
+import com.example.houseops_revamped.feature_tenant.feature_categories.domain.repository.CategoriesRepository
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject

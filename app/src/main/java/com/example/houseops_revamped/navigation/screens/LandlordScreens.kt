@@ -1,4 +1,6 @@
-package com.example.houseops_revamped.navigation
+package com.example.houseops_revamped.navigation.screens
+
+import com.example.houseops_revamped.navigation.NavConstants
 
 sealed class LandlordScreens(
     val route: String

@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_categories.presentation.components.content_caretaker
+package com.example.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,7 +26,7 @@ import com.example.houseops_revamped.core.domain.model.Caretaker
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
 import com.example.houseops_revamped.core.presentation.components.Lottie
-import com.example.houseops_revamped.feature_categories.presentation.viewmodel.CategoriesViewModel
+import com.example.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseItem

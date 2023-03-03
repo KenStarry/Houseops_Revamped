@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.navigation
+package com.example.houseops_revamped.navigation.screens
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Bookmarks

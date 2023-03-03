@@ -1,10 +1,11 @@
-package com.example.houseops_revamped.navigation
+package com.example.houseops_revamped.navigation.screens
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.houseops_revamped.navigation.NavConstants
 
 sealed class LandlordBottomNavScreens(
     val route: String,

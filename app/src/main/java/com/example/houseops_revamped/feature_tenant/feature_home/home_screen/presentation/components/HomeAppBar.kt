@@ -26,7 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.houseops_revamped.navigation.BottomNavScreens
+import com.example.houseops_revamped.navigation.screens.BottomNavScreens
 
 //  Main Top App Bar
 @OptIn(ExperimentalMaterial3Api::class)

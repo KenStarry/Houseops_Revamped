@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FeaturedSection(
     modifier: Modifier = Modifier,
+    homeVM: HomeViewModel = hiltViewModel(),
     navHostController: NavHostController,
     context: Context,
     title: String,
@@ -42,7 +43,7 @@ fun FeaturedSection(
     tertiaryColor: Color
 ) {
 
-    val homeVM: HomeViewModel = hiltViewModel()
+//    val homeVM: HomeViewModel = hiltViewModel()
     val direction = Direction(navHostController)
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
