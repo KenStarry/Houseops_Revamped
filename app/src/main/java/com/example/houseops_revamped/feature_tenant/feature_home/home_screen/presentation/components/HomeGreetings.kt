@@ -62,7 +62,7 @@ fun HomeGreetings(
                 )
 
                 Text(
-                    text = "Sichirai, Kakamega",
+                    text = "No Location",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)

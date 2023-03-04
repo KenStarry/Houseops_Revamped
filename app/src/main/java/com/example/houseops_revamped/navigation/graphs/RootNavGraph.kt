@@ -11,7 +11,10 @@ import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_
 import com.example.houseops_revamped.core.presentation.utils.Constants.LOADING_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.ROOT_ROUTE
 import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
+import com.example.houseops_revamped.navigation.graphs.admin_graphs.adminNavGraph
 import com.example.houseops_revamped.navigation.graphs.agent_graphs.agentNavGraph
+import com.example.houseops_revamped.navigation.graphs.landlord_graphs.landlordNavGraph
+import com.example.houseops_revamped.navigation.graphs.tenant_graphs.homeNavGraph
 
 @Composable
 fun RootNavGraph(

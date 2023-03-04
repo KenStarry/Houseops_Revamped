@@ -17,11 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
+import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
@@ -179,41 +182,72 @@ fun HomeScreen(
                                 .padding(vertical = 8.dp)
                         )
 
-                        //  pill buttons
-                        PillSection(
-                            modifier = Modifier
-                                .wrapContentWidth()
-                                .height(150.dp),
-                            onPillClicked = { categoryTitle ->
-                                direction.navigateToCategory(categoryTitle)
-                            },
-                            primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor
-                        )
+                        if (homeVM.houses.isEmpty()) {
 
-                        //  featured section
-                        FeaturedSection(
-                            title = "Featured",
-                            context = context,
-                            houses = homeVM.houses,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
-                            user = userDetails,
-                            navHostController = navHostController,
-                            snackbarHostState = snackbarHostState,
-                            primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor
-                        )
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(450.dp)
+                                    .background(MaterialTheme.colorScheme.onPrimary),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
 
-                        ApartmentsSection(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
-                            title = "Apartments"
-                        )
+                                Lottie(
+                                    rawFile = R.raw.search_empty,
+                                    isPlaying = true,
+                                    iterations = 1,
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.9f)
+                                        .height(250.dp)
+                                )
+                                
+                                Spacer(modifier = Modifier.height(24.dp))
 
-                        Spacer(modifier = Modifier.height(48.dp))
+                                Text(text = "No Houses uploaded yet...",
+                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
+
+                            }
+
+                        } else {
+                            //  pill buttons
+                            PillSection(
+                                modifier = Modifier
+                                    .wrapContentWidth()
+                                    .height(150.dp),
+                                onPillClicked = { categoryTitle ->
+                                    direction.navigateToCategory(categoryTitle)
+                                },
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
+                            )
+
+                            //  featured section
+                            FeaturedSection(
+                                title = "Featured",
+                                context = context,
+                                houses = homeVM.houses,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                                user = userDetails,
+                                navHostController = navHostController,
+                                snackbarHostState = snackbarHostState,
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
+                            )
+
+                            ApartmentsSection(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                                title = "Apartments"
+                            )
+
+                            Spacer(modifier = Modifier.height(48.dp))
+                        }
 
                     }
 

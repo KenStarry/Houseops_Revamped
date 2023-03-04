@@ -49,7 +49,8 @@ fun ProfileSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             //  user image
@@ -140,13 +141,25 @@ fun ProfileSection(
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    HomePillBtns(
-                        icon = Icons.Outlined.Update,
-                        title = "Update Details",
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        onClick = {}
-                    )
+
+                    TextButton(
+                        onClick = {
+                            //    update user details
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.onSecondary,
+                            contentColor = primaryColor
+                        )
+                    ) {
+                        Text(text = "Update Details")
+                    }
+//                    HomePillBtns(
+//                        icon = Icons.Outlined.Update,
+//                        title = "Update Details",
+//                        primaryColor = primaryColor,
+//                        tertiaryColor = tertiaryColor,
+//                        onClick = {}
+//                    )
                 }
             }
 

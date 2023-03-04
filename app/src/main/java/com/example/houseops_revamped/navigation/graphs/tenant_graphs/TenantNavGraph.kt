@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.navigation.graphs
+package com.example.houseops_revamped.navigation.graphs.tenant_graphs
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
@@ -19,33 +19,13 @@ fun NavGraphBuilder.homeNavGraph(
 
     //  home screens
     navigation(
-        startDestination = BottomNavScreens.Home.route,
+        startDestination = Screens.Main.route,
         route = HOME_ROUTE
     ) {
 
         //  main screen
         composable(route = Screens.Main.route) {
             MainScreen(navHostController = navHostController)
-        }
-
-        //  Home screen
-        composable(route = BottomNavScreens.Home.route) {
-            HomeScreen(navHostController)
-        }
-
-        //  Booked screen
-        composable(route = BottomNavScreens.Booked.route) {
-            BookedScreen(navHostController)
-        }
-
-        //  Wishlist screen
-        composable(route = BottomNavScreens.Bookmarks.route) {
-            BookmarkScreen(navHostController = navHostController)
-        }
-
-        //  Settings screen
-        composable(route = BottomNavScreens.Settings.route) {
-            SettingsScreen(navHostController)
         }
 
         //  categories screen

@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.navigation.graphs
+package com.example.houseops_revamped.navigation.graphs.landlord_graphs
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController

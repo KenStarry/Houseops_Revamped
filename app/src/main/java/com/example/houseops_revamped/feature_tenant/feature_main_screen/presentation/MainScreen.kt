@@ -8,9 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_tenant.feature_main_screen.presentation.components.MainBottomBar
+import com.example.houseops_revamped.navigation.graphs.tenant_graphs.TenantInnerGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,6 +21,7 @@ fun MainScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val navController = rememberNavController()
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -35,7 +38,7 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             MainBottomBar(
-                navHostController = navHostController,
+                navHostController = navController,
                 primaryColor = primaryColor,
                 tertiaryColor = tertiaryColor
             )
@@ -47,10 +50,7 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-//            RootNavGraph(
-//                navHostController = navHostController,
-//                isLoggedIn = coreVM.isUserLoggedIn()
-//            )
+            TenantInnerGraph(navHostController = navController)
         }
     }
 }
