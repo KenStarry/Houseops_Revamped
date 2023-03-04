@@ -7,10 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,33 +69,56 @@ fun AdminLandlordItem(
                 }
 
                 //  landlord details
-                Column(
+                Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))
                         .weight(4f)
                         .wrapContentHeight()
-                        .padding(16.dp)
-                        .background(MaterialTheme.colorScheme.onSecondary),
-                    horizontalAlignment = Alignment.Start
+                        .background(MaterialTheme.colorScheme.onSecondary)
                 ) {
 
-                    //  name
-                    Text(
-                        text = it.userName ?: "",
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-                    
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    //  location
-                    HomePillBtns(
-                        icon = Icons.Outlined.LocationOn,
-                        title = "Pangani, Nairobi, Kenya",
-                        primaryColor = MaterialTheme.colorScheme.primary,
-                        tertiaryColor = MaterialTheme.colorScheme.tertiary
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(8.dp)
                     ) {
+
+                        //  name
+                        Text(
+                            text = it.userName ?: "",
+                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        //  location
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Outlined.LocationOn,
+                                contentDescription = "Location",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier
+                                    .size(16.dp)
+                            )
+
+                            Text(
+                                text = "Pangani, Nairobi, Kenya",
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
+                            )
+
+                        }
 
                     }
 
