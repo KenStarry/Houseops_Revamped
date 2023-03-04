@@ -1,4 +1,7 @@
-package com.example.houseopscaretakers.feature_landlord.core.model
+package com.example.houseops_revamped.feature_landlord.core.model
+
+import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
+import com.example.houseopscaretakers.feature_landlord.core.model.PlacesAPIResult
 
 data class Apartment(
     val apartmentLandlordEmail: String,

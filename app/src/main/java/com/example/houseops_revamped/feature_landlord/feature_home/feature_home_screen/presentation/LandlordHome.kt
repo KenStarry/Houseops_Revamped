@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,10 +22,11 @@ import androidx.navigation.NavHostController
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.presentation.components.ExtendedFab
 import com.example.houseops_revamped.core.presentation.components.Lottie
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import com.example.houseops_revamped.navigation.Direction
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeApartments
+import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeApartments
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
@@ -42,6 +44,18 @@ fun LandlordHome(
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
     val direction = Direction(navHostController)
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     lndHomeVM.onEvent(
         LndHomeEvents.GetLandlordDetails(
@@ -83,6 +97,7 @@ fun LandlordHome(
             ExtendedFab(
                 icon = Icons.Outlined.Apartment,
                 title = "Add Apartment",
+                containerColor = primaryColor,
                 onFabClicked = {
                     direction.navigateToRoute(LandlordScreens.AddApartment.route, null)
                 }
@@ -109,6 +124,8 @@ fun LandlordHome(
                     landlordName = landlord?.userName ?: "",
                     greetingsText = greetingsText,
                     greetingsIcon = greetingsIcon,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -144,7 +161,9 @@ fun LandlordHome(
 
                         //  apartments section
                         LndHomeApartments(
-                            lndHomeVM = lndHomeVM
+                            lndHomeVM = lndHomeVM,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
                         )
                     }
 

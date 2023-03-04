@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -17,7 +18,9 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 
 @Composable
 fun CaretakerIdSection(
-    lndAddApartmentVM: LndAddApartmentViewModel
+    lndAddApartmentVM: LndAddApartmentViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
     Column(
         modifier = Modifier
@@ -48,8 +51,8 @@ fun CaretakerIdSection(
                 placeholder = "Caretaker ID Number",
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Number,
-                primaryColor = MaterialTheme.colorScheme.primary,
-                tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
                 containerColor = MaterialTheme.colorScheme.onSecondary,
                 onInput = {
                     //  verify the details

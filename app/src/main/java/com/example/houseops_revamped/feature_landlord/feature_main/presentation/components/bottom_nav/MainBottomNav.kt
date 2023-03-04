@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.houseops_revamped.navigation.screens.LandlordBottomNavScreens
@@ -14,7 +15,9 @@ import com.example.houseopscaretakers.feature_landlord.feature_main.presentation
 
 @Composable
 fun MainBottomNav(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val screens = listOf(
@@ -45,7 +48,9 @@ fun MainBottomNav(
                 MainBottomNavItem(
                     navHostController = navHostController,
                     currentDestination = currentDestination,
-                    screen = screen
+                    screen = screen,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
             }
 

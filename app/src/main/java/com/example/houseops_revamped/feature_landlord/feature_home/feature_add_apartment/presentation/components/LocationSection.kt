@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components
+package com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
@@ -22,6 +23,8 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 fun LocationSection(
     lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Column(
@@ -72,7 +75,7 @@ fun LocationSection(
                         .clip(RoundedCornerShape(16.dp))
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .background(MaterialTheme.colorScheme.tertiary)
+                        .background(tertiaryColor)
                         .clickable {
                             //  open location bottomsheet
                             onLocationClicked()

@@ -8,10 +8,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.navigation.graphs.landlord_graphs.LandlordBottomNavGraph
 import com.example.houseops_revamped.feature_landlord.feature_main.presentation.components.bottom_nav.MainBottomNav
@@ -24,13 +27,27 @@ fun LandlordMain(
 
     val coreVM: CoreViewModel = hiltViewModel()
 
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
+
     //  declare another navController for the sake of the nested navgraph
     val navController = rememberNavController()
 
     Scaffold(
         bottomBar = {
             MainBottomNav(
-                navHostController = navController
+                navHostController = navController,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
     ) { contentPadding ->
@@ -41,8 +58,11 @@ fun LandlordMain(
                 .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(contentPadding)
         ) {
-            
-            LandlordBottomNavGraph(navHostController = navController)
+
+            LandlordBottomNavGraph(
+                navHostController = navController,
+                mainNavHostController = navHostController
+            )
 
         }
 

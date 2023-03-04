@@ -2,7 +2,7 @@ package com.example.houseops_revamped.feature_landlord.feature_home.feature_add_
 
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.utils.Constants
-import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
+import com.example.houseops_revamped.feature_landlord.core.model.Apartment
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.domain.repository.LndAddApartmentRepository
 import com.google.firebase.firestore.FirebaseFirestore
 

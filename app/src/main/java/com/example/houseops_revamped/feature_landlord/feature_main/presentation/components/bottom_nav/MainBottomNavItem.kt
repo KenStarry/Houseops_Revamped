@@ -13,7 +13,9 @@ import com.example.houseops_revamped.navigation.screens.LandlordBottomNavScreens
 fun RowScope.MainBottomNavItem(
     navHostController: NavHostController,
     currentDestination: NavDestination?,
-    screen: LandlordBottomNavScreens
+    screen: LandlordBottomNavScreens,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     NavigationBarItem(
@@ -31,7 +33,7 @@ fun RowScope.MainBottomNavItem(
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = Color.White,
             unselectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f),
-            indicatorColor = MaterialTheme.colorScheme.tertiary
+            indicatorColor = tertiaryColor
         ),
 
         icon = {

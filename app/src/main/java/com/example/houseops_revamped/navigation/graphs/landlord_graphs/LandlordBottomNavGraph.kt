@@ -9,11 +9,12 @@ import com.example.houseops_revamped.navigation.screens.LandlordScreens
 import com.example.houseopscaretakers.feature_landlord.feature_caretakers.LandlordCaretakers
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.LandlordAddApartment
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.LandlordHome
-import com.example.houseopscaretakers.feature_landlord.feature_settings.LandlordSettings
+import com.example.houseops_revamped.feature_landlord.feature_settings.presentation.LandlordSettings
 
 @Composable
 fun LandlordBottomNavGraph(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    mainNavHostController: NavHostController
 ) {
 
     NavHost(
@@ -30,7 +31,7 @@ fun LandlordBottomNavGraph(
         }
 
         composable(route = LandlordBottomNavScreens.Settings.route) {
-            LandlordSettings(navHostController = navHostController)
+            LandlordSettings(navHostController = mainNavHostController)
         }
 
         //  landlord add apartment screen

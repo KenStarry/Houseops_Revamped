@@ -6,14 +6,17 @@ import androidx.compose.material.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.BuildConfig
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
+import com.example.houseops_revamped.feature_landlord.core.model.Apartment
 import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseops_revamped.navigation.Direction
@@ -37,6 +40,18 @@ fun LandlordAddApartment(
     val lndAddApartmentVM: LndAddApartmentViewModel = hiltViewModel()
     val coreVM: CoreViewModel = hiltViewModel()
     val lndHomeVM: LndHomeViewModel = hiltViewModel()
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     lndHomeVM.onEvent(
         LndHomeEvents.GetLandlordDetails(
@@ -179,7 +194,9 @@ fun LandlordAddApartment(
                 },
                 onCancel = {
                     direction.navigateUp()
-                }
+                },
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         },
         closeBottomSheet = { state, scope ->

@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets
+package com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -20,12 +21,17 @@ import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeatu
 
 @Composable
 fun FeatureItem(
-    apartmentFeature: ApartmentFeature
+    apartmentFeature: ApartmentFeature,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Card(
         modifier = Modifier
-            .wrapContentSize(),
+            .size(
+                width = 130.dp,
+                height = 170.dp
+            ),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 8.dp
@@ -38,24 +44,24 @@ fun FeatureItem(
 
         Column(
             modifier = Modifier
-                .wrapContentSize()
+                .fillMaxSize()
                 .background(MaterialTheme.colorScheme.onSecondary)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
 
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(40.dp)
-                    .background(MaterialTheme.colorScheme.tertiary),
+                    .background(tertiaryColor),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Star,
                     contentDescription = "icon",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = primaryColor
                 )
             }
 
@@ -74,11 +80,9 @@ fun FeatureItem(
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .width(100.dp)
+                textAlign = TextAlign.Center
             )
 
         }
@@ -91,9 +95,13 @@ fun FeatureItem(
 @Composable
 fun FeatureItemPreview(
     apartmentFeature: ApartmentFeature = ApartmentFeature(
-        "Security",
+        "Security of The Highest Order",
         "Security has been enforced through the use of mbwa kali!"
     )
 ) {
-    FeatureItem(apartmentFeature = apartmentFeature)
+    FeatureItem(
+        apartmentFeature = apartmentFeature,
+        MaterialTheme.colorScheme.primary,
+        MaterialTheme.colorScheme.tertiary
+    )
 }

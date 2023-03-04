@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets
+package com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -9,13 +9,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowRight
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
@@ -23,7 +21,9 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 @Composable
 fun ApartmentFeaturesSection(
     lndAddApartmentVM: LndAddApartmentViewModel,
-    onHouseFeaturesClicked: () -> Unit
+    onHouseFeaturesClicked: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
     val listState = rememberLazyListState()
 
@@ -61,12 +61,17 @@ fun ApartmentFeaturesSection(
                 tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
             )
 
-            Button(onClick = { onHouseFeaturesClicked() }) {
+            Button(
+                onClick = { onHouseFeaturesClicked() },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = primaryColor,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+            ) {
                 Text(
                     text = "Add Feature",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    fontWeight = FontWeight.Bold
                 )
             }
 
@@ -83,7 +88,11 @@ fun ApartmentFeaturesSection(
                         items = lndAddApartmentVM.apartmentFeatures
                     ) {
                         //  feature item
-                        FeatureItem(apartmentFeature = it)
+                        FeatureItem(
+                            apartmentFeature = it,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
+                        )
                     }
                 },
                 state = listState,

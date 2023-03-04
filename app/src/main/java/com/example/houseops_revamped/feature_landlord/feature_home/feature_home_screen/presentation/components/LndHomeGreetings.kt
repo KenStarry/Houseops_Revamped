@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,6 +20,8 @@ fun LndHomeGreetings(
     landlordName: String,
     greetingsText: String,
     greetingsIcon: ImageVector,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     Row(
@@ -45,7 +48,7 @@ fun LndHomeGreetings(
                 modifier = Modifier
                     .size(35.dp)
                     .background(
-                        color = MaterialTheme.colorScheme.tertiary,
+                        color = tertiaryColor,
                         shape = CircleShape
                     ),
                 contentAlignment = Alignment.Center
@@ -53,7 +56,7 @@ fun LndHomeGreetings(
                 Icon(
                     imageVector = greetingsIcon,
                     contentDescription = "icon",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = primaryColor
                 )
             }
 

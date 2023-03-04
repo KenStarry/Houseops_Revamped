@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components
+package com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,14 +12,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_landlord.core.model.Apartment
+import com.example.houseops_revamped.feature_landlord.core.model.Apartment
+import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.ApartmentItem
 
 @Composable
 fun AlphabetItem(
     alphabet: String,
-    apartmentList: List<Apartment>
+    apartmentList: List<Apartment>,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val listState = rememberLazyListState()
@@ -36,7 +40,7 @@ fun AlphabetItem(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .size(50.dp)
-                .background(MaterialTheme.colorScheme.tertiary),
+                .background(tertiaryColor),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -55,8 +59,8 @@ fun AlphabetItem(
 
                     ApartmentItem(
                         apartment = it,
-                        primaryColor = MaterialTheme.colorScheme.primary,
-                        tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
                         modifier = Modifier
                             .clip(RoundedCornerShape(16.dp))
                             .fillMaxWidth()

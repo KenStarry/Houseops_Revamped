@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.presentation.components.DoneCancelButtons
@@ -23,6 +24,8 @@ fun LndApartmentMain(
     onHouseFeaturesClicked: () -> Unit,
     onDone: () -> Unit,
     onCancel: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
     val context = LocalContext.current
 
@@ -56,6 +59,8 @@ fun LndApartmentMain(
                 LndApartmentDetails(
                     modifier = Modifier
                         .fillMaxSize(),
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
                     lndAddApartmentVM = lndAddApartmentVM,
                     onLocationClicked = {
                         //  open places api

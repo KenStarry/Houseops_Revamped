@@ -8,14 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.LocationSection
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.ApartmentFeaturesSection
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -23,6 +22,8 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 fun LndApartmentDetails(
     modifier: Modifier = Modifier,
     lndAddApartmentVM: LndAddApartmentViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color,
     onLocationClicked: () -> Unit,
     onHouseFeaturesClicked: () -> Unit
 ) {
@@ -43,8 +44,8 @@ fun LndApartmentDetails(
             placeholder = "Apartment Name",
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Text,
-            primaryColor = MaterialTheme.colorScheme.primary,
-            tertiaryColor = MaterialTheme.colorScheme.tertiary,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor,
             fontSize = MaterialTheme.typography.titleSmall.fontSize,
             fontWeight = FontWeight.Bold,
             onInput = {
@@ -56,18 +57,24 @@ fun LndApartmentDetails(
         //  location section
         LocationSection(
             lndAddApartmentVM = lndAddApartmentVM,
-            onLocationClicked = onLocationClicked
+            onLocationClicked = onLocationClicked,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
         )
 
         //  caretaker id section
         CaretakerIdSection(
-            lndAddApartmentVM = lndAddApartmentVM
+            lndAddApartmentVM = lndAddApartmentVM,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
         )
 
         //  apartment features section
         ApartmentFeaturesSection(
             lndAddApartmentVM = lndAddApartmentVM,
-            onHouseFeaturesClicked = onHouseFeaturesClicked
+            onHouseFeaturesClicked = onHouseFeaturesClicked,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
         )
 
 

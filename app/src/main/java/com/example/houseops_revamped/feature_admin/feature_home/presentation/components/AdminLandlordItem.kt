@@ -56,10 +56,11 @@ fun AdminLandlordItem(
             ) {
 
                 //  landlord image
-                Box(
+                Row(
                     modifier = Modifier
                         .weight(1f),
-                    contentAlignment = Alignment.Center
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
 
                     CoilImage(
@@ -68,7 +69,7 @@ fun AdminLandlordItem(
                         placeholder = R.drawable.profile,
                         modifier = Modifier
                             .clip(CircleShape)
-                            .size(45.dp)
+                            .size(50.dp)
                     )
 
                 }
