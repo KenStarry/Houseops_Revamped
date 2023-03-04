@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_admin.feature_home
+package com.example.houseops_revamped.feature_admin.feature_home.presentation
 
 import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
@@ -28,6 +28,7 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun AdminHomeScreen(
     navHostController: NavHostController,
+    coreViewModel: CoreViewModel,
     modalSheetState: ModalBottomSheetState,
     scope: CoroutineScope
 ) {
@@ -45,10 +46,9 @@ fun AdminHomeScreen(
 
         //  show error message
         EmailVerificationMessage(
-            coreVM = coreVM,
+            coreVM = coreViewModel,
             onSuccess = {
-                //  open
-                coreVM.onBottomSheetEvent(
+                coreViewModel.onBottomSheetEvent(
                     BottomSheetEvents.OpenBottomSheet(
                         state = modalSheetState,
                         scope = scope,
@@ -59,7 +59,7 @@ fun AdminHomeScreen(
             },
             onFailure = {
                 Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
-                coreVM.onBottomSheetEvent(
+                coreViewModel.onBottomSheetEvent(
                     BottomSheetEvents.OpenBottomSheet(
                         state = modalSheetState,
                         scope = scope,

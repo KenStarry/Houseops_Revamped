@@ -17,6 +17,10 @@ interface CoreRepository {
         response: (response: Response<*>) -> Unit
     )
 
+    suspend fun logoutUser(
+        response: (response: Response<*>) -> Unit
+    )
+
     suspend fun getUserDetails(
         email: String,
         user: (user: UsersCollection?) -> Unit

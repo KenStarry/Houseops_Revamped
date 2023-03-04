@@ -39,6 +39,17 @@ class CoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun logoutUser(response: (response: Response<*>) -> Unit) {
+        try {
+
+            auth.signOut()
+            response(Response.Success(true))
+
+        } catch (e: Exception) {
+            response(Response.Failure(e.message))
+        }
+    }
+
     override suspend fun getUserDetails(
         email: String,
         user: (user: UsersCollection?) -> Unit

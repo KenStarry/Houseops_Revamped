@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_admin.feature_main.presentation
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,6 +41,8 @@ fun AdminMainScreen(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
         sheetContent = { state, scope ->
 
+            Log.d("sheet", "sheet - ${coreVM.bottomSheetContent.value}")
+
             when (coreVM.bottomSheetContent.value) {
 
                 AdminConstants.BOTTOM_SHEET_VERIFICATION_SUCCESS -> {
@@ -64,6 +67,7 @@ fun AdminMainScreen(
                 ) {
                     AdminBottomNavGraph(
                         navHostController = navController,
+                        coreViewModel = coreVM,
                         modalSheetState = state,
                         scope = scope
                     )
