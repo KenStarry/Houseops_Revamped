@@ -11,7 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.houseops_revamped.core.domain.model.Landlord
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
-import com.example.houseops_revamped.feature_landlord.core.model.Apartment
+import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.domain.use_cases.LndHomeUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

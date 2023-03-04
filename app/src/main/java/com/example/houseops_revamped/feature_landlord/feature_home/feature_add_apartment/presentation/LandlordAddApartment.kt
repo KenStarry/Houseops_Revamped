@@ -16,14 +16,14 @@ import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_landlord.core.model.Apartment
-import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
+import com.example.houseops_revamped.core.domain.model.Apartment
+import com.example.houseops_revamped.core.domain.model.ApartmentFeature
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
 import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeaturesBottomSheet
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.PlacesBottomSheet
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.utils.LndApartmentConstants
+import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.utils.LndApartmentConstants
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel

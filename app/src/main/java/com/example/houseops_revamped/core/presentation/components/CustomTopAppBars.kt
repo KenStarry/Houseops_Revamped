@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -186,14 +187,12 @@ fun BackPressTopAppBar(
     onBackPressed: () -> Unit
 ) {
 
-    TopAppBar(
+    LargeTopAppBar(
         title = {
             Text(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
                 text = title,
-                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                fontWeight = MaterialTheme.typography.titleSmall.fontWeight
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.Bold
             )
         },
         navigationIcon = {
@@ -204,7 +203,7 @@ fun BackPressTopAppBar(
                 )
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(
+        colors = TopAppBarDefaults.largeTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.onPrimary
         )
     )

@@ -7,9 +7,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
+import com.example.houseops_revamped.core.domain.model.ApartmentFeature
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
-import com.example.houseopscaretakers.feature_landlord.core.model.PlacesAPIResult
+import com.example.houseops_revamped.core.domain.model.PlacesAPIResult
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.domain.use_case.AddApartmentUseCases
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -36,6 +36,7 @@ class LndAddApartmentViewModel @Inject constructor(
     val featureDescription = mutableStateOf("")
 
     val apartmentName = mutableStateOf("")
+    val apartmentPrice = mutableStateOf("")
     val apartmentLocation = mutableStateOf<PlacesAPIResult?>(null)
     val apartmentCaretakerId = mutableStateOf("")
     private val _apartmentFeatures = mutableStateListOf<ApartmentFeature>()

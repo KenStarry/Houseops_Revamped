@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
+import com.example.houseops_revamped.core.domain.model.ApartmentFeature
 
 @Composable
 fun FeatureItem(
@@ -29,7 +29,7 @@ fun FeatureItem(
     Card(
         modifier = Modifier
             .size(
-                width = 130.dp,
+                width = 150.dp,
                 height = 170.dp
             ),
         shape = RoundedCornerShape(16.dp),
@@ -37,15 +37,15 @@ fun FeatureItem(
             defaultElevation = 8.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.onSecondary,
-            contentColor = MaterialTheme.colorScheme.onSecondary
+            containerColor = MaterialTheme.colorScheme.onPrimary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onSecondary)
+                .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween

@@ -3,8 +3,8 @@ package com.example.houseops_revamped.feature_landlord.feature_home.feature_add_
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import com.example.houseops_revamped.core.domain.model.Response
-import com.example.houseops_revamped.feature_landlord.core.model.Apartment
-import com.example.houseopscaretakers.feature_landlord.core.model.ApartmentFeature
+import com.example.houseops_revamped.core.domain.model.Apartment
+import com.example.houseops_revamped.core.domain.model.ApartmentFeature
 import kotlinx.coroutines.CoroutineScope
 
 sealed class LndApartmentEvents {

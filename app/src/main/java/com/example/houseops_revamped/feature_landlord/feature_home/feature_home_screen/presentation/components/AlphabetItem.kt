@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.houseops_revamped.feature_landlord.core.model.Apartment
+import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.ApartmentItem
 
 @Composable

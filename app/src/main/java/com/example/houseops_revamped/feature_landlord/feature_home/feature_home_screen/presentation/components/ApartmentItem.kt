@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.houseops_revamped.feature_landlord.core.model.Apartment
+import com.example.houseops_revamped.core.domain.model.Apartment
 
 @Composable
 fun ApartmentItem(

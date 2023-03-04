@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.domain.model.LndApartmentEvents
-import com.example.houseopscaretakers.feature_landlord.core.model.PlacesAPIResult
+import com.example.houseops_revamped.core.domain.model.PlacesAPIResult
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)

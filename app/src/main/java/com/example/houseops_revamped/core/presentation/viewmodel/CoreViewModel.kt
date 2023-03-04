@@ -16,6 +16,7 @@ import com.example.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.domain.use_cases.CoreUseCases
+import com.example.houseops_revamped.core.presentation.model.OptionsToggleModel
 import com.example.houseops_revamped.feature_tenant.feature_settings.data.datastore.AccentPreference
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -52,6 +53,9 @@ class CoreViewModel @Inject constructor(
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
+
+    private val _chosenOptionToggle = mutableStateOf<OptionsToggleModel?>(null)
+    val chosenOptionToggle: State<OptionsToggleModel?> = _chosenOptionToggle
 
     //  Bottomsheet
     private val _bottomSheetContent = mutableStateOf("")
@@ -200,6 +204,10 @@ class CoreViewModel @Inject constructor(
 
             is CoreEvents.ToggleLoadingCircles -> {
                 _isLoading.value = true
+            }
+
+            is CoreEvents.ToggleOptions -> {
+                _chosenOptionToggle.value = event.option
             }
 
             is CoreEvents.DatastoreSaveUserType -> {

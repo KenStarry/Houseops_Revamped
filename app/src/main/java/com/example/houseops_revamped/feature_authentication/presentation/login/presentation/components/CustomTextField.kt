@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 //  email input textfield
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ColumnScope.CustomTextField(
+fun CustomTextField(
     textFieldValue: String = "",
     startIcon: ImageVector?,
     endIcon: ImageVector?,

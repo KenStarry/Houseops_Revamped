@@ -1,4 +1,4 @@
-package com.example.houseopscaretakers.feature_landlord.core.model
+package com.example.houseops_revamped.core.domain.model
 
 data class PlacesAPIResult(
     val address: String,

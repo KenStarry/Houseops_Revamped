@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.model.AccentColor
+import com.example.houseops_revamped.core.presentation.model.OptionsToggleModel
 
 sealed class CoreEvents {
 
@@ -45,6 +46,8 @@ sealed class CoreEvents {
     data class ChangeAccent(val accentColor: AccentColor) : CoreEvents()
 
     data class ToggleLoadingCircles(val isLoading: Boolean) : CoreEvents()
+
+    data class ToggleOptions(val option: OptionsToggleModel) : CoreEvents()
 
     data class DatastoreSaveUserType(
         val userType: String
