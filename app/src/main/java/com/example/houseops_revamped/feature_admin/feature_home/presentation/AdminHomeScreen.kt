@@ -55,10 +55,7 @@ fun AdminHomeScreen(
     if (currentUser?.isEmailVerified == true) {
 
         //  show main UI
-        AdminHomeContent(
-            primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor
-        )
+        AdminHomeContent()
 
     } else {
 
