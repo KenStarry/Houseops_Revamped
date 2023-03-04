@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.models
+package com.example.houseops_revamped.core.domain.model
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
