@@ -121,10 +121,16 @@ fun SignUpScreen(
                                                         onResponse = { response ->
                                                             when (response) {
                                                                 is Response.Success -> {
-                                                                    Log.d("storage", "url : $response")
+                                                                    Log.d(
+                                                                        "storage",
+                                                                        "url : $response"
+                                                                    )
                                                                 }
                                                                 is Response.Failure -> {
-                                                                    Log.d("storage", "error : $response")
+                                                                    Log.d(
+                                                                        "storage",
+                                                                        "error : $response"
+                                                                    )
                                                                 }
                                                             }
                                                         }
@@ -267,6 +273,8 @@ fun SignUpScreen(
                 UserTypeToggle(
                     userTypes = AuthConstants.userTypes,
                     signUpVM = signUpVM,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
                     onSelectUserType = {
 
                         signUpVM.onEvent(SignUpEvents.ToggleUserType(it))
@@ -283,8 +291,8 @@ fun SignUpScreen(
                 //  signup fields
                 SignUpFields(
                     authVM = authVM,
-                    primaryColor = MaterialTheme.colorScheme.primary,
-                    tertiaryColor = MaterialTheme.colorScheme.tertiary
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
                 //  terms and conditions text
@@ -313,11 +321,40 @@ fun SignUpScreen(
                         Button(
                             onClick = {
                                 signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(true))
-                                authVM.onEvent(RegistrationFormEvent.Submit)
 
-                                coreVM.onEvent(CoreEvents.DatastoreSaveUserType(
-                                    signUpVM.chosenUserType.value.userTitle
-                                ))
+                                val isAdmin = Constants.adminEmails.any {
+                                    it == authVM.formState.email
+                                }
+                                val isAgent = Constants.agentEmails.any {
+                                    it == authVM.formState.email
+                                }
+                                val isNormalUser = !Constants.adminEmails.any {
+                                    it == authVM.formState.email
+                                } && !Constants.agentEmails.any {
+                                    it == authVM.formState.email
+                                }
+
+                                if ((signUpVM.chosenUserType.value.userTitle == AuthConstants.userTypes[2].userTitle ||
+                                            signUpVM.chosenUserType.value.userTitle == AuthConstants.userTypes[3].userTitle) &&
+                                    !isAdmin && !isAgent
+                                ) {
+                                    Toast.makeText(
+                                        context,
+                                        "Please choose if landlord or tenant",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    signUpVM.onEvent(SignUpEvents.ToggleLoadingCircles(false))
+
+                                } else {
+                                    authVM.onEvent(RegistrationFormEvent.Submit)
+                                }
+
+                                coreVM.onEvent(
+                                    CoreEvents.DatastoreSaveUserType(
+                                        signUpVM.chosenUserType.value.userTitle
+                                    )
+                                )
                             },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = tertiaryColor,

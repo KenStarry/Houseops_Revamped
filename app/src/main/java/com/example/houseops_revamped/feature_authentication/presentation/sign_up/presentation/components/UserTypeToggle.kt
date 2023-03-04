@@ -15,10 +15,10 @@ import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.presentation.utils.Constants
@@ -34,23 +34,34 @@ fun UserTypeToggle(
     userTypes: List<UserType>,
     authVM: AuthenticationViewModel = hiltViewModel(),
     signUpVM: SignUpViewModel = hiltViewModel(),
+    primaryColor: Color,
+    tertiaryColor: Color,
     onSelectUserType: (userType: UserType) -> Unit
 ) {
 
     val listState = rememberLazyListState()
 
-    val userTypesFiltered = userTypes.filter { it == AuthConstants.userTypes[0] || it == AuthConstants.userTypes[1] }
+    val userTypesFiltered =
+        userTypes.filter { it == AuthConstants.userTypes[0] || it == AuthConstants.userTypes[1] }
+
+    val isAdmin = Constants.adminEmails.any {
+        it == authVM.formState.email
+    }
+    val isAgent = Constants.agentEmails.any {
+        it == authVM.formState.email
+    }
+    val isNormalUser = !Constants.adminEmails.any {
+        it == authVM.formState.email
+    } && !Constants.agentEmails.any {
+        it == authVM.formState.email
+    }
 
     Box(
         modifier = Modifier
             .wrapContentSize()
     ) {
 
-        AnimatedVisibility(visible = !Constants.adminEmails.any {
-            it == authVM.formState.email
-        } && !Constants.agentEmails.any {
-            it == authVM.formState.email
-        }) {
+        AnimatedVisibility(visible = isNormalUser) {
 
             //  toggle tenant type
 //            signUpVM.onEvent(SignUpEvents.ToggleUserType(AuthConstants.userTypes[1]))
@@ -67,7 +78,7 @@ fun UserTypeToggle(
                                 .fillMaxWidth()
                                 .background(
                                     color = if (user == signUpVM.chosenUserType.value)
-                                        MaterialTheme.colorScheme.tertiary
+                                        tertiaryColor
                                     else
                                         MaterialTheme.colorScheme.onSecondary
                                 )
@@ -84,7 +95,7 @@ fun UserTypeToggle(
                             Icon(
                                 imageVector = user.icon,
                                 contentDescription = "User type icon",
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = primaryColor
                             )
 
                             Spacer(modifier = Modifier.width(8.dp))
@@ -106,9 +117,7 @@ fun UserTypeToggle(
         }
 
         //  if user is admin, display the text
-        AnimatedVisibility(visible = Constants.adminEmails.any {
-            it == authVM.formState.email
-        }) {
+        AnimatedVisibility(visible = isAdmin) {
 
             //  toggle admin user type
             signUpVM.onEvent(SignUpEvents.ToggleUserType(AuthConstants.userTypes[2]))
@@ -117,16 +126,14 @@ fun UserTypeToggle(
             HomePillBtns(
                 icon = Icons.Outlined.AdminPanelSettings,
                 title = "Sign Up as Admin",
-                primaryColor = MaterialTheme.colorScheme.primary,
-                tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
                 onClick = {}
             )
         }
 
         //  if user is agent, display the text
-        AnimatedVisibility(visible = Constants.agentEmails.any {
-            it == authVM.formState.email
-        }) {
+        AnimatedVisibility(visible = isAgent) {
             //  toggle agent user type
             signUpVM.onEvent(SignUpEvents.ToggleUserType(AuthConstants.userTypes[3]))
 
@@ -134,8 +141,8 @@ fun UserTypeToggle(
             HomePillBtns(
                 icon = Icons.Outlined.SupportAgent,
                 title = "Sign Up as Agent",
-                primaryColor = MaterialTheme.colorScheme.primary,
-                tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
                 onClick = {}
             )
         }
