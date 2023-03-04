@@ -221,7 +221,7 @@ fun SignUpScreen(
 
     Scaffold(
         topBar = {
-            BackPressTopAppBar(title = "") {
+            BackPressTopAppBar(title = "Sign Up") {
                 //  navigate back to login screen
                 navHostController.navigate(AUTHENTICATION_ROUTE) {
                     popUpTo(AUTHENTICATION_ROUTE)
@@ -259,15 +259,6 @@ fun SignUpScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-
-                //  signup text
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.Start),
-                    text = "Sign Up",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight
-                )
 
                 //  choose user type
                 UserTypeToggle(

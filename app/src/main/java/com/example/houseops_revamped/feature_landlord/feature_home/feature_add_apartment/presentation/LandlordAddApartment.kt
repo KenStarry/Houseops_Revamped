@@ -166,7 +166,9 @@ fun LandlordAddApartment(
                                 apartmentName = lndAddApartmentVM.apartmentName.value,
                                 apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
                                 apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,
-                                apartmentFeatures = lndAddApartmentVM.apartmentFeatures
+                                apartmentFeatures = lndAddApartmentVM.apartmentFeatures,
+                                apartmentPurchaseType = coreVM.chosenOptionToggle.value?.title ?: "",
+                                apartmentPrice = lndAddApartmentVM.apartmentPrice.value
                             ),
                             response = {
                                 when (it) {
