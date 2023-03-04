@@ -8,13 +8,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.viewmodel.AdminHomeViewModel
 
 @Composable
 fun AdminViewLandlords(
     adminHomeVM: AdminHomeViewModel = hiltViewModel(),
-    context: Context
+    context: Context,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     val state = rememberLazyListState()
@@ -26,7 +29,9 @@ fun AdminViewLandlords(
                 //  landlord item
                 AdminLandlordItem(
                     landlord = landlord,
-                    context = context
+                    context = context,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
             }
         },

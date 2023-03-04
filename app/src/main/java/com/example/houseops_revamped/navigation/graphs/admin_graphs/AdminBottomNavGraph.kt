@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_admin.feature_agents.AdminAgentsScreen
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.AdminHomeScreen
-import com.example.houseops_revamped.feature_admin.feature_settings.AdminSettingsScreen
+import com.example.houseops_revamped.feature_admin.feature_settings.presentation.AdminSettingsScreen
 import com.example.houseops_revamped.navigation.screens.AdminBottomNavScreens
 import kotlinx.coroutines.CoroutineScope
 
@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun AdminBottomNavGraph(
     navHostController: NavHostController,
+    mainNavHostController: NavHostController,
     coreViewModel: CoreViewModel,
     modalSheetState: ModalBottomSheetState,
     scope: CoroutineScope
@@ -41,7 +42,7 @@ fun AdminBottomNavGraph(
         }
 
         composable(route = AdminBottomNavScreens.Settings.route) {
-            AdminSettingsScreen(navHostController = navHostController)
+            AdminSettingsScreen(navHostController = mainNavHostController)
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.houseops_revamped.feature_admin.feature_home.presentation.co
 
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -24,7 +26,9 @@ import com.google.android.gms.maps.model.Circle
 @Composable
 fun AdminLandlordItem(
     landlord: UsersCollection?,
-    context: Context
+    context: Context,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     landlord?.let {
@@ -46,7 +50,8 @@ fun AdminLandlordItem(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .wrapContentHeight()
+                    .clickable {  },
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
@@ -106,7 +111,7 @@ fun AdminLandlordItem(
                             Icon(
                                 imageVector = Icons.Outlined.LocationOn,
                                 contentDescription = "Location",
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = primaryColor,
                                 modifier = Modifier
                                     .size(16.dp)
                             )

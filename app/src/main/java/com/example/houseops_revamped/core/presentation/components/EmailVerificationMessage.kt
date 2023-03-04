@@ -25,7 +25,9 @@ import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.pre
 fun EmailVerificationMessage(
     coreVM: CoreViewModel = hiltViewModel(),
     onSuccess: () -> Unit,
-    onFailure: () -> Unit
+    onFailure: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     var isLoading by remember {
@@ -61,8 +63,8 @@ fun EmailVerificationMessage(
                 HomePillBtns(
                     icon = Icons.Outlined.Email,
                     title = user,
-                    primaryColor = MaterialTheme.colorScheme.primary,
-                    tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
                     onClick = {}
                 )
 
@@ -96,8 +98,8 @@ fun EmailVerificationMessage(
         if (isLoading) {
 
             LoadingCircle(
-                primaryColor = MaterialTheme.colorScheme.primary,
-                tertiaryColor = MaterialTheme.colorScheme.tertiary
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
 
         } else {

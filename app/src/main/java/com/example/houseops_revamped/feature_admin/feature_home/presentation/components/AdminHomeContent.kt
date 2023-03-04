@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,7 +23,10 @@ import com.example.houseops_revamped.feature_admin.feature_home.presentation.vie
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminHomeContent() {
+fun AdminHomeContent(
+    primaryColor: Color,
+    tertiaryColor: Color
+) {
 
     val coreVM: CoreViewModel = hiltViewModel()
     val adminHomeVM: AdminHomeViewModel = hiltViewModel()
@@ -42,7 +46,9 @@ fun AdminHomeContent() {
         topBar = {
             AdminHomeAppBar(
                 context = context,
-                userName = userDetails?.userName ?: " "
+                userName = userDetails?.userName ?: " ",
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
     ) { contentPadding ->
@@ -64,7 +70,9 @@ fun AdminHomeContent() {
                 //  show all landlords registered by the app
                 AdminViewLandlords(
                     adminHomeVM = adminHomeVM,
-                    context = context
+                    context = context,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
             }

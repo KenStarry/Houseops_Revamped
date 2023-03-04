@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -22,7 +23,9 @@ import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.pre
 @Composable
 fun AdminHomeAppBar(
     context: Context,
-    userName: String
+    userName: String,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     LargeTopAppBar(
@@ -49,8 +52,8 @@ fun AdminHomeAppBar(
                 HomePillBtns(
                     icon = Icons.Outlined.VerifiedUser,
                     title = userName,
-                    primaryColor = MaterialTheme.colorScheme.primary,
-                    tertiaryColor = MaterialTheme.colorScheme.tertiary
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 ) {
 
                     //  go to settings screen

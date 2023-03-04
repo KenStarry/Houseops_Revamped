@@ -13,7 +13,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -39,6 +41,18 @@ fun AdminMainScreen(
     val navController = rememberNavController()
     val coreVM: CoreViewModel = hiltViewModel()
     val direction = Direction(navHostController)
+
+    val primaryColor = Color(
+        coreVM.primaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].darkColor
+        ).value ?: Constants.accentColors[0].darkColor
+    )
+
+    val tertiaryColor = Color(
+        coreVM.tertiaryAccentFlow.collectAsState(
+            initial = Constants.accentColors[0].lightColor
+        ).value ?: Constants.accentColors[0].lightColor
+    )
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -66,7 +80,11 @@ fun AdminMainScreen(
 
             Scaffold(
                 bottomBar = {
-                    AdminBottomNav(navHostController = navController)
+                    AdminBottomNav(
+                        navHostController = navController,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
+                    )
                 }
             ) { contentPadding ->
 
@@ -78,6 +96,7 @@ fun AdminMainScreen(
                 ) {
                     AdminBottomNavGraph(
                         navHostController = navController,
+                        mainNavHostController = navHostController,
                         coreViewModel = coreVM,
                         modalSheetState = state,
                         scope = scope
