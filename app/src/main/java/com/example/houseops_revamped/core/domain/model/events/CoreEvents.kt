@@ -11,6 +11,10 @@ sealed class CoreEvents {
         val response: (response: Response<*>) -> Unit
     ) : CoreEvents()
 
+    data class LogoutUser(
+        val response: (response: Response<*>) -> Unit
+    ) : CoreEvents()
+
     data class UpdateFirestoreField(
         val collectionName: String,
         val documentName: String,

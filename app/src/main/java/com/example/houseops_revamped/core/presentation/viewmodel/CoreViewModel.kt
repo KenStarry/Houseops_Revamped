@@ -142,6 +142,14 @@ class CoreViewModel @Inject constructor(
                 }
             }
 
+            is CoreEvents.LogoutUser -> {
+                viewModelScope.launch {
+                    coreUseCases.logoutUser(
+                        response = { event.response(it) }
+                    )
+                }
+            }
+
             is CoreEvents.UpdateFirestoreField -> {
 
                 viewModelScope.launch {

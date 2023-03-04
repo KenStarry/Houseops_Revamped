@@ -36,6 +36,7 @@ object CoreModule {
     ) = CoreUseCases(
         isUserLoggedIn = IsUserLoggedIn(repo),
         currentUser = CurrentUser(repo),
+        logoutUser = LogoutUser(repo),
         userDetails = UserDetails(repo),
         caretakerDetails = CaretakerDetails(repo),
         updateField = UpdateField(repo),
