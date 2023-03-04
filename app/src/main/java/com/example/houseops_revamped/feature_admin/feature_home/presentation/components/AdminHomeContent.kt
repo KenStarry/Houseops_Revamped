@@ -17,18 +17,26 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_admin.feature_home.domain.models.AdminHomeEvents
+import com.example.houseops_revamped.feature_admin.feature_home.presentation.viewmodel.AdminHomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminHomeContent() {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val adminHomeVM: AdminHomeViewModel = hiltViewModel()
     val context = LocalContext.current
 
     val currentUser = coreVM.currentUser()
     val userDetails: UsersCollection? = coreVM.getUserDetails(
         currentUser?.email ?: "no email"
     )
+
+    //  get all landlords
+    adminHomeVM.onEvent(AdminHomeEvents.GetLandlords(
+        response = {}
+    ))
 
     Scaffold(
         topBar = {
@@ -54,7 +62,10 @@ fun AdminHomeContent() {
             ) {
 
                 //  show all landlords registered by the app
-
+                AdminViewLandlords(
+                    adminHomeVM = adminHomeVM,
+                    context = context
+                )
 
             }
 

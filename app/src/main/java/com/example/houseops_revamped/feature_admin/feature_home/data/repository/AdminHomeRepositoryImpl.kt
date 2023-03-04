@@ -7,12 +7,16 @@ import com.example.houseops_revamped.feature_admin.feature_home.domain.repositor
 import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import javax.inject.Inject
 
-class AdminHomeRepositoryImpl(
+class AdminHomeRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore
 ) : AdminHomeRepository {
 
-    override suspend fun getLandlords(response: (response: Response<*>) -> Unit) {
+    override suspend fun getLandlords(
+        landlords: (landlords: List<UsersCollection>) -> Unit,
+        response: (response: Response<*>) -> Unit
+    ) {
 
         try {
             db.collection(Constants.USERS_COLLECTION)
@@ -31,7 +35,7 @@ class AdminHomeRepositoryImpl(
                             landlordsList.add(it)
                         }
                     }
-
+                    landlords(landlordsList)
                     response(Response.Success(landlordsList))
                 }
         } catch (e: Exception) {
