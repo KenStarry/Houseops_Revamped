@@ -21,11 +21,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.components.EmailVerificationMessage
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.AdminHomeContent
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.bottomsheets.AdminVerificationSheet
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.utils.AdminConstants
 import com.example.houseops_revamped.feature_admin.feature_main.presentation.components.bottom_nav.AdminBottomNav
+import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.navigation.graphs.admin_graphs.AdminBottomNavGraph
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -36,6 +38,7 @@ fun AdminMainScreen(
 
     val navController = rememberNavController()
     val coreVM: CoreViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -46,7 +49,15 @@ fun AdminMainScreen(
             when (coreVM.bottomSheetContent.value) {
 
                 AdminConstants.BOTTOM_SHEET_VERIFICATION_SUCCESS -> {
-                    AdminVerificationSheet()
+                    AdminVerificationSheet(
+                        coreViewModel = coreVM,
+                        onLogout = {
+                            direction.navigateToRoute(
+                                Constants.AUTHENTICATION_ROUTE,
+                                Constants.ADMIN_ROUTE
+                            )
+                        }
+                    )
                 }
             }
 

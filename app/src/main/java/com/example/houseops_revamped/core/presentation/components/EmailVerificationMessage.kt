@@ -1,6 +1,9 @@
 package com.example.houseops_revamped.core.presentation.components
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -8,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -15,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun EmailVerificationMessage(
@@ -35,12 +40,35 @@ fun EmailVerificationMessage(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Text(
-            text = "Verify Email",
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            Text(
+                text = "Verify Email",
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
+
+            coreVM.currentUser?.email?.let { user ->
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                HomePillBtns(
+                    icon = Icons.Outlined.Email,
+                    title = user,
+                    primaryColor = MaterialTheme.colorScheme.primary,
+                    tertiaryColor = MaterialTheme.colorScheme.tertiary,
+                    onClick = {}
+                )
+
+            }
+
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 

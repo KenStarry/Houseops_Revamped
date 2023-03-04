@@ -46,7 +46,7 @@ fun AdminHomeScreen(
 
         //  show error message
         EmailVerificationMessage(
-            coreVM = coreViewModel,
+            coreVM = coreVM,
             onSuccess = {
                 coreViewModel.onBottomSheetEvent(
                     BottomSheetEvents.OpenBottomSheet(
@@ -59,14 +59,6 @@ fun AdminHomeScreen(
             },
             onFailure = {
                 Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
-                coreViewModel.onBottomSheetEvent(
-                    BottomSheetEvents.OpenBottomSheet(
-                        state = modalSheetState,
-                        scope = scope,
-                        bottomSheetType = AdminConstants.BOTTOM_SHEET_VERIFICATION_SUCCESS,
-                        bottomSheetData = null
-                    )
-                )
             }
         )
     }

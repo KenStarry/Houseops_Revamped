@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -63,8 +64,8 @@ fun HomePillBtns(
 
             Text(
                 text = title,
-                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 overflow = TextOverflow.Ellipsis
             )

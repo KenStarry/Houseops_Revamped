@@ -1,13 +1,18 @@
 package com.example.houseops_revamped.feature_admin.feature_home.presentation.components.bottomsheets
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowRight
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -16,20 +21,25 @@ import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.LoadingCircle
 import com.example.houseops_revamped.core.presentation.components.Lottie
+import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 
 @Composable
-fun AdminVerificationSheet() {
+fun AdminVerificationSheet(
+    coreViewModel: CoreViewModel,
+    onLogout: () -> Unit
+) {
 
     var isLoading by remember {
         mutableStateOf(false)
     }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+            .wrapContentHeight()
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Text(
@@ -39,6 +49,8 @@ fun AdminVerificationSheet() {
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         Text(
             text = "After verification, login to verify your account.",
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
@@ -47,6 +59,8 @@ fun AdminVerificationSheet() {
             textAlign = TextAlign.Center
         )
 
+        Spacer(modifier = Modifier.height(24.dp))
+
         //  success lottie
         Lottie(
             rawFile = R.raw.success_lottie,
@@ -54,8 +68,10 @@ fun AdminVerificationSheet() {
             iterations = 1,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp)
+                .height(200.dp)
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         Row(
             modifier = Modifier
@@ -66,14 +82,21 @@ fun AdminVerificationSheet() {
         ) {
 
             Text(
-                text = "Logout",
+                text = "Logout from account",
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Icon(
+                imageVector = Icons.Outlined.ArrowRight,
+                contentDescription = "right arrow"
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
 
             if (isLoading) {
 
@@ -89,6 +112,24 @@ fun AdminVerificationSheet() {
                     isLoading = true
 
                     //  logout
+                    coreViewModel.onEvent(CoreEvents.LogoutUser(
+                        response = {
+                            when (it) {
+                                is Response.Success -> {
+                                    isLoading = false
+                                    onLogout()
+                                }
+                                is Response.Failure -> {
+                                    isLoading = false
+                                    Toast.makeText(
+                                        context,
+                                        "Couldn't log you out",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        }
+                    ))
                 }) {
                     Text(
                         text = "Logout",
