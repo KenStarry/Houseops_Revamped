@@ -34,7 +34,7 @@ fun AdminHomeContent() {
         topBar = {
             AdminHomeAppBar(
                 context = context,
-                userName = userDetails?.userName ?: ""
+                userName = userDetails?.userName ?: " "
             )
         }
     ) { contentPadding ->
@@ -53,15 +53,8 @@ fun AdminHomeContent() {
                     .padding(16.dp)
             ) {
 
-                //  admin title
-//                Text(
-//                    text = "Admin",
-//                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-//                    fontWeight = FontWeight.ExtraBold,
-//                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-//                )
-
                 //  show all landlords registered by the app
+
 
             }
 
