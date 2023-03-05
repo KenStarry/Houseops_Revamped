@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.Apartment
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.ApartmentItem
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -24,7 +25,8 @@ import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.pre
 fun AdminLandlordApartmentsPreview(
     apartments: List<Apartment>,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onAssignClicked: (apartment: Apartment) -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -79,7 +81,9 @@ fun AdminLandlordApartmentsPreview(
                             title = "Assign",
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
-                            onClick = {}
+                            onClick = {
+                                onAssignClicked(apartment)
+                            }
                         )
                     }
                 }

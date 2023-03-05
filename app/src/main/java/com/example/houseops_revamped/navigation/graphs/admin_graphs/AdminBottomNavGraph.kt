@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.feature_admin.feature_agents.AdminAgentsScreen
+import com.example.houseops_revamped.feature_admin.feature_agents.presentation.AdminAgentsScreen
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.AdminHomeScreen
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.AdminLandlordView
 import com.example.houseops_revamped.feature_admin.feature_settings.presentation.AdminSettingsScreen

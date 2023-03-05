@@ -1,12 +1,21 @@
 package com.example.houseops_revamped.feature_admin.feature_landlord_view.domain.model
 
-import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseops_revamped.core.domain.model.Response
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 
 sealed class AdminLandlordViewEvents {
 
     data class GetApartments(
         val landlordEmail: String,
         val response: (response: Response<*>) -> Unit
+    ) : AdminLandlordViewEvents()
+
+    data class ToggleAgentSelected(
+        val selectedAgent: UsersCollection
+    ) : AdminLandlordViewEvents()
+
+    data class ToggleAlertDialog(
+        val isVisible: Boolean,
+        val dialogType: String
     ) : AdminLandlordViewEvents()
 }

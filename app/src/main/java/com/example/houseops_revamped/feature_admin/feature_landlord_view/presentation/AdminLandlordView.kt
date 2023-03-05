@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -21,9 +22,12 @@ import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.components.BackPressTopAppBar
+import com.example.houseops_revamped.feature_admin.feature_agents.presentation.viewmodel.AdminAgentsViewModel
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.domain.model.AdminLandlordViewEvents
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordApartmentsPreview
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordViewAppBar
+import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AssignDialog
+import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.utils.AdminLandlordConstants
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.viewmodel.AdminLandlordViewVM
 import com.example.houseops_revamped.navigation.Direction
 
@@ -82,6 +86,31 @@ fun AdminLandlordView(
                 .padding(contentPadding)
         ) {
 
+            //  assign agent dialog
+            AnimatedVisibility(visible = landlordViewVM.isAssignAlertDialogVisible.value) {
+                AssignDialog(
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onConfirm = { agent ->
+
+                        //  assgin the agent to the apartment
+
+                        //  close Assign apartment dialog
+                        landlordViewVM.onEvent(AdminLandlordViewEvents.ToggleAlertDialog(
+                            isVisible = false,
+                            dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                        ))
+                    },
+                    onDismiss = {
+                        //  close Assign apartment dialog
+                        landlordViewVM.onEvent(AdminLandlordViewEvents.ToggleAlertDialog(
+                            isVisible = false,
+                            dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                        ))
+                    }
+                )
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -126,7 +155,14 @@ fun AdminLandlordView(
                 AdminLandlordApartmentsPreview(
                     apartments = landlordViewVM.apartments.value,
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    onAssignClicked = {
+                        //  open Assign apartment dialog
+                        landlordViewVM.onEvent(AdminLandlordViewEvents.ToggleAlertDialog(
+                            isVisible = true,
+                            dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                        ))
+                    }
                 )
 
             }
