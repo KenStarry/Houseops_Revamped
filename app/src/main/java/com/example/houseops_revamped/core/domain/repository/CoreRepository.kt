@@ -38,10 +38,10 @@ interface CoreRepository {
     suspend fun updateFirestoreField(
         collectionName: String,
         documentName: String,
-        subCollectionName: String,
-        subCollectionDocument: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
         fieldName: String,
-        fieldValue: String
+        fieldValue: Any
     )
 
     suspend fun updateUserArrayField(

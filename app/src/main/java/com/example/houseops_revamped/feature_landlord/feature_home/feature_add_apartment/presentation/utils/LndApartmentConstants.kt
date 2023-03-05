@@ -10,6 +10,7 @@ object LndApartmentConstants {
     //  bottomsheet types
     const val PLACES_BOTTOM_SHEET = "places bottomsheet"
     const val FEATURES_BOTTOM_SHEET = "house categories bottomsheet"
+    const val TERMS_BOTTOM_SHEET = "apartment terms and conditions bottomsheet"
 
     val optionsList = listOf(
         OptionsToggleModel(Icons.Outlined.Hotel, "For Rent"),

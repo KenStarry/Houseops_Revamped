@@ -5,8 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.DeleteForever
-import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,12 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.ApartmentFeature
 
 @Composable
-fun FeatureItem(
+fun TermsItem(
     apartmentFeature: ApartmentFeature,
     primaryColor: Color,
     tertiaryColor: Color,
@@ -33,7 +31,8 @@ fun FeatureItem(
             .wrapContentSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    ){
+
         Card(
             modifier = Modifier
                 .size(
@@ -67,7 +66,7 @@ fun FeatureItem(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Star,
+                        imageVector = Icons.Outlined.Warning,
                         contentDescription = "icon",
                         tint = primaryColor
                     )
@@ -110,22 +109,7 @@ fun FeatureItem(
                 contentDescription = "delete icon"
             )
         }
+
     }
 
-}
-
-@Preview
-@Composable
-fun FeatureItemPreview(
-    apartmentFeature: ApartmentFeature = ApartmentFeature(
-        "Security of The Highest Order",
-        "Security has been enforced through the use of mbwa kali!"
-    )
-) {
-    FeatureItem(
-        apartmentFeature = apartmentFeature,
-        MaterialTheme.colorScheme.primary,
-        MaterialTheme.colorScheme.tertiary,
-        onDelete = {}
-    )
 }

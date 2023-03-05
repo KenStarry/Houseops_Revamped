@@ -3,10 +3,7 @@ package com.example.houseops_revamped.feature_landlord.feature_home.feature_add_
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowRight
@@ -20,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 
 @Composable
-fun ApartmentFeaturesSection(
+fun ApartmentTermsSection(
     lndAddApartmentVM: LndAddApartmentViewModel,
-    onHouseFeaturesClicked: () -> Unit,
+    onAddConditionClicked: () -> Unit,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
@@ -50,7 +47,7 @@ fun ApartmentFeaturesSection(
         ) {
 
             Text(
-                text = "Apartment Features",
+                text = "Terms and Conditions",
                 fontSize = MaterialTheme.typography.titleSmall.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
@@ -63,14 +60,14 @@ fun ApartmentFeaturesSection(
             )
 
             Button(
-                onClick = { onHouseFeaturesClicked() },
+                onClick = { onAddConditionClicked() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = primaryColor,
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
             ) {
                 Text(
-                    text = "Add Feature",
+                    text = "Add Condition",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Bold
                 )
@@ -79,23 +76,22 @@ fun ApartmentFeaturesSection(
         }
 
         //  categories added
-        AnimatedVisibility(visible = lndAddApartmentVM.apartmentFeatures.isNotEmpty()) {
+        AnimatedVisibility(visible = lndAddApartmentVM.termsAndConditions.isNotEmpty()) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
             LazyRow(
                 content = {
                     itemsIndexed(
-                        items = lndAddApartmentVM.apartmentFeatures
-                    ) { index, feature ->
+                        items = lndAddApartmentVM.termsAndConditions
+                    ) { index, term ->
                         //  feature item
-                        FeatureItem(
-                            apartmentFeature = feature,
+                        TermsItem(
+                            apartmentFeature = term,
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
                             onDelete = {
-                                //  delete item from list
-                                lndAddApartmentVM.apartmentFeatures.removeAt(index)
+                                lndAddApartmentVM.termsAndConditions.removeAt(index)
                             }
                         )
                     }
@@ -107,6 +103,7 @@ fun ApartmentFeaturesSection(
                 contentPadding = PaddingValues(vertical = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             )
+
         }
 
     }

@@ -20,13 +20,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
+import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.components.EmailVerificationMessage
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.AdminHomeContent
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.bottomsheets.AdminVerificationSheet
+import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.bottomsheets.LandlordActionsSheet
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.utils.AdminConstants
 import com.example.houseops_revamped.feature_admin.feature_main.presentation.components.bottom_nav.AdminBottomNav
 import com.example.houseops_revamped.navigation.Direction
@@ -70,6 +73,25 @@ fun AdminMainScreen(
                                 Constants.AUTHENTICATION_ROUTE,
                                 Constants.ADMIN_ROUTE
                             )
+                        }
+                    )
+                }
+
+                AdminConstants.BOTTOM_SHEET_LANDLORD_ACTIONS -> {
+                    LandlordActionsSheet(
+                        landlord = coreVM.bottomSheetData.value as UsersCollection,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onVerifyClicked = { landlordEmail, isLandlordVerified ->
+
+                            coreVM.onEvent(CoreEvents.UpdateFirestoreField(
+                                collectionName = Constants.USERS_COLLECTION,
+                                documentName = landlordEmail,
+                                subCollectionName = null,
+                                subCollectionDocument = null,
+                                fieldName = "userIsVerified",
+                                fieldValue = isLandlordVerified
+                            ))
                         }
                     )
                 }

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.viewmodel.AdminHomeViewModel
 
 @Composable
@@ -20,7 +21,9 @@ fun AdminViewLandlords(
     adminHomeVM: AdminHomeViewModel = hiltViewModel(),
     context: Context,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onActionsClicked: (landlord: UsersCollection) -> Unit,
+    onCardClicked: (landlord: UsersCollection) -> Unit,
 ) {
 
     val state = rememberLazyListState()
@@ -34,10 +37,12 @@ fun AdminViewLandlords(
                     landlord = landlord,
                     context = context,
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    onCardClicked = { onCardClicked(landlord) },
+                    onActionsClicked = { onActionsClicked(landlord) }
                 )
-                
-                Spacer(modifier = Modifier.height(16.dp))
+
+                Spacer(modifier = Modifier.height(24.dp))
             }
         },
         state = state,

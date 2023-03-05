@@ -23,6 +23,7 @@ import com.example.houseops_revamped.navigation.Direction
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.LndApartmentMain
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.FeaturesBottomSheet
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.PlacesBottomSheet
+import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.components.bottomsheets.TermsBottomSheet
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.utils.LndApartmentConstants
 import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 import com.example.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
@@ -129,6 +130,41 @@ fun LandlordAddApartment(
                     )
                 }
 
+                LndApartmentConstants.TERMS_BOTTOM_SHEET -> {
+                    TermsBottomSheet(
+                        lndAddApartmentVM = lndAddApartmentVM,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onDone = { title, description ->
+                            lndAddApartmentVM.termsAndConditions.add(
+                                ApartmentFeature(
+                                    title, description
+                                )
+                            )
+                            lndAddApartmentVM.termsTitle.value = ""
+                            lndAddApartmentVM.termsDescription.value = ""
+
+                            lndAddApartmentVM.onEvent(
+                                LndApartmentEvents.CloseBottomSheet(
+                                    state = state,
+                                    scope = scope
+                                )
+                            )
+                        },
+                        onCancel = {
+                            lndAddApartmentVM.termsTitle.value = ""
+                            lndAddApartmentVM.termsDescription.value = ""
+
+                            lndAddApartmentVM.onEvent(
+                                LndApartmentEvents.CloseBottomSheet(
+                                    state = state,
+                                    scope = scope
+                                )
+                            )
+                        }
+                    )
+                }
+
                 else -> {
                     Column {
                         Text(text = "")
@@ -158,6 +194,15 @@ fun LandlordAddApartment(
                         )
                     )
                 },
+                onAddConditionClicked = {
+                    lndAddApartmentVM.onEvent(
+                        LndApartmentEvents.OpenBottomSheet(
+                            state = state,
+                            scope = scope,
+                            bottomSheetType = LndApartmentConstants.TERMS_BOTTOM_SHEET
+                        )
+                    )
+                },
                 onDone = {
                     lndAddApartmentVM.onEvent(
                         LndApartmentEvents.AddApartment(
@@ -165,9 +210,10 @@ fun LandlordAddApartment(
                                 apartmentLandlordEmail = landlord?.userEmail ?: "no email",
                                 apartmentName = lndAddApartmentVM.apartmentName.value,
                                 apartmentLocation = lndAddApartmentVM.apartmentLocation.value,
-                                apartmentCaretakerId = lndAddApartmentVM.apartmentCaretakerId.value,
                                 apartmentFeatures = lndAddApartmentVM.apartmentFeatures,
-                                apartmentPurchaseType = coreVM.chosenOptionToggle.value?.title ?: "",
+                                apartmentTermsAndConditions = lndAddApartmentVM.termsAndConditions,
+                                apartmentPurchaseType = coreVM.chosenOptionToggle.value?.title
+                                    ?: "",
                                 apartmentPrice = lndAddApartmentVM.apartmentPrice.value
                             ),
                             response = {
@@ -204,13 +250,13 @@ fun LandlordAddApartment(
         closeBottomSheet = { state, scope ->
             lndAddApartmentVM.onEvent(
                 LndApartmentEvents.CloseBottomSheet(
-                state = state,
-                scope = scope
-            ))
+                    state = state,
+                    scope = scope
+                )
+            )
         },
         sheetBackground = MaterialTheme.colorScheme.onPrimary
     )
-
 
 
 }

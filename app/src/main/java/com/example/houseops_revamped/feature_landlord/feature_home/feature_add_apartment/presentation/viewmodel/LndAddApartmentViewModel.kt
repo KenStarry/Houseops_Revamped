@@ -34,13 +34,22 @@ class LndAddApartmentViewModel @Inject constructor(
 
     val featureTitle = mutableStateOf("")
     val featureDescription = mutableStateOf("")
+    val termsTitle = mutableStateOf("")
+    val termsDescription = mutableStateOf("")
 
     val apartmentName = mutableStateOf("")
+
     val apartmentPrice = mutableStateOf("")
+
     val apartmentLocation = mutableStateOf<PlacesAPIResult?>(null)
+
     val apartmentCaretakerId = mutableStateOf("")
+
     private val _apartmentFeatures = mutableStateListOf<ApartmentFeature>()
     val apartmentFeatures: SnapshotStateList<ApartmentFeature> = _apartmentFeatures
+
+    private val _termsAndConditions = mutableStateListOf<ApartmentFeature>()
+    val termsAndConditions: SnapshotStateList<ApartmentFeature> = _termsAndConditions
 
     private var job: Job? = null
 

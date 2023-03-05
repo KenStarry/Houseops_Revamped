@@ -9,10 +9,10 @@ class UpdateField(
     suspend operator fun invoke(
         collectionName: String,
         documentName: String,
-        subCollectionName: String,
-        subCollectionDocument: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
         fieldName: String,
-        fieldValue: String
+        fieldValue: Any
     ) = repository.updateFirestoreField(
         collectionName,
         documentName,

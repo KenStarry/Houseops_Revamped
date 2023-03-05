@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowRight
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -63,6 +64,13 @@ fun AdminHomeAppBar(
             }
         },
         actions = {
+
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Outlined.Notifications,
+                    contentDescription = "Notificaions Icon"
+                )
+            }
 
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(

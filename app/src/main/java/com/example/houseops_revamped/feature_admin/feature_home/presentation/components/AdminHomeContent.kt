@@ -22,7 +22,10 @@ import com.example.houseops_revamped.feature_admin.feature_home.presentation.vie
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminHomeContent() {
+fun AdminHomeContent(
+    onActionsClicked: (landlord: UsersCollection) -> Unit,
+    onCardClicked: (landlord: UsersCollection) -> Unit,
+) {
 
     val coreVM: CoreViewModel = hiltViewModel()
     val adminHomeVM: AdminHomeViewModel = hiltViewModel()
@@ -87,7 +90,9 @@ fun AdminHomeContent() {
                     adminHomeVM = adminHomeVM,
                     context = context,
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    onCardClicked = { onCardClicked(it) },
+                    onActionsClicked = { onActionsClicked(it) }
                 )
 
             }

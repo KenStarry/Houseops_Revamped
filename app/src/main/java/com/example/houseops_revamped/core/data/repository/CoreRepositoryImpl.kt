@@ -96,18 +96,24 @@ class CoreRepositoryImpl @Inject constructor(
     override suspend fun updateFirestoreField(
         collectionName: String,
         documentName: String,
-        subCollectionName: String,
-        subCollectionDocument: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
         fieldName: String,
-        fieldValue: String
+        fieldValue: Any
     ) {
 
         try {
-            val collectionRef = db
-                .collection(collectionName)
-                .document(documentName)
-                .collection(subCollectionName)
-                .document(subCollectionDocument)
+            val collectionRef = if (subCollectionName != null
+                && subCollectionDocument != null
+            ) {
+                db.collection(collectionName)
+                    .document(documentName)
+                    .collection(subCollectionName)
+                    .document(subCollectionDocument)
+            } else {
+                db.collection(collectionName)
+                    .document(documentName)
+            }
 
             collectionRef.update(
                 fieldName, fieldValue

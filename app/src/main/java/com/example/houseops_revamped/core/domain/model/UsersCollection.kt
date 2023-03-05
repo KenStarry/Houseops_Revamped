@@ -10,10 +10,11 @@ data class UsersCollection(
     var userLikedHouses: List<LikedHouse>?,
     var userBookmarks: List<String>?,
     var userBookedHouses: List<BookedHouseModel>?,
-    var userType: String
+    var userType: String,
+    var userIsVerified: Boolean
 ) {
     //  empty constructor
     constructor() : this("", "", "",
-        "", listOf(), listOf(), listOf(), ""
+        "", listOf(), listOf(), listOf(), "", false
     )
 }

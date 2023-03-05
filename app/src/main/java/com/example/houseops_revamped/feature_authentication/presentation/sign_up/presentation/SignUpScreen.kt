@@ -104,7 +104,8 @@ fun SignUpScreen(
                                             userLikedHouses = listOf(),
                                             userBookmarks = listOf(),
                                             userBookedHouses = listOf(),
-                                            userType = signUpVM.chosenUserType.value.userTitle
+                                            userType = signUpVM.chosenUserType.value.userTitle,
+                                            userIsVerified = false
                                         ),
                                         response = { res ->
                                             when (res) {

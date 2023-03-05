@@ -5,11 +5,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Title
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -21,13 +26,15 @@ import com.example.houseopscaretakers.feature_landlord.feature_home.feature_add_
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun FeaturesBottomSheet(
+fun TermsBottomSheet(
     lndAddApartmentVM: LndAddApartmentViewModel,
+    primaryColor: Color,
+    tertiaryColor: Color,
     onDone: (
         title: String,
         description: String
     ) -> Unit,
-    onCancel: () -> Unit,
+    onCancel: () -> Unit
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -43,7 +50,7 @@ fun FeaturesBottomSheet(
     ) {
 
         Text(
-            text = "Add Feature",
+            text = "Terms and Conditions",
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
@@ -51,35 +58,35 @@ fun FeaturesBottomSheet(
 
         //  title
         CustomTextField(
-            textFieldValue = lndAddApartmentVM.featureTitle.value,
+            textFieldValue = lndAddApartmentVM.termsTitle.value,
             startIcon = Icons.Outlined.Title,
             endIcon = null,
-            placeholder = "e.g Security, Parking etc.",
+            placeholder = "e.g Deposit, Rent Payment...",
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Text,
-            primaryColor = MaterialTheme.colorScheme.primary,
-            tertiaryColor = MaterialTheme.colorScheme.tertiary,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor,
             fontSize = MaterialTheme.typography.titleSmall.fontSize,
             fontWeight = FontWeight.Bold,
             onInput = {
-                lndAddApartmentVM.featureTitle.value = it
+                lndAddApartmentVM.termsTitle.value = it
             }
         )
 
         //  description
         CustomTextField(
-            textFieldValue = lndAddApartmentVM.featureDescription.value,
+            textFieldValue = lndAddApartmentVM.termsDescription.value,
             startIcon = Icons.Outlined.Description,
             endIcon = null,
-            placeholder = "Feature description",
+            placeholder = "Terms description",
             imeAction = ImeAction.Default,
             keyboardType = KeyboardType.Text,
-            primaryColor = MaterialTheme.colorScheme.primary,
-            tertiaryColor = MaterialTheme.colorScheme.tertiary,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor,
             singleLine = false,
             maxLines = Int.MAX_VALUE,
             onInput = {
-                lndAddApartmentVM.featureDescription.value = it
+                lndAddApartmentVM.termsDescription.value = it
             }
         )
 
@@ -87,12 +94,9 @@ fun FeaturesBottomSheet(
             onDone = {
                 keyboardController?.hide()
                 onDone(
-                    lndAddApartmentVM.featureTitle.value,
-                    lndAddApartmentVM.featureDescription.value
+                    lndAddApartmentVM.termsTitle.value,
+                    lndAddApartmentVM.termsDescription.value
                 )
-
-                lndAddApartmentVM.featureTitle.value = ""
-                lndAddApartmentVM.featureDescription.value = ""
             },
             onCancel = {
                 keyboardController?.hide()
@@ -101,5 +105,35 @@ fun FeaturesBottomSheet(
         )
 
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

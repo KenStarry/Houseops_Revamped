@@ -19,7 +19,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomePillBtns(
     icon: ImageVector?,
+    iconSize: Dp = 24.dp,
     title: String,
+    containerColor: Color = MaterialTheme.colorScheme.onSecondary,
     primaryColor: Color,
     tertiaryColor: Color,
     paddingHorizontal: Dp = 16.dp,
@@ -42,7 +44,7 @@ fun HomePillBtns(
         Row(
             modifier = Modifier
                 .wrapContentSize()
-                .background(MaterialTheme.colorScheme.tertiary)
+                .background(containerColor)
                 .clickable { onClick() }
                 .padding(
                     horizontal = paddingHorizontal,
@@ -56,7 +58,9 @@ fun HomePillBtns(
                 Icon(
                     imageVector = it,
                     contentDescription = "pill icon",
-                    tint = primaryColor
+                    tint = primaryColor,
+                    modifier = Modifier
+                        .size(iconSize)
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))

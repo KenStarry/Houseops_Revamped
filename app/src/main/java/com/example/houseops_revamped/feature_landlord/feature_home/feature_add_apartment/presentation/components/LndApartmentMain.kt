@@ -22,6 +22,7 @@ fun LndApartmentMain(
     lndAddApartmentVM: LndAddApartmentViewModel,
     onLocationClicked: () -> Unit,
     onHouseFeaturesClicked: () -> Unit,
+    onAddConditionClicked: () ->  Unit,
     onDone: () -> Unit,
     onCancel: () -> Unit,
     primaryColor: Color,
@@ -68,6 +69,9 @@ fun LndApartmentMain(
                     },
                     onHouseFeaturesClicked = {
                         onHouseFeaturesClicked()
+                    },
+                    onAddConditionClicked = {
+                        onAddConditionClicked()
                     }
                 )
 

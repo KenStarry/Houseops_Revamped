@@ -55,7 +55,19 @@ fun AdminHomeScreen(
     if (currentUser?.isEmailVerified == true) {
 
         //  show main UI
-        AdminHomeContent()
+        AdminHomeContent(
+            onCardClicked = {},
+            onActionsClicked = { landlord ->
+                coreViewModel.onBottomSheetEvent(
+                    BottomSheetEvents.OpenBottomSheet(
+                        state = modalSheetState,
+                        scope = scope,
+                        bottomSheetType = AdminConstants.BOTTOM_SHEET_LANDLORD_ACTIONS,
+                        bottomSheetData = landlord
+                    )
+                )
+            }
+        )
 
     } else {
 

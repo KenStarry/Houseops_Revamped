@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.ModeEdit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,109 +29,138 @@ fun AdminLandlordItem(
     landlord: UsersCollection?,
     context: Context,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onCardClicked: () -> Unit,
+    onActionsClicked: () -> Unit
 ) {
 
     landlord?.let {
 
-        Card(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.onPrimary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 0.dp
-            )
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            Row(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .clickable {  },
-                verticalAlignment = Alignment.CenterVertically
+                    .wrapContentHeight(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 0.dp
+                )
             ) {
 
-                //  landlord image
                 Row(
                     modifier = Modifier
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Start,
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .clickable { onCardClicked() },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    CoilImage(
-                        context = context,
-                        imageUri = it.userImageUri?.toUri(),
-                        placeholder = R.drawable.profile,
+                    //  landlord image
+                    Row(
                         modifier = Modifier
-                            .clip(CircleShape)
-                            .size(50.dp)
-                    )
-
-                }
-
-                //  landlord details
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(16.dp))
-                        .weight(4f)
-                        .wrapContentHeight()
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                ) {
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                            .padding(8.dp)
+                            .weight(1f),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
 
-                        //  name
-                        Text(
-                            text = it.userName ?: "",
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        CoilImage(
+                            context = context,
+                            imageUri = it.userImageUri?.toUri(),
+                            placeholder = R.drawable.profile,
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .size(50.dp)
                         )
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                    }
 
-                        //  location
-                        Row(
+                    //  landlord details
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .weight(4f)
+                            .wrapContentHeight()
+                            .background(MaterialTheme.colorScheme.onSecondary)
+                    ) {
+
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .wrapContentHeight(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                                .wrapContentHeight()
+                                .padding(8.dp)
                         ) {
 
-                            Icon(
-                                imageVector = Icons.Outlined.LocationOn,
-                                contentDescription = "Location",
-                                tint = primaryColor,
-                                modifier = Modifier
-                                    .size(16.dp)
+                            //  name
+                            Text(
+                                text = it.userName ?: "",
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                             )
 
-                            Text(
-                                text = "Pangani, Nairobi, Kenya",
-                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
-                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            //  location
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+
+                                Icon(
+                                    imageVector = Icons.Outlined.LocationOn,
+                                    contentDescription = "Location",
+                                    tint = primaryColor,
+                                    modifier = Modifier
+                                        .size(16.dp)
+                                )
+
+                                Text(
+                                    text = "Pangani, Nairobi, Kenya",
+                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.5f
+                                    )
+                                )
+
+                            }
 
                         }
 
                     }
-
                 }
+            }
 
-
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                HomePillBtns(
+                    icon = Icons.Outlined.ModeEdit,
+                    title = "Actions",
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onClick = {
+                        onActionsClicked()
+                    }
+                )
             }
 
         }

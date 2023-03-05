@@ -32,7 +32,8 @@ fun LndApartmentDetails(
     primaryColor: Color,
     tertiaryColor: Color,
     onLocationClicked: () -> Unit,
-    onHouseFeaturesClicked: () -> Unit
+    onHouseFeaturesClicked: () -> Unit,
+    onAddConditionClicked: () ->  Unit
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
@@ -123,10 +124,13 @@ fun LndApartmentDetails(
             tertiaryColor = tertiaryColor
         )
 
-
-        //  apartment features e.g security type, social ammenities... etc (list)
         //  apartment terms and conditions (list)
-
+        ApartmentTermsSection(
+            lndAddApartmentVM = lndAddApartmentVM,
+            onAddConditionClicked = onAddConditionClicked,
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
     }
 }
 
