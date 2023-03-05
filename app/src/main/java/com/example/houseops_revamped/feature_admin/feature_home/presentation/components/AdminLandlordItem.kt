@@ -122,11 +122,11 @@ fun AdminLandlordItem(
 
                                 if (it.userIsVerified)
                                     Lottie(
-                                        rawFile = R.raw.success_lottie,
+                                        rawFile = R.raw.blue_tick,
                                         isPlaying = true,
                                         iterations = 1,
                                         modifier = Modifier
-                                            .size(40.dp)
+                                            .size(30.dp)
                                     )
 
                             }
