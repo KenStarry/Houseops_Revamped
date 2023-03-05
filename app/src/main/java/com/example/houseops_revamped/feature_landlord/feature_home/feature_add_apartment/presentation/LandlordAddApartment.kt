@@ -214,7 +214,8 @@ fun LandlordAddApartment(
                                 apartmentTermsAndConditions = lndAddApartmentVM.termsAndConditions,
                                 apartmentPurchaseType = coreVM.chosenOptionToggle.value?.title
                                     ?: "",
-                                apartmentPrice = lndAddApartmentVM.apartmentPrice.value
+                                apartmentPrice = lndAddApartmentVM.apartmentPrice.value,
+                                apartmentAgentAssigned = null
                             ),
                             response = {
                                 when (it) {

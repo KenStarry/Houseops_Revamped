@@ -17,11 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.components.BackPressTopAppBar
+import com.example.houseops_revamped.feature_admin.feature_landlord_view.domain.model.AdminLandlordViewEvents
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordApartmentsPreview
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordViewAppBar
+import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.viewmodel.AdminLandlordViewVM
 import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,9 +35,20 @@ fun AdminLandlordView(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val landlordViewVM: AdminLandlordViewVM = hiltViewModel()
     val direction = Direction(navHostController)
     val context = LocalContext.current
     val landlord = coreVM.getUserDetails(landlordEmail)
+
+    landlordViewVM.onEvent(AdminLandlordViewEvents.GetApartments(
+        landlordEmail = landlordEmail,
+        response = {
+            when (it) {
+                is Response.Success -> {}
+                is Response.Failure -> {}
+            }
+        }
+    ))
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -110,7 +124,9 @@ fun AdminLandlordView(
 
                 //  apartments preview
                 AdminLandlordApartmentsPreview(
-                    landlordEmail = landlordEmail
+                    apartments = landlordViewVM.apartments.value,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
             }

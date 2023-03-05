@@ -7,7 +7,6 @@ sealed class AdminLandlordViewEvents {
 
     data class GetApartments(
         val landlordEmail: String,
-        val apartments: (apartments: List<Apartment>) -> Unit,
         val response: (response: Response<*>) -> Unit
     ) : AdminLandlordViewEvents()
 }

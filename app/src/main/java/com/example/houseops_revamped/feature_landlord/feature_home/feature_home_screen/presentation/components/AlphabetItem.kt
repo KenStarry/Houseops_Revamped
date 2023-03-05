@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.Apartment
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.ApartmentItem
 
 @Composable
 fun AlphabetItem(
@@ -60,13 +59,7 @@ fun AlphabetItem(
                     ApartmentItem(
                         apartment = it,
                         primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .fillMaxWidth()
-                            .height(100.dp)
-                            .background(MaterialTheme.colorScheme.onSecondary)
-                            .padding(16.dp)
+                        tertiaryColor = tertiaryColor
                     )
 
                 }

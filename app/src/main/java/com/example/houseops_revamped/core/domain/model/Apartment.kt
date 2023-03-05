@@ -7,10 +7,11 @@ data class Apartment(
     val apartmentFeatures: List<ApartmentFeature>,
     val apartmentTermsAndConditions: List<ApartmentFeature>,
     val apartmentPurchaseType: String,
-    val apartmentPrice: String?
+    val apartmentPrice: String?,
+    val apartmentAgentAssigned: String?
 ) {
     constructor() : this(
         "", "", null,
-        listOf(), listOf(), "", null
+        listOf(), listOf(), "", null, null
     )
 }
