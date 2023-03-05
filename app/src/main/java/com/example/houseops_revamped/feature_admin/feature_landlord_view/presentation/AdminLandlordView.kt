@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.core.presentation.components.BackPressTopAppBar
+import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordApartmentsPreview
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordViewAppBar
 import com.example.houseops_revamped.navigation.Direction
 
@@ -108,6 +109,9 @@ fun AdminLandlordView(
                 }
 
                 //  apartments preview
+                AdminLandlordApartmentsPreview(
+                    landlordEmail = landlordEmail
+                )
 
             }
 
