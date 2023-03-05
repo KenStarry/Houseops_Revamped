@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.core.domain.use_cases
 
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.repository.CoreRepository
 
 class UpdateField(
@@ -12,13 +13,15 @@ class UpdateField(
         subCollectionName: String?,
         subCollectionDocument: String?,
         fieldName: String,
-        fieldValue: Any
+        fieldValue: Any,
+        onResponse: (response: Response<*>) -> Unit
     ) = repository.updateFirestoreField(
         collectionName,
         documentName,
         subCollectionName,
         subCollectionDocument,
         fieldName,
-        fieldValue
+        fieldValue,
+        onResponse = onResponse
     )
 }

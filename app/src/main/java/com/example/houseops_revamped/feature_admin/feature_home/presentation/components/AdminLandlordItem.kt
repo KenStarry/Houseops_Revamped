@@ -21,6 +21,7 @@ import androidx.core.net.toUri
 import com.example.houseops_revamped.R
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CoilImage
+import com.example.houseops_revamped.core.presentation.components.Lottie
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 import com.google.android.gms.maps.model.Circle
 
@@ -101,13 +102,34 @@ fun AdminLandlordItem(
                                 .padding(8.dp)
                         ) {
 
-                            //  name
-                            Text(
-                                text = it.userName ?: "",
-                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+
+                                //  name
+                                Text(
+                                    text = it.userName ?: "",
+                                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.8f
+                                    )
+                                )
+
+                                if (it.userIsVerified)
+                                    Lottie(
+                                        rawFile = R.raw.success_lottie,
+                                        isPlaying = true,
+                                        iterations = 1,
+                                        modifier = Modifier
+                                            .size(40.dp)
+                                    )
+
+                            }
 
                             Spacer(modifier = Modifier.height(16.dp))
 

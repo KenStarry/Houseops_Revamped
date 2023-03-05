@@ -17,4 +17,8 @@ sealed class BottomSheetEvents<out T> {
         val state: ModalBottomSheetState,
         val scope: CoroutineScope
     ) : BottomSheetEvents<Nothing>()
+
+    data class UpdateBottomSheetData<out T>(
+        val data: T?
+    ) : BottomSheetEvents<T>()
 }

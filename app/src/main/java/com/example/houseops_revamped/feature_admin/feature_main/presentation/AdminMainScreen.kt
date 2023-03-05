@@ -12,14 +12,15 @@ import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
@@ -44,6 +45,7 @@ fun AdminMainScreen(
     val navController = rememberNavController()
     val coreVM: CoreViewModel = hiltViewModel()
     val direction = Direction(navHostController)
+    val context = LocalContext.current
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -56,6 +58,10 @@ fun AdminMainScreen(
             initial = Constants.accentColors[0].lightColor
         ).value ?: Constants.accentColors[0].lightColor
     )
+
+    var isVerified by remember {
+        mutableStateOf(false)
+    }
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -79,19 +85,56 @@ fun AdminMainScreen(
 
                 AdminConstants.BOTTOM_SHEET_LANDLORD_ACTIONS -> {
                     LandlordActionsSheet(
-                        landlord = coreVM.bottomSheetData.value as UsersCollection,
+                        landlord = coreVM.bottomSheetData.value as UsersCollection?,
                         primaryColor = primaryColor,
                         tertiaryColor = tertiaryColor,
                         onVerifyClicked = { landlordEmail, isLandlordVerified ->
 
-                            coreVM.onEvent(CoreEvents.UpdateFirestoreField(
-                                collectionName = Constants.USERS_COLLECTION,
-                                documentName = landlordEmail,
-                                subCollectionName = null,
-                                subCollectionDocument = null,
-                                fieldName = "userIsVerified",
-                                fieldValue = isLandlordVerified
-                            ))
+                            coreVM.onEvent(
+                                CoreEvents.UpdateFirestoreField(
+                                    collectionName = Constants.USERS_COLLECTION,
+                                    documentName = landlordEmail,
+                                    subCollectionName = null,
+                                    subCollectionDocument = null,
+                                    fieldName = "userIsVerified",
+                                    fieldValue = isLandlordVerified,
+                                    onResponse = { res ->
+                                        when (res) {
+                                            is Response.Success -> {
+
+                                                //  close bottomsheet
+                                                coreVM.onBottomSheetEvent(
+                                                    BottomSheetEvents.CloseBottomSheet(
+                                                        state, scope
+                                                    )
+                                                )
+
+                                                //  toast
+                                                if (isLandlordVerified) {
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Landlord verified successfully",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                } else
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Landlord un-verified",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                            }
+                                            is Response.Failure -> {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Could not process your request.",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+                                )
+                            )
+
                         }
                     )
                 }

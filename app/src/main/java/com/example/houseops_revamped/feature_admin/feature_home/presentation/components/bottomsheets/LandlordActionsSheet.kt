@@ -124,7 +124,7 @@ fun LandlordActionsSheet(
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
 
-                if (landlord.userIsVerified) {
+                if (it.userIsVerified) {
 
                     //  show verification success status
                     TextButton(

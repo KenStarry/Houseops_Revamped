@@ -99,7 +99,8 @@ class CoreRepositoryImpl @Inject constructor(
         subCollectionName: String?,
         subCollectionDocument: String?,
         fieldName: String,
-        fieldValue: Any
+        fieldValue: Any,
+        onResponse: (response: Response<*>) -> Unit
     ) {
 
         try {
@@ -117,10 +118,11 @@ class CoreRepositoryImpl @Inject constructor(
 
             collectionRef.update(
                 fieldName, fieldValue
-            )
+            ).addOnSuccessListener { onResponse(Response.Success(true)) }
+                .addOnFailureListener { onResponse(Response.Failure(it.localizedMessage)) }
 
         } catch (e: Exception) {
-            Log.d("update", "$e")
+            onResponse(Response.Failure(e.localizedMessage))
         }
     }
 

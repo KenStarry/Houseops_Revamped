@@ -62,7 +62,7 @@ class CoreViewModel @Inject constructor(
     val bottomSheetContent: State<String> = _bottomSheetContent
 
     private val _bottomSheetData = mutableStateOf<Any?>(null)
-    val bottomSheetData: State<Any?> = _bottomSheetData
+    var bottomSheetData: State<Any?> = _bottomSheetData
 
     //  Alert Dialog
     private val _alertDialogContent = mutableStateOf("")
@@ -163,7 +163,8 @@ class CoreViewModel @Inject constructor(
                         subCollectionName = event.subCollectionName,
                         subCollectionDocument = event.subCollectionDocument,
                         fieldName = event.fieldName,
-                        fieldValue = event.fieldValue
+                        fieldValue = event.fieldValue,
+                        onResponse = event.onResponse
                     )
                 }
             }
@@ -238,6 +239,12 @@ class CoreViewModel @Inject constructor(
             is BottomSheetEvents.CloseBottomSheet -> {
                 event.scope.launch {
                     event.state.animateTo(ModalBottomSheetValue.Hidden)
+                }
+            }
+
+            is BottomSheetEvents.UpdateBottomSheetData -> {
+                viewModelScope.launch {
+                    _bottomSheetData.value = event.data
                 }
             }
         }

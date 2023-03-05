@@ -22,7 +22,8 @@ sealed class CoreEvents {
         val subCollectionName: String?,
         val subCollectionDocument: String?,
         val fieldName: String,
-        val fieldValue: Any
+        val fieldValue: Any,
+        val onResponse: (response: Response<*>) -> Unit
     ) : CoreEvents()
 
     data class UpdateArrayField(

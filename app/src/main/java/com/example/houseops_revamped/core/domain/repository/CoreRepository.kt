@@ -41,7 +41,8 @@ interface CoreRepository {
         subCollectionName: String?,
         subCollectionDocument: String?,
         fieldName: String,
-        fieldValue: Any
+        fieldValue: Any,
+        onResponse: (response: Response<*>) -> Unit
     )
 
     suspend fun updateUserArrayField(

@@ -86,92 +86,101 @@ fun LandlordHome(
             }
         ))
 
-    Scaffold(
-        topBar = {
-            LndHomeAppBar(
-                context = context,
-                imageUri = landlord?.userImageUri?.toUri()
-            )
-        },
-        floatingActionButton = {
-            ExtendedFab(
-                icon = Icons.Outlined.Apartment,
-                title = "Add Apartment",
-                containerColor = primaryColor,
-                onFabClicked = {
-                    direction.navigateToRoute(LandlordScreens.AddApartment.route, null)
-                }
-            )
-        },
-    ) { contentPadding ->
+    landlord?.let {
+        if (it.userIsVerified) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onPrimary)
-                .padding(contentPadding)
-        ) {
+            //  show main UI
+            Scaffold(
+                topBar = {
+                    LndHomeAppBar(
+                        context = context,
+                        imageUri = it.userImageUri?.toUri()
+                    )
+                },
+                floatingActionButton = {
+                    ExtendedFab(
+                        icon = Icons.Outlined.Apartment,
+                        title = "Add Apartment",
+                        containerColor = primaryColor,
+                        onFabClicked = {
+                            direction.navigateToRoute(LandlordScreens.AddApartment.route, null)
+                        }
+                    )
+                },
+            ) { contentPadding ->
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-
-                //  greetings text
-                LndHomeGreetings(
-                    landlordName = landlord?.userName ?: "",
-                    greetingsText = greetingsText,
-                    greetingsIcon = greetingsIcon,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                )
-
-                //  apartments section
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.onPrimary)
+                        .padding(contentPadding)
                 ) {
 
-                    if (lndHomeVM.landlordApartments.value.isEmpty()) {
-                        Lottie(
-                            rawFile = R.raw.paperplane,
-                            isPlaying = true,
-                            iterations = Int.MAX_VALUE,
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(24.dp)
+                    ) {
+
+                        //  greetings text
+                        LndHomeGreetings(
+                            landlordName = it.userName ?: "",
+                            greetingsText = greetingsText,
+                            greetingsIcon = greetingsIcon,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.5f)
+                                .wrapContentHeight()
                         )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Text(
-                            text = "Add Apartments to see them here.",
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                        )
-                    } else {
 
                         //  apartments section
-                        LndHomeApartments(
-                            lndHomeVM = lndHomeVM,
-                            primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor
-                        )
-                    }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
 
+                            if (lndHomeVM.landlordApartments.value.isEmpty()) {
+                                Lottie(
+                                    rawFile = R.raw.paperplane,
+                                    isPlaying = true,
+                                    iterations = Int.MAX_VALUE,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(0.5f)
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                Text(
+                                    text = "Add Apartments to see them here.",
+                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                                )
+                            } else {
+
+                                //  apartments section
+                                LndHomeApartments(
+                                    lndHomeVM = lndHomeVM,
+                                    primaryColor = primaryColor,
+                                    tertiaryColor = tertiaryColor
+                                )
+                            }
+
+                        }
+
+                    }
                 }
 
             }
-        }
 
+        } else {
+            //  show an error message
+        }
     }
 
 }
