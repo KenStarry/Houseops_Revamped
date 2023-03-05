@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.custom_components
+package com.example.houseops_revamped.core.presentation.components
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -191,7 +191,7 @@ fun BackPressTopAppBar(
         title = {
             Text(
                 text = title,
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.Bold
             )
         },

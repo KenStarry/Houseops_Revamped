@@ -1,12 +1,9 @@
 package com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation
 
-import android.util.Log
-import android.widget.Toast
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,7 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.custom_components.BackPressTopAppBar
+import com.example.houseops_revamped.core.presentation.components.BackPressTopAppBar
+import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordViewAppBar
 import com.example.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +28,7 @@ fun AdminLandlordView(
     val coreVM: CoreViewModel = hiltViewModel()
     val direction = Direction(navHostController)
     val context = LocalContext.current
+    val landlord = coreVM.getUserDetails(landlordEmail)
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -45,15 +44,21 @@ fun AdminLandlordView(
 
     Scaffold(
         topBar = {
-            BackPressTopAppBar(
-                title = "Hello",
-                onBackPressed = {}
+            AdminLandlordViewAppBar(
+                title = landlord?.userName ?: "",
+                email = landlordEmail,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
+                onBackPressed = {
+                    direction.navigateUp()
+                }
             )
         }
     ) { contentPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onPrimary)
                 .padding(contentPadding)
         ) {
 

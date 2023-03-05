@@ -30,7 +30,7 @@ import com.example.houseops_revamped.core.presentation.utils.Constants.AUTHENTIC
 import com.example.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
 import com.example.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.custom_components.BackPressTopAppBar
+import com.example.houseops_revamped.core.presentation.components.BackPressTopAppBar
 import com.example.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.example.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.example.houseops_revamped.feature_authentication.presentation.model.RegistrationFormEvent
