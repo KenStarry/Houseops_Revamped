@@ -13,6 +13,7 @@ object NavConstants {
 
     //  ADMIN SCREEN ROUTES
     const val ADMIN_MAIN_ROUTE = "admin_main_screen"
+    const val ADMIN_LANDLORD_VIEW_ROUTE = "admin_landlord_view_screen"
     const val ADMIN_BOTTOM_NAV_HOME_ROUTE = "admin_bottom_nav_home_screen"
     const val ADMIN_BOTTOM_NAV_AGENTS_ROUTE = "admin_bottom_nav_agents_screen"
     const val ADMIN_BOTTOM_NAV_SETTINGS_ROUTE = "admin_bottom_nav_settings_screen"

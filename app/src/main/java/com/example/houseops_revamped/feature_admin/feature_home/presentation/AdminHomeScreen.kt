@@ -25,6 +25,8 @@ import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.AdminHomeContent
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.components.bottomsheets.AdminVerificationSheet
 import com.example.houseops_revamped.feature_admin.feature_home.presentation.utils.AdminConstants
+import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.navigation.screens.AdminScreens
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -37,6 +39,8 @@ fun AdminHomeScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
+
     val currentUser = coreVM.currentUser()
     val context = LocalContext.current
 
@@ -56,7 +60,13 @@ fun AdminHomeScreen(
 
         //  show main UI
         AdminHomeContent(
-            onCardClicked = {},
+            onCardClicked = {
+                //  navigate to landlord view
+                direction.navigateToRoute(
+                    AdminScreens.LandlordView.passLandlordEmail(it.userEmail ?: "no email"),
+                    null
+                )
+            },
             onActionsClicked = { landlord ->
                 coreViewModel.onBottomSheetEvent(
                     BottomSheetEvents.OpenBottomSheet(
