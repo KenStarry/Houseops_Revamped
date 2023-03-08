@@ -41,7 +41,7 @@ fun AssignDialogItem(
             onClick = onRadioButtonClicked,
             colors = RadioButtonDefaults.colors(
                 selectedColor = primaryColor,
-                unselectedColor = tertiaryColor
+                unselectedColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
             )
         )
 

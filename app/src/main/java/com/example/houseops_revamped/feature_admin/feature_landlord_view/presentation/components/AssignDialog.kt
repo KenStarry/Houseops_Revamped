@@ -9,6 +9,8 @@ import androidx.compose.material.icons.outlined.AlternateEmail
 import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.auth.User
 
 @Composable
 fun AssignDialog(
+    apartmentClicked: String,
     primaryColor: Color,
     tertiaryColor: Color,
     onConfirm: (selectedAgent: UsersCollection?) -> Unit,
