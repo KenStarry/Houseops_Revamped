@@ -1,6 +1,7 @@
 package com.example.houseops_revamped.navigation.graphs.agent_graphs
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,7 +14,9 @@ import com.example.houseops_revamped.navigation.screens.AgentBottomNavScreens
 @Composable
 fun AgentInnerGraph(
     navHostController: NavHostController,
-    mainNavHostController: NavHostController
+    mainNavHostController: NavHostController,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     NavHost(
@@ -22,19 +25,19 @@ fun AgentInnerGraph(
     ) {
 
         composable(route = AgentBottomNavScreens.Home.route) {
-            AgentHome(navHostController)
+            AgentHome(navHostController, primaryColor, tertiaryColor)
         }
 
         composable(route = AgentBottomNavScreens.Notifications.route) {
-            AgentNotifications(navHostController)
+            AgentNotifications(navHostController, primaryColor, tertiaryColor)
         }
 
         composable(route = AgentBottomNavScreens.Overview.route) {
-            AgentOverview(navHostController)
+            AgentOverview(navHostController, primaryColor, tertiaryColor)
         }
 
         composable(route = AgentBottomNavScreens.Settings.route) {
-            AgentSettings(mainNavHostController)
+            AgentSettings(mainNavHostController, primaryColor, tertiaryColor)
         }
 
     }

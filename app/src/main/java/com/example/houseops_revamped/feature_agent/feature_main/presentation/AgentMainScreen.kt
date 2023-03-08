@@ -59,7 +59,9 @@ fun AgentMainScreen(
             //  navgraph
             AgentInnerGraph(
                 navHostController = navController,
-                mainNavHostController = navHostController
+                mainNavHostController = navHostController,
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
 
