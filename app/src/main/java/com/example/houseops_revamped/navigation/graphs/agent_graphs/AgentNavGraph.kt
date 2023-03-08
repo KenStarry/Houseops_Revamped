@@ -18,7 +18,7 @@ fun NavGraphBuilder.agentNavGraph(
         route = Constants.AGENT_ROUTE
     ) {
 
-        //  landlord home screen
+        //  landlord main screen
         composable(route = AgentScreens.Main.route) {
             AgentMainScreen(navHostController = navHostController)
         }
