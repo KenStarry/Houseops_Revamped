@@ -19,12 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
-import com.example.houseops_revamped.core.presentation.components.BackPressTopAppBar
-import com.example.houseops_revamped.feature_admin.feature_agents.presentation.viewmodel.AdminAgentsViewModel
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.domain.model.AdminLandlordViewEvents
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordApartmentsPreview
 import com.example.houseops_revamped.feature_admin.feature_landlord_view.presentation.components.AdminLandlordViewAppBar
@@ -56,8 +55,8 @@ fun AdminLandlordView(
         }
     ))
 
-    var clickedApartmentName by remember {
-        mutableStateOf("")
+    var clickedApartment by remember {
+        mutableStateOf<Apartment?>(null)
     }
 
     val primaryColor = Color(
@@ -95,7 +94,7 @@ fun AdminLandlordView(
             //  assign agent dialog
             AnimatedVisibility(visible = landlordViewVM.isAssignAlertDialogVisible.value) {
                 AssignDialog(
-                    apartmentClicked = clickedApartmentName,
+                    apartment = clickedApartment,
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor,
                     onConfirm = { agent ->
@@ -105,31 +104,72 @@ fun AdminLandlordView(
                         //  assign the agent to the apartment
                         coreVM.onEvent(CoreEvents.UpdateFirestoreField(
                             collectionName = Constants.APARTMENTS_COLLECTION,
-                            documentName = clickedApartmentName,
+                            documentName = clickedApartment?.apartmentName ?: "",
                             subCollectionName = null,
                             subCollectionDocument = null,
                             fieldName = "apartmentAgentAssigned",
                             fieldValue = agent?.userEmail ?: "",
                             onResponse = { res ->
                                 when (res) {
-                                    is Response.Success -> {}
+                                    is Response.Success -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Agent assigned successfully!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                     is Response.Failure -> {}
                                 }
                             }
                         ))
 
                         //  close Assign apartment dialog
-                        landlordViewVM.onEvent(AdminLandlordViewEvents.ToggleAlertDialog(
-                            isVisible = false,
-                            dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                        landlordViewVM.onEvent(
+                            AdminLandlordViewEvents.ToggleAlertDialog(
+                                isVisible = false,
+                                dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                            )
+                        )
+                    },
+                    onAssignNoAgent = {
+                        //  assign the agent to the apartment
+                        coreVM.onEvent(CoreEvents.UpdateFirestoreField(
+                            collectionName = Constants.APARTMENTS_COLLECTION,
+                            documentName = clickedApartment?.apartmentName ?: "",
+                            subCollectionName = null,
+                            subCollectionDocument = null,
+                            fieldName = "apartmentAgentAssigned",
+                            fieldValue = "",
+                            onResponse = { res ->
+                                when (res) {
+                                    is Response.Success -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Agent removed successfully!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    is Response.Failure -> {}
+                                }
+                            }
                         ))
+
+                        //  close Assign apartment dialog
+                        landlordViewVM.onEvent(
+                            AdminLandlordViewEvents.ToggleAlertDialog(
+                                isVisible = false,
+                                dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                            )
+                        )
                     },
                     onDismiss = {
                         //  close Assign apartment dialog
-                        landlordViewVM.onEvent(AdminLandlordViewEvents.ToggleAlertDialog(
-                            isVisible = false,
-                            dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
-                        ))
+                        landlordViewVM.onEvent(
+                            AdminLandlordViewEvents.ToggleAlertDialog(
+                                isVisible = false,
+                                dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                            )
+                        )
                     }
                 )
             }
@@ -182,13 +222,15 @@ fun AdminLandlordView(
                     onAssignClicked = {
 
                         //  pass clicked apartment name
-                        clickedApartmentName = it.apartmentName
+                        clickedApartment = it
 
                         //  open Assign apartment dialog
-                        landlordViewVM.onEvent(AdminLandlordViewEvents.ToggleAlertDialog(
-                            isVisible = true,
-                            dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
-                        ))
+                        landlordViewVM.onEvent(
+                            AdminLandlordViewEvents.ToggleAlertDialog(
+                                isVisible = true,
+                                dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                            )
+                        )
                     }
                 )
 

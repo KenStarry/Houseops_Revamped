@@ -6,17 +6,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AlternateEmail
+import androidx.compose.material.icons.outlined.PersonRemove
+import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseops_revamped.core.domain.model.UsersCollection
 import com.example.houseops_revamped.core.presentation.components.CustomAlertDialog
 import com.example.houseops_revamped.feature_admin.feature_agents.domain.model.AdminAgentsEvents
@@ -28,10 +29,11 @@ import com.google.firebase.firestore.auth.User
 
 @Composable
 fun AssignDialog(
-    apartmentClicked: String,
+    apartment: Apartment?,
     primaryColor: Color,
     tertiaryColor: Color,
     onConfirm: (selectedAgent: UsersCollection?) -> Unit,
+    onAssignNoAgent: () -> Unit,
     onDismiss: () -> Unit,
 ) {
 
@@ -43,6 +45,10 @@ fun AssignDialog(
         response = {}
     ))
 
+    var selectedAgent by remember {
+        mutableStateOf<UsersCollection?>(null)
+    }
+
     CustomAlertDialog(
         icon = Icons.Outlined.SupportAgent,
         primaryColor = primaryColor,
@@ -52,6 +58,24 @@ fun AssignDialog(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            if (!apartment?.apartmentAgentAssigned.isNullOrBlank()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    HomePillBtns(
+                        icon = Icons.Outlined.PersonRemove,
+                        title = "Unassign Agent",
+                        primaryColor = MaterialTheme.colorScheme.error,
+                        tertiaryColor = MaterialTheme.colorScheme.error.copy(alpha = 0.1f),
+                        onClick = onAssignNoAgent
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+
             LazyColumn(
                 content = {
                     items(adminAgentsVM.agents.value) { agent ->
@@ -59,8 +83,16 @@ fun AssignDialog(
                             agent = agent,
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
-                            isSelected = agent == landlordViewVM.selectedAgent.value,
+
+                            isSelected = if (apartment?.apartmentAgentAssigned.isNullOrBlank())
+                                selectedAgent == agent
+                            else
+                                landlordViewVM.selectedAgent.value?.userEmail == apartment?.apartmentAgentAssigned,
+
                             onRadioButtonClicked = {
+
+                                selectedAgent = agent
+
                                 landlordViewVM.onEvent(
                                     AdminLandlordViewEvents.ToggleAgentSelected(
                                         agent

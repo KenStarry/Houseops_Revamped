@@ -103,8 +103,9 @@ fun AdminLandlordApartmentsPreview(
                             ) {
                                 Text(
                                     text = "Assigned to : ${apartment.apartmentAgentAssigned}",
-                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                                    fontWeight = FontWeight.SemiBold
+                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                    fontWeight = FontWeight.Normal,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                                 )
                             }
 
