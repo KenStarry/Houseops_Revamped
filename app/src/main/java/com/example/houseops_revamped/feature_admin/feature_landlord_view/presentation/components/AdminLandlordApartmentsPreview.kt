@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseops_revamped.core.domain.model.UsersCollection
@@ -76,15 +77,38 @@ fun AdminLandlordApartmentsPreview(
 
                         Spacer(modifier = Modifier.width(16.dp))
 
-                        HomePillBtns(
-                            icon = Icons.Outlined.SupportAgent,
-                            title = "Assign",
-                            primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor,
-                            onClick = {
-                                onAssignClicked(apartment)
+                        if (apartment.apartmentAgentAssigned.isNullOrBlank()) {
+
+                            //  assign button
+                            HomePillBtns(
+                                icon = Icons.Outlined.SupportAgent,
+                                title = "Assign",
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor,
+                                onClick = {
+                                    onAssignClicked(apartment)
+                                }
+                            )
+
+                        } else {
+
+                            TextButton(
+                                onClick = { onAssignClicked(apartment) },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.8f
+                                    )
+                                )
+                            ) {
+                                Text(
+                                    text = "Assigned to : ${apartment.apartmentAgentAssigned}",
+                                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                    fontWeight = FontWeight.SemiBold
+                                )
                             }
-                        )
+
+                        }
                     }
                 }
             }
