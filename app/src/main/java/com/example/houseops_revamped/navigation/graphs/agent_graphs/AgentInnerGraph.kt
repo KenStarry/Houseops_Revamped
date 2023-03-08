@@ -4,12 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.houseops_revamped.feature_agent.feature_home.AgentHome
+import com.example.houseops_revamped.feature_agent.feature_home.presentation.AgentHome
 import com.example.houseops_revamped.feature_agent.feature_notifications.AgentNotifications
 import com.example.houseops_revamped.feature_agent.feature_overview.AgentOverview
 import com.example.houseops_revamped.feature_agent.feature_settings.AgentSettings
 import com.example.houseops_revamped.navigation.screens.AgentBottomNavScreens
-import com.example.houseops_revamped.navigation.screens.AgentScreens
 
 @Composable
 fun AgentInnerGraph(
