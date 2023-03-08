@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.houseops_revamped.core.presentation.utils.Constants
-import com.example.houseops_revamped.feature_agent.presentation.AgentMainScreen
+import com.example.houseops_revamped.feature_agent.feature_main.presentation.AgentMainScreen
 import com.example.houseops_revamped.feature_landlord.feature_main.presentation.LandlordMain
 import com.example.houseops_revamped.navigation.screens.AgentScreens
 import com.example.houseops_revamped.navigation.screens.LandlordScreens
