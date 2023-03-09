@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_agent.feature_home.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -20,11 +21,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_agent.feature_home.domain.model.AgentHomeEvents
+import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeApartments
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeHeader
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeTopBar
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase.QuickAddShowCase
+import com.example.houseops_revamped.feature_agent.feature_home.presentation.viewmodel.AgentHomeViewModel
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,9 +41,22 @@ fun AgentHome(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val agentHomeVM: AgentHomeViewModel = hiltViewModel()
     val context = LocalContext.current
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
+
+    agentHomeVM.onEvent(AgentHomeEvents.GetAgentApartments(
+        email = userDetails?.userEmail ?: "no email",
+        onResponse = {
+            when (it) {
+                is Response.Success -> {}
+                is Response.Failure -> {
+                    Toast.makeText(context, "something went wrong...", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    ))
 
     var showAppIntro by remember {
         mutableStateOf(false)
@@ -117,7 +135,14 @@ fun AgentHome(
                         tertiaryColor = tertiaryColor
                     )
 
+                    Spacer(modifier = Modifier.height(24.dp))
+
                     //  agent apartments
+                    AgentHomeApartments(
+                        apartments = agentHomeVM.agentApartments.value,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
+                    )
 
                 }
 

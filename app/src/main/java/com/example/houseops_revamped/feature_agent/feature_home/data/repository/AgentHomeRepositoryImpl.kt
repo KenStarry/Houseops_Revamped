@@ -1,21 +1,19 @@
 package com.example.houseops_revamped.feature_agent.feature_home.data.repository
 
-import androidx.lifecycle.ViewModel
 import com.example.houseops_revamped.core.domain.model.Apartment
 import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.feature_agent.feature_home.domain.repository.AgentHomeRepository
 import com.google.firebase.firestore.FirebaseFirestore
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
 class AgentHomeRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore
 ) : AgentHomeRepository {
 
     override suspend fun getAgentApartments(
         email: String,
+        apartments: (apartmentsList: List<Apartment>) -> Unit,
         onResponse: (response: Response<*>) -> Unit
     ) {
 
@@ -30,15 +28,16 @@ class AgentHomeRepositoryImpl @Inject constructor(
                         return@addSnapshotListener
                     }
 
-                    val apartments = mutableListOf<Apartment>()
+                    val apartmentsList = mutableListOf<Apartment>()
 
                     querySnapshot?.forEach { snapshot ->
                         snapshot?.toObject(Apartment::class.java)?.let { apartment ->
-                            apartments.add(apartment)
+                            apartmentsList.add(apartment)
                         }
                     }
 
-                    onResponse(Response.Success(apartments))
+                    apartments(apartmentsList)
+                    onResponse(Response.Success(apartmentsList))
                 }
 
         } catch (e: Exception) {
