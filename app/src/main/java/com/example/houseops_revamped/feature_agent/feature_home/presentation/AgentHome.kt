@@ -31,6 +31,8 @@ import com.example.houseops_revamped.feature_agent.feature_home.presentation.com
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase.QuickAddShowCase
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.viewmodel.AgentHomeViewModel
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
+import com.example.houseops_revamped.navigation.Direction
+import com.example.houseops_revamped.navigation.screens.AgentScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +44,7 @@ fun AgentHome(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val agentHomeVM: AgentHomeViewModel = hiltViewModel()
+    val direction = Direction(navHostController)
     val context = LocalContext.current
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -141,7 +144,13 @@ fun AgentHome(
                     AgentHomeApartments(
                         apartments = agentHomeVM.agentApartments.value,
                         primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor
+                        tertiaryColor = tertiaryColor,
+                        onApartmentClicked = {
+                            direction.navigateToRoute(
+                                AgentScreens.ApartmentView.route,
+                                null
+                            )
+                        }
                     )
 
                 }

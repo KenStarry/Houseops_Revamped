@@ -20,6 +20,7 @@ object NavConstants {
 
     //  AGENT SCREEN ROUTES
     const val AGENT_MAIN_ROUTE = "agent_main_screen"
+    const val AGENT_APARTMENT_VIEW_SCREEN_ROUTE = "agent_apartment_view"
     const val AGENT_HOME_SCREEN_ROUTE = "agent_home"
     const val AGENT_NOTIFICATIONS_SCREEN_ROUTE = "agent_notifications"
     const val AGENT_OVERVIEW_SCREEN_ROUTE = "agent_overview"

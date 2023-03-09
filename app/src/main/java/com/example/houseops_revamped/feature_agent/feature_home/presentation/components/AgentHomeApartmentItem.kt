@@ -27,7 +27,8 @@ fun AgentHomeApartmentItem(
     modifier: Modifier = Modifier,
     apartment: Apartment,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onApartmentClicked: () -> Unit
 ) {
 
     Card(
@@ -46,7 +47,7 @@ fun AgentHomeApartmentItem(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.onSecondary)
-                .clickable { }
+                .clickable { onApartmentClicked() }
                 .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -59,7 +60,7 @@ fun AgentHomeApartmentItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TextButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onApartmentClicked() },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.onSecondary,
                         contentColor = primaryColor

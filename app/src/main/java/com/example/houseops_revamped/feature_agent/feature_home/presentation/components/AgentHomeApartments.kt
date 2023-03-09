@@ -20,7 +20,8 @@ import com.example.houseops_revamped.core.domain.model.Apartment
 fun AgentHomeApartments(
     apartments: List<Apartment>,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onApartmentClicked: (apartment: Apartment) -> Unit
 ) {
 
     val staggeredGridState = rememberLazyStaggeredGridState()
@@ -36,7 +37,8 @@ fun AgentHomeApartments(
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor,
                     modifier = Modifier
-                        .wrapContentSize()
+                        .wrapContentSize(),
+                    onApartmentClicked = { onApartmentClicked(apartment) }
                 )
             }
         },
