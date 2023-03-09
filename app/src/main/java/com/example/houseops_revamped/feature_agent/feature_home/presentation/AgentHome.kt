@@ -117,6 +117,8 @@ fun AgentHome(
                         tertiaryColor = tertiaryColor
                     )
 
+                    //  agent apartments
+
                 }
 
             }
