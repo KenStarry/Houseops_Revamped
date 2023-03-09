@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Hotel
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -65,7 +66,7 @@ fun AgentHomeApartmentItem(
                     )
                 ) {
                     Text(
-                        text = "5 Houses",
+                        text = "0 Houses",
                         fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                         fontWeight = FontWeight.SemiBold,
                         overflow = TextOverflow.Ellipsis
@@ -85,6 +86,34 @@ fun AgentHomeApartmentItem(
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            //  action icons
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentSize(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                //  notifications
+                HomePillBtns(
+                    icon = Icons.Outlined.Notifications,
+                    iconSize = 16.dp,
+                    spacing = 4.dp,
+                    title = "0",
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    paddingHorizontal = 8.dp,
+                    paddingVertical = 4.dp
+                ) {
+
+                }
+
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 

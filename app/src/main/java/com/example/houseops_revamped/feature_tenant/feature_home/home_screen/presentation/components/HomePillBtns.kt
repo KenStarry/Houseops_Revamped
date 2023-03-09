@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 fun HomePillBtns(
     icon: ImageVector?,
     iconSize: Dp = 24.dp,
+    spacing: Dp = 8.dp,
     title: String,
     containerColor: Color = MaterialTheme.colorScheme.onSecondary,
     contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -63,7 +64,7 @@ fun HomePillBtns(
                         .size(iconSize)
                 )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(spacing))
             }
 
             Text(
