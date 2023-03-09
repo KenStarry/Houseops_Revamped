@@ -1,4 +1,4 @@
-package com.example.houseops_revamped.feature_agent.feature_main.presentation.components.intro_showcase
+package com.example.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

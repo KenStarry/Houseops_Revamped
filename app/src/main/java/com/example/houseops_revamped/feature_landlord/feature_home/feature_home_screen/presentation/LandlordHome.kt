@@ -180,6 +180,7 @@ fun LandlordHome(
 
         } else {
             //  show an error message
+
         }
     }
 

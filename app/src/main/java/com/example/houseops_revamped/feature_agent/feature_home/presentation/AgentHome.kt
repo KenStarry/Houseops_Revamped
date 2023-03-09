@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,8 +22,10 @@ import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
+import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeHeader
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeTopBar
-import com.example.houseops_revamped.feature_agent.feature_main.presentation.components.intro_showcase.QuickAddShowCase
+import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase.QuickAddShowCase
+import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,6 +87,35 @@ fun AgentHome(
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.onPrimary)
                 ) {
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    //  agent pill
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        HomePillBtns(
+                            icon = Icons.Outlined.SupportAgent,
+                            title = userDetails?.userType ?: "",
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
+                            onClick = {}
+                        )
+
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    //  agent header
+                    AgentHomeHeader(
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
+                    )
 
                 }
 
