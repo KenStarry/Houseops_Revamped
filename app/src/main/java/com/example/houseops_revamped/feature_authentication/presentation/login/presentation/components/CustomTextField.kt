@@ -39,6 +39,7 @@ fun CustomTextField(
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
     isPassword: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     onInput: (input: String) -> Unit
 ) {
 
@@ -122,7 +123,7 @@ fun CustomTextField(
                 ),
 
                 visualTransformation = if (passVisibilityState)
-                    VisualTransformation.None
+                    visualTransformation
                 else
                     PasswordVisualTransformation()
             )
@@ -158,7 +159,9 @@ fun CustomTextField(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     fontWeight = FontWeight.Normal
-                )
+                ),
+
+                visualTransformation = visualTransformation
             )
         }
 

@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.core.presentation.components.DoneCancelButtons
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet.ApartmentHouseImages
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet.ApartmentHousePrice
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -27,7 +29,7 @@ fun AddApartmentHouseSheet(
             .wrapContentHeight()
             .padding(16.dp),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
         Box(
@@ -52,11 +54,23 @@ fun AddApartmentHouseSheet(
             onClick = {}
         )
 
+        ApartmentHouseImages(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
+
         //  house price
         ApartmentHousePrice(
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
         )
+
+        DoneCancelButtons(
+            onDone = { /*TODO*/ },
+            onCancel = {}
+        )
+        
+        Spacer(modifier = Modifier.height(24.dp))
 
     }
 

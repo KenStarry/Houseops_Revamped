@@ -4,13 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PriceChange
 import androidx.compose.material.icons.outlined.PriceCheck
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.NumberCommaTransformation
 import com.example.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -19,6 +20,10 @@ fun ApartmentHousePrice(
     primaryColor: Color,
     tertiaryColor: Color
 ) {
+
+    var priceInput by remember {
+        mutableStateOf("")
+    }
 
     Row(
         modifier = Modifier
@@ -34,6 +39,7 @@ fun ApartmentHousePrice(
             contentAlignment = Alignment.Center
         ) {
             CustomTextField(
+                textFieldValue = priceInput,
                 startIcon = Icons.Outlined.PriceCheck,
                 endIcon = null,
                 placeholder = "House Price",
@@ -41,8 +47,10 @@ fun ApartmentHousePrice(
                 keyboardType = KeyboardType.Number,
                 primaryColor = primaryColor,
                 tertiaryColor = tertiaryColor,
+                visualTransformation = NumberCommaTransformation(),
                 onInput = {
                     //  add commas to price
+                    priceInput = it
                 }
             )
         }
