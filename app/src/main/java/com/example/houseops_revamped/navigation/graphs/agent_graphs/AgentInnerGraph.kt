@@ -54,7 +54,9 @@ fun AgentInnerGraph(
         ) {
             AgentApartmentView(
                 navHostController = navHostController,
-                apartmentName = it.arguments?.getString("apartmentName") ?: ""
+                apartmentName = it.arguments?.getString("apartmentName") ?: "",
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor
             )
         }
 
