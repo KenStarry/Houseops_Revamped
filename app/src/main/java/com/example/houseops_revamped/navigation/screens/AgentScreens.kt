@@ -7,5 +7,10 @@ sealed class AgentScreens(
 ) {
     object Main : AgentScreens(route = NavConstants.AGENT_MAIN_ROUTE)
 
-    object ApartmentView : AgentScreens(route = NavConstants.AGENT_APARTMENT_VIEW_SCREEN_ROUTE)
+    object ApartmentView :
+        AgentScreens(route = "${NavConstants.AGENT_APARTMENT_VIEW_SCREEN_ROUTE}/{apartmentName}") {
+
+        fun passApartmentName(apartmentName: String) =
+            "${NavConstants.AGENT_APARTMENT_VIEW_SCREEN_ROUTE}/$apartmentName"
+    }
 }

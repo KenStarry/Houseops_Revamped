@@ -147,7 +147,7 @@ fun AgentHome(
                         tertiaryColor = tertiaryColor,
                         onApartmentClicked = {
                             direction.navigateToRoute(
-                                AgentScreens.ApartmentView.route,
+                                AgentScreens.ApartmentView.passApartmentName(it.apartmentName),
                                 null
                             )
                         }

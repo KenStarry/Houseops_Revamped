@@ -3,8 +3,10 @@ package com.example.houseops_revamped.navigation.graphs.agent_graphs
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.AgentApartmentView
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.AgentHome
 import com.example.houseops_revamped.feature_agent.feature_notifications.AgentNotifications
@@ -41,9 +43,19 @@ fun AgentInnerGraph(
         composable(route = AgentBottomNavScreens.Settings.route) {
             AgentSettings(mainNavHostController, primaryColor, tertiaryColor)
         }
-        
-        composable(route = AgentScreens.ApartmentView.route) {
-            AgentApartmentView(navHostController = navHostController)
+
+        composable(
+            route = AgentScreens.ApartmentView.route,
+            arguments = listOf(
+                navArgument("apartmentName") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            AgentApartmentView(
+                navHostController = navHostController,
+                apartmentName = it.arguments?.getString("apartmentName") ?: ""
+            )
         }
 
     }
