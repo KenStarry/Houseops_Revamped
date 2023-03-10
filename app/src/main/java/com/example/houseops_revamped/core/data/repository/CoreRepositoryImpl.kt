@@ -184,7 +184,9 @@ class CoreRepositoryImpl @Inject constructor(
         context: Context,
         storageRef: String,
         collectionName: String,
-        email: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
         fieldToUpdate: String,
         onResponse: (response: Response<*>) -> Unit
     ) {
@@ -208,21 +210,19 @@ class CoreRepositoryImpl @Inject constructor(
                             try {
                                 fileRef.downloadUrl.addOnSuccessListener { url ->
                                     //  add url to the user collection
-                                    val userCollection =
+                                    val userCollection = if (subCollectionName != null && subCollectionDocument != null)
                                         db.collection(collectionName)
-                                            .document(email)
+                                            .document(documentName)
+                                            .collection(subCollectionName)
+                                            .document(subCollectionDocument)
+                                    else
+                                        db.collection(collectionName)
+                                            .document(documentName)
 
-                                    if (imageUriList.size < 2) {
-                                        userCollection.update(
-                                            fieldToUpdate,
-                                            url
-                                        )
-                                    } else {
-                                        userCollection.update(
-                                            fieldToUpdate,
-                                            FieldValue.arrayUnion(url)
-                                        )
-                                    }
+                                    userCollection.update(
+                                        fieldToUpdate,
+                                        FieldValue.arrayUnion(url)
+                                    )
 
                                     onResponse(Response.Success(url))
                                 }

@@ -18,7 +18,7 @@ data class HouseModel(
     val houseUsersBooked: List<UserBooked>
 ) {
 
-//    constructor() : this ("", "", "For Rent", emptyList(), "", emptyList(), "", "0",
-//        "Pangani Palace", "23,000", "month", "", emptyList()
-//    )
+    constructor() : this ("", "", "For Rent", emptyList(), "", emptyList(), "", "0",
+        "Pangani Palace", "23,000", "month", "", emptyList()
+    )
 }

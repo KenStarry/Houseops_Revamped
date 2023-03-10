@@ -39,7 +39,9 @@ sealed class CoreEvents {
         val context: Context,
         val storageRef: String,
         val collectionName: String,
-        val email: String,
+        val documentName: String,
+        val subCollectionName: String?,
+        val subCollectionDocument: String?,
         val fieldToUpdate: String,
         val onResponse: (response: Response<*>) -> Unit
     ) : CoreEvents()

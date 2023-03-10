@@ -75,7 +75,7 @@ fun AddApartmentHouseSheet(
 
         val house = HouseModel(
             houseId = "lu-single-573",
-            houseCategory = "",
+            houseCategory = "single",
             housePurchaseType = "For Rent",
             houseImageUris = imagesState.listOfSelectedImages.map { it.toString() },
             houseUnits = "",

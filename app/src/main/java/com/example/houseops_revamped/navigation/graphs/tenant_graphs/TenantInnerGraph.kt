@@ -2,13 +2,18 @@ package com.example.houseops_revamped.navigation.graphs.tenant_graphs
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.houseops_revamped.feature_tenant.feature_booked.presentation.BookedScreen
 import com.example.houseops_revamped.feature_tenant.feature_bookmark.BookmarkScreen
+import com.example.houseops_revamped.feature_tenant.feature_categories.CategoriesScreen
 import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.HomeScreen
+import com.example.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.HouseViewScreen
 import com.example.houseops_revamped.feature_tenant.feature_settings.SettingsScreen
 import com.example.houseops_revamped.navigation.screens.BottomNavScreens
+import com.example.houseops_revamped.navigation.screens.Screens
 
 @Composable
 fun TenantInnerGraph(
@@ -38,6 +43,40 @@ fun TenantInnerGraph(
         //  Settings screen
         composable(route = BottomNavScreens.Settings.route) {
             SettingsScreen(navHostController)
+        }
+
+        //  categories screen
+        composable(
+            route = Screens.Categories.route,
+            arguments = listOf(
+                navArgument("categoryTitle") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            CategoriesScreen(
+                navHostController = navHostController,
+                categoryTitle = it.arguments?.getString("categoryTitle") ?: "none"
+            )
+        }
+
+        //  Home View Screen
+        composable(
+            route = Screens.HouseView.route,
+            arguments = listOf(
+                navArgument("apartment") {
+                    type = NavType.StringType
+                },
+                navArgument("category") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            HouseViewScreen(
+                navHostController = navHostController,
+                apartment = it.arguments?.getString("apartment") ?: "none",
+                category = it.arguments?.getString("category") ?: "none"
+            )
         }
 
     }

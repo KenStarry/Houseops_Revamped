@@ -190,7 +190,9 @@ class CoreViewModel @Inject constructor(
                         context = event.context,
                         storageRef = event.storageRef,
                         collectionName = event.collectionName,
-                        email = event.email,
+                        documentName = event.documentName,
+                        subCollectionName = event.subCollectionName,
+                        subCollectionDocument = event.subCollectionDocument,
                         fieldToUpdate = event.fieldToUpdate,
                         onResponse = { event.onResponse(it) }
                     )

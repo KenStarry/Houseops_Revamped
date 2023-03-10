@@ -117,7 +117,9 @@ fun SignUpScreen(
                                                         context = context,
                                                         storageRef = "user_images/${authVM.formState.email}",
                                                         collectionName = Constants.USERS_COLLECTION,
-                                                        email = authVM.formState.email,
+                                                        documentName = authVM.formState.email,
+                                                        subCollectionName = null,
+                                                        subCollectionDocument = null,
                                                         fieldToUpdate = "userImageUri",
                                                         onResponse = { response ->
                                                             when (response) {

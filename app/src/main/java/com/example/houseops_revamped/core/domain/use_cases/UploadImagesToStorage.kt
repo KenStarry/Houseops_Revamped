@@ -13,11 +13,20 @@ class UploadImagesToStorage(
         context: Context,
         storageRef: String,
         collectionName: String,
-        email: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
         fieldToUpdate: String,
         onResponse: (response: Response<*>) -> Unit
     ) = repo.uploadImagesToStorage(
-        imageUriList, context, storageRef, collectionName, email, fieldToUpdate,
-        onResponse = { onResponse(it) }
+        imageUriList,
+        context,
+        storageRef,
+        collectionName,
+        documentName,
+        subCollectionName,
+        subCollectionDocument,
+        fieldToUpdate,
+        onResponse
     )
 }

@@ -59,7 +59,9 @@ interface CoreRepository {
         context: Context,
         storageRef: String,
         collectionName: String,
-        email: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
         fieldToUpdate: String,
         onResponse: (response: Response<*>) -> Unit
     )

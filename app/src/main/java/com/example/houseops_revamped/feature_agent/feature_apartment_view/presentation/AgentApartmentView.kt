@@ -1,5 +1,6 @@
 package com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,13 +11,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
+import com.example.houseops_revamped.core.domain.model.Response
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
+import com.example.houseops_revamped.core.domain.model.events.CoreEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
+import com.example.houseops_revamped.core.presentation.utils.Constants
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet.AddApartmentHouseSheet
@@ -36,6 +42,7 @@ fun AgentApartmentView(
 
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val context = LocalContext.current
     val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
 
     agentApartmentVM.onEvent(AgentApartmentEvents.GetApartmentHouses(
@@ -64,9 +71,47 @@ fun AgentApartmentView(
                             apartmentName = apartmentName,
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
-                            onDone = {
+                            onDone = { house ->
 
                                 //  submit house to firebase
+                                agentApartmentVM.onEvent(AgentApartmentEvents.AddHouse(
+                                    apartmentName = apartmentName,
+                                    houseModel = house,
+                                    onResponse = { res ->
+                                        when (res) {
+                                            is Response.Success -> {
+
+                                                //  upload images to firestore
+                                                coreVM.onEvent(
+                                                    CoreEvents.UploadImageToStorage(
+                                                        imageUriList = house.houseImageUris.map { it.toUri() },
+                                                        context = context,
+                                                        storageRef = "house_images/${house.houseApartmentName}/${house.houseCategory}",
+                                                        collectionName = Constants.APARTMENTS_COLLECTION,
+                                                        documentName = apartmentName,
+                                                        subCollectionName = Constants.HOUSES_SUB_COLLECTION,
+                                                        subCollectionDocument = house.houseCategory,
+                                                        fieldToUpdate = "houseImageUris",
+                                                        onResponse = {}
+                                                    )
+                                                )
+
+                                                Toast.makeText(
+                                                    context,
+                                                    "House added successfully",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                            is Response.Failure -> {
+                                                Toast.makeText(
+                                                    context,
+                                                    "${res.error}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+                                ))
 
                                 // close bottomsheet
                                 coreVM.onBottomSheetEvent(
