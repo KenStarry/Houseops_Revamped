@@ -18,9 +18,14 @@ import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
 import com.canopas.lib.showcase.introShowCaseTarget
 import com.canopas.lib.showcase.rememberIntroShowCaseState
+import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.AddApartmentHouseSheet
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.AgentApartmentTopBar
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase.QuickAddShowCase
 
@@ -35,6 +40,13 @@ fun AgentApartmentView(
 
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
+
+    agentApartmentVM.onEvent(AgentApartmentEvents.GetApartmentHouses(
+        apartmentName = apartmentName,
+        onResponse = {}
+    ))
+
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     var showAppIntro by remember {
@@ -48,10 +60,20 @@ fun AgentApartmentView(
 
         BottomSheet(
             sheetBackground = MaterialTheme.colorScheme.onPrimary,
-            sheetContent = {state, scope ->
+            sheetContent = { state, scope ->
+
+                when (coreVM.bottomSheetContent.value) {
+                    AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET -> {
+                        AddApartmentHouseSheet(
+                            apartmentName = apartmentName,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
+                        )
+                    }
+                }
 
             },
-            sheetScope = {state, scope ->
+            sheetScope = { state, scope ->
 
                 Scaffold(
                     topBar = {
@@ -65,7 +87,16 @@ fun AgentApartmentView(
                     floatingActionButton = {
                         AgentHomeFab(
                             primaryColor = primaryColor,
-                            onClick = {},
+                            onClick = {
+                                coreVM.onBottomSheetEvent(
+                                    BottomSheetEvents.OpenBottomSheet(
+                                        state = state,
+                                        scope = scope,
+                                        bottomSheetType = AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET,
+                                        bottomSheetData = null
+                                    )
+                                )
+                            },
                             modifier = Modifier
                                 .introShowCaseTarget(
                                     index = 0,
@@ -102,7 +133,7 @@ fun AgentApartmentView(
                 }
 
             },
-            closeBottomSheet = {state, scope ->  }
+            closeBottomSheet = { state, scope -> }
         )
 
     }
