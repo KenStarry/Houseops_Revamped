@@ -2,6 +2,7 @@ package com.example.houseops_revamped.feature_agent.feature_apartment_view.di
 
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.data.repository.AgentApartmentRepositoryImpl
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.repository.AgentApartmentRepository
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.AddHouseToFirestore
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.AgentApartmentUseCases
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.GetApartmentHouses
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,7 +27,8 @@ object AgentApartmentModule {
     fun provideAgentApartmentUseCases(
         repository: AgentApartmentRepository
     ) = AgentApartmentUseCases(
-        getApartmentHouses = GetApartmentHouses(repository)
+        getApartmentHouses = GetApartmentHouses(repository),
+        addHouseToFirestore = AddHouseToFirestore(repository)
     )
 }
 

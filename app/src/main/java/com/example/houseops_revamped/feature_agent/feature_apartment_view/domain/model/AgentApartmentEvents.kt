@@ -6,6 +6,12 @@ import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.dom
 
 sealed class AgentApartmentEvents {
 
+    data class AddHouse(
+        val apartmentName: String,
+        val houseModel: HouseModel,
+        val onResponse: (response: Response<*>) -> Unit
+    ) : AgentApartmentEvents()
+
     data class GetApartmentHouses(
         val apartmentName: String,
         val onResponse: (response: Response<*>) -> Unit

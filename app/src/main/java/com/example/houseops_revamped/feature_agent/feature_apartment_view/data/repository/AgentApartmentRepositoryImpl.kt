@@ -12,6 +12,26 @@ class AgentApartmentRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore
 ) : AgentApartmentRepository {
 
+    override suspend fun addHouseToFirestore(
+        apartmentName: String,
+        houseModel: HouseModel,
+        onResponse: (response: Response<*>) -> Unit
+    ) {
+        try {
+            db.collection(Constants.APARTMENTS_COLLECTION).document(apartmentName)
+                .collection(Constants.HOUSES_SUB_COLLECTION).document(houseModel.houseCategory)
+                .set(houseModel)
+                .addOnSuccessListener {
+                    onResponse(Response.Success(true))
+                }
+                .addOnFailureListener {
+                    onResponse(Response.Failure(it.localizedMessage))
+                }
+        } catch (e: Exception) {
+            onResponse(Response.Failure(e.localizedMessage))
+        }
+    }
+
     override suspend fun getApartmentHouses(
         apartmentName: String,
         houses: (housesList: List<HouseModel>) -> Unit,

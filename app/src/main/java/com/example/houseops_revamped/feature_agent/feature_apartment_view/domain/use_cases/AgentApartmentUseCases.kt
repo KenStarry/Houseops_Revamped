@@ -3,5 +3,6 @@ package com.example.houseops_revamped.feature_agent.feature_apartment_view.domai
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.repository.AgentApartmentRepository
 
 data class AgentApartmentUseCases(
-    val getApartmentHouses: GetApartmentHouses
+    val getApartmentHouses: GetApartmentHouses,
+    val addHouseToFirestore: AddHouseToFirestore
 )

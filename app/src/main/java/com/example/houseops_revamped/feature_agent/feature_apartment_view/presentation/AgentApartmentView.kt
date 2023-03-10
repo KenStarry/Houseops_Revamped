@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -16,18 +15,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
-import com.canopas.lib.showcase.introShowCaseTarget
-import com.canopas.lib.showcase.rememberIntroShowCaseState
 import com.example.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.example.houseops_revamped.core.presentation.components.BottomSheet
 import com.example.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
-import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.AddApartmentHouseSheet
+import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet.AddApartmentHouseSheet
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.AgentApartmentTopBar
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.example.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
-import com.example.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase.QuickAddShowCase
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -67,7 +63,19 @@ fun AgentApartmentView(
                         AddApartmentHouseSheet(
                             apartmentName = apartmentName,
                             primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor
+                            tertiaryColor = tertiaryColor,
+                            onDone = {
+
+                                //  submit house to firebase
+
+                                // close bottomsheet
+                                coreVM.onBottomSheetEvent(
+                                    BottomSheetEvents.CloseBottomSheet(
+                                        state, scope
+                                    )
+                                )
+                            },
+                            onCancel = {}
                         )
                     }
                 }

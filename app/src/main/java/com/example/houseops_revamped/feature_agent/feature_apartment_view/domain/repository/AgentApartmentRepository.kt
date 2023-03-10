@@ -5,6 +5,13 @@ import com.example.houseops_revamped.feature_tenant.feature_home.home_screen.dom
 
 interface AgentApartmentRepository {
 
+    //  add a house to firestore
+    suspend fun addHouseToFirestore(
+        apartmentName: String,
+        houseModel: HouseModel,
+        onResponse: (response: Response<*>) -> Unit
+    )
+
     suspend fun getApartmentHouses(
         apartmentName: String,
         houses: (housesList: List<HouseModel>) -> Unit,

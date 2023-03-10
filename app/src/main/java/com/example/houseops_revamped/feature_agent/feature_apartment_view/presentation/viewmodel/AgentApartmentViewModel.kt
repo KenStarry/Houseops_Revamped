@@ -29,6 +29,16 @@ class AgentApartmentViewModel @Inject constructor(
     fun onEvent(event: AgentApartmentEvents) {
         when (event) {
 
+            is AgentApartmentEvents.AddHouse -> {
+                viewModelScope.launch {
+                    useCases.addHouseToFirestore(
+                        apartmentName = event.apartmentName,
+                        houseModel = event.houseModel,
+                        onResponse = event.onResponse
+                    )
+                }
+            }
+
             is AgentApartmentEvents.GetApartmentHouses -> {
                 viewModelScope.launch {
                     useCases.getApartmentHouses(
