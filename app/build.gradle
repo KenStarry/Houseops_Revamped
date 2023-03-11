@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.houseops_revamped'
+    namespace 'com.kenstarry.houseops_revamped'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.houseops_revamped"
+        applicationId "com.kenstarry.houseops_revamped"
         minSdk 21
         targetSdk 33
         versionCode 1

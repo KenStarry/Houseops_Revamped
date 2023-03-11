@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:207552303489:android:81a8393f87730678dc9880",
+        "mobilesdk_app_id": "1:207552303489:android:82966700c412f114dc9880",
         "android_client_info": {
-          "package_name": "com.example.houseops_revamped"
+          "package_name": "com.kenstarry.houseops_revamped"
         }
       },
       "oauth_client": [
         {
-          "client_id": "207552303489-5sanht17gmslmki99hdufskorpkeo63e.apps.googleusercontent.com",
+          "client_id": "207552303489-2l69kicp4ouijbnhlr99q6a09m69o46o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.houseops_revamped",
+            "package_name": "com.kenstarry.houseops_revamped",
             "certificate_hash": "607966dfa88962e191d8f312c6c7b68b3bcb4a4b"
           }
         },
