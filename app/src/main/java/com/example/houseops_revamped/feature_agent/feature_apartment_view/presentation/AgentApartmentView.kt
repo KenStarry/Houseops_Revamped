@@ -179,6 +179,9 @@ fun AgentApartmentView(
                                 .padding(16.dp)
                         ) {
 
+                            //  all houses of the apartment
+
+
                         }
 
                     }
