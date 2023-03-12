@@ -2,6 +2,7 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.dom
 
 import android.net.Uri
 import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 
 sealed class AgentApartmentEvents {
@@ -25,4 +26,33 @@ sealed class AgentApartmentEvents {
 
     //  delete image from list
     data class DeleteImageFromList(val index: Int) : AgentApartmentEvents()
+
+    //  add feature
+    data class AddFeature(val feature: ApartmentHouseFeaturesModel) : AgentApartmentEvents()
+
+    //  delete feature from list
+    data class DeleteFeature(val index: Int) : AgentApartmentEvents()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

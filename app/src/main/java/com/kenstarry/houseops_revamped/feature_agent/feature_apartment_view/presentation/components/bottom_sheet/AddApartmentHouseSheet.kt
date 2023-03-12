@@ -60,6 +60,9 @@ fun AddApartmentHouseSheet(
             onClick = {}
         )
 
+        //  house category
+
+        //  apartment house images
         ApartmentHouseImages(
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
@@ -70,6 +73,17 @@ fun AddApartmentHouseSheet(
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
         )
+
+        //  house features
+        ApartmentHouseFeatures(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor,
+            selectedFeatures = { features ->
+
+            }
+        )
+
+        //  house description
 
         val house = HouseModel(
             houseId = "lu-single-573",
