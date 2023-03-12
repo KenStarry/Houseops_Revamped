@@ -32,7 +32,7 @@ sealed class AgentApartmentEvents {
     data class AddFeature(val feature: ApartmentHouseFeaturesModel) : AgentApartmentEvents()
 
     //  delete feature from list
-    data class DeleteFeature(val index: Int) : AgentApartmentEvents()
+    data class DeleteFeature(val feature: ApartmentHouseFeaturesModel) : AgentApartmentEvents()
 }
 
 

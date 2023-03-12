@@ -92,7 +92,7 @@ class AgentApartmentViewModel @Inject constructor(
                 val updatedFeaturesList = selectedFeaturesState.listOfSelectedFeatures.toMutableList()
 
                 viewModelScope.launch {
-                    updatedFeaturesList.removeAt(event.index)
+                    updatedFeaturesList.remove(event.feature)
                     selectedFeaturesState = selectedFeaturesState.copy(
                         listOfSelectedFeatures = updatedFeaturesList.distinct()
                     )

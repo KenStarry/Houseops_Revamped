@@ -40,16 +40,20 @@ fun HouseFeaturesAlertDialog(
             //    lazy column for the feature categories
             LazyColumn(
                 content = {
-                    items(AgentApartmentConstants.featureCategoriesList) {
+                    items(AgentApartmentConstants.featureCategoriesList) { category ->
 
                         //  feature category list
+                        HouseFeaturesCategoryItem(
+                            category = category,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor
+                        )
                     }
                 },
                 state = featureCategoriesListState,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(350.dp),
-                contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             )
 
