@@ -5,6 +5,7 @@ import android.net.Uri
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.presentation.model.AccentColor
 import com.kenstarry.houseops_revamped.core.presentation.model.OptionsToggleModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 
 sealed class CoreEvents {
 
@@ -51,6 +52,11 @@ sealed class CoreEvents {
     data class ToggleLoadingCircles(val isLoading: Boolean) : CoreEvents()
 
     data class ToggleOptions(val option: OptionsToggleModel) : CoreEvents()
+
+    data class ToggleAlertDialog(
+        val dialogType: String,
+        val isDialogVisible: Boolean
+    ) : CoreEvents()
 
     data class DatastoreSaveUserType(
         val userType: String

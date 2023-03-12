@@ -77,10 +77,7 @@ fun AddApartmentHouseSheet(
         //  house features
         ApartmentHouseFeatures(
             primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor,
-            selectedFeatures = { features ->
-
-            }
+            tertiaryColor = tertiaryColor
         )
 
         //  house description

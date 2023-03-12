@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,15 +17,49 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseFeaturesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun ApartmentHouseFeatures(
     primaryColor: Color,
-    tertiaryColor: Color,
-    selectedFeatures: (List<ApartmentHouseFeaturesModel>) -> Unit
+    tertiaryColor: Color
 ) {
+
+    val coreVM = hiltViewModel<CoreViewModel>()
+
+    AnimatedVisibility(
+        visible = coreVM.alertDialogSelected.value?.dialogType
+                == Constants.APARTMENT_FEATURES_ALERT_DIALOG &&
+                coreVM.alertDialogSelected.value?.isDialogVisible == true
+    ) {
+        HouseFeaturesAlertDialog(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor,
+            onConfirm = {
+
+                //  add the list to the list of selected features
+
+                //  close alert dialog
+                coreVM.onEvent(CoreEvents.ToggleAlertDialog(
+                    dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                    isDialogVisible = false
+                ))
+            },
+            onDismiss = {
+                //  close alert dialog
+                coreVM.onEvent(CoreEvents.ToggleAlertDialog(
+                    dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                    isDialogVisible = false
+                ))
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -78,6 +113,10 @@ fun ApartmentHouseFeatures(
                 tertiaryColor = tertiaryColor,
                 onClick = {
                     //  open alert dialog
+                    coreVM.onEvent(CoreEvents.ToggleAlertDialog(
+                        dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                        isDialogVisible = true
+                    ))
                 }
             )
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
+import com.kenstarry.houseops_revamped.core.domain.model.AlertDialogProperties
 import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.events.AlertDialogEvents
@@ -56,6 +57,9 @@ class CoreViewModel @Inject constructor(
 
     private val _chosenOptionToggle = mutableStateOf<OptionsToggleModel?>(null)
     val chosenOptionToggle: State<OptionsToggleModel?> = _chosenOptionToggle
+
+    private val _alertDialogSelected = mutableStateOf<AlertDialogProperties?>(null)
+    val alertDialogSelected: State<AlertDialogProperties?> = _alertDialogSelected
 
     //  Bottomsheet
     private val _bottomSheetContent = mutableStateOf("")
@@ -211,6 +215,13 @@ class CoreViewModel @Inject constructor(
 
             is CoreEvents.ToggleOptions -> {
                 _chosenOptionToggle.value = event.option
+            }
+
+            is CoreEvents.ToggleAlertDialog -> {
+                _alertDialogSelected.value = AlertDialogProperties(
+                    dialogType = event.dialogType,
+                    isDialogVisible = event.isDialogVisible
+                )
             }
 
             is CoreEvents.DatastoreSaveUserType -> {

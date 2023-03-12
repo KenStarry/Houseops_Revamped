@@ -3,6 +3,7 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.dom
 import android.net.Uri
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
+import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 
 sealed class AgentApartmentEvents {
