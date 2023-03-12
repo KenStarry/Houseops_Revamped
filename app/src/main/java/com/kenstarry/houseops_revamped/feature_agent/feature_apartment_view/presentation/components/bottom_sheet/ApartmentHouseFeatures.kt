@@ -85,36 +85,16 @@ fun ApartmentHouseFeatures(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Row(
-                modifier = Modifier
-                    .weight(2f),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(35.dp)
-                        .background(tertiaryColor),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.FeaturedPlayList,
-                        contentDescription = "Feature icon",
-                        tint = primaryColor
-                    )
-                }
-
-                Text(
-                    text = "Features",
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
-            }
+            Text(
+                text = "Features",
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
 
             //  add image button
             HomePillBtns(

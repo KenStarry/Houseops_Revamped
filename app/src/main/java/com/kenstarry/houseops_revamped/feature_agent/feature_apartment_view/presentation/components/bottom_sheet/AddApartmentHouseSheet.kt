@@ -81,6 +81,10 @@ fun AddApartmentHouseSheet(
         )
 
         //  house description
+        ApartmentHouseDescription(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
 
         val house = HouseModel(
             houseId = "lu-single-573",

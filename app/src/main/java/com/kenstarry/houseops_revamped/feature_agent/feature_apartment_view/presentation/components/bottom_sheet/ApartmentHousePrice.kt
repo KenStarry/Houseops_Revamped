@@ -4,10 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.PriceChange
 import androidx.compose.material.icons.outlined.PriceCheck
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -25,50 +28,65 @@ fun ApartmentHousePrice(
         mutableStateOf("")
     }
 
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        Box(
-            modifier = Modifier
-                .weight(2f),
-            contentAlignment = Alignment.Center
-        ) {
-            CustomTextField(
-                textFieldValue = priceInput,
-                startIcon = Icons.Outlined.PriceCheck,
-                endIcon = null,
-                placeholder = "House Price",
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Number,
-                primaryColor = primaryColor,
-                tertiaryColor = tertiaryColor,
-                visualTransformation = NumberCommaTransformation(),
-                onInput = {
-                    //  add commas to price
-                    priceInput = it
-                }
-            )
-        }
+        Text(
+            text = "Pricing",
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+        )
 
-        Box(
+        Row(
             modifier = Modifier
-                .weight(1f),
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            HomePillBtns(
-                icon = Icons.Outlined.PriceChange,
-                title = "monthly",
-                primaryColor = primaryColor,
-                tertiaryColor = tertiaryColor,
-                onClick = {},
-                paddingHorizontal = 8.dp
-            )
-        }
 
+            Box(
+                modifier = Modifier
+                    .weight(2f),
+                contentAlignment = Alignment.Center
+            ) {
+                CustomTextField(
+                    textFieldValue = priceInput,
+                    startIcon = Icons.Outlined.PriceCheck,
+                    endIcon = null,
+                    placeholder = "House Price",
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Number,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    visualTransformation = NumberCommaTransformation(),
+                    onInput = {
+                        //  add commas to price
+                        priceInput = it
+                    }
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                HomePillBtns(
+                    icon = Icons.Outlined.PriceChange,
+                    title = "monthly",
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onClick = {},
+                    paddingHorizontal = 8.dp
+                )
+            }
+
+        }
     }
 }
