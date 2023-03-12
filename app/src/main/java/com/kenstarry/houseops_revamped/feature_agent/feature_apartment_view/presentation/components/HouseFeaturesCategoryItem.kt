@@ -34,6 +34,10 @@ fun HouseFeaturesCategoryItem(
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
     val filteredFeaturesList =
         AgentApartmentConstants.featureOptionsList.filter { it.featureCategory == category }
+    val filteredSelectedFeaturesList = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.filter {
+        it.featureCategory == category
+    }
+
 
     Column(
         modifier = Modifier
@@ -70,7 +74,7 @@ fun HouseFeaturesCategoryItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.size.toString(),
+                    text = filteredSelectedFeaturesList.size.toString(),
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Bold,
                     color = primaryColor

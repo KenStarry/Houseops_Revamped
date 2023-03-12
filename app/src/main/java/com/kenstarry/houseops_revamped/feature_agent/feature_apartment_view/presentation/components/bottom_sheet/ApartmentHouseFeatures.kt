@@ -3,6 +3,10 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pre
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -21,8 +25,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseFeatureCardItem
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseFeaturesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
@@ -32,6 +39,8 @@ fun ApartmentHouseFeatures(
 ) {
 
     val coreVM = hiltViewModel<CoreViewModel>()
+    val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
+    val listState = rememberLazyListState()
 
     AnimatedVisibility(
         visible = coreVM.alertDialogSelected.value?.dialogType
@@ -43,20 +52,22 @@ fun ApartmentHouseFeatures(
             tertiaryColor = tertiaryColor,
             onConfirm = {
 
-                //  add the list to the list of selected features
-
                 //  close alert dialog
-                coreVM.onEvent(CoreEvents.ToggleAlertDialog(
-                    dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
-                    isDialogVisible = false
-                ))
+                coreVM.onEvent(
+                    CoreEvents.ToggleAlertDialog(
+                        dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                        isDialogVisible = false
+                    )
+                )
             },
             onDismiss = {
                 //  close alert dialog
-                coreVM.onEvent(CoreEvents.ToggleAlertDialog(
-                    dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
-                    isDialogVisible = false
-                ))
+                coreVM.onEvent(
+                    CoreEvents.ToggleAlertDialog(
+                        dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                        isDialogVisible = false
+                    )
+                )
             }
         )
     }
@@ -113,15 +124,46 @@ fun ApartmentHouseFeatures(
                 tertiaryColor = tertiaryColor,
                 onClick = {
                     //  open alert dialog
-                    coreVM.onEvent(CoreEvents.ToggleAlertDialog(
-                        dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
-                        isDialogVisible = true
-                    ))
+                    coreVM.onEvent(
+                        CoreEvents.ToggleAlertDialog(
+                            dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                            isDialogVisible = true
+                        )
+                    )
                 }
             )
 
         }
 
+        //  feature item
+        AnimatedVisibility(visible = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.isNotEmpty()) {
+            LazyRow(
+                content = {
+                    items(agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures) { feature ->
 
+                        //    feature card
+                        HouseFeatureCardItem(
+                            apartmentHouseFeaturesModel = feature,
+                            primaryColor = primaryColor,
+                            isSelected = false,
+                            onClick = {
+                                //  open alert dialog
+                                coreVM.onEvent(
+                                    CoreEvents.ToggleAlertDialog(
+                                        dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                                        isDialogVisible = true
+                                    )
+                                )
+                            }
+                        )
+                    }
+                },
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            )
+        }
     }
 }

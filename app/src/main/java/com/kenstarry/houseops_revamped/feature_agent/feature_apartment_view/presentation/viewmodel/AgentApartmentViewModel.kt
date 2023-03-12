@@ -98,6 +98,17 @@ class AgentApartmentViewModel @Inject constructor(
                     )
                 }
             }
+
+            is AgentApartmentEvents.ClearSelectedFeatures -> {
+                val updatedFeaturesList = selectedFeaturesState.listOfSelectedFeatures.toMutableList()
+
+                viewModelScope.launch {
+                    updatedFeaturesList.clear()
+                    selectedFeaturesState = selectedFeaturesState.copy(
+                        listOfSelectedFeatures = updatedFeaturesList
+                    )
+                }
+            }
         }
     }
 }
