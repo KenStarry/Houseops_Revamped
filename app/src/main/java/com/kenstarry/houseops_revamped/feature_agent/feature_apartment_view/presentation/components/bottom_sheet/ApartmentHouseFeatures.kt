@@ -125,6 +125,7 @@ fun ApartmentHouseFeatures(
                         HouseFeatureCardItem(
                             apartmentHouseFeaturesModel = feature,
                             primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
                             isSelected = false,
                             onClick = {
                                 //  open alert dialog

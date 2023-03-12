@@ -107,6 +107,7 @@ fun HouseFeaturesCategoryItem(
                     HouseFeatureCardItem(
                         apartmentHouseFeaturesModel = apartmentHouseFeaturesModel,
                         primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
                         isSelected = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.any {
                             it == apartmentHouseFeaturesModel
                         },

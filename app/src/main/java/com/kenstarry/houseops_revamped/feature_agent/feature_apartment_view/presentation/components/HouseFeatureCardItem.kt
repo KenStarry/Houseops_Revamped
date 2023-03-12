@@ -16,6 +16,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 fun HouseFeatureCardItem(
     apartmentHouseFeaturesModel: ApartmentHouseFeaturesModel,
     primaryColor: Color,
+    tertiaryColor: Color,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
@@ -29,15 +30,15 @@ fun HouseFeatureCardItem(
             containerColor = if (isSelected)
                 primaryColor
             else
-                MaterialTheme.colorScheme.onPrimary,
+                tertiaryColor,
 
             contentColor = if (isSelected)
                 primaryColor
             else
-                MaterialTheme.colorScheme.onPrimary
+                tertiaryColor
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
+            defaultElevation = 0.dp
         )
     ) {
 

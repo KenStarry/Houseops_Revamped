@@ -5,6 +5,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.ArrowRight
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +40,7 @@ fun AddApartmentHouseSheet(
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(26.dp)
     ) {
 
         Box(
@@ -55,15 +57,34 @@ fun AddApartmentHouseSheet(
             )
         }
 
-        HomePillBtns(
-            icon = Icons.Outlined.Apartment,
-            title = apartmentName,
-            primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor,
-            onClick = {}
-        )
+        //  Apartment Name
+        Row(
+            modifier = Modifier
+                .wrapContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Icon(
+                imageVector = Icons.Outlined.Apartment,
+                contentDescription = "apartment icon",
+                tint = primaryColor
+            )
+
+            Text(
+                text = apartmentName,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
+
+        }
 
         //  house category
+        ApartmentHouseCategory(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
 
         //  apartment house images
         ApartmentHouseImages(

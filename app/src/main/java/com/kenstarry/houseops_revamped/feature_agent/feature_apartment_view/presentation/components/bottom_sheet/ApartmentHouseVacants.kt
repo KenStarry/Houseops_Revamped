@@ -47,74 +47,54 @@ fun ApartmentHouseVacants(
         //  add number of vacant units remaining
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.Start,
+                .wrapContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            Text(
-                text = "Houses Remaining",
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
-            )
-
-            Spacer(modifier = Modifier.width(24.dp))
-
-            Row(
+            //  minus icon
+            Box(
                 modifier = Modifier
-                    .wrapContentSize(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .clip(CircleShape)
+                    .size(40.dp)
+                    .background(tertiaryColor)
+                    .clickable {
+                        if (counter >= 1)
+                            counter -= 1
+                    },
+                contentAlignment = Alignment.Center
             ) {
-                //  minus icon
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(40.dp)
-                        .background(tertiaryColor)
-                        .clickable {
-                            if (counter >= 1)
-                                counter -= 1
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Remove,
-                        contentDescription = "minus icon",
-                        tint = primaryColor
-                    )
-                }
-
-                //  counter text
-                Text(
-                    text = counter.toString(),
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                Icon(
+                    imageVector = Icons.Outlined.Remove,
+                    contentDescription = "minus icon",
+                    tint = primaryColor
                 )
-
-                //  add icon
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(40.dp)
-                        .background(tertiaryColor)
-                        .clickable {
-                            counter += 1
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
-                        contentDescription = "add icon",
-                        tint = primaryColor
-                    )
-                }
             }
 
+            //  counter text
+            Text(
+                text = counter.toString(),
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
 
+            //  add icon
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(40.dp)
+                    .background(tertiaryColor)
+                    .clickable {
+                        counter += 1
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Add,
+                    contentDescription = "add icon",
+                    tint = primaryColor
+                )
+            }
         }
 
     }
