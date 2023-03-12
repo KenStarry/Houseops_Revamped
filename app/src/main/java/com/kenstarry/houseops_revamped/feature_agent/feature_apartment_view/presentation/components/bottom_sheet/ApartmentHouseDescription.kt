@@ -57,7 +57,7 @@ fun ApartmentHouseDescription(
             maxLines = Int.MAX_VALUE,
             singleLine = false,
             onInput = {
-
+                //  pass the house description
             }
         )
 

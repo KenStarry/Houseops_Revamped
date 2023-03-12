@@ -77,6 +77,12 @@ fun AddApartmentHouseSheet(
             tertiaryColor = tertiaryColor
         )
 
+        //  vacant houses remaining
+        ApartmentHouseVacants(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
+
         //  house features
         ApartmentHouseFeatures(
             primaryColor = primaryColor,
