@@ -59,6 +59,7 @@ object Constants {
 
     //  Alert Dialogs
     const val APARTMENT_FEATURES_ALERT_DIALOG = "apartment features alert dialog"
+    const val APARTMENT_HOUSE_CATEGORIES_ALERT_DIALOG = "apartment house categories alert dialog"
 
     val houseCategories = listOf(
         HouseCategoryModel("One Bedroom", Icons.Outlined.Apartment),

@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,7 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.DoneCancelButtons
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseCategoriesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
@@ -30,7 +35,8 @@ fun AddApartmentHouseSheet(
     onCancel: () -> Unit
 ) {
 
-    val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
+    val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
+    val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
 
     Column(
@@ -42,6 +48,36 @@ fun AddApartmentHouseSheet(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(26.dp)
     ) {
+
+        //  house category dialog
+        AnimatedVisibility(
+            visible = coreVM.alertDialogSelected.value?.dialogType
+                    == Constants.APARTMENT_HOUSE_CATEGORIES_ALERT_DIALOG &&
+                    coreVM.alertDialogSelected.value?.isDialogVisible == true
+        ) {
+            HouseCategoriesAlertDialog(
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
+                onConfirm = {
+                    //  closee alert dialog for house category
+                    coreVM.onEvent(
+                        CoreEvents.ToggleAlertDialog(
+                            dialogType = Constants.APARTMENT_HOUSE_CATEGORIES_ALERT_DIALOG,
+                            isDialogVisible = false
+                        )
+                    )
+                },
+                onDismiss = {
+                    //  closee alert dialog for house category
+                    coreVM.onEvent(
+                        CoreEvents.ToggleAlertDialog(
+                            dialogType = Constants.APARTMENT_HOUSE_CATEGORIES_ALERT_DIALOG,
+                            isDialogVisible = false
+                        )
+                    )
+                }
+            )
+        }
 
         Box(
             modifier = Modifier

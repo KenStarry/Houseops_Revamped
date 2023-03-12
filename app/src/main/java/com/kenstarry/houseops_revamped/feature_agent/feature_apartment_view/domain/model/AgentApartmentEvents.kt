@@ -35,6 +35,9 @@ sealed class AgentApartmentEvents {
     data class DeleteFeature(val feature: ApartmentHouseFeaturesModel) : AgentApartmentEvents()
 
     object ClearSelectedFeatures : AgentApartmentEvents()
+
+    //  Select House Category
+    data class SelectHouseCategory(val category: String) : AgentApartmentEvents()
 }
 
 
