@@ -50,10 +50,12 @@ fun ApartmentHouseDescription(
             startIcon = Icons.Outlined.Description,
             endIcon = null,
             placeholder = "House Description",
-            imeAction = ImeAction.Done,
+            imeAction = ImeAction.Default,
             keyboardType = KeyboardType.Text,
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor,
+            maxLines = Int.MAX_VALUE,
+            singleLine = false,
             onInput = {
 
             }

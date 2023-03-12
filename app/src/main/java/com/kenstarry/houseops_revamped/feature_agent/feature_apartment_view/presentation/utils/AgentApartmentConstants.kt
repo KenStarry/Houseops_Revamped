@@ -10,29 +10,32 @@ object AgentApartmentConstants {
 
     //  house features categories
     val featureCategoriesList = listOf(
-        "Essentials",
-        "Interior",
-        "Leisure",
-        "Others",
+        //  0
+        "General",
+        //  1
+        "Bedroom",
+        //  2
+        "Sitting Room",
+        //  3
+        "Kitchen",
+        //  4
+        "Bathroom",
+        //  5
+        "Other",
     )
 
     //  house features list
     val featureOptionsList = listOf(
-        ApartmentHouseFeaturesModel(Icons.Outlined.Kitchen, "Kitchen", featureCategoriesList[1]),
-        ApartmentHouseFeaturesModel(Icons.Outlined.Room, "Tiles", featureCategoriesList[1]),
-        ApartmentHouseFeaturesModel(Icons.Outlined.Shower, "Hot Shower", featureCategoriesList[1]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Kitchen, "Kitchen", featureCategoriesList[3]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Room, "Tiles", featureCategoriesList[2]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Shower, "Hot Shower", featureCategoriesList[4]),
         ApartmentHouseFeaturesModel(Icons.Outlined.Water, "Metred Water", featureCategoriesList[0]),
         ApartmentHouseFeaturesModel(Icons.Outlined.Thunderstorm, "Token", featureCategoriesList[0]),
-        ApartmentHouseFeaturesModel(Icons.Outlined.WaterDrop, "Sink", featureCategoriesList[2]),
-        ApartmentHouseFeaturesModel(
-            Icons.Outlined.Bathroom,
-            "Bathroom(s)",
-            featureCategoriesList[1]
-        ),
-        ApartmentHouseFeaturesModel(Icons.Outlined.Bathtub, "BathTub", featureCategoriesList[2]),
-        ApartmentHouseFeaturesModel(Icons.Outlined.Apartment, "Corridor", featureCategoriesList[3]),
-        ApartmentHouseFeaturesModel(Icons.Outlined.Balcony, "Balcony", featureCategoriesList[3]),
-        ApartmentHouseFeaturesModel(Icons.Outlined.Balcony, "Verandah", featureCategoriesList[3]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.WaterDrop, "Sink", featureCategoriesList[3]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Bathtub, "BathTub", featureCategoriesList[4]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Apartment, "Corridor", featureCategoriesList[5]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Balcony, "Balcony", featureCategoriesList[5]),
+        ApartmentHouseFeaturesModel(Icons.Outlined.Balcony, "Verandah", featureCategoriesList[5]),
         ApartmentHouseFeaturesModel(
             Icons.Outlined.Snowshoeing,
             "Wardrobe",
@@ -41,17 +44,17 @@ object AgentApartmentConstants {
         ApartmentHouseFeaturesModel(
             Icons.Outlined.Wash,
             "Washing Machine",
-            featureCategoriesList[2]
+            featureCategoriesList[5]
         ),
         ApartmentHouseFeaturesModel(
             Icons.Outlined.DoorBack,
             "Metallic Door",
-            featureCategoriesList[1]
+            featureCategoriesList[0]
         ),
         ApartmentHouseFeaturesModel(
             Icons.Outlined.DoorSliding,
             "Wooden Door",
-            featureCategoriesList[1]
+            featureCategoriesList[0]
         )
     )
 }

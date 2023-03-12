@@ -36,8 +36,8 @@ fun CustomTextField(
     containerColor: Color = MaterialTheme.colorScheme.onPrimary,
     fontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
     fontWeight: FontWeight = FontWeight.Normal,
-    singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    singleLine: Boolean = true,
+    maxLines: Int = 1,
     isPassword: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onInput: (input: String) -> Unit
@@ -87,7 +87,7 @@ fun CustomTextField(
                 placeholder = {
                     Text(text = placeholder)
                 },
-                maxLines = 1,
+                maxLines = maxLines,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     imeAction = imeAction,
@@ -96,7 +96,7 @@ fun CustomTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
 
-                singleLine = true,
+                singleLine = singleLine,
 
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary,
@@ -137,7 +137,7 @@ fun CustomTextField(
                 placeholder = {
                     Text(text = placeholder)
                 },
-                maxLines = 1,
+                maxLines = maxLines,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     imeAction = imeAction,
@@ -146,7 +146,7 @@ fun CustomTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
 
-                singleLine = true,
+                singleLine = singleLine,
 
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary,
