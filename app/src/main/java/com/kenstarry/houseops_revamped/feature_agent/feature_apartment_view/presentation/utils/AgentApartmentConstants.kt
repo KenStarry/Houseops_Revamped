@@ -8,6 +8,17 @@ object AgentApartmentConstants {
 
     const val ADD_HOUSE_BOTTOM_SHEET = "add house bottom sheet"
 
+    //  house categories
+    val houseCategories = listOf(
+        "Single",
+        "Bedsitter",
+        "One Bedroom",
+        "Two Bedrooms",
+        "Three Bedrooms",
+        "Mansion",
+        "Hostel",
+    )
+
     //  house features categories
     val featureCategoriesList = listOf(
         //  0

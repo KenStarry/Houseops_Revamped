@@ -142,5 +142,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
 
-
+    //  lazy column with scrollbar
+    implementation 'com.github.BILLyTheLiTTle:LazyColumns:0.2.7'
 }
