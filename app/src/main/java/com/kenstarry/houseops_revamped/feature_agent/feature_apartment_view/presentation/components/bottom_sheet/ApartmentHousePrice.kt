@@ -2,8 +2,11 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pre
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AlternateEmail
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.PriceChange
 import androidx.compose.material.icons.outlined.PriceCheck
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -72,18 +75,25 @@ fun ApartmentHousePrice(
                 )
             }
 
-            Box(
+            Row(
                 modifier = Modifier
                     .weight(1f),
-                contentAlignment = Alignment.Center
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                HomePillBtns(
-                    icon = Icons.Outlined.PriceChange,
-                    title = "monthly",
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    onClick = {},
-                    paddingHorizontal = 8.dp
+                Icon(
+                    imageVector = Icons.Outlined.AlternateEmail,
+                    contentDescription = "price icon",
+                    tint = primaryColor
+                )
+                
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Text(
+                    text = "Monthly",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
             }
 
