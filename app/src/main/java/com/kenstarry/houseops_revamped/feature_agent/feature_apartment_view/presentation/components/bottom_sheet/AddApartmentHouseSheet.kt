@@ -40,10 +40,6 @@ fun AddApartmentHouseSheet(
     val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
 
-    var houseID by remember {
-        mutableStateOf<String?>(null)
-    }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -157,9 +153,12 @@ fun AddApartmentHouseSheet(
             tertiaryColor = tertiaryColor
         )
 
+        //  generate random id for the house
+        val randomNum = List(5) { (0..10).random() }
+
         val house = HouseModel(
 
-            houseId = houseID ?: "",
+            houseId = "${apartmentName.take(2)}-${agentApartmentVM.selectedHouseCategory.value}-$randomNum",
 
             houseCategory = if (agentApartmentVM.selectedHouseCategory.value == "Pick House Category")
                 "Single"
@@ -168,9 +167,9 @@ fun AddApartmentHouseSheet(
 
             housePurchaseType = "For Rent",
             houseImageUris = imagesState.listOfSelectedImages.map { it.toString() },
-            houseUnits = "",
+            houseUnits = agentApartmentVM.selectedVacantUnits.value.toString(),
             houseFeatures = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.map { it.title },
-            houseDescription = "",
+            houseDescription = agentApartmentVM.selectedHouseDescription.value,
             houseLikes = "",
             houseApartmentName = apartmentName,
             housePrice = agentApartmentVM.selectedHousePrice.value,
@@ -181,16 +180,7 @@ fun AddApartmentHouseSheet(
 
         DoneCancelButtons(
             onDone = {
-
-                //  generate random id for the house
-                val randomNum = List(5) { (0..10).random() }
-
-                houseID =
-                    "${apartmentName.take(2)}-${agentApartmentVM.selectedHouseCategory.value}-$randomNum"
-
-                houseID?.let {
-                    onDone(house)
-                }
+                onDone(house)
             },
             onCancel = onCancel
         )

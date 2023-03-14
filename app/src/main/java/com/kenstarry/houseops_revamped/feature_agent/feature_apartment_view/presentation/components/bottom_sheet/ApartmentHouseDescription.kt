@@ -19,8 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -29,6 +32,8 @@ fun ApartmentHouseDescription(
     primaryColor: Color,
     tertiaryColor: Color
 ) {
+
+    val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
 
     Column(
         modifier = Modifier
@@ -47,6 +52,7 @@ fun ApartmentHouseDescription(
 
         //  description box
         CustomTextField(
+            textFieldValue = agentApartmentVM.selectedHouseDescription.value,
             startIcon = Icons.Outlined.Description,
             endIcon = null,
             placeholder = "House Description",
@@ -58,6 +64,7 @@ fun ApartmentHouseDescription(
             singleLine = false,
             onInput = {
                 //  pass the house description
+                agentApartmentVM.onEvent(AgentApartmentEvents.SelectHouseDescription(it))
             }
         )
 

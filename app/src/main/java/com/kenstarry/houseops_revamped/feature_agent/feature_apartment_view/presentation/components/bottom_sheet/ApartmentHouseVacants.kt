@@ -19,6 +19,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 
 @Composable
 fun ApartmentHouseVacants(
@@ -29,6 +32,7 @@ fun ApartmentHouseVacants(
     var counter by remember {
         mutableStateOf(0)
     }
+    val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
 
     Column(
         modifier = Modifier
@@ -58,8 +62,10 @@ fun ApartmentHouseVacants(
                     .size(40.dp)
                     .background(tertiaryColor)
                     .clickable {
-                        if (counter >= 1)
+                        if (agentApartmentVM.selectedVacantUnits.value >= 1) {
                             counter -= 1
+                            agentApartmentVM.onEvent(AgentApartmentEvents.SelectVacantUnits(counter))
+                        }
                     },
                 contentAlignment = Alignment.Center
             ) {
@@ -86,6 +92,7 @@ fun ApartmentHouseVacants(
                     .background(tertiaryColor)
                     .clickable {
                         counter += 1
+                        agentApartmentVM.onEvent(AgentApartmentEvents.SelectVacantUnits(counter))
                     },
                 contentAlignment = Alignment.Center
             ) {

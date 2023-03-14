@@ -40,6 +40,10 @@ sealed class AgentApartmentEvents {
     data class SelectHouseCategory(val category: String) : AgentApartmentEvents()
 
     data class SelectHousePrice(val price: String) : AgentApartmentEvents()
+
+    data class SelectVacantUnits(val count: Int) : AgentApartmentEvents()
+
+    data class SelectHouseDescription(val description: String) : AgentApartmentEvents()
 }
 
 
