@@ -245,6 +245,67 @@ class CoreRepositoryImpl @Inject constructor(
 
     }
 
+    override suspend fun uploadSingleImageToStorage(
+        uri: Uri?,
+        context: Context,
+        storageRef: String,
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
+        fieldToUpdate: String,
+        onResponse: (response: Response<*>) -> Unit
+    ) {
+
+        val ref = FirebaseStorage.getInstance()
+            .getReference(storageRef)
+
+        try {
+            uri?.let {
+
+                val fileRef = ref.child(
+                    "${System.currentTimeMillis()}.${getFileExtension(uri, context)}"
+                )
+
+                fileRef.putFile(it)
+                    .addOnSuccessListener {
+
+                        //  Grab the download url
+                        try {
+                            fileRef.downloadUrl.addOnSuccessListener { url ->
+                                //  add url to the user collection
+                                val myCollection = if (subCollectionName != null && subCollectionDocument != null)
+                                    db.collection(collectionName)
+                                        .document(documentName)
+                                        .collection(subCollectionName)
+                                        .document(subCollectionDocument)
+                                else
+                                    db.collection(collectionName)
+                                        .document(documentName)
+
+                                myCollection.update(
+                                    fieldToUpdate,
+                                    url
+                                )
+
+                                onResponse(Response.Success(url))
+                            }
+                                .addOnFailureListener { e ->
+                                    onResponse(Response.Failure(e.localizedMessage))
+                                }
+
+                        } catch (e: Exception) {
+                            //  Return Failure
+                            onResponse(Response.Failure(e.localizedMessage))
+                        }
+                    }
+            }
+
+        } catch (e: Exception) {
+            onResponse(Response.Failure(e.localizedMessage))
+        }
+    }
+
     override suspend fun getApartments() {
 
     }

@@ -5,7 +5,6 @@ import android.net.Uri
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.presentation.model.AccentColor
 import com.kenstarry.houseops_revamped.core.presentation.model.OptionsToggleModel
-import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 
 sealed class CoreEvents {
 
@@ -35,8 +34,20 @@ sealed class CoreEvents {
         val isAddItem: Boolean
     ) : CoreEvents()
 
-    data class UploadImageToStorage(
+    data class UploadImagesToStorage(
         val imageUriList: List<Uri?>,
+        val context: Context,
+        val storageRef: String,
+        val collectionName: String,
+        val documentName: String,
+        val subCollectionName: String?,
+        val subCollectionDocument: String?,
+        val fieldToUpdate: String,
+        val onResponse: (response: Response<*>) -> Unit
+    ) : CoreEvents()
+
+    data class UploadSingleImageToStorage(
+        val uri: Uri?,
         val context: Context,
         val storageRef: String,
         val collectionName: String,

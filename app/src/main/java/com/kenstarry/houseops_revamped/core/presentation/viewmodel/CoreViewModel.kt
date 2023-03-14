@@ -186,11 +186,28 @@ class CoreViewModel @Inject constructor(
                 }
             }
 
-            is CoreEvents.UploadImageToStorage -> {
+            is CoreEvents.UploadImagesToStorage -> {
 
                 viewModelScope.launch {
                     coreUseCases.uploadImagesToStorage(
                         imageUriList = event.imageUriList,
+                        context = event.context,
+                        storageRef = event.storageRef,
+                        collectionName = event.collectionName,
+                        documentName = event.documentName,
+                        subCollectionName = event.subCollectionName,
+                        subCollectionDocument = event.subCollectionDocument,
+                        fieldToUpdate = event.fieldToUpdate,
+                        onResponse = { event.onResponse(it) }
+                    )
+                }
+            }
+
+            is CoreEvents.UploadSingleImageToStorage -> {
+
+                viewModelScope.launch {
+                    coreUseCases.uploadSingleImageToStorage(
+                        uri = event.uri,
                         context = event.context,
                         storageRef = event.storageRef,
                         collectionName = event.collectionName,

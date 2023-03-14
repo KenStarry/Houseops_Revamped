@@ -43,6 +43,7 @@ object CoreModule {
         updateArrayField = UpdateUsersArrayField(repo),
         getAllCaretakers = GetAllCaretakers(repo),
         uploadImagesToStorage = UploadImagesToStorage(repo),
+        uploadSingleImageToStorage = UploadSingleImageToStorage(repo),
         verificationEmail = VerificationEmail(repo)
     )
 

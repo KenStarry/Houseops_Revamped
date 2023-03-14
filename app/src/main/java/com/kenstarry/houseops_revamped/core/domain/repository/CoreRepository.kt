@@ -66,6 +66,19 @@ interface CoreRepository {
         onResponse: (response: Response<*>) -> Unit
     )
 
+    //  upload single image to firestore
+    suspend fun uploadSingleImageToStorage(
+        uri: Uri?,
+        context: Context,
+        storageRef: String,
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
+        fieldToUpdate: String,
+        onResponse: (response: Response<*>) -> Unit
+    )
+
     suspend fun getApartments()
 
 }

@@ -26,11 +26,8 @@ import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.BackPressTopAppBar
 import com.kenstarry.houseops_revamped.core.presentation.components.LoadingCircle
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
-import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.ADMIN_ROUTE
-import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.AGENT_ROUTE
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.HOME_ROUTE
-import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.domain.model.ValidationEvent
 import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthConstants
@@ -108,17 +105,18 @@ fun SignUpScreen(
                                             userLikedHouses = listOf(),
                                             userBookmarks = listOf(),
                                             userBookedHouses = listOf(),
-                                            userType = signUpVM.chosenUserType.value.userTitle,
+                                            userType = AuthConstants.userTypes[1].userTitle,
                                             userIsVerified = false
                                         ),
+//                                        signUpVM.chosenUserType.value.userTitle
                                         response = { res ->
                                             when (res) {
                                                 is Response.Success -> {
 
                                                     //  upload user image
                                                     coreVM.onEvent(
-                                                        CoreEvents.UploadImageToStorage(
-                                                        imageUriList = listOf(authVM.formState.imageUri),
+                                                        CoreEvents.UploadSingleImageToStorage(
+                                                        uri = authVM.formState.imageUri,
                                                         context = context,
                                                         storageRef = "user_images/${authVM.formState.email}",
                                                         collectionName = Constants.USERS_COLLECTION,
@@ -147,8 +145,12 @@ fun SignUpScreen(
                                                     when (signUpVM.chosenUserType.value.userTitle) {
                                                         AuthConstants.userTypes[0].userTitle -> {
                                                             //  navigate to landlord screen
+//                                                            direction.navigateToRoute(
+//                                                                LANDLORD_ROUTE,
+//                                                                AUTHENTICATION_ROUTE
+//                                                            )
                                                             direction.navigateToRoute(
-                                                                LANDLORD_ROUTE,
+                                                                HOME_ROUTE,
                                                                 AUTHENTICATION_ROUTE
                                                             )
                                                         }
@@ -161,15 +163,23 @@ fun SignUpScreen(
                                                         }
                                                         AuthConstants.userTypes[2].userTitle -> {
                                                             //  navigate to admin screen
+//                                                            direction.navigateToRoute(
+//                                                                ADMIN_ROUTE,
+//                                                                AUTHENTICATION_ROUTE
+//                                                            )
                                                             direction.navigateToRoute(
-                                                                ADMIN_ROUTE,
+                                                                HOME_ROUTE,
                                                                 AUTHENTICATION_ROUTE
                                                             )
                                                         }
                                                         AuthConstants.userTypes[3].userTitle -> {
                                                             //  navigate to agent screen
+//                                                            direction.navigateToRoute(
+//                                                                AGENT_ROUTE,
+//                                                                AUTHENTICATION_ROUTE
+//                                                            )
                                                             direction.navigateToRoute(
-                                                                AGENT_ROUTE,
+                                                                HOME_ROUTE,
                                                                 AUTHENTICATION_ROUTE
                                                             )
                                                         }
