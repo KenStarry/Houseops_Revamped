@@ -31,10 +31,4 @@ sealed class AgentBottomNavScreens(
         title = "Overview",
         icon = Icons.Outlined.Dashboard
     )
-
-    object Settings : AgentBottomNavScreens(
-        route = NavConstants.AGENT_SETTINGS_SCREEN_ROUTE,
-        title = "Settings",
-        icon = Icons.Outlined.Settings
-    )
 }

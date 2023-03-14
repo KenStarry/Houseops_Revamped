@@ -38,7 +38,7 @@ fun ApartmentHouseCategory(
 
         HomePillBtns(
             icon = Icons.Outlined.House,
-            title = "Pick House Category",
+            title = agentApartmentVM.selectedHouseCategory.value,
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor,
             onClick = {

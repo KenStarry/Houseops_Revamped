@@ -22,8 +22,7 @@ fun AgentBottomNav(
     val screens = listOf(
         AgentBottomNavScreens.Home,
         AgentBottomNavScreens.Notifications,
-        AgentBottomNavScreens.Overview,
-        AgentBottomNavScreens.Settings
+        AgentBottomNavScreens.Overview
     )
 
     //  current destination

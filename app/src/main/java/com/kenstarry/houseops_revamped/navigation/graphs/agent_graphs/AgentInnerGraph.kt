@@ -11,7 +11,6 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.AgentHome
 import com.kenstarry.houseops_revamped.feature_agent.feature_notifications.AgentNotifications
 import com.kenstarry.houseops_revamped.feature_agent.feature_overview.AgentOverview
-import com.kenstarry.houseops_revamped.feature_agent.feature_settings.AgentSettings
 import com.kenstarry.houseops_revamped.navigation.screens.AgentBottomNavScreens
 import com.kenstarry.houseops_revamped.navigation.screens.AgentScreens
 
@@ -38,10 +37,6 @@ fun AgentInnerGraph(
 
         composable(route = AgentBottomNavScreens.Overview.route) {
             AgentOverview(navHostController, primaryColor, tertiaryColor)
-        }
-
-        composable(route = AgentBottomNavScreens.Settings.route) {
-            AgentSettings(mainNavHostController, primaryColor, tertiaryColor)
         }
 
         composable(

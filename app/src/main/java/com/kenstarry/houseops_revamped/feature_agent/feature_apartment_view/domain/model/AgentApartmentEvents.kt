@@ -38,6 +38,8 @@ sealed class AgentApartmentEvents {
 
     //  Select House Category
     data class SelectHouseCategory(val category: String) : AgentApartmentEvents()
+
+    data class SelectHousePrice(val price: String) : AgentApartmentEvents()
 }
 
 

@@ -71,7 +71,13 @@ fun AgentHome(
             topBar = {
                 AgentHomeTopBar(
                     context = context,
-                    userDetails = userDetails
+                    userDetails = userDetails,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onBackPressed = {
+                        Toast.makeText(context, "back clicked", Toast.LENGTH_SHORT).show()
+                        direction.navigateUp()
+                    }
                 )
             },
 
@@ -106,27 +112,6 @@ fun AgentHome(
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.onPrimary)
                 ) {
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    //  agent pill
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-
-                        HomePillBtns(
-                            icon = Icons.Outlined.SupportAgent,
-                            title = userDetails?.userType ?: "",
-                            primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor,
-                            onClick = {}
-                        )
-
-                    }
 
                     Spacer(modifier = Modifier.height(24.dp))
 

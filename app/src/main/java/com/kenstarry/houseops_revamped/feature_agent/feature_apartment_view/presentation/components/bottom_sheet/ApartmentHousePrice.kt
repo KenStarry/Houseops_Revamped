@@ -17,7 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.NumberCommaTransformation
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -27,9 +30,7 @@ fun ApartmentHousePrice(
     tertiaryColor: Color
 ) {
 
-    var priceInput by remember {
-        mutableStateOf("")
-    }
+    val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
 
     Column(
         modifier = Modifier
@@ -59,7 +60,7 @@ fun ApartmentHousePrice(
                 contentAlignment = Alignment.Center
             ) {
                 CustomTextField(
-                    textFieldValue = priceInput,
+                    textFieldValue = agentApartmentVM.selectedHousePrice.value,
                     startIcon = Icons.Outlined.PriceCheck,
                     endIcon = null,
                     placeholder = "House Price",
@@ -70,7 +71,8 @@ fun ApartmentHousePrice(
                     visualTransformation = NumberCommaTransformation(),
                     onInput = {
                         //  add commas to price
-                        priceInput = it
+                        agentApartmentVM.onEvent(AgentApartmentEvents.SelectHousePrice(it))
+
                     }
                 )
             }

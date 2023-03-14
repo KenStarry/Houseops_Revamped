@@ -29,8 +29,11 @@ class AgentApartmentViewModel @Inject constructor(
     var selectedFeaturesState by mutableStateOf(FeaturesState())
         private set
 
-    private val _selectedHouseCategory = mutableStateOf<String>("Pick House Category")
+    private val _selectedHouseCategory = mutableStateOf("Pick House Category")
     val selectedHouseCategory: State<String> = _selectedHouseCategory
+
+    private val _selectedHousePrice = mutableStateOf("")
+    val selectedHousePrice: State<String> = _selectedHousePrice
 
     fun onEvent(event: AgentApartmentEvents) {
         when (event) {
@@ -115,6 +118,10 @@ class AgentApartmentViewModel @Inject constructor(
 
             is AgentApartmentEvents.SelectHouseCategory -> {
                 _selectedHouseCategory.value = event.category
+            }
+
+            is AgentApartmentEvents.SelectHousePrice -> {
+                _selectedHousePrice.value = event.price
             }
         }
     }

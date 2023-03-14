@@ -14,6 +14,7 @@ class NumberCommaTransformation : VisualTransformation {
         return TransformedText(
 
             text = AnnotatedString(text.text.toLongOrNull().formatWithComma()),
+
             offsetMapping = object : OffsetMapping {
 
                 override fun originalToTransformed(offset: Int): Int {

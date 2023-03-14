@@ -10,7 +10,7 @@ import androidx.compose.material.icons.outlined.ArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +25,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
+import kotlin.random.Random
 
 @Composable
 fun AddApartmentHouseSheet(
@@ -38,6 +39,10 @@ fun AddApartmentHouseSheet(
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
     val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
+
+    var houseID by remember {
+        mutableStateOf<String?>(null)
+    }
 
     Column(
         modifier = Modifier
@@ -153,8 +158,14 @@ fun AddApartmentHouseSheet(
         )
 
         val house = HouseModel(
-            houseId = "lu-single-573",
-            houseCategory = "single",
+
+            houseId = houseID ?: "",
+
+            houseCategory = if (agentApartmentVM.selectedHouseCategory.value == "Pick House Category")
+                "Single"
+            else
+                agentApartmentVM.selectedHouseCategory.value,
+
             housePurchaseType = "For Rent",
             houseImageUris = imagesState.listOfSelectedImages.map { it.toString() },
             houseUnits = "",
@@ -162,14 +173,25 @@ fun AddApartmentHouseSheet(
             houseDescription = "",
             houseLikes = "",
             houseApartmentName = apartmentName,
-            housePrice = "",
+            housePrice = agentApartmentVM.selectedHousePrice.value,
             housePriceCategory = "monthly",
             houseComments = "",
             houseUsersBooked = emptyList()
         )
 
         DoneCancelButtons(
-            onDone = { onDone(house) },
+            onDone = {
+
+                //  generate random id for the house
+                val randomNum = List(5) { (0..10).random() }
+
+                houseID =
+                    "${apartmentName.take(2)}-${agentApartmentVM.selectedHouseCategory.value}-$randomNum"
+
+                houseID?.let {
+                    onDone(house)
+                }
+            },
             onCancel = onCancel
         )
 
