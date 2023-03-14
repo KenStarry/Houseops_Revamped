@@ -54,10 +54,10 @@ fun DangerSection(
         ) {
 
             SectionTitle(
-                title = SettingsConstants.settingsSections[3].sectionTitle,
-                icon = SettingsConstants.settingsSections[3].sectionIcon,
-                iconColor = SettingsConstants.settingsSections[3].sectionIconColor,
-                iconBackground = SettingsConstants.settingsSections[3].sectionIconBackgroundColor,
+                title = SettingsConstants.settingsSections[4].sectionTitle,
+                icon = SettingsConstants.settingsSections[4].sectionIcon,
+                iconColor = SettingsConstants.settingsSections[4].sectionIconColor,
+                iconBackground = SettingsConstants.settingsSections[4].sectionIconBackgroundColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),

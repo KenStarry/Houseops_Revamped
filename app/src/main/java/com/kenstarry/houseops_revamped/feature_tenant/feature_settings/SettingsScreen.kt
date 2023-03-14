@@ -20,6 +20,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.domain.mo
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.SettingsAppBar
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.alert_dialogs.AccentDialog
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.danger_section.DangerSection
+import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.dashboard_section.DashboardSection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.miscellaneous_section.MiscellaneousSection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.personalization_section.PersonalizationSection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.profile_section.ProfileSection
@@ -104,6 +105,20 @@ fun SettingsScreen(
                     tertiaryColor = tertiaryColor,
                     modifier = Modifier
                         .wrapContentSize()
+                )
+
+                //  dashboard section
+                DashboardSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .padding(8.dp),
+                    context = context,
+                    settingsViewModel = settingsViewModel,
+                    coreViewModel = coreVM,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
                 //  Themes section

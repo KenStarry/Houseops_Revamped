@@ -55,8 +55,8 @@ fun ThemesSection(
         ) {
 
             SectionTitle(
-                title = SettingsConstants.settingsSections[0].sectionTitle,
-                icon = SettingsConstants.settingsSections[0].sectionIcon,
+                title = SettingsConstants.settingsSections[1].sectionTitle,
+                icon = SettingsConstants.settingsSections[1].sectionIcon,
                 iconColor = primaryColor,
                 iconBackground = tertiaryColor,
                 modifier = Modifier

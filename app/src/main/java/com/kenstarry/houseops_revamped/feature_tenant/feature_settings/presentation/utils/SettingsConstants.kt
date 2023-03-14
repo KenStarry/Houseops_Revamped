@@ -10,6 +10,12 @@ object SettingsConstants {
 
     val settingsSections = listOf(
         SettingsSectionModel(
+            "Dashboard",
+            Icons.Outlined.Dashboard,
+            LightYellow,
+            LightYellowDull
+        ),
+        SettingsSectionModel(
             "Theme",
             Icons.Outlined.DarkMode,
             BlueAccent,
@@ -38,6 +44,11 @@ object SettingsConstants {
         SettingsSectionItem("Dark Theme", Icons.Outlined.Nightlight),
         SettingsSectionItem("Light Theme", Icons.Outlined.LightMode),
         SettingsSectionItem("Follow System", Icons.Outlined.Light)
+    )
+
+    //  dashboard section
+    val dashboardOptions = listOf(
+        SettingsSectionItem("Dashboard", Icons.Outlined.Dashboard)
     )
 
     //  personalization section

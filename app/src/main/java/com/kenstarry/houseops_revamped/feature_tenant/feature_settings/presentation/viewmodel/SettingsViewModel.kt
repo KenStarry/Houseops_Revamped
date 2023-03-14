@@ -27,6 +27,9 @@ class SettingsViewModel @Inject constructor(
     private val _selectedTheme = mutableStateOf(SettingsConstants.themeOptions[2].title)
     val selectedTheme: State<String> = _selectedTheme
 
+    private val _isDashboardSectionVisible = mutableStateOf(true)
+    val isDashboardSectionVisible: State<Boolean> = _isDashboardSectionVisible
+
     private val _isThemeSectionVisible = mutableStateOf(true)
     val isThemeSectionVisible: State<Boolean> = _isThemeSectionVisible
 
@@ -59,18 +62,22 @@ class SettingsViewModel @Inject constructor(
                 when (event.sectionTitle) {
 
                     SettingsConstants.settingsSections[0].sectionTitle -> {
-                        _isThemeSectionVisible.value = event.isSectionVisible
+                        _isDashboardSectionVisible.value = event.isSectionVisible
                     }
 
                     SettingsConstants.settingsSections[1].sectionTitle -> {
-                        _isPersonalizationSectionVisible.value = event.isSectionVisible
+                        _isThemeSectionVisible.value = event.isSectionVisible
                     }
 
                     SettingsConstants.settingsSections[2].sectionTitle -> {
-                        _isMiscSectionVisible.value = event.isSectionVisible
+                        _isPersonalizationSectionVisible.value = event.isSectionVisible
                     }
 
                     SettingsConstants.settingsSections[3].sectionTitle -> {
+                        _isMiscSectionVisible.value = event.isSectionVisible
+                    }
+
+                    SettingsConstants.settingsSections[4].sectionTitle -> {
                         _isDangerSectionVisible.value = event.isSectionVisible
                     }
                 }

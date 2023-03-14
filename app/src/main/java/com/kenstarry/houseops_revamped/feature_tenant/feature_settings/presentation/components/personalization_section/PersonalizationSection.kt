@@ -55,8 +55,8 @@ fun PersonalizationSection(
         ) {
 
             SectionTitle(
-                title = SettingsConstants.settingsSections[1].sectionTitle,
-                icon = SettingsConstants.settingsSections[1].sectionIcon,
+                title = SettingsConstants.settingsSections[2].sectionTitle,
+                icon = SettingsConstants.settingsSections[2].sectionIcon,
                 iconColor = primaryColor,
                 iconBackground = tertiaryColor,
                 modifier = Modifier
