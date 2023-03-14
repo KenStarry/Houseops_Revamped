@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.SectionTitle
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.personalization_section.PersonalizationItem
@@ -26,6 +27,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentat
 @Composable
 fun DashboardSection(
     context: Context,
+    userDetails: UsersCollection?,
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel,
     coreViewModel: CoreViewModel,
@@ -78,16 +80,14 @@ fun DashboardSection(
                         ) {
                             //  danger item
                             DashboardItem(
-                                title = it.title,
-                                icon = it.icon,
+                                userType = userDetails?.userType ?: "",
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(50.dp)
                                     .clickable {
                                         when (it.title) {
                                             SettingsConstants.dashboardOptions[0].title -> {
-
-
+                                                //  navigate to specific dashboard
                                             }
                                         }
                                     }

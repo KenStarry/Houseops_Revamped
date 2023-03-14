@@ -114,6 +114,7 @@ fun SettingsScreen(
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
+                    userDetails = userDetails,
                     context = context,
                     settingsViewModel = settingsViewModel,
                     coreViewModel = coreVM,
