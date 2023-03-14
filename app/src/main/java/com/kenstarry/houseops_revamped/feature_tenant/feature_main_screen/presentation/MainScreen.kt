@@ -50,7 +50,10 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-            TenantInnerGraph(navHostController = navController)
+            TenantInnerGraph(
+                mainNavHostController = navHostController,
+                navHostController = navController
+            )
         }
     }
 }

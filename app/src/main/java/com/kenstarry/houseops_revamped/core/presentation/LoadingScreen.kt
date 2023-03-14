@@ -47,54 +47,6 @@ fun LoadingScreen(
                 .wrapContentSize()
         )
 
-        emailAddress?.let {
-
-            val userDetails = coreVM.getUserDetails(emailAddress)
-
-            when (val userType = userDetails?.userType) {
-
-                AuthConstants.userTypes[0].userTitle -> {
-
-                    //  Landlord
-                    LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(LANDLORD_ROUTE, AUTHENTICATION_ROUTE)
-                        Log.d("login", "userType -> $userType")
-                    }
-                }
-
-                AuthConstants.userTypes[1].userTitle -> {
-
-                    //  tenant
-                    LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(HOME_ROUTE, AUTHENTICATION_ROUTE)
-                        Log.d("login", "userType -> $userType")
-                    }
-                }
-
-                AuthConstants.userTypes[2].userTitle -> {
-
-                    //  admin
-                    LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(ADMIN_ROUTE, AUTHENTICATION_ROUTE)
-                        Log.d("login", "userType -> $userType")
-                    }
-                }
-
-                AuthConstants.userTypes[3].userTitle -> {
-
-                    //  agent
-                    LaunchedEffect(key1 = Unit) {
-                        direction.navigateToRoute(AGENT_ROUTE, AUTHENTICATION_ROUTE)
-                        Log.d("login", "userType -> $userType")
-                    }
-                }
-
-                else -> {}
-
-            }
-
-        }
-
     }
 }
 

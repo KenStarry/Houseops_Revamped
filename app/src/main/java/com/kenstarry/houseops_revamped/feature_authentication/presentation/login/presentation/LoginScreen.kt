@@ -136,10 +136,7 @@ fun LoginScreen(
                                         isLoggedIn = true
 
                                         //  take user to loading screen then determine the type of user
-                                        navHostController.navigate(Screens.Loading.passEmail(loginVM.formState.email)) {
-                                            popUpTo(AUTHENTICATION_ROUTE)
-                                            launchSingleTop = true
-                                        }
+                                        direction.navigateToRoute(Constants.HOME_ROUTE, AUTHENTICATION_ROUTE)
 
                                         Log.d("login", "Logged in successfully as $userType")
                                     }

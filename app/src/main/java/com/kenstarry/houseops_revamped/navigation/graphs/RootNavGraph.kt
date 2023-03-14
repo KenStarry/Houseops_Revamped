@@ -25,14 +25,8 @@ fun RootNavGraph(
 
     NavHost(
         navController = navHostController,
-        startDestination = if (isLoggedIn && userType == AuthConstants.userTypes[0].userTitle)
-            LANDLORD_ROUTE
-        else if (isLoggedIn && userType == AuthConstants.userTypes[1].userTitle)
+        startDestination = if (isLoggedIn)
             HOME_ROUTE
-        else if (isLoggedIn && userType == AuthConstants.userTypes[2].userTitle)
-            ADMIN_ROUTE
-        else if (isLoggedIn && userType == AuthConstants.userTypes[3].userTitle)
-            AGENT_ROUTE
         else if (!isLoggedIn)
             AUTHENTICATION_ROUTE
         else

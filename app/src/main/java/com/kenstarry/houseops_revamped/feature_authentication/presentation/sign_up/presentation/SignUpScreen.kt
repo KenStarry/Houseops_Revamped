@@ -142,48 +142,10 @@ fun SignUpScreen(
                                                         }
                                                     ))
 
-                                                    when (signUpVM.chosenUserType.value.userTitle) {
-                                                        AuthConstants.userTypes[0].userTitle -> {
-                                                            //  navigate to landlord screen
-//                                                            direction.navigateToRoute(
-//                                                                LANDLORD_ROUTE,
-//                                                                AUTHENTICATION_ROUTE
-//                                                            )
-                                                            direction.navigateToRoute(
-                                                                HOME_ROUTE,
-                                                                AUTHENTICATION_ROUTE
-                                                            )
-                                                        }
-                                                        AuthConstants.userTypes[1].userTitle -> {
-                                                            //  navigate to tenant screen
-                                                            direction.navigateToRoute(
-                                                                HOME_ROUTE,
-                                                                AUTHENTICATION_ROUTE
-                                                            )
-                                                        }
-                                                        AuthConstants.userTypes[2].userTitle -> {
-                                                            //  navigate to admin screen
-//                                                            direction.navigateToRoute(
-//                                                                ADMIN_ROUTE,
-//                                                                AUTHENTICATION_ROUTE
-//                                                            )
-                                                            direction.navigateToRoute(
-                                                                HOME_ROUTE,
-                                                                AUTHENTICATION_ROUTE
-                                                            )
-                                                        }
-                                                        AuthConstants.userTypes[3].userTitle -> {
-                                                            //  navigate to agent screen
-//                                                            direction.navigateToRoute(
-//                                                                AGENT_ROUTE,
-//                                                                AUTHENTICATION_ROUTE
-//                                                            )
-                                                            direction.navigateToRoute(
-                                                                HOME_ROUTE,
-                                                                AUTHENTICATION_ROUTE
-                                                            )
-                                                        }
-                                                    }
+                                                    direction.navigateToRoute(
+                                                        HOME_ROUTE,
+                                                        AUTHENTICATION_ROUTE
+                                                    )
 
                                                     Toast.makeText(
                                                         context,

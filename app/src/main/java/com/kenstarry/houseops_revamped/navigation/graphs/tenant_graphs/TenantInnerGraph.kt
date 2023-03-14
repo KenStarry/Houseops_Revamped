@@ -17,6 +17,7 @@ import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
 @Composable
 fun TenantInnerGraph(
+    mainNavHostController: NavHostController,
     navHostController: NavHostController
 ) {
 
@@ -42,7 +43,7 @@ fun TenantInnerGraph(
 
         //  Settings screen
         composable(route = BottomNavScreens.Settings.route) {
-            SettingsScreen(navHostController)
+            SettingsScreen(mainNavHostController)
         }
 
         //  categories screen

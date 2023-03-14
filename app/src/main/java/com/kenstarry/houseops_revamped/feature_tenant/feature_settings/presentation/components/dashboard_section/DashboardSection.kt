@@ -18,16 +18,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.ADMIN_ROUTE
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.AGENT_ROUTE
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.LANDLORD_ROUTE
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.SectionTitle
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.personalization_section.PersonalizationItem
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.utils.SettingsConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.viewmodel.SettingsViewModel
+import com.kenstarry.houseops_revamped.navigation.Direction
 
 @Composable
 fun DashboardSection(
     context: Context,
     userDetails: UsersCollection?,
+    direction: Direction,
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel,
     coreViewModel: CoreViewModel,
@@ -88,14 +94,39 @@ fun DashboardSection(
                                         when (it.title) {
                                             SettingsConstants.dashboardOptions[0].title -> {
                                                 //  navigate to specific dashboard
+                                                when (userDetails?.userType) {
+                                                    //  landlord
+                                                    AuthConstants.userTypes[0].userTitle -> {
+                                                        direction.navigateToRoute(
+                                                            LANDLORD_ROUTE,
+                                                            null
+                                                        )
+                                                    }
+                                                    //  tenant
+                                                    AuthConstants.userTypes[1].userTitle -> {
+                                                        //  open normal dashboard
+                                                    }
+                                                    //  admin
+                                                    AuthConstants.userTypes[2].userTitle -> {
+                                                        direction.navigateToRoute(
+                                                            ADMIN_ROUTE,
+                                                            null
+                                                        )
+                                                    }
+                                                    //  agent
+                                                    AuthConstants.userTypes[3].userTitle -> {
+                                                        direction.navigateToRoute(
+                                                            AGENT_ROUTE,
+                                                            null
+                                                        )
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                     .padding(
                                         end = 16.dp
-                                    ),
-                                primaryColor = primaryColor,
-                                tertiaryColor = tertiaryColor
+                                    )
                             )
                         }
                     },

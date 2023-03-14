@@ -22,8 +22,6 @@ import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthC
 fun DashboardItem(
     modifier: Modifier = Modifier,
     userType: String,
-    primaryColor: Color,
-    tertiaryColor: Color
 ) {
 
     val dashIcon = when (userType) {
