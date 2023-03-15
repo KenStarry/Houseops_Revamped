@@ -64,8 +64,11 @@ object Constants {
     val houseCategories = listOf(
         HouseCategoryModel("One Bedroom", Icons.Outlined.Apartment),
         HouseCategoryModel("Two Bedroom", Icons.Outlined.Hotel),
+        HouseCategoryModel("Three Bedroom", Icons.Outlined.Hotel),
         HouseCategoryModel("Bedsitter", Icons.Outlined.LocalCafe),
         HouseCategoryModel("Single", Icons.Outlined.LocalHotel),
+        HouseCategoryModel("Mansion", Icons.Outlined.LocalHotel),
+        HouseCategoryModel("Hostel", Icons.Outlined.LocalHotel)
     )
 
     //  alert dialog types

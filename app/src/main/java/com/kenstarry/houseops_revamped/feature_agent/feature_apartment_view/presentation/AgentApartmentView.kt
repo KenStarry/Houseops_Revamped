@@ -25,6 +25,7 @@ import com.kenstarry.houseops_revamped.core.presentation.components.BottomSheet
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.AgentApartmentHouses
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.AgentApartmentTopBar
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet.AddApartmentHouseSheet
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
@@ -42,14 +43,15 @@ fun AgentApartmentView(
 
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val currentUser = coreVM.currentUser()
     val context = LocalContext.current
     val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
 
     agentApartmentVM.onEvent(
         AgentApartmentEvents.GetApartmentHouses(
-        apartmentName = apartmentName,
-        onResponse = {}
-    ))
+            apartmentName = apartmentName,
+            onResponse = {}
+        ))
 
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -181,7 +183,13 @@ fun AgentApartmentView(
                         ) {
 
                             //  all houses of the apartment
-
+                            AgentApartmentHouses(
+                                context = context,
+                                houses = agentApartmentVM.apartmentHouses.value,
+                                user = coreVM.getUserDetails(currentUser?.email ?: "no email"),
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
+                            )
 
                         }
 

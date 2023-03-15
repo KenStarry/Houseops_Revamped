@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.kenstarry.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 
@@ -97,7 +99,7 @@ fun CategoryItem(
                     key = {it.houseId}
                 ) { house ->
 
-                    if (house.houseCategory == houseCategory.title) {
+                    if (Constants.houseCategories.map { it.title }.any { it == house.houseCategory }) {
                         HouseItemAlt(
                             context = context,
                             house = house,

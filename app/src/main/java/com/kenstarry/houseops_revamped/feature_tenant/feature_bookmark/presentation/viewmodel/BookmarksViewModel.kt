@@ -77,6 +77,7 @@ class BookmarksViewModel @Inject constructor(
 
                             if (event.bookmarkedHouses.map { it.houseCategory }.contains(category.title)) {
                                 categoryList.add(category)
+                                Log.d("categories", "Bookmarked houses - ${event.bookmarkedHouses}")
                             }
                         }
                     }

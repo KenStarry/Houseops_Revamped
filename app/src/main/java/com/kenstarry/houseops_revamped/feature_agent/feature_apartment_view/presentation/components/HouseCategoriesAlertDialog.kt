@@ -22,6 +22,7 @@ import com.billythelittle.lazycolumns.LazyColumnScrollbarSettings
 import com.billythelittle.lazycolumns.LazyColumnWithScrollbar
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CustomAlertDialog
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
@@ -43,7 +44,7 @@ fun HouseCategoriesAlertDialog(
         mutableStateOf(LazyColumnScrollbarSettings())
     }
     var selectedCategory by remember {
-        mutableStateOf(AgentApartmentConstants.houseCategories[0])
+        mutableStateOf(Constants.houseCategories[0].title)
     }
 
     CustomAlertDialog(
@@ -53,11 +54,11 @@ fun HouseCategoriesAlertDialog(
         title = "Choose House Category",
         content = {
             LazyColumnWithScrollbar(
-                data = AgentApartmentConstants.houseCategories,
+                data = Constants.houseCategories,
                 state = listState,
                 settings = scrollbarSettings.value,
                 content = {
-                    items(AgentApartmentConstants.houseCategories) { category ->
+                    items(Constants.houseCategories.map { it.title }) { category ->
                         CategoriesAlertDialogItem(
                             houseCategory = category,
                             primaryColor = primaryColor,

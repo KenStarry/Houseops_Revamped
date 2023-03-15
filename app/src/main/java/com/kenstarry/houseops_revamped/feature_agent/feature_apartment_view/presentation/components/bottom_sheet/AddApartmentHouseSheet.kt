@@ -154,7 +154,9 @@ fun AddApartmentHouseSheet(
         )
 
         //  generate random id for the house
-        val randomNum = List(5) { (0..10).random() }
+        val randomNum = "${(0..9).random()}" +
+                "${(0..9).random()}" +
+                "${(0..9).random()}"
 
         val house = HouseModel(
 
