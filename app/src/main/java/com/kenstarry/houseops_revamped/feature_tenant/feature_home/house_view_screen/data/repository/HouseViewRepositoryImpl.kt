@@ -3,6 +3,8 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_s
 import android.util.Log
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
+import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedHouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
@@ -37,6 +39,32 @@ class HouseViewRepositoryImpl(
 
         } catch (e: Exception) {
             Log.d("viewRepo", "$e")
+        }
+    }
+
+    override suspend fun getApartmentDetails(
+        apartmentName: String,
+        apartment: (apartment: Apartment) -> Unit,
+        response: (response: Response<*>) -> Unit
+    ) {
+        try {
+
+            db.collection(Constants.APARTMENTS_COLLECTION)
+                .document(apartmentName)
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        response(Response.Failure(error.localizedMessage))
+                        return@addSnapshotListener
+                    }
+
+                    snapshot?.toObject(Apartment::class.java)?.let {  aprtmt ->
+                        apartment(aprtmt)
+                        response(Response.Success(aprtmt))
+                    }
+                }
+
+        } catch (e: Exception) {
+            response(Response.Failure(e.localizedMessage))
         }
     }
 

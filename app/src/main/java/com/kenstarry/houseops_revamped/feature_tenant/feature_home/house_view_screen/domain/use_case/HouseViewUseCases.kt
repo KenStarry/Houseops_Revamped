@@ -3,5 +3,6 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_s
 data class HouseViewUseCases(
     val getHouse: GetHouse,
     val addToBooked: AddToBooked,
-    val addUserToHouseBooked: AddUserToHouseBooked
+    val addUserToHouseBooked: AddUserToHouseBooked,
+    val getApartment: GetApartment
 )

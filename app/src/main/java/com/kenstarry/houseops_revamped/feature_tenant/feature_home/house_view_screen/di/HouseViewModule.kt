@@ -3,10 +3,7 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_s
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.data.repository.HouseViewRepositoryImpl
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.repository.HouseViewRepository
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.use_case.AddToBooked
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.use_case.AddUserToHouseBooked
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.use_case.GetHouse
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.use_case.HouseViewUseCases
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,6 +27,7 @@ object HouseViewModule {
     ) = HouseViewUseCases(
         getHouse = GetHouse(repository),
         addToBooked = AddToBooked(repository),
-        addUserToHouseBooked = AddUserToHouseBooked(repository)
+        addUserToHouseBooked = AddUserToHouseBooked(repository),
+        getApartment = GetApartment(repository)
     )
 }
