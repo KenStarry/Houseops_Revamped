@@ -13,6 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseFeatureCardItem
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.utils.HouseViewConstants.featuresList
 
 @Composable
@@ -39,23 +43,18 @@ fun DetailsFeatures(
             content = {
                 items(
                     items = features
-                ) {
+                ) { feature ->
 
-                    val icon = when (it) {
-                        featuresList[0].featureName -> featuresList[0].featureIcon
-                        featuresList[1].featureName -> featuresList[1].featureIcon
-                        featuresList[2].featureName -> featuresList[2].featureIcon
-                        featuresList[3].featureName -> featuresList[3].featureIcon
-                        featuresList[4].featureName -> featuresList[4].featureIcon
-                        featuresList[5].featureName -> featuresList[5].featureIcon
-                        else -> null
-                    }
+                    val featureDetails = AgentApartmentConstants.featureOptionsList.filter { it.title == feature }[0]
 
-                    FeatureItem(
-                        featureIcon = icon,
-                        featureName = it,
+                    HouseFeatureCardItem(
+                        apartmentHouseFeaturesModel = featureDetails,
                         primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor
+                        tertiaryColor = tertiaryColor,
+                        isSelected = false,
+                        onClick = {
+
+                        }
                     )
                 }
             },
