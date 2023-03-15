@@ -47,6 +47,10 @@ fun AgentApartmentView(
     val context = LocalContext.current
     val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
 
+    var count by remember {
+        mutableStateOf(0)
+    }
+
     agentApartmentVM.onEvent(
         AgentApartmentEvents.GetApartmentHouses(
             apartmentName = apartmentName,
@@ -71,6 +75,7 @@ fun AgentApartmentView(
                 when (coreVM.bottomSheetContent.value) {
                     AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET -> {
                         AddApartmentHouseSheet(
+                            count = count + 1,
                             apartmentName = apartmentName,
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
