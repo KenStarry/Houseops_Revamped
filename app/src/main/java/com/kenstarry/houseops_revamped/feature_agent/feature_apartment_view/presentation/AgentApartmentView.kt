@@ -87,7 +87,7 @@ fun AgentApartmentView(
                                                 //  upload images to firestore
                                                 coreVM.onEvent(
                                                     CoreEvents.UploadImagesToStorage(
-                                                        imageUriList = house.houseImageUris.map { it.toUri() },
+                                                        imageUriList = agentApartmentVM.selectedImagesState.listOfSelectedImages,
                                                         context = context,
                                                         storageRef = "house_images/${house.houseApartmentName}/${house.houseCategory}",
                                                         collectionName = Constants.APARTMENTS_COLLECTION,

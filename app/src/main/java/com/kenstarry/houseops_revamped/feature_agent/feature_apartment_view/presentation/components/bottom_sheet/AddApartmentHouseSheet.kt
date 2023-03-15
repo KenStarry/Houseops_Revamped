@@ -168,7 +168,7 @@ fun AddApartmentHouseSheet(
                 agentApartmentVM.selectedHouseCategory.value,
 
             housePurchaseType = "For Rent",
-            houseImageUris = imagesState.listOfSelectedImages.map { it.toString() },
+            houseImageUris = emptyList(),
             houseUnits = agentApartmentVM.selectedVacantUnits.value.toString(),
             houseFeatures = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.map { it.title },
             houseDescription = agentApartmentVM.selectedHouseDescription.value,
