@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun DetailsTitle(
-    apartmentName: String,
+    apartmentDetails: Apartment?,
     houseCategory: String,
     primaryColor: Color,
     tertiaryColor: Color
@@ -59,7 +60,7 @@ fun DetailsTitle(
                 )
 
                 Text(
-                    text = apartmentName,
+                    text = apartmentDetails?.apartmentName ?: "",
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -78,13 +79,15 @@ fun DetailsTitle(
                     text = houseCategory,
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
                 )
+                
+                Spacer(modifier = Modifier.width(16.dp))
 
                 //  location
                 HomePillBtns(
                     icon = Icons.Outlined.LocationOn,
-                    title = "Lurambi, Kakamega",
+                    title = apartmentDetails?.apartmentLocation?.address ?: "",
                     onClick = {},
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor

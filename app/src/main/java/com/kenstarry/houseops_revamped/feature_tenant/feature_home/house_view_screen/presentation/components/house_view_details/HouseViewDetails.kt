@@ -51,7 +51,7 @@ fun HouseViewDetails(
 
     //  title
     DetailsTitle(
-        apartmentName = house.houseApartmentName,
+        apartmentDetails = apartmentDetails,
         houseCategory = house.houseCategory,
         primaryColor = primaryColor,
         tertiaryColor = tertiaryColor
