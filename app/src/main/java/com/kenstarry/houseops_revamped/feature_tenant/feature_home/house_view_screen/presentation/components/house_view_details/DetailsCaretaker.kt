@@ -18,23 +18,24 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreen
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreenDull
 
 @Composable
-fun DetailsCaretaker(
+fun DetailsAgent(
     context: Context,
-    apartment: String,
+    agentEmail: String,
     coreVM: CoreViewModel = hiltViewModel(),
-    onCardClicked: (caretaker: Caretaker) -> Unit,
+    onCardClicked: (agent: UsersCollection) -> Unit,
     onPhoneClicked: (phone: String) -> Unit
 ) {
 
-    val caretaker = coreVM.getCaretakerDetails(apartment)
+    val agent = coreVM.getUserDetails(agentEmail)
 
-    caretaker?.let {
+    agent?.let {
 
         Card(
             modifier = Modifier
@@ -65,7 +66,7 @@ fun DetailsCaretaker(
                 ) {
                     CoilImage(
                         context = context,
-                        imageUri = it.caretakerImage?.toUri(),
+                        imageUri = it.userImageUri?.toUri(),
                         placeholder = R.drawable.houseops_dark_final,
                         modifier = Modifier
                             .clip(CircleShape)
@@ -83,7 +84,7 @@ fun DetailsCaretaker(
 
                     //  name
                     Text(
-                        text = it.caretakerName ?: "",
+                        text = it.userName ?: "",
                         fontSize = MaterialTheme.typography.titleSmall.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -91,7 +92,7 @@ fun DetailsCaretaker(
 
                     //  role
                     Text(
-                        text = "caretaker",
+                        text = "HouseOps Agent",
                         fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                         fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)

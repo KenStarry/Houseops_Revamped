@@ -6,7 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.use_case.CategoriesUseCases
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
@@ -22,8 +22,8 @@ class CategoriesViewModel @Inject constructor(
     val _bottomSheetContent = mutableStateOf("")
     val bottomSheetContent: State<String> = _bottomSheetContent
 
-    val _caretakerData = mutableStateOf<Caretaker?>(null)
-    val caretakerData: State<Caretaker?> = _caretakerData
+    val _agentData = mutableStateOf<UsersCollection?>(null)
+    val agentData: State<UsersCollection?> = _agentData
 
     val _caretakerHouses = mutableStateOf<List<HouseModel>>(emptyList())
     val caretakerHouses: State<List<HouseModel>> = _caretakerHouses
@@ -61,8 +61,11 @@ class CategoriesViewModel @Inject constructor(
                     event.state.animateTo(ModalBottomSheetValue.Expanded)
 
                     when (event.bottomSheetData) {
-                        is Caretaker -> {
-                            _caretakerData.value = event.bottomSheetData
+//                        is Caretaker -> {
+//                            _caretakerData.value = event.bottomSheetData
+//                        }
+                        is UsersCollection -> {
+                            _agentData.value = event.bottomSheetData
                         }
                     }
                 }

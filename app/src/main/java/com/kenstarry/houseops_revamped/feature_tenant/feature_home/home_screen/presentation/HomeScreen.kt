@@ -78,7 +78,7 @@ fun HomeScreen(
                 HomeConstants.homePills[5].title -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
-                        caretaker = categoriesVM.caretakerData.value,
+                        agent = categoriesVM.agentData.value,
                         userDetails = userDetails,
                         direction = direction,
                         onHouseClicked = { house ->
@@ -101,7 +101,7 @@ fun HomeScreen(
                 else -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
-                        caretaker = categoriesVM.caretakerData.value,
+                        agent = categoriesVM.agentData.value,
                         userDetails = userDetails,
                         direction = direction,
                         onHouseClicked = { house ->

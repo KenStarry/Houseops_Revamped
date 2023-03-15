@@ -210,14 +210,15 @@ class CoreRepositoryImpl @Inject constructor(
                             try {
                                 fileRef.downloadUrl.addOnSuccessListener { url ->
                                     //  add url to the user collection
-                                    val userCollection = if (subCollectionName != null && subCollectionDocument != null)
-                                        db.collection(collectionName)
-                                            .document(documentName)
-                                            .collection(subCollectionName)
-                                            .document(subCollectionDocument)
-                                    else
-                                        db.collection(collectionName)
-                                            .document(documentName)
+                                    val userCollection =
+                                        if (subCollectionName != null && subCollectionDocument != null)
+                                            db.collection(collectionName)
+                                                .document(documentName)
+                                                .collection(subCollectionName)
+                                                .document(subCollectionDocument)
+                                        else
+                                            db.collection(collectionName)
+                                                .document(documentName)
 
                                     userCollection.update(
                                         fieldToUpdate,
@@ -274,14 +275,15 @@ class CoreRepositoryImpl @Inject constructor(
                         try {
                             fileRef.downloadUrl.addOnSuccessListener { url ->
                                 //  add url to the user collection
-                                val myCollection = if (subCollectionName != null && subCollectionDocument != null)
-                                    db.collection(collectionName)
-                                        .document(documentName)
-                                        .collection(subCollectionName)
-                                        .document(subCollectionDocument)
-                                else
-                                    db.collection(collectionName)
-                                        .document(documentName)
+                                val myCollection =
+                                    if (subCollectionName != null && subCollectionDocument != null)
+                                        db.collection(collectionName)
+                                            .document(documentName)
+                                            .collection(subCollectionName)
+                                            .document(subCollectionDocument)
+                                    else
+                                        db.collection(collectionName)
+                                            .document(documentName)
 
                                 myCollection.update(
                                     fieldToUpdate,
@@ -304,10 +306,6 @@ class CoreRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             onResponse(Response.Failure(e.localizedMessage))
         }
-    }
-
-    override suspend fun getApartments() {
-
     }
 
     fun getFileExtension(uri: Uri, context: Context): String? {

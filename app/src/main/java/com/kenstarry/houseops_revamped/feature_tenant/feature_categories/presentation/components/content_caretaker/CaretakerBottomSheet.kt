@@ -21,7 +21,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
@@ -34,7 +33,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.present
 @Composable
 fun CaretakerBottomSheet(
     categoriesVM: CategoriesViewModel1,
-    caretaker: Caretaker?,
+    agent: UsersCollection?,
     userDetails: UsersCollection?,
     direction: Direction,
     onHouseClicked: (house: HouseModel) -> Unit,
@@ -44,8 +43,8 @@ fun CaretakerBottomSheet(
 
     val context = LocalContext.current
     val listState = rememberLazyListState()
-    val caretakerHouses =
-        categoriesVM.getCaretakerHouses(caretaker?.caretakerApartment ?: "none")
+//    val caretakerHouses =
+//        categoriesVM.getCaretakerHouses(agent?.caretakerApartment ?: "none")
 
     //  Main content
     Column(
@@ -72,7 +71,7 @@ fun CaretakerBottomSheet(
 
                 CoilImage(
                     context = context,
-                    imageUri = caretaker?.caretakerImage?.toUri(),
+                    imageUri = agent?.userImageUri?.toUri(),
                     placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
                     modifier = Modifier
                         .clip(CircleShape)
@@ -81,52 +80,52 @@ fun CaretakerBottomSheet(
             }
 
             //  content
-            Column(
-                modifier = Modifier
-                    .weight(4f)
-                    .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
-
-                Text(
-                    text = caretaker?.caretakerName ?: "Anonymous",
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    HomePillBtns(
-                        icon = Icons.Outlined.Apartment,
-                        title = caretaker?.caretakerApartment ?: "none",
-                        onClick = {},
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor
-                    )
-
-                    //  caretaker apartments count
-                    Text(
-                        text = "${caretakerHouses.size} ${
-                            categoriesVM.addSuffixSToWord(
-                                caretakerHouses.size,
-                                "house"
-                            )
-                        }",
-                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                }
-
-            }
+//            Column(
+//                modifier = Modifier
+//                    .weight(4f)
+//                    .background(MaterialTheme.colorScheme.onPrimary)
+//                    .padding(horizontal = 16.dp),
+//                verticalArrangement = Arrangement.spacedBy(16.dp),
+//                horizontalAlignment = Alignment.Start
+//            ) {
+//
+//                Text(
+//                    text = agent?.caretakerName ?: "Anonymous",
+//                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+//                    fontWeight = FontWeight.Bold,
+//                    color = MaterialTheme.colorScheme.onSecondaryContainer
+//                )
+//
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth(),
+//                    horizontalArrangement = Arrangement.SpaceBetween,
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//
+//                    HomePillBtns(
+//                        icon = Icons.Outlined.Apartment,
+//                        title = agent?.caretakerApartment ?: "none",
+//                        onClick = {},
+//                        primaryColor = primaryColor,
+//                        tertiaryColor = tertiaryColor
+//                    )
+//
+//                    //  caretaker apartments count
+//                    Text(
+//                        text = "${caretakerHouses.size} ${
+//                            categoriesVM.addSuffixSToWord(
+//                                caretakerHouses.size,
+//                                "house"
+//                            )
+//                        }",
+//                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
+//                        fontWeight = FontWeight.Bold,
+//                        color = MaterialTheme.colorScheme.onSecondaryContainer
+//                    )
+//                }
+//
+//            }
 
         }
 
@@ -142,69 +141,69 @@ fun CaretakerBottomSheet(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        if (caretakerHouses.isEmpty()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-
-                Lottie(
-                    rawFile = com.kenstarry.houseops_revamped.R.raw.search_empty,
-                    modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                        .height(100.dp),
-                    iterations = 1,
-                    isPlaying = true
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = "No Houses yet...",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                )
-            }
-        } else {
-            LazyRow(
-                content = {
-
-                    items(
-                        items = caretakerHouses
-                    ) { house ->
-
-                        userDetails?.let {
-                            HouseItem(
-                                context = context,
-                                house = house,
-                                user = it,
-                                snackbarHostState = null,
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(16.dp))
-                                    .size(
-                                        width = 190.dp,
-                                        height = 260.dp
-                                    )
-                                    .background(MaterialTheme.colorScheme.onSecondary)
-                                    .clickable {
-                                        onHouseClicked(house)
-                                    }
-                                    .padding(8.dp),
-                                primaryColor = primaryColor,
-                                tertiaryColor = tertiaryColor
-                            )
-
-                            Spacer(modifier = Modifier.width(16.dp))
-                        }
-                    }
-                },
-                state = listState
-            )
-        }
+//        if (caretakerHouses.isEmpty()) {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .wrapContentHeight(),
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement.Center
+//            ) {
+//
+//                Lottie(
+//                    rawFile = com.kenstarry.houseops_revamped.R.raw.search_empty,
+//                    modifier = Modifier
+//                        .fillMaxWidth(0.5f)
+//                        .height(100.dp),
+//                    iterations = 1,
+//                    isPlaying = true
+//                )
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                Text(
+//                    text = "No Houses yet...",
+//                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+//                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
+//                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+//                )
+//            }
+//        } else {
+//            LazyRow(
+//                content = {
+//
+//                    items(
+//                        items = caretakerHouses
+//                    ) { house ->
+//
+//                        userDetails?.let {
+//                            HouseItem(
+//                                context = context,
+//                                house = house,
+//                                user = it,
+//                                snackbarHostState = null,
+//                                modifier = Modifier
+//                                    .clip(RoundedCornerShape(16.dp))
+//                                    .size(
+//                                        width = 190.dp,
+//                                        height = 260.dp
+//                                    )
+//                                    .background(MaterialTheme.colorScheme.onSecondary)
+//                                    .clickable {
+//                                        onHouseClicked(house)
+//                                    }
+//                                    .padding(8.dp),
+//                                primaryColor = primaryColor,
+//                                tertiaryColor = tertiaryColor
+//                            )
+//
+//                            Spacer(modifier = Modifier.width(16.dp))
+//                        }
+//                    }
+//                },
+//                state = listState
+//            )
+//        }
     }
 }
 

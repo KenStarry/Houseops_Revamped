@@ -74,6 +74,10 @@ fun HouseViewScreen(
     val context = LocalContext.current
 
     houseViewVM.getHouse(apartment, category)
+    houseViewVM.onEvent(HouseViewEvents.GetApartment(
+        apartmentName = apartment,
+        response = {}
+    ))
 
     var openBookAlertDialog by remember { mutableStateOf(false) }
     var isHouseBooked by remember {
@@ -90,7 +94,7 @@ fun HouseViewScreen(
                 HouseViewConstants.HV_CARETAKER_BOTTOM_SHEET -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
-                        caretaker = categoriesVM.caretakerData.value,
+                        agent = categoriesVM.agentData.value,
                         userDetails = userDetails,
                         direction = direction,
                         onHouseClicked = { house ->
@@ -174,7 +178,7 @@ fun HouseViewScreen(
                 else -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
-                        caretaker = categoriesVM.caretakerData.value,
+                        agent = categoriesVM.agentData.value,
                         userDetails = userDetails,
                         direction = direction,
                         onHouseClicked = { house ->
@@ -358,13 +362,14 @@ fun HouseViewScreen(
                                 context = context,
                                 house = it,
                                 userDetails = userDetails,
-                                onCaretakerClicked = { caretaker ->
+                                apartmentDetails = houseViewVM.apartmentDetails.value,
+                                onAgentClicked = { agent ->
                                     coreVM.onBottomSheetEvent(
                                         BottomSheetEvents.OpenBottomSheet(
                                             state = state,
                                             scope = scope,
                                             bottomSheetType = HouseViewConstants.HV_CARETAKER_BOTTOM_SHEET,
-                                            bottomSheetData = caretaker
+                                            bottomSheetData = agent
                                         )
                                     )
                                 },

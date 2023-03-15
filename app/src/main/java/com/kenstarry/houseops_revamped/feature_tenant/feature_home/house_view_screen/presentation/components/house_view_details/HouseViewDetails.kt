@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.utils.intents.phoneCallIntent
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
@@ -19,7 +19,8 @@ fun HouseViewDetails(
     context: Context,
     house: HouseModel,
     userDetails: UsersCollection?,
-    onCaretakerClicked: (caretaker: Caretaker) -> Unit,
+    apartmentDetails: Apartment?,
+    onAgentClicked: (agent: UsersCollection) -> Unit,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
@@ -58,12 +59,12 @@ fun HouseViewDetails(
 
     Spacer(modifier = Modifier.height(spacing))
 
-    //  caretaker information & call / message icons
-    DetailsCaretaker(
+    //  agent information & call / message icons
+    DetailsAgent(
         context = context,
-        apartment = house.houseApartmentName,
+        agentEmail = apartmentDetails?.apartmentAgentAssigned ?: "no email",
         onCardClicked = {
-            onCaretakerClicked(it)
+            onAgentClicked(it)
         },
         onPhoneClicked = { phoneNumber ->
             phoneCallIntent(context, phoneNumber)

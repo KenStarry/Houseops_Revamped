@@ -79,8 +79,6 @@ interface CoreRepository {
         onResponse: (response: Response<*>) -> Unit
     )
 
-    suspend fun getApartments()
-
 }
 
 

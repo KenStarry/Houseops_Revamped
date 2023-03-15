@@ -64,7 +64,7 @@ fun CategoriesScreen(
                 categories[5].title -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
-                        caretaker = categoriesVM.caretakerData.value,
+                        agent = categoriesVM.agentData.value,
                         userDetails = userDetails,
                         direction = direction,
                         onHouseClicked = { house ->
@@ -86,7 +86,7 @@ fun CategoriesScreen(
                 else -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
-                        caretaker = categoriesVM.caretakerData.value,
+                        agent = categoriesVM.agentData.value,
                         userDetails = userDetails,
                         direction = direction,
                         onHouseClicked = { house ->
