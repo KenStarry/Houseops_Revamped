@@ -15,13 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
-fun CaretakerCard(
+fun AgentCard(
     modifier: Modifier = Modifier,
     context: Context,
     agent: UsersCollection,

@@ -33,7 +33,7 @@ fun ContentAgent(
                 items = agents
             ) { agent ->
 
-                CaretakerCard(
+                AgentCard(
                     context = context,
                     agent = agent,
                     modifier = Modifier
