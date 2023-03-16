@@ -63,8 +63,7 @@ object SettingsConstants {
         SettingsSectionItem("About", Icons.Outlined.AccountBox),
         SettingsSectionItem("Leave us a feedback", Icons.Outlined.Feedback),
         SettingsSectionItem("Share", Icons.Outlined.Share),
-        SettingsSectionItem("Rate us on Google Play", Icons.Outlined.StarRate),
-        SettingsSectionItem("Version", Icons.Outlined.History),
+        SettingsSectionItem("Rate us on Google Play", Icons.Outlined.StarRate)
     )
 
     //  danger section

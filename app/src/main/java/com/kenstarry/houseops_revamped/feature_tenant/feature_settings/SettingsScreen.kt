@@ -163,19 +163,6 @@ fun SettingsScreen(
                     }
                 )
 
-                //  About Section
-                MiscellaneousSection(
-                    context = context,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                        .padding(8.dp),
-                    settingsViewModel = settingsViewModel,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
-                )
-
                 //  Danger Section
                 DangerSection(
                     context = context,
@@ -204,6 +191,19 @@ fun SettingsScreen(
                     onDeleteAccount = {
                         //  delete account
                     }
+                )
+
+                //  About Section
+                MiscellaneousSection(
+                    context = context,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(MaterialTheme.colorScheme.onSecondary)
+                        .padding(8.dp),
+                    settingsViewModel = settingsViewModel,
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
                 //  app version name
