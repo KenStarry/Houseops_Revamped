@@ -33,10 +33,12 @@ object SettingsConstants {
             Violet,
             VioletDull
         ),
-        SettingsSectionModel("Danger Zone",
+        SettingsSectionModel(
+            "Danger Zone",
             Icons.Outlined.Warning,
             RedOrange,
-            RedOrangeDull)
+            RedOrangeDull
+        )
     )
 
     //  theme section

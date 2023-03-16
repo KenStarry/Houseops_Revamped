@@ -117,13 +117,29 @@ fun ProfileSection(
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    HomePillBtns(
-                        icon = Icons.Outlined.Verified,
-                        title = "Verified user",
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        onClick = {}
-                    )
+                    //  verified icon
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Outlined.Verified,
+                            contentDescription = "Verified user",
+                            tint = primaryColor
+                        )
+
+                        Text(
+                            text = "Verified User",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+
+                    }
 
                     Spacer(modifier = Modifier.height(16.dp))
 

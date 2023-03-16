@@ -35,13 +35,13 @@ fun DangerItem(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(40.dp)
-                .background(SettingsConstants.settingsSections[3].sectionIconBackgroundColor),
+                .background(SettingsConstants.settingsSections[4].sectionIconBackgroundColor),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = "icon",
-                tint =SettingsConstants.settingsSections[3].sectionIconColor
+                tint =SettingsConstants.settingsSections[4].sectionIconColor
             )
         }
 
