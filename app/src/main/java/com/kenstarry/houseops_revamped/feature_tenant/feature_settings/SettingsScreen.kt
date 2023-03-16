@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.domain.model.SettingsEvents
+import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.AppVersionSection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.SettingsAppBar
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.alert_dialogs.AccentDialog
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.danger_section.DangerSection
@@ -204,6 +205,9 @@ fun SettingsScreen(
                         //  delete account
                     }
                 )
+
+                //  app version name
+                AppVersionSection()
 
             }
 

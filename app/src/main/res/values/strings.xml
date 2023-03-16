@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HouseOps</string>
+
+    <string name="app_version_name">1.0.1</string>
+    <string name="version_name">%s</string>
+
 </resources>

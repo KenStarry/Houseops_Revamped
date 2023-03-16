@@ -11,6 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.android.libraries.places.api.Places
+import com.kenstarry.houseops_revamped.BuildConfig
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.viewmodel.LndAddApartmentViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.ApartmentFeature
@@ -61,8 +63,8 @@ fun LandlordAddApartment(
 
 
     //  initialize places client
-//    Places.initialize(context, BuildConfig.MAPS_API_KEY)
-//    lndAddApartmentVM.placesClient = Places.createClient(context)
+    Places.initialize(context, BuildConfig.MAPS_API_KEY)
+    lndAddApartmentVM.placesClient = Places.createClient(context)
 
     BottomSheet(
         sheetContent = { state, scope ->
