@@ -1,6 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.components
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -96,10 +97,12 @@ fun CategoryItem(
             content = {
                 items(
                     items = bookmarkedHouses,
-                    key = {it.houseId}
+                    key = { it.houseId }
                 ) { house ->
 
-                    if (Constants.houseCategories.map { it.title }.any { it == house.houseCategory }) {
+                    if (house.houseCategory == houseCategory.title) {
+                        Log.d("bookmarks", house.houseCategory)
+
                         HouseItemAlt(
                             context = context,
                             house = house,
