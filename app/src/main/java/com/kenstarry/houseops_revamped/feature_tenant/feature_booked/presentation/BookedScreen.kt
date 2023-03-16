@@ -55,6 +55,7 @@ fun BookedScreen(
             BookedAppBar(
                 onBackPressed = {
                     //  go back to home screen
+                    direction.navigateUp()
                 }
             )
         }

@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -93,11 +95,33 @@ fun BookmarkCategories(
         //  no bookmarks svg
         AnimatedVisibility(visible = bookmarksVM.listOfCategories.value.isEmpty()) {
 
-            Lottie(
-                rawFile = R.raw.success_lottie,
-                modifier = Modifier.fillMaxSize(),
-                isPlaying = true
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                //  display lottie animation
+                Lottie(
+                    rawFile = R.raw.paperplane,
+                    isPlaying = true,
+                    iterations = Integer.MAX_VALUE,
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .height(250.dp)
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Text(
+                    text = "No Bookmarks yet...",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
+
+            }
         }
     }
 }
