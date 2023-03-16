@@ -3,6 +3,8 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presenta
 import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BrokenImage
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -53,6 +55,20 @@ fun HouseItemAlt(
                         .clip(RoundedCornerShape(16.dp))
                         .fillMaxSize()
                 )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.BrokenImage,
+                        contentDescription = "Broken image",
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
+                        modifier = Modifier
+                            .fillMaxSize(0.8f)
+                    )
+                }
             }
         }
 
