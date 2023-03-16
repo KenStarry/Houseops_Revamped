@@ -22,10 +22,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
+import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
 
 //  Main Top App Bar
@@ -33,8 +36,11 @@ import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
 @Composable
 fun HomeAppBar(
     navHostController: NavHostController,
+    direction: Direction,
     userImageUrl: String
 ) {
+
+    val context = LocalContext.current
 
     val screens = listOf(
         BottomNavScreens.Home,
@@ -73,20 +79,20 @@ fun HomeAppBar(
                 )
             },
             navigationIcon = {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(userImageUrl)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "User Image",
-                    contentScale = ContentScale.Crop,
+
+                CoilImage(
+                    context = context,
+                    imageUri = userImageUrl.toUri(),
+                    placeholder = com.kenstarry.houseops_revamped.R.drawable.profile,
                     modifier = Modifier
                         .clip(CircleShape)
                         .size(40.dp)
                         .clickable {
-                            //  navigate to settings screen
-                            navHostController.navigate(BottomNavScreens.Settings.route)
-                        },
+                            direction.navigateToRoute(
+                                BottomNavScreens.Settings.route,
+                                null
+                            )
+                        }
                 )
             },
             actions = {

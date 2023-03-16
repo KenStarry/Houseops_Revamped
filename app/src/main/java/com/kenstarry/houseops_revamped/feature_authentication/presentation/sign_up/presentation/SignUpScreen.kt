@@ -240,20 +240,6 @@ fun SignUpScreen(
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
 
-                //  choose user type
-                UserTypeToggle(
-                    userTypes = AuthConstants.userTypes,
-                    signUpVM = signUpVM,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    onSelectUserType = {
-
-                        signUpVM.onEvent(SignUpEvents.ToggleUserType(it))
-                        //  save user type to datastore
-                        coreVM.onEvent(CoreEvents.DatastoreSaveUserType(it.userTitle))
-                    }
-                )
-
                 //  pick image icon
                 PickImage(imageUri = imageUri) {
                     launcher.launch("image/*")

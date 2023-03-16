@@ -134,6 +134,7 @@ fun HomeScreen(
                     userDetails?.userImageUri?.let {
                         HomeAppBar(
                             navHostController = navHostController,
+                            direction = direction,
                             userImageUrl = it
                         )
                     }
