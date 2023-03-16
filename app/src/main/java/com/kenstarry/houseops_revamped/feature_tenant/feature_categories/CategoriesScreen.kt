@@ -20,6 +20,7 @@ import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.CategoriesTopBar
+import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_apartment.ContentApartments
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker.ContentCaretaker
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
@@ -76,8 +77,9 @@ fun CategoriesScreen(
                             //  dismiss bottomshee
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.CloseBottomSheet(
-                                state, scope
-                            ))
+                                    state, scope
+                                )
+                            )
                         },
                         primaryColor = primaryColor,
                         tertiaryColor = tertiaryColor
@@ -98,8 +100,9 @@ fun CategoriesScreen(
                             //  dismiss bottomshee
                             coreVM.onBottomSheetEvent(
                                 BottomSheetEvents.CloseBottomSheet(
-                                state, scope
-                            ))
+                                    state, scope
+                                )
+                            )
                         },
                         primaryColor = primaryColor,
                         tertiaryColor = tertiaryColor
@@ -140,6 +143,11 @@ fun CategoriesScreen(
                         //  Apartments screen
                         categories[2].title -> {
 
+                            ContentApartments(
+                                primaryColor = primaryColor,
+                                tertiaryColor = tertiaryColor
+                            )
+
                         }
                         //  For Sale screen
                         categories[3].title -> {
@@ -149,7 +157,7 @@ fun CategoriesScreen(
                         categories[4].title -> {
 
                         }
-                        //  Caretakers screen
+                        //  agents screen
                         categories[5].title -> {
                             ContentCaretaker(
                                 caretakers = caretakers,
@@ -178,9 +186,10 @@ fun CategoriesScreen(
         closeBottomSheet = { state, scope ->
             categoriesVM.onEvent(
                 CategoryEvents.CloseBottomSheet(
-                state = state,
-                scope = scope
-            ))
+                    state = state,
+                    scope = scope
+                )
+            )
         }
     )
 }

@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
@@ -176,6 +177,38 @@ class CoreRepositoryImpl @Inject constructor(
                 }
         } catch (e: Exception) {
             Log.d("caretakers", "$e")
+        }
+    }
+
+    override suspend fun getApartments(
+        apartments: (apartments: List<Apartment>) -> Unit,
+        response: (response: Response<*>) -> Unit
+    ) {
+        try {
+
+            db.collection(Constants.APARTMENTS_COLLECTION)
+                .addSnapshotListener { querySnapshot, error ->
+
+                    if (error != null) {
+                        response(Response.Failure(error.localizedMessage))
+                        return@addSnapshotListener
+                    }
+
+                    val apartmentsList = mutableListOf<Apartment>()
+
+                    querySnapshot?.forEach { snapshot ->
+                        snapshot?.toObject(Apartment::class.java)?.let { apartment ->
+                            apartmentsList.add(apartment)
+                        }
+                    }
+
+                    response(Response.Success(apartmentsList))
+                    apartments(apartmentsList)
+
+                }
+
+        } catch (e: Exception) {
+            response(Response.Failure(e.localizedMessage))
         }
     }
 

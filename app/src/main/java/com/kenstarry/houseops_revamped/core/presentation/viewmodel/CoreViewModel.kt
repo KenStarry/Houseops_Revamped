@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
 import com.kenstarry.houseops_revamped.core.domain.model.AlertDialogProperties
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.events.AlertDialogEvents
@@ -48,6 +49,9 @@ class CoreViewModel @Inject constructor(
 
     var caretaker by mutableStateOf<Caretaker?>(null)
         private set
+
+    private val _allApartments = mutableStateOf<List<Apartment>>(emptyList())
+    val allApartments: State<List<Apartment>> = _allApartments
 
     private val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
     val caretakersList: State<List<Caretaker>> = _caretakersList
@@ -154,6 +158,18 @@ class CoreViewModel @Inject constructor(
                 viewModelScope.launch {
                     coreUseCases.logoutUser(
                         response = { event.response(it) }
+                    )
+                }
+            }
+
+
+            is CoreEvents.GetApartments -> {
+                viewModelScope.launch {
+                    coreUseCases.getApartments(
+                        apartments = {
+                            _allApartments.value = it
+                        },
+                        response = event.response
                     )
                 }
             }

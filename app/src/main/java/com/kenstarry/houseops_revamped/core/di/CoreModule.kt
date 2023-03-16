@@ -42,6 +42,7 @@ object CoreModule {
         updateField = UpdateField(repo),
         updateArrayField = UpdateUsersArrayField(repo),
         getAllCaretakers = GetAllCaretakers(repo),
+        getApartments = GetApartments(repo),
         uploadImagesToStorage = UploadImagesToStorage(repo),
         uploadSingleImageToStorage = UploadSingleImageToStorage(repo),
         verificationEmail = VerificationEmail(repo)

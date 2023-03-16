@@ -22,8 +22,6 @@ fun CategoriesTopBar(
     onBackPressed: () -> Unit
 ) {
 
-
-
     LargeTopAppBar(
         title = {
             Row(
