@@ -15,14 +15,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.BottomSheet
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.CategoriesTopBar
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_apartment.ContentApartments
-import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker.CaretakerBottomSheet
-import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker.ContentCaretaker
+import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent.CaretakerBottomSheet
+import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent.ContentAgent
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.utils.HomeConstants
 import com.kenstarry.houseops_revamped.navigation.Direction
@@ -55,6 +56,10 @@ fun CategoriesScreen(
 
     val categories = HomeConstants.homePills
     val caretakers = coreVM.getAllCaretakers()
+
+    coreVM.onEvent(CoreEvents.GetAllAgents(
+        response = {}
+    ))
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -159,8 +164,8 @@ fun CategoriesScreen(
                         }
                         //  agents screen
                         categories[5].title -> {
-                            ContentCaretaker(
-                                caretakers = caretakers,
+                            ContentAgent(
+                                agents = coreVM.allAgents.value,
                                 onCardClicked = {
                                     categoriesVM.onEvent(
                                         CategoryEvents.OpenBottomSheet(

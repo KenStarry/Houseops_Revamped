@@ -1,4 +1,4 @@
-package com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker
+package com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 
 @Composable
-fun ContentCaretaker(
-    caretakers: List<Caretaker>,
-    onCardClicked: (caretaker: Caretaker) -> Unit,
+fun ContentAgent(
+    agents: List<UsersCollection>,
+    onCardClicked: (agent: UsersCollection) -> Unit,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
@@ -30,16 +30,16 @@ fun ContentCaretaker(
         content = {
 
             items(
-                items = caretakers
-            ) { caretaker ->
+                items = agents
+            ) { agent ->
 
                 CaretakerCard(
                     context = context,
-                    caretaker = caretaker,
+                    agent = agent,
                     modifier = Modifier
                         .wrapContentSize()
                         .clickable {
-                            onCardClicked(caretaker)
+                            onCardClicked(agent)
                         },
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor

@@ -53,6 +53,9 @@ class CoreViewModel @Inject constructor(
     private val _allApartments = mutableStateOf<List<Apartment>>(emptyList())
     val allApartments: State<List<Apartment>> = _allApartments
 
+    private val _allAgents = mutableStateOf<List<UsersCollection>>(emptyList())
+    val allAgents: State<List<UsersCollection>> = _allAgents
+
     private val _caretakersList = mutableStateOf<List<Caretaker>>(emptyList())
     val caretakersList: State<List<Caretaker>> = _caretakersList
 
@@ -168,6 +171,17 @@ class CoreViewModel @Inject constructor(
                     coreUseCases.getApartments(
                         apartments = {
                             _allApartments.value = it
+                        },
+                        response = event.response
+                    )
+                }
+            }
+
+            is CoreEvents.GetAllAgents -> {
+                viewModelScope.launch {
+                    coreUseCases.getAllAgents(
+                        agents = {
+                            _allAgents.value = it
                         },
                         response = event.response
                     )

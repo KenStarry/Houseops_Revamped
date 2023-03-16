@@ -10,6 +10,7 @@ data class CoreUseCases(
     val updateArrayField: UpdateUsersArrayField,
     val getAllCaretakers: GetAllCaretakers,
     val getApartments: GetApartments,
+    val getAllAgents: GetAllAgents,
     val uploadImagesToStorage: UploadImagesToStorage,
     val uploadSingleImageToStorage: UploadSingleImageToStorage,
     val verificationEmail: VerificationEmail

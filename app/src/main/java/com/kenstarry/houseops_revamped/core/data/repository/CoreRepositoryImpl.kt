@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
@@ -15,6 +16,7 @@ import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.repository.CoreRepository
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import javax.inject.Inject
 
 class CoreRepositoryImpl @Inject constructor(
@@ -177,6 +179,40 @@ class CoreRepositoryImpl @Inject constructor(
                 }
         } catch (e: Exception) {
             Log.d("caretakers", "$e")
+        }
+    }
+
+    override suspend fun getAllAgents(
+        agents: (agents: List<UsersCollection>) -> Unit,
+        response: (response: Response<*>) -> Unit
+    ) {
+        try {
+
+            db.collection(Constants.USERS_COLLECTION)
+                .whereEqualTo("userType", AuthConstants.userTypes[3].userTitle)
+                .addSnapshotListener { querySnapshot, error ->
+
+                    if (error != null) {
+                        response(Response.Failure(error.localizedMessage))
+                        return@addSnapshotListener
+                    }
+
+                    val agentList = mutableListOf<UsersCollection>()
+
+                    querySnapshot?.forEach { snapshot ->
+                        snapshot?.toObject(UsersCollection::class.java)?.let {
+                            agentList.add(it)
+                        }
+                    }
+
+                    Log.d("agents", "Repo agents ${agentList.size}")
+
+                    agents(agentList)
+                    response(Response.Success(agentList))
+                }
+
+        } catch (e: Exception) {
+            response(Response.Failure(e.localizedMessage))
         }
     }
 

@@ -1,4 +1,4 @@
-package com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_caretaker
+package com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent
 
 import android.content.Context
 import androidx.compose.foundation.layout.*
@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
@@ -23,7 +24,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.p
 fun CaretakerCard(
     modifier: Modifier = Modifier,
     context: Context,
-    caretaker: Caretaker,
+    agent: UsersCollection,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
@@ -48,7 +49,7 @@ fun CaretakerCard(
 
             CoilImage(
                 context = context,
-                imageUri = caretaker.caretakerImage?.toUri(),
+                imageUri = agent.userImageUri?.toUri(),
                 placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
                 modifier = Modifier
                     .clip(CircleShape)
@@ -58,7 +59,7 @@ fun CaretakerCard(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = caretaker.caretakerName ?: "",
+                text = agent.userName ?: "",
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
@@ -68,7 +69,7 @@ fun CaretakerCard(
 
             HomePillBtns(
                 icon = null,
-                title = caretaker.caretakerApartment ?: "none",
+                title = agent.userType,
                 onClick = {},
                 paddingVertical = 8.dp,
                 paddingHorizontal = 16.dp,

@@ -32,6 +32,11 @@ interface CoreRepository {
         caretaker: (caretaker: Caretaker?) -> Unit
     )
 
+    suspend fun getAllAgents(
+        agents: (agents: List<UsersCollection>) -> Unit,
+        response: (response: Response<*>) -> Unit
+    )
+
     suspend fun getApartments(
         apartments: (apartments: List<Apartment>) -> Unit,
         response: (response: Response<*>) -> Unit
