@@ -80,27 +80,16 @@ fun FeaturedSection(
                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
             )
 
-            Row(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .clickable {  },
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Text(
-                    text = "See All",
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
-                )
-
-                Icon(
-                    imageVector = Icons.Outlined.KeyboardArrowRight,
-                    contentDescription = "Right arrow",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
-                )
-            }
+            HomePillBtns(
+                icon = null,
+                endIcon = Icons.Outlined.KeyboardArrowRight,
+                title = "See All",
+                primaryColor = primaryColor,
+                tertiaryColor = tertiaryColor,
+                containerColor = MaterialTheme.colorScheme.onPrimary,
+                paddingHorizontal = 4.dp,
+                onClick = {}
+            )
 
         }
 

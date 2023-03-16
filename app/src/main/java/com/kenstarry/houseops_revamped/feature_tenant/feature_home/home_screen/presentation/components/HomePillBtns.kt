@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomePillBtns(
     icon: ImageVector?,
+    endIcon: ImageVector? = null,
     iconSize: Dp = 24.dp,
     spacing: Dp = 8.dp,
     title: String,
@@ -74,6 +75,18 @@ fun HomePillBtns(
                 color = contentColor,
                 overflow = TextOverflow.Ellipsis
             )
+
+            endIcon?.let {
+                Spacer(modifier = Modifier.width(spacing))
+
+                Icon(
+                    imageVector = it,
+                    contentDescription = "pill icon",
+                    tint = primaryColor,
+                    modifier = Modifier
+                        .size(iconSize)
+                )
+            }
 
         }
 
