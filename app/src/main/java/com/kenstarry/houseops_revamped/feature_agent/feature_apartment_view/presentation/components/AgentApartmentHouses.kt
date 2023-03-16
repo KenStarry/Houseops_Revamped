@@ -40,8 +40,7 @@ fun AgentApartmentHouses(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
@@ -103,7 +102,8 @@ fun AgentApartmentHouses(
             },
             state = listState,
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         )
 
     }
