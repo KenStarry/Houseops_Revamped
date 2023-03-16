@@ -100,6 +100,7 @@ fun SettingsScreen(
                 //  user profile section
                 ProfileSection(
                     userDetails = userDetails,
+                    currentUser = currentUser,
                     context = context,
                     settingsViewModel = settingsViewModel,
                     primaryColor = primaryColor,

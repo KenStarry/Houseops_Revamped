@@ -184,7 +184,7 @@ fun HomeScreen(
 
                         //  greetings text
                         HomeGreetings(
-                            userName = if (userDetails?.userName == "Anonymous")
+                            userName = if (userDetails?.userName == "no name")
                                 currentUser?.displayName ?: ""
                             else
                                 userDetails?.userName ?: "",

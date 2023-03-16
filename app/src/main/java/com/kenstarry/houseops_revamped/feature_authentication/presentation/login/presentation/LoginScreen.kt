@@ -106,6 +106,10 @@ fun LoginScreen(
         mutableStateOf<Intent?>(null)
     }
 
+    var createAccount by remember {
+        mutableStateOf(false)
+    }
+
     //  open launcher
     val googleSignInLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult(),
@@ -124,67 +128,61 @@ fun LoginScreen(
                         loginVM.onEvent(LoginEvents.FirebaseAuthWithGoogle(
                             account = acc,
                             shouldCreateCollection = { shouldCreateCollection ->
-                                if (shouldCreateCollection) {
-                                    // create collection for the new user
-                                    signUpVM.onEvent(
-                                        SignUpEvents.CreateUserCollection(
-                                            user = UsersCollection(
-                                                userName = "Anonymous",
-                                                userEmail = acc.email ?: "no email",
-                                                userPassword = "",
-                                                userImageUri = "",
-                                                userLikedHouses = listOf(),
-                                                userBookmarks = listOf(),
-                                                userBookedHouses = listOf(),
-                                                userType = AuthConstants.userTypes[1].userTitle,
-                                                userIsVerified = false
-                                            ),
-                                            response = { res ->
-                                                when (res) {
-                                                    is Response.Success -> {
-
-                                                        direction.navigateToRoute(
-                                                            Constants.HOME_ROUTE,
-                                                            AUTHENTICATION_ROUTE
-                                                        )
-
-                                                        Toast.makeText(
-                                                            context,
-                                                            "created account successfully",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-                                                    }
-
-                                                    is Response.Failure -> {
-
-                                                        Toast.makeText(
-                                                            context,
-                                                            "could not create account.",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-
-                                                        signUpVM.onEvent(
-                                                            SignUpEvents.ToggleLoadingCircles(
-                                                                false
-                                                            )
-                                                        )
-                                                    }
-                                                }
-                                            }
-                                        ))
-                                }
+                                createAccount = shouldCreateCollection
                             },
                             response = { res ->
                                 when (res) {
                                     is Response.Success -> {
 
-                                        isLoading2 = false
+                                        if (createAccount) {
+                                            // create collection for the new user
+                                            signUpVM.onEvent(
+                                                SignUpEvents.CreateUserCollection(
+                                                    user = UsersCollection(
+                                                        userName = "no name",
+                                                        userEmail = acc.email ?: "no email",
+                                                        userPassword = "",
+                                                        userImageUri = "",
+                                                        userLikedHouses = listOf(),
+                                                        userBookmarks = listOf(),
+                                                        userBookedHouses = listOf(),
+                                                        userType = AuthConstants.userTypes[1].userTitle,
+                                                        userIsVerified = false
+                                                    ),
+                                                    response = { resp ->
+                                                        when (resp) {
+                                                            is Response.Success -> {
 
-                                        //  take user to loading screen then determine the type of user
-                                        direction.navigateToRoute(
-                                            Constants.HOME_ROUTE,
-                                            AUTHENTICATION_ROUTE
-                                        )
+                                                                direction.navigateToRoute(
+                                                                    Constants.HOME_ROUTE,
+                                                                    AUTHENTICATION_ROUTE
+                                                                )
+
+                                                                Toast.makeText(
+                                                                    context,
+                                                                    "created account successfully",
+                                                                    Toast.LENGTH_SHORT
+                                                                ).show()
+                                                            }
+
+                                                            is Response.Failure -> {
+
+                                                                Toast.makeText(
+                                                                    context,
+                                                                    "could not create account.",
+                                                                    Toast.LENGTH_SHORT
+                                                                ).show()
+
+                                                                signUpVM.onEvent(
+                                                                    SignUpEvents.ToggleLoadingCircles(
+                                                                        false
+                                                                    )
+                                                                )
+                                                            }
+                                                        }
+                                                    }
+                                                ))
+                                        }
 
                                         Toast.makeText(
                                             context,
