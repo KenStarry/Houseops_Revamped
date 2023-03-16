@@ -28,15 +28,20 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.LoadingCircle
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.AUTHENTICATION_ROUTE
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.domain.model.ValidationEvent
+import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginEvents
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginFormEvent
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
@@ -44,7 +49,9 @@ import com.kenstarry.houseops_revamped.feature_authentication.presentation.login
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.components.alert_dialogs.ForgotPasswordDialog
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.utils.LoginConstants
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.viewmodel.LoginViewModel
+import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.domain.model.SignUpEvents
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.ErrorMessage
+import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.Screens
@@ -56,6 +63,7 @@ fun LoginScreen(
 ) {
 
     val loginVM: LoginViewModel = hiltViewModel()
+    val signUpVM: SignUpViewModel = hiltViewModel()
     val coreVM: CoreViewModel = hiltViewModel()
     val authVM: AuthenticationViewModel = hiltViewModel()
     val direction = Direction(navHostController)
@@ -111,10 +119,61 @@ fun LoginScreen(
 
                     val account = task.getResult(ApiException::class.java)
 
-                    account?.idToken?.let { token ->
+                    account?.let { acc ->
                         //  login the user with firebase
                         loginVM.onEvent(LoginEvents.FirebaseAuthWithGoogle(
-                            idToken = token,
+                            account = acc,
+                            shouldCreateCollection = { shouldCreateCollection ->
+                                if (shouldCreateCollection) {
+                                    // create collection for the new user
+                                    signUpVM.onEvent(
+                                        SignUpEvents.CreateUserCollection(
+                                            user = UsersCollection(
+                                                userName = "Anonymous",
+                                                userEmail = acc.email ?: "no email",
+                                                userPassword = "",
+                                                userImageUri = "",
+                                                userLikedHouses = listOf(),
+                                                userBookmarks = listOf(),
+                                                userBookedHouses = listOf(),
+                                                userType = AuthConstants.userTypes[1].userTitle,
+                                                userIsVerified = false
+                                            ),
+                                            response = { res ->
+                                                when (res) {
+                                                    is Response.Success -> {
+
+                                                        direction.navigateToRoute(
+                                                            Constants.HOME_ROUTE,
+                                                            AUTHENTICATION_ROUTE
+                                                        )
+
+                                                        Toast.makeText(
+                                                            context,
+                                                            "created account successfully",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+
+                                                    is Response.Failure -> {
+
+                                                        Toast.makeText(
+                                                            context,
+                                                            "could not create account.",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+
+                                                        signUpVM.onEvent(
+                                                            SignUpEvents.ToggleLoadingCircles(
+                                                                false
+                                                            )
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        ))
+                                }
+                            },
                             response = { res ->
                                 when (res) {
                                     is Response.Success -> {
@@ -457,6 +516,38 @@ fun LoginScreen(
         }
 
     }
+}
+
+@Composable
+private fun SignInWithGoogle() {
+
+    val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    val context = LocalContext.current
+
+    val signInIntent = GoogleSignIn.getClient(
+        context, GoogleSignInOptions.DEFAULT_SIGN_IN
+    ).signInIntent
+
+    val signInLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            // Google Sign In was successful, authenticate with Firebase
+            val account = task.getResult(ApiException::class.java)!!
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            auth.signInWithCredential(credential).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, handle as needed
+                } else {
+                    // Sign in failed, handle as needed
+                }
+            }
+        } catch (e: ApiException) {
+            // Google Sign In failed, handle as needed
+        }
+    }
+    signInLauncher.launch(signInIntent)
 }
 
 //  clickable text parts

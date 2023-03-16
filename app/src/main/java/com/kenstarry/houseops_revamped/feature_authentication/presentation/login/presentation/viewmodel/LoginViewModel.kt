@@ -69,7 +69,8 @@ class LoginViewModel @Inject constructor(
             is LoginEvents.FirebaseAuthWithGoogle -> {
                 viewModelScope.launch {
                     useCase.firebaseAuthWithGoogle(
-                        idToken = event.idToken,
+                        account = event.account,
+                        shouldCreateCollection = event.shouldCreateCollection,
                         response = event.response
                     )
                 }

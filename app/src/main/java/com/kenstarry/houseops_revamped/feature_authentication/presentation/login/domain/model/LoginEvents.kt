@@ -2,6 +2,7 @@ package com.kenstarry.houseops_revamped.feature_authentication.presentation.logi
 
 import android.content.Context
 import android.content.Intent
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 
 sealed class LoginEvents {
@@ -20,7 +21,8 @@ sealed class LoginEvents {
     ) : LoginEvents()
 
     data class FirebaseAuthWithGoogle(
-        val idToken: String,
+        val account: GoogleSignInAccount,
+        val shouldCreateCollection: (shouldCreateCollection: Boolean) -> Unit,
         val response: (response: Response<*>) -> Unit
     ) : LoginEvents()
 

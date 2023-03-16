@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -57,16 +58,40 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override suspend fun firebaseAuthWithGoogle(
-        idToken: String,
+        account: GoogleSignInAccount,
+        shouldCreateCollection: (shouldCreateCollection: Boolean) -> Unit,
         response: (response: Response<*>) -> Unit
     ) {
         try {
 
-            val credentials = GoogleAuthProvider.getCredential(idToken, null)
+            val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
 
-            auth.signInWithCredential(credentials)
-                .addOnSuccessListener { response(Response.Success(true)) }
-                .addOnFailureListener { response(Response.Failure(it)) }
+            //  check whether the email address has been used already
+            account.email?.let { email ->
+                auth.fetchSignInMethodsForEmail(email)
+                    .addOnCompleteListener { task ->
+
+                        if (task.isSuccessful) {
+                            val signInMethods = task.result?.signInMethods
+
+                            if (signInMethods != null && signInMethods.isNotEmpty()) {
+                                //  user already exists in firebase
+                                auth.signInWithCredential(credentials)
+                                    .addOnSuccessListener { response(Response.Success(true)) }
+                                    .addOnFailureListener { response(Response.Failure(it)) }
+
+                                shouldCreateCollection(false)
+                            } else {
+                                //  user doesn't exist in firebase, so login and create account
+                                auth.signInWithCredential(credentials)
+                                    .addOnSuccessListener { response(Response.Success(true)) }
+                                    .addOnFailureListener { response(Response.Failure(it)) }
+
+                                shouldCreateCollection(true)
+                            }
+                        }
+                    }
+            }
 
         } catch (e: Exception) {
             response(Response.Failure(e.localizedMessage))

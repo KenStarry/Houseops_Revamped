@@ -2,6 +2,7 @@ package com.kenstarry.houseops_revamped.feature_authentication.presentation.logi
 
 import android.content.Context
 import android.content.Intent
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 
 interface LoginRepository {
@@ -20,7 +21,8 @@ interface LoginRepository {
     )
 
     suspend fun firebaseAuthWithGoogle(
-        idToken: String,
+        account: GoogleSignInAccount,
+        shouldCreateCollection: (shouldCreateCollection: Boolean) -> Unit,
         response: (response: Response<*>) -> Unit
     )
 

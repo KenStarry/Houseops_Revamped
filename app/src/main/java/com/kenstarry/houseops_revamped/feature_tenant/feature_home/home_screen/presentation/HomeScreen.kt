@@ -132,11 +132,19 @@ fun HomeScreen(
                 },
                 topBar = {
                     userDetails?.userImageUri?.let {
-                        HomeAppBar(
-                            navHostController = navHostController,
-                            direction = direction,
-                            userImageUrl = it
-                        )
+                        if (it.isBlank()) {
+                            HomeAppBar(
+                                navHostController = navHostController,
+                                direction = direction,
+                                userImageUrl = currentUser?.photoUrl?.toString() ?: ""
+                            )
+                        } else {
+                            HomeAppBar(
+                                navHostController = navHostController,
+                                direction = direction,
+                                userImageUrl = it
+                            )
+                        }
                     }
                 },
                 floatingActionButton = {
@@ -176,7 +184,11 @@ fun HomeScreen(
 
                         //  greetings text
                         HomeGreetings(
-                            userName = userDetails?.userName ?: "",
+                            userName = if (userDetails?.userName == "Anonymous")
+                                currentUser?.displayName ?: ""
+                            else
+                                userDetails?.userName ?: "",
+
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()
