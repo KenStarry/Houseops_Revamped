@@ -29,7 +29,7 @@ fun BackAppBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -37,7 +37,7 @@ fun BackAppBar(
         //  back button
         Card(
             modifier = Modifier
-                .size(45.dp),
+                .size(40.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.onSecondary,

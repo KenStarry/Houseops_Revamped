@@ -2,16 +2,24 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_s
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BrokenImage
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.navigation.NavHostController
@@ -20,6 +28,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
+import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
@@ -39,19 +48,46 @@ fun HouseViewPager(
 
         val pagerState = rememberPagerState()
 
-        HorizontalPager(
-            count = house.houseImageUris.size,
-            state = pagerState
-        ) { page ->
+        if (house.houseImageUris.isEmpty()) {
 
-            CoilImage(
-                context = context,
-                imageUri = house.houseImageUris[page].toUri(),
-                placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
+            Column(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .fillMaxWidth()
-            )
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Lottie(
+                    rawFile = com.kenstarry.houseops_revamped.R.raw.search_empty,
+                    isPlaying = true,
+                    iterations = 1,
+                    modifier = Modifier
+                        .fillMaxSize(0.7f)
+                )
+
+                Text(
+                    text = "No Images Found",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
+                )
+            }
+
+        } else {
+
+            HorizontalPager(
+                count = house.houseImageUris.size,
+                state = pagerState
+            ) { page ->
+                CoilImage(
+                    context = context,
+                    imageUri = house.houseImageUris[page].toUri(),
+                    placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .fillMaxWidth()
+                )
+            }
 
         }
 
