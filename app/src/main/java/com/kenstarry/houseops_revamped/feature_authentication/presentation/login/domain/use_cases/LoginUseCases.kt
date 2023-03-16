@@ -2,5 +2,7 @@ package com.kenstarry.houseops_revamped.feature_authentication.presentation.logi
 
 data class LoginUseCases(
     val login: Login,
+    val loginWithGoogle: LoginWithGoogle,
+    val firebaseAuthWithGoogle: FirebaseAuthWithGoogle,
     val passwordResetEmail: PasswordResetEmail
 )

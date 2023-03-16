@@ -36,7 +36,6 @@ import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.PickImage
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.SignUpFields
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.TermsAndConditions
-import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.components.UserTypeToggle
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.sign_up.presentation.viewmodel.SignUpViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.viewmodel.AuthenticationViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction

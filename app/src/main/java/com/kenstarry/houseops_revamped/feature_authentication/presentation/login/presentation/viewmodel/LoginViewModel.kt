@@ -48,11 +48,30 @@ class LoginViewModel @Inject constructor(
                         email = event.email,
                         password = event.password,
                         onResponse = { response ->
-                            response?.let { loginResponse = it }
+                            response.let { loginResponse = it }
                             event.onResponse(response)
                         }
                     )
 
+                }
+            }
+
+            is LoginEvents.LoginWithGoogle -> {
+                viewModelScope.launch {
+                    useCase.loginWithGoogle(
+                        context = event.context,
+                        intent = event.intent,
+                        response = event.response
+                    )
+                }
+            }
+
+            is LoginEvents.FirebaseAuthWithGoogle -> {
+                viewModelScope.launch {
+                    useCase.firebaseAuthWithGoogle(
+                        idToken = event.idToken,
+                        response = event.response
+                    )
                 }
             }
 

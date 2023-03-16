@@ -1,5 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.repository
 
+import android.content.Context
+import android.content.Intent
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 
 interface LoginRepository {
@@ -9,6 +11,17 @@ interface LoginRepository {
         email: String,
         password: String,
         onResponse: (res: Response<*>) -> Unit
+    )
+
+    suspend fun loginWithGoogle(
+        context: Context,
+        intent: (intent: Intent) -> Unit,
+        response: (response: Response<*>) -> Unit
+    )
+
+    suspend fun firebaseAuthWithGoogle(
+        idToken: String,
+        response: (response: Response<*>) -> Unit
     )
 
     //  send password reset email

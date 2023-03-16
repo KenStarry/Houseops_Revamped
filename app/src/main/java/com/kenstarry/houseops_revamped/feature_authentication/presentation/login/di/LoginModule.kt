@@ -1,11 +1,10 @@
 package com.kenstarry.houseops_revamped.feature_authentication.presentation.login.di
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.data.repository.LoginRepositoryImpl
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.repository.LoginRepository
-import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.Login
-import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.LoginUseCases
-import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.PasswordResetEmail
+import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.*
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.validation.LoginValidateEmail
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.use_cases.validation.LoginValidateUseCases
 import dagger.Module
@@ -21,8 +20,9 @@ object LoginModule {
     @Provides
     @Singleton
     fun provideLoginRepository(
-        auth: FirebaseAuth
-    ) : LoginRepository = LoginRepositoryImpl(auth)
+        auth: FirebaseAuth,
+        gso: GoogleSignInOptions
+    ): LoginRepository = LoginRepositoryImpl(auth, gso)
 
     @Provides
     @Singleton
@@ -30,6 +30,8 @@ object LoginModule {
         repository: LoginRepository
     ) = LoginUseCases(
         login = Login(repository),
+        loginWithGoogle = LoginWithGoogle(repository),
+        firebaseAuthWithGoogle = FirebaseAuthWithGoogle(repository),
         passwordResetEmail = PasswordResetEmail(repository)
     )
 

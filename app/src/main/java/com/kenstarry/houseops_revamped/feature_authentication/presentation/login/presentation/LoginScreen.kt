@@ -1,7 +1,10 @@
 package com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation
 
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -24,6 +27,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
@@ -73,25 +78,6 @@ fun LoginScreen(
     val userType = coreVM.userTypeFlow.collectAsState(initial = null).value
     val userDetails = coreVM.getUserDetails(loginVM.formState.email)
 
-//    userDetails?.let { user ->
-//
-//        Log.d("login", "userType -> ${user.userType}")
-//
-//        if (user.userType == AuthConstants.userTypes[0].userTitle) {
-//            //  landlord
-//            navHostController.navigate(LANDLORD_ROUTE) {
-//                popUpTo(AUTHENTICATION_ROUTE)
-//                launchSingleTop = true
-//            }
-//        } else if (user.userType == AuthConstants.userTypes[1].userTitle) {
-//            //  tenant
-//            navHostController.navigate(HOME_ROUTE) {
-//                popUpTo(AUTHENTICATION_ROUTE)
-//                launchSingleTop = true
-//            }
-//        }
-//    }
-
     var loginPassState by remember {
         mutableStateOf("")
     }
@@ -100,9 +86,73 @@ fun LoginScreen(
         mutableStateOf(false)
     }
 
+    var isLoading2 by remember {
+        mutableStateOf(false)
+    }
+
     var isLoggedIn by remember {
         mutableStateOf(false)
     }
+
+    var intent by remember {
+        mutableStateOf<Intent?>(null)
+    }
+
+    //  open launcher
+    val googleSignInLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = { result ->
+            //  handle sign in here
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            val exception = task.exception
+
+            if (task.isSuccessful) {
+                try {
+
+                    val account = task.getResult(ApiException::class.java)
+
+                    account?.idToken?.let { token ->
+                        //  login the user with firebase
+                        loginVM.onEvent(LoginEvents.FirebaseAuthWithGoogle(
+                            idToken = token,
+                            response = { res ->
+                                when (res) {
+                                    is Response.Success -> {
+
+                                        isLoading2 = false
+
+                                        //  take user to loading screen then determine the type of user
+                                        direction.navigateToRoute(
+                                            Constants.HOME_ROUTE,
+                                            AUTHENTICATION_ROUTE
+                                        )
+
+                                        Toast.makeText(
+                                            context,
+                                            "Welcome back ${userDetails?.userName}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    is Response.Failure -> {
+                                        Toast.makeText(
+                                            context,
+                                            "Sign In Failed",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+                        ))
+                    }
+
+                } catch (e: Exception) {
+                    Toast.makeText(context, "Sign In Failed", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(context, "Could not sign you in.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    )
 
     if (isLoggedIn) {
         //  save user to datastore
@@ -110,7 +160,8 @@ fun LoginScreen(
             coreVM.onEvent(
                 CoreEvents.DatastoreSaveUserType(
                     userDetails?.userType ?: "none"
-                ))
+                )
+            )
         }
     }
 
@@ -136,7 +187,10 @@ fun LoginScreen(
                                         isLoggedIn = true
 
                                         //  take user to loading screen then determine the type of user
-                                        direction.navigateToRoute(Constants.HOME_ROUTE, AUTHENTICATION_ROUTE)
+                                        direction.navigateToRoute(
+                                            Constants.HOME_ROUTE,
+                                            AUTHENTICATION_ROUTE
+                                        )
 
                                         Log.d("login", "Logged in successfully as $userType")
                                     }
@@ -343,20 +397,51 @@ fun LoginScreen(
             contentAlignment = Alignment.Center
         ) {
 
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onSecondary,
-                    disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3f),
-                    disabledContentColor = Color.White.copy(alpha = 0.3f)
-                ),
-                enabled = true
-            ) {
-                Text(
-                    text = "Sign In With Google",
-                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            if (isLoading2) {
+
+                LoadingCircle(
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
+
+            } else {
+                Button(
+                    onClick = {
+
+
+                        isLoading2 = true
+
+                        //    sign in with google
+                        loginVM.onEvent(
+                            LoginEvents.LoginWithGoogle(
+                                context = context,
+                                intent = { intent = it },
+                                response = {
+                                    when (it) {
+                                        is Response.Success -> {}
+                                        is Response.Failure -> {}
+                                    }
+                                }
+                            )
+                        )
+
+                        intent?.let {
+                            googleSignInLauncher.launch(it)
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.onSecondary,
+                        disabledContainerColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.3f),
+                        disabledContentColor = Color.White.copy(alpha = 0.3f)
+                    ),
+                    enabled = true
+                ) {
+                    Text(
+                        text = "Login With Google",
+                        fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    )
+                }
             }
 
         }
