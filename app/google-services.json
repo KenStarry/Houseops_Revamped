@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "207552303489-u5v1i468anurb0uh92vrhgmo4qsrptpn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kenstarry.houseops_revamped",
+            "certificate_hash": "6161c1ea4409992921662d6b83d2002900278e8b"
+          }
+        },
+        {
           "client_id": "207552303489-v6enak48fddflrppjn6n4jvs8utv11k4.apps.googleusercontent.com",
           "client_type": 3
         }
