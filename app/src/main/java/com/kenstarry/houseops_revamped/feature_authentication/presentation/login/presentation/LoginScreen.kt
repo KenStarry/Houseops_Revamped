@@ -163,6 +163,8 @@ fun LoginScreen(
                                                                     "created account successfully",
                                                                     Toast.LENGTH_SHORT
                                                                 ).show()
+
+                                                                isLoading2 = false
                                                             }
 
                                                             is Response.Failure -> {
@@ -173,11 +175,7 @@ fun LoginScreen(
                                                                     Toast.LENGTH_SHORT
                                                                 ).show()
 
-                                                                signUpVM.onEvent(
-                                                                    SignUpEvents.ToggleLoadingCircles(
-                                                                        false
-                                                                    )
-                                                                )
+                                                                isLoading2 = false
                                                             }
                                                         }
                                                     }
@@ -189,6 +187,8 @@ fun LoginScreen(
                                             "Welcome back ${userDetails?.userName}",
                                             Toast.LENGTH_SHORT
                                         ).show()
+
+                                        isLoading2 = false
                                     }
                                     is Response.Failure -> {
                                         Toast.makeText(
@@ -196,6 +196,8 @@ fun LoginScreen(
                                             "Sign In Failed",
                                             Toast.LENGTH_SHORT
                                         ).show()
+
+                                        isLoading2 = false
                                     }
                                 }
                             }
@@ -204,9 +206,11 @@ fun LoginScreen(
 
                 } catch (e: Exception) {
                     Toast.makeText(context, "Sign In Failed", Toast.LENGTH_SHORT).show()
+                    isLoading2 = false
                 }
             } else {
                 Toast.makeText(context, "Could not sign you in.", Toast.LENGTH_SHORT).show()
+                isLoading2 = false
             }
         }
     )
@@ -514,38 +518,6 @@ fun LoginScreen(
         }
 
     }
-}
-
-@Composable
-private fun SignInWithGoogle() {
-
-    val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    val context = LocalContext.current
-
-    val signInIntent = GoogleSignIn.getClient(
-        context, GoogleSignInOptions.DEFAULT_SIGN_IN
-    ).signInIntent
-
-    val signInLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-        try {
-            // Google Sign In was successful, authenticate with Firebase
-            val account = task.getResult(ApiException::class.java)!!
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            auth.signInWithCredential(credential).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, handle as needed
-                } else {
-                    // Sign in failed, handle as needed
-                }
-            }
-        } catch (e: ApiException) {
-            // Google Sign In failed, handle as needed
-        }
-    }
-    signInLauncher.launch(signInIntent)
 }
 
 //  clickable text parts

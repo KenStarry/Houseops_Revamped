@@ -24,6 +24,9 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.present
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_apartment.ContentApartments
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent.CaretakerBottomSheet
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent.ContentAgent
+import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_categories.ContentCategories
+import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_near_you.ContentNearYou
+import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_payment_plans.ContentPaymentPlan
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.utils.HomeConstants
 import com.kenstarry.houseops_revamped.navigation.Direction
@@ -139,11 +142,11 @@ fun CategoriesScreen(
 
                         //  House Categories screen
                         categories[0].title -> {
-
+                            ContentCategories()
                         }
-                        //  For Rent screen
+                        //  Payments  screen
                         categories[1].title -> {
-
+                            ContentPaymentPlan()
                         }
                         //  Apartments screen
                         categories[2].title -> {
@@ -154,16 +157,12 @@ fun CategoriesScreen(
                             )
 
                         }
-                        //  For Sale screen
-                        categories[3].title -> {
-
-                        }
                         //  Near You screen
-                        categories[4].title -> {
-
+                        categories[3].title -> {
+                            ContentNearYou()
                         }
                         //  agents screen
-                        categories[5].title -> {
+                        categories[4].title -> {
                             ContentAgent(
                                 agents = coreVM.allAgents.value,
                                 onCardClicked = {

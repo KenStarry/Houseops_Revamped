@@ -7,6 +7,8 @@ sealed class Screens(
     //  main screen
     object Main : Screens(route = "main_screen")
 
+    object Dashboard : Screens(route = "dashboard_screen")
+
     //  login screen
     object Login : Screens(route = "login_screen")
 

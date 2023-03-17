@@ -8,9 +8,8 @@ object HomeConstants {
 
     val homePills = listOf(
         PillBtn(Icons.Outlined.Apartment, "House Categories"),
-        PillBtn(Icons.Outlined.Key, "For Rent"),
+        PillBtn(Icons.Outlined.Money, "Payment Plans"),
         PillBtn(Icons.Outlined.Apartment, "Apartments"),
-        PillBtn(Icons.Outlined.Paid, "For Sale"),
         PillBtn(Icons.Outlined.LocationOn, "Near You"),
         PillBtn(Icons.Outlined.Person3, "Agents"),
     )

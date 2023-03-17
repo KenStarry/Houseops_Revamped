@@ -34,6 +34,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.p
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.utils.HomeConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.viewmodel.HomeViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
+import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
 @OptIn(
     ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
@@ -159,7 +160,12 @@ fun HomeScreen(
                                 contentDescription = "Dashboard"
                             )
                         },
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            direction.navigateToRoute(
+                                Screens.Dashboard.route,
+                                null
+                            )
+                        },
                         expanded = true,
                         containerColor = primaryColor
                     )
@@ -214,13 +220,17 @@ fun HomeScreen(
                                         .fillMaxWidth(0.9f)
                                         .height(250.dp)
                                 )
-                                
+
                                 Spacer(modifier = Modifier.height(24.dp))
 
-                                Text(text = "No Houses uploaded yet...",
-                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f))
+                                Text(
+                                    text = "No Houses uploaded yet...",
+                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                        alpha = 0.8f
+                                    )
+                                )
 
                             }
 

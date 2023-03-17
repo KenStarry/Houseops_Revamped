@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.BookedScreen
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.BookmarkScreen
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.CategoriesScreen
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.dashboard_screen.presentation.DashboardScreen
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.HomeScreen
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.HouseViewScreen
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.SettingsScreen
@@ -44,6 +45,11 @@ fun TenantInnerGraph(
         //  Settings screen
         composable(route = BottomNavScreens.Settings.route) {
             SettingsScreen(mainNavHostController)
+        }
+
+        //  Dashboard Screen
+        composable(route = Screens.Dashboard.route) {
+            DashboardScreen(navHostController = navHostController)
         }
 
         //  categories screen
