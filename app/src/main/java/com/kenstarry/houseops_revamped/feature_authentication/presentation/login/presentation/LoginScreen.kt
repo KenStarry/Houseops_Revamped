@@ -497,8 +497,18 @@ fun LoginScreen(
                     ),
                     enabled = true
                 ) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.google_icon),
+                        contentDescription = "Sign in with google image",
+                        modifier = Modifier
+                            .size(24.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
                     Text(
-                        text = "Login With Google",
+                        text = "Sign In With Google",
                         fontWeight = MaterialTheme.typography.titleLarge.fontWeight,
                         color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     )

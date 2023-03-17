@@ -76,7 +76,7 @@ fun HomeScreen(
 
             when (categoriesVM.bottomSheetContent.value) {
                 //  Caretakers screen
-                HomeConstants.homePills[5].title -> {
+                HomeConstants.homePills[4].title -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
                         agent = categoriesVM.agentData.value,
@@ -99,6 +99,7 @@ fun HomeScreen(
                         tertiaryColor = tertiaryColor
                     )
                 }
+
                 else -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
