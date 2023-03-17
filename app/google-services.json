@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "207552303489-0hp7r4pgv7uqronj6rhnqqircji4vado.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kenstarry.houseops_revamped",
+            "certificate_hash": "ed8916e5f7f0f9187b283b88efaa5546d9e856bf"
+          }
+        },
+        {
           "client_id": "207552303489-2l69kicp4ouijbnhlr99q6a09m69o46o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
