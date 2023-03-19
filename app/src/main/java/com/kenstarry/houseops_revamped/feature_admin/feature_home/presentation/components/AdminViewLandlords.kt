@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_admin.feature_home.presentation.viewmodel.AdminHomeViewModel
 
 @Composable
 fun AdminViewLandlords(
     adminHomeVM: AdminHomeViewModel = hiltViewModel(),
+    currentUser: FirebaseUser?,
     context: Context,
     primaryColor: Color,
     tertiaryColor: Color,
@@ -34,6 +36,7 @@ fun AdminViewLandlords(
                 //  landlord item
                 AdminLandlordItem(
                     landlord = landlord,
+                    currentUser = currentUser,
                     context = context,
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor,

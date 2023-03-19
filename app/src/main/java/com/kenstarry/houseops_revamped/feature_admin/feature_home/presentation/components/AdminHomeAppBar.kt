@@ -3,10 +3,7 @@ package com.kenstarry.houseops_revamped.feature_admin.feature_home.presentation.
 import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowRight
-import androidx.compose.material.icons.outlined.MoreVert
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +19,8 @@ fun AdminHomeAppBar(
     context: Context,
     userName: String,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onBackPressed: () -> Unit
 ) {
 
     LargeTopAppBar(
@@ -52,11 +50,19 @@ fun AdminHomeAppBar(
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor
                 ) {
-
                     //  go to settings screen
 
                 }
 
+            }
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackPressed) {
+                Icon(
+                    imageVector = Icons.Outlined.ArrowBack,
+                    contentDescription = "Back arrow",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                )
             }
         },
         actions = {

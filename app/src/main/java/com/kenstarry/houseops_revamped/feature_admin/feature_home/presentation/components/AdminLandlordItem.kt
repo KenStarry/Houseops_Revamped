@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
@@ -27,6 +28,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.p
 @Composable
 fun AdminLandlordItem(
     landlord: UsersCollection?,
+    currentUser: FirebaseUser?,
     context: Context,
     primaryColor: Color,
     tertiaryColor: Color,
@@ -74,9 +76,14 @@ fun AdminLandlordItem(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
 
+                        val uri = if (it.userImageUri?.isBlank() == true)
+                            currentUser?.photoUrl ?: "".toUri()
+                        else
+                            it.userImageUri?.toUri()
+
                         CoilImage(
                             context = context,
-                            imageUri = it.userImageUri?.toUri(),
+                            imageUri = uri,
                             placeholder = R.drawable.profile,
                             modifier = Modifier
                                 .clip(CircleShape)
@@ -111,7 +118,10 @@ fun AdminLandlordItem(
 
                                 //  name
                                 Text(
-                                    text = it.userName ?: "",
+                                    text = if (it.userName == "no name")
+                                        currentUser?.displayName ?: ""
+                                    else
+                                        it.userName ?: "",
                                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(

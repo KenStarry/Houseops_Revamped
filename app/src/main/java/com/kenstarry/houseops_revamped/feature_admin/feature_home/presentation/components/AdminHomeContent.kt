@@ -56,9 +56,15 @@ fun AdminHomeContent(
         topBar = {
             AdminHomeAppBar(
                 context = context,
-                userName = userDetails?.userName ?: " ",
+                userName = if (userDetails?.userName == "no name")
+                    currentUser?.displayName ?: ""
+                else
+                    userDetails?.userName ?: "",
                 primaryColor = primaryColor,
-                tertiaryColor = tertiaryColor
+                tertiaryColor = tertiaryColor,
+                onBackPressed = {
+
+                }
             )
         }
     ) { contentPadding ->
@@ -87,6 +93,7 @@ fun AdminHomeContent(
                 //  show all landlords registered by the app
                 AdminViewLandlords(
                     adminHomeVM = adminHomeVM,
+                    currentUser = currentUser,
                     context = context,
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor,

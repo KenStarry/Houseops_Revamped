@@ -37,7 +37,7 @@ import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
+    ExperimentalMaterial3Api::class,
     ExperimentalMaterialApi::class
 )
 @Composable
