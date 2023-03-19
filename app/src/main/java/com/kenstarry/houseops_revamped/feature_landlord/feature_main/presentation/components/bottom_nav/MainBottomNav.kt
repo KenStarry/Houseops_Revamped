@@ -21,8 +21,7 @@ fun MainBottomNav(
 
     val screens = listOf(
         LandlordBottomNavScreens.Home,
-        LandlordBottomNavScreens.Caretakers,
-        LandlordBottomNavScreens.Settings
+        LandlordBottomNavScreens.Agents
     )
 
     //  current destination

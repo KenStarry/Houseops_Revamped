@@ -4,10 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.houseopscaretakers.feature_landlord.feature_caretakers.LandlordCaretakers
+import com.kenstarry.houseops_revamped.feature_landlord.feature_caretakers.presentation.LandlordAgents
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.LandlordAddApartment
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.LandlordHome
-import com.kenstarry.houseops_revamped.feature_landlord.feature_settings.presentation.LandlordSettings
 import com.kenstarry.houseops_revamped.navigation.screens.LandlordBottomNavScreens
 import com.kenstarry.houseops_revamped.navigation.screens.LandlordScreens
 
@@ -26,12 +25,8 @@ fun LandlordBottomNavGraph(
             LandlordHome(navHostController = navHostController)
         }
 
-        composable(route = LandlordBottomNavScreens.Caretakers.route) {
-            LandlordCaretakers(navHostController = navHostController)
-        }
-
-        composable(route = LandlordBottomNavScreens.Settings.route) {
-            LandlordSettings(navHostController = mainNavHostController)
+        composable(route = LandlordBottomNavScreens.Agents.route) {
+            LandlordAgents(navHostController = navHostController)
         }
 
         //  landlord add apartment screen

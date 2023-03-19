@@ -1,10 +1,10 @@
-package com.example.houseopscaretakers.feature_landlord.feature_caretakers
+package com.kenstarry.houseops_revamped.feature_landlord.feature_caretakers.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 
 @Composable
-fun LandlordCaretakers(
+fun LandlordAgents(
     navHostController: NavHostController
 ) {
 

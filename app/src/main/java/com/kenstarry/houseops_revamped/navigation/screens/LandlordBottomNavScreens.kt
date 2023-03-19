@@ -3,7 +3,7 @@ package com.kenstarry.houseops_revamped.navigation.screens
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AdminPanelSettings
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.kenstarry.houseops_revamped.navigation.NavConstants
 
@@ -19,15 +19,9 @@ sealed class LandlordBottomNavScreens(
         icon = Icons.Outlined.Home
     )
 
-    object Caretakers : LandlordBottomNavScreens(
-        route = NavConstants.LANDLORD_CARETAKERS_SCREEN_ROUTE,
-        title = "Caretakers",
-        icon = Icons.Outlined.AdminPanelSettings
-    )
-
-    object Settings : LandlordBottomNavScreens(
-        route = NavConstants.LANDLORD_SETTINGS_SCREEN_ROUTE,
-        title = "Settings",
-        icon = Icons.Outlined.Settings
+    object Agents : LandlordBottomNavScreens(
+        route = NavConstants.LANDLORD_AGENTS_SCREEN_ROUTE,
+        title = "Agents",
+        icon = Icons.Outlined.SupportAgent
     )
 }
