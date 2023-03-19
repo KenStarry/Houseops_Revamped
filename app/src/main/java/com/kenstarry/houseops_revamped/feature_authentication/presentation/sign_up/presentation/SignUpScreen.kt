@@ -104,10 +104,11 @@ fun SignUpScreen(
                                             userLikedHouses = listOf(),
                                             userBookmarks = listOf(),
                                             userBookedHouses = listOf(),
-                                            userType = AuthConstants.userTypes[1].userTitle,
+                                            userType = listOf(
+                                                AuthConstants.userTypes[1].userTitle
+                                            ),
                                             userIsVerified = false
                                         ),
-//                                        signUpVM.chosenUserType.value.userTitle
                                         response = { res ->
                                             when (res) {
                                                 is Response.Success -> {

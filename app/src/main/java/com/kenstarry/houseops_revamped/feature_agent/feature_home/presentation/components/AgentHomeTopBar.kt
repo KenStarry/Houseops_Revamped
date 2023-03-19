@@ -49,7 +49,7 @@ fun AgentHomeTopBar(
 
                 HomePillBtns(
                     icon = Icons.Outlined.SupportAgent,
-                    title = userDetails?.userType ?: "",
+                    title = "Agent",
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor,
                     onClick = {}

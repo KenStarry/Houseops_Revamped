@@ -59,7 +59,8 @@ fun LandlordHome(
 
     lndHomeVM.onEvent(
         LndHomeEvents.GetLandlordDetails(
-            email = coreVM.currentUser()?.email ?: "no user"
+            email = coreVM.currentUser()?.email ?: "no user",
+            response = {}
         )
     )
 

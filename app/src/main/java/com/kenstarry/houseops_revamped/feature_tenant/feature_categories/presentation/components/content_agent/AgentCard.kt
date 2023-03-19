@@ -68,7 +68,7 @@ fun AgentCard(
 
             HomePillBtns(
                 icon = null,
-                title = agent.userType,
+                title = "Agent",
                 onClick = {},
                 paddingVertical = 8.dp,
                 paddingHorizontal = 16.dp,

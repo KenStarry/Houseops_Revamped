@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Landlord
 import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.repository.LndHomeRepository
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class LndHomeRepositoryImpl @Inject constructor(
 
     override suspend fun getLandlordDetails(
         email: String,
-        landlord: (landlord: Landlord) -> Unit,
+        landlord: (landlord: UsersCollection) -> Unit,
         response: (response: Response<*>) -> Unit
     ) {
 
@@ -26,7 +27,7 @@ class LndHomeRepositoryImpl @Inject constructor(
                     if (error != null)
                         return@addSnapshotListener
 
-                    snaphot?.toObject(Landlord::class.java)?.let {
+                    snaphot?.toObject(UsersCollection::class.java)?.let {
                         landlord(it)
 
                         response(Response.Success(it))

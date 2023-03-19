@@ -14,7 +14,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.domain.model.SettingsEvents
@@ -34,11 +33,13 @@ import com.kenstarry.houseops_revamped.navigation.Direction
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    mainNavHostController: NavHostController,
     navHostController: NavHostController
 ) {
     val context = LocalContext.current
     val coreVM: CoreViewModel = hiltViewModel()
-    val direction = Direction(navHostController)
+    val direction = Direction(mainNavHostController)
+    val directionInner = Direction(navHostController)
 
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -117,6 +118,7 @@ fun SettingsScreen(
                         .wrapContentHeight()
                         .background(MaterialTheme.colorScheme.onSecondary)
                         .padding(8.dp),
+                    directionInner = directionInner,
                     direction = direction,
                     userDetails = userDetails,
                     context = context,

@@ -44,7 +44,7 @@ fun TenantInnerGraph(
 
         //  Settings screen
         composable(route = BottomNavScreens.Settings.route) {
-            SettingsScreen(mainNavHostController)
+            SettingsScreen(mainNavHostController, navHostController)
         }
 
         //  Dashboard Screen

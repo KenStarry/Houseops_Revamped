@@ -24,15 +24,16 @@ import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.LANDLOR
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.SectionTitle
-import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.components.personalization_section.PersonalizationItem
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.utils.SettingsConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.viewmodel.SettingsViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
+import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
 @Composable
 fun DashboardSection(
     context: Context,
     userDetails: UsersCollection?,
+    directionInner: Direction,
     direction: Direction,
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel,
@@ -84,56 +85,91 @@ fun DashboardSection(
                         items(
                             items = SettingsConstants.dashboardOptions
                         ) {
-                            //  danger item
-                            DashboardItem(
-                                userType = userDetails?.userType ?: "",
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(50.dp)
-                                    .clickable {
-                                        when (it.title) {
-                                            SettingsConstants.dashboardOptions[0].title -> {
-                                                //  navigate to specific dashboard
-                                                when (userDetails?.userType) {
-                                                    //  landlord
-                                                    AuthConstants.userTypes[0].userTitle -> {
-                                                        direction.navigateToRoute(
-                                                            LANDLORD_ROUTE,
-                                                            null
-                                                        )
-                                                    }
-                                                    //  tenant
-                                                    AuthConstants.userTypes[1].userTitle -> {
-                                                        //  open normal dashboard
-                                                    }
-                                                    //  admin
-                                                    AuthConstants.userTypes[2].userTitle -> {
-                                                        direction.navigateToRoute(
-                                                            ADMIN_ROUTE,
-                                                            null
-                                                        )
-                                                    }
-                                                    //  agent
-                                                    AuthConstants.userTypes[3].userTitle -> {
-                                                        direction.navigateToRoute(
-                                                            AGENT_ROUTE,
-                                                            null
-                                                        )
-                                                    }
+                            userDetails?.userType?.forEach { type ->
+                                //  dashboard item
+                                DashboardItem(
+                                    userType = type,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(50.dp)
+                                        .clickable {
+                                            when (type) {
+                                                //  landlord
+                                                AuthConstants.userTypes[0].userTitle -> {
+                                                    direction.navigateToRoute(
+                                                        LANDLORD_ROUTE,
+                                                        null
+                                                    )
+                                                }
+                                                //  tenant
+                                                AuthConstants.userTypes[1].userTitle -> {
+                                                    //  open normal dashboard
+                                                    directionInner.navigateToRoute(
+                                                        Screens.Dashboard.route,
+                                                        null
+                                                    )
+                                                }
+                                                //  admin
+                                                AuthConstants.userTypes[2].userTitle -> {
+                                                    direction.navigateToRoute(
+                                                        ADMIN_ROUTE,
+                                                        null
+                                                    )
+                                                }
+                                                //  agent
+                                                AuthConstants.userTypes[3].userTitle -> {
+                                                    direction.navigateToRoute(
+                                                        AGENT_ROUTE,
+                                                        null
+                                                    )
                                                 }
                                             }
+//                                            when (it.title) {
+//                                                SettingsConstants.dashboardOptions[0].title -> {
+//                                                    //  navigate to specific dashboard
+//                                                    when (type) {
+//                                                        //  landlord
+//                                                        AuthConstants.userTypes[0].userTitle -> {
+//                                                            direction.navigateToRoute(
+//                                                                LANDLORD_ROUTE,
+//                                                                null
+//                                                            )
+//                                                        }
+//                                                        //  tenant
+//                                                        AuthConstants.userTypes[1].userTitle -> {
+//                                                            //  open normal dashboard
+//                                                        }
+//                                                        //  admin
+//                                                        AuthConstants.userTypes[2].userTitle -> {
+//                                                            direction.navigateToRoute(
+//                                                                ADMIN_ROUTE,
+//                                                                null
+//                                                            )
+//                                                        }
+//                                                        //  agent
+//                                                        AuthConstants.userTypes[3].userTitle -> {
+//                                                            direction.navigateToRoute(
+//                                                                AGENT_ROUTE,
+//                                                                null
+//                                                            )
+//                                                        }
+//                                                    }
+//                                                }
+//                                            }
                                         }
-                                    }
-                                    .padding(
-                                        end = 16.dp
-                                    )
-                            )
+                                        .padding(
+                                            end = 16.dp
+                                        )
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
                         }
                     },
                     state = listState,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height((50.dp + 16.dp) * SettingsConstants.dashboardOptions.size),
+                        .height(((50.dp + 16.dp) * userDetails?.userType?.size!!) * SettingsConstants.dashboardOptions.size),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 )
 

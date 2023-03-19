@@ -12,6 +12,7 @@ import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_hom
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Landlord
 import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,8 +23,8 @@ class LndHomeViewModel @Inject constructor(
     private val useCases: LndHomeUseCases
 ) : ViewModel() {
 
-    private val _landlordDetails = mutableStateOf<Landlord?>(null)
-    val landlordDetails: State<Landlord?> = _landlordDetails
+    private val _landlordDetails = mutableStateOf<UsersCollection?>(null)
+    val landlordDetails: State<UsersCollection?> = _landlordDetails
 
     private val _landlordApartments = mutableStateOf<List<Apartment>>(listOf())
     val landlordApartments: State<List<Apartment>> = _landlordApartments
@@ -36,16 +37,9 @@ class LndHomeViewModel @Inject constructor(
                     useCases.getLandlordDetails(
                         email = event.email,
                         landlord = {
-
+                            _landlordDetails.value = it
                         },
-                        response = {
-                            when (it) {
-                                is Response.Success -> {
-                                    _landlordDetails.value = it.data as Landlord
-                                }
-                                is Response.Failure -> {}
-                            }
-                        }
+                        response = event.response
                     )
                 }
             }

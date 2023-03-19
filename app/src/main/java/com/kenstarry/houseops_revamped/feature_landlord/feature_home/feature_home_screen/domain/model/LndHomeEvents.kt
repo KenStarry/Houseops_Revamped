@@ -6,7 +6,8 @@ import com.kenstarry.houseops_revamped.core.domain.model.Response
 sealed class LndHomeEvents {
 
     data class GetLandlordDetails(
-        val email: String
+        val email: String,
+        val response: (response: Response<*>) -> Unit
     ) : LndHomeEvents()
 
     data class GetLandlordApartments(

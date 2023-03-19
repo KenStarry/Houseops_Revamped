@@ -2,6 +2,7 @@ package com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_ho
 
 import com.kenstarry.houseops_revamped.core.domain.model.Landlord
 import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.repository.LndHomeRepository
 
 class GetLandlordDetails(
@@ -9,7 +10,7 @@ class GetLandlordDetails(
 ) {
     suspend operator fun invoke(
         email: String,
-        landlord: (landlord: Landlord) -> Unit,
+        landlord: (landlord: UsersCollection) -> Unit,
         response: (response: Response<*>) -> Unit
     ) = repository.getLandlordDetails(
         email = email,

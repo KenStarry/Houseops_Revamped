@@ -146,7 +146,9 @@ fun LoginScreen(
                                                         userLikedHouses = listOf(),
                                                         userBookmarks = listOf(),
                                                         userBookedHouses = listOf(),
-                                                        userType = AuthConstants.userTypes[1].userTitle,
+                                                        userType = listOf(
+                                                            AuthConstants.userTypes[1].userTitle
+                                                        ),
                                                         userIsVerified = false
                                                     ),
                                                     response = { resp ->
@@ -182,9 +184,14 @@ fun LoginScreen(
                                                 ))
                                         }
 
+                                        direction.navigateToRoute(
+                                            Constants.HOME_ROUTE,
+                                            AUTHENTICATION_ROUTE
+                                        )
+
                                         Toast.makeText(
                                             context,
-                                            "Welcome back ${userDetails?.userName}",
+                                            "Welcome back!",
                                             Toast.LENGTH_SHORT
                                         ).show()
 
@@ -217,13 +224,13 @@ fun LoginScreen(
 
     if (isLoggedIn) {
         //  save user to datastore
-        LaunchedEffect(key1 = Unit) {
-            coreVM.onEvent(
-                CoreEvents.DatastoreSaveUserType(
-                    userDetails?.userType ?: "none"
-                )
-            )
-        }
+//        LaunchedEffect(key1 = Unit) {
+//            coreVM.onEvent(
+//                CoreEvents.DatastoreSaveUserType(
+//                    userDetails?.userType ?: "none"
+//                )
+//            )
+//        }
     }
 
 
@@ -335,7 +342,6 @@ fun LoginScreen(
                 }
             )
         }
-
 
         //  svg icon
         Image(
