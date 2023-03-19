@@ -22,7 +22,10 @@ fun LandlordBottomNavGraph(
     ) {
 
         composable(route = LandlordBottomNavScreens.Home.route) {
-            LandlordHome(navHostController = navHostController)
+            LandlordHome(
+                mainNavHostController = mainNavHostController,
+                navHostController = navHostController
+            )
         }
 
         composable(route = LandlordBottomNavScreens.Agents.route) {

@@ -24,10 +24,4 @@ sealed class AdminBottomNavScreens(
         title = "Agents",
         icon = Icons.Outlined.SupportAgent
     )
-
-    object Settings : AdminBottomNavScreens(
-        route = NavConstants.ADMIN_BOTTOM_NAV_SETTINGS_ROUTE,
-        title = "Settings",
-        icon = Icons.Outlined.Settings
-    )
 }

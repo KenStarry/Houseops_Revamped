@@ -16,10 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.houseopscaretakers.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeGreetings
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.presentation.components.ExtendedFab
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
@@ -27,7 +25,7 @@ import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeApartments
-import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeAppBar
+import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeTopBar
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.LandlordScreens
@@ -36,14 +34,16 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LandlordHome(
-    navHostController: NavHostController
+    mainNavHostController: NavHostController,
+    navHostController: NavHostController,
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
     val lndHomeVM: LndHomeViewModel = hiltViewModel()
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
-    val direction = Direction(navHostController)
+    val directionInner = Direction(navHostController)
+    val direction = Direction(mainNavHostController)
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -93,9 +93,14 @@ fun LandlordHome(
             //  show main UI
             Scaffold(
                 topBar = {
-                    LndHomeAppBar(
+                    LndHomeTopBar(
                         context = context,
-                        imageUri = it.userImageUri?.toUri()
+                        userDetails = landlord,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onBackPressed = {
+                            direction.navigateUp()
+                        }
                     )
                 },
                 floatingActionButton = {
@@ -104,7 +109,7 @@ fun LandlordHome(
                         title = "Add Apartment",
                         containerColor = primaryColor,
                         onFabClicked = {
-                            direction.navigateToRoute(LandlordScreens.AddApartment.route, null)
+                            directionInner.navigateToRoute(LandlordScreens.AddApartment.route, null)
                         }
                     )
                 },
@@ -123,18 +128,6 @@ fun LandlordHome(
                             .padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
-
-                        //  greetings text
-                        LndHomeGreetings(
-                            landlordName = it.userName ?: "",
-                            greetingsText = greetingsText,
-                            greetingsIcon = greetingsIcon,
-                            primaryColor = primaryColor,
-                            tertiaryColor = tertiaryColor,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight()
-                        )
 
                         //  apartments section
                         Column(

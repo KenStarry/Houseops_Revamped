@@ -45,10 +45,6 @@ fun AdminBottomNavGraph(
             AdminAgentsScreen(navHostController = navHostController)
         }
 
-        composable(route = AdminBottomNavScreens.Settings.route) {
-            AdminSettingsScreen(navHostController = mainNavHostController)
-        }
-
         //  landlord view screen
         composable(
             route = AdminScreens.LandlordView.route,

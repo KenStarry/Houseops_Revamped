@@ -20,7 +20,7 @@ class AdminAgentsRepositoryImpl @Inject constructor(
         try {
 
             db.collection(Constants.USERS_COLLECTION)
-                .whereEqualTo("userType", AuthConstants.userTypes[3].userTitle)
+                .whereArrayContains("userType", AuthConstants.userTypes[3].userTitle)
                 .addSnapshotListener { querySnapshot, error ->
 
                     if (error != null) {

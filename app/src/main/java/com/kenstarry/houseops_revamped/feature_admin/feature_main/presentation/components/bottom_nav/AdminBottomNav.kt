@@ -21,8 +21,7 @@ fun AdminBottomNav(
 
     val screens = listOf(
         AdminBottomNavScreens.Home,
-        AdminBottomNavScreens.Agents,
-        AdminBottomNavScreens.Settings
+        AdminBottomNavScreens.Agents
     )
 
     //  current destination

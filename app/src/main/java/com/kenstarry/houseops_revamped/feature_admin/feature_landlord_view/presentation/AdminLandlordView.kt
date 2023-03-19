@@ -43,6 +43,7 @@ fun AdminLandlordView(
     val landlordViewVM: AdminLandlordViewVM = hiltViewModel()
     val direction = Direction(navHostController)
     val context = LocalContext.current
+    val currentUser = coreVM.currentUser()
     val landlord = coreVM.getUserDetails(landlordEmail)
 
     landlordViewVM.onEvent(
@@ -75,7 +76,10 @@ fun AdminLandlordView(
     Scaffold(
         topBar = {
             AdminLandlordViewAppBar(
-                title = landlord?.userName ?: "",
+                title = if (landlord?.userName == "no name")
+                    currentUser?.displayName ?: ""
+                else
+                    landlord?.userName ?: "",
                 email = landlordEmail,
                 primaryColor = primaryColor,
                 tertiaryColor = tertiaryColor,
