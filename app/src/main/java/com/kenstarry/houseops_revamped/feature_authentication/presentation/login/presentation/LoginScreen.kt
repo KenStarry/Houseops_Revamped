@@ -139,10 +139,10 @@ fun LoginScreen(
                                             signUpVM.onEvent(
                                                 SignUpEvents.CreateUserCollection(
                                                     user = UsersCollection(
-                                                        userName = "no name",
+                                                        userName = acc.displayName,
                                                         userEmail = acc.email ?: "no email",
                                                         userPassword = "",
-                                                        userImageUri = "",
+                                                        userImageUri = acc.photoUrl.toString(),
                                                         userLikedHouses = listOf(),
                                                         userBookmarks = listOf(),
                                                         userBookedHouses = listOf(),
