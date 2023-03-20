@@ -1,12 +1,13 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
-import androidx.compose.material.icons.outlined.ArrowRight
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,18 +15,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.DoneCancelButtons
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseCategoriesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
-import kotlin.random.Random
 
 @Composable
 fun AddApartmentHouseSheet(
@@ -34,12 +36,47 @@ fun AddApartmentHouseSheet(
     primaryColor: Color,
     tertiaryColor: Color,
     onDone: (house: HouseModel) -> Unit,
+    onUpdate: (house: HouseModel) -> Unit,
     onCancel: () -> Unit
 ) {
 
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
     val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
+
+    house?.let {
+
+        //  set category
+        agentApartmentVM.onEvent(
+            AgentApartmentEvents.SelectHouseCategory(
+                house.houseCategory
+            )
+        )
+
+        //  set images
+        agentApartmentVM.onEvent(
+            AgentApartmentEvents.UpdateGalleryImages(
+                house.houseImageUris.map { it.toUri() }
+            )
+        )
+
+        //  set pricing
+        agentApartmentVM.onEvent(
+            AgentApartmentEvents.SelectHousePrice(
+                house.housePrice
+            )
+        )
+
+        //  set features
+
+
+        //  set description
+        agentApartmentVM.onEvent(
+            AgentApartmentEvents.SelectHouseDescription(
+                house.houseDescription
+            )
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -159,7 +196,7 @@ fun AddApartmentHouseSheet(
                 "${(0..9).random()}" +
                 "${(0..9).random()}"
 
-        val house = HouseModel(
+        val houseModel = HouseModel(
 
             houseId = "${apartmentName.take(2)}-${agentApartmentVM.selectedHouseCategory.value}-$randomNum",
 
@@ -181,12 +218,19 @@ fun AddApartmentHouseSheet(
             houseUsersBooked = emptyList()
         )
 
-        DoneCancelButtons(
-            onDone = {
-                onDone(house)
-            },
-            onCancel = onCancel
-        )
+        if (house != null) {
+            Button(onClick = { onUpdate(houseModel) }) {
+                Text(text = "Update")
+            }
+        } else {
+            DoneCancelButtons(
+                onDone = {
+                    onDone(houseModel)
+                },
+                onCancel = onCancel
+            )
+        }
+
 
         Spacer(modifier = Modifier.height(24.dp))
 

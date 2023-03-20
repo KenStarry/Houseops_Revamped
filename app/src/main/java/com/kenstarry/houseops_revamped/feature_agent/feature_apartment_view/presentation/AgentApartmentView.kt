@@ -60,8 +60,8 @@ fun AgentApartmentView(
         mutableStateOf(false)
     }
 
-    val selectedHouse by remember {
-        mutableStateOf<HouseModel?>(coreVM.bottomSheetData.value as HouseModel?)
+    var selectedHouse by remember {
+        mutableStateOf<HouseModel?>(null)
     }
 
     IntroShowCaseScaffold(
@@ -129,6 +129,7 @@ fun AgentApartmentView(
                                     )
                                 )
                             },
+                            onUpdate = {},
                             onCancel = {}
                         )
                     }
@@ -150,6 +151,7 @@ fun AgentApartmentView(
                         AgentHomeFab(
                             primaryColor = primaryColor,
                             onClick = {
+                                selectedHouse = null
                                 coreVM.onBottomSheetEvent(
                                     BottomSheetEvents.OpenBottomSheet(
                                         state = state,
@@ -197,12 +199,15 @@ fun AgentApartmentView(
                                 tertiaryColor = tertiaryColor,
                                 onDelete = {},
                                 onUpdate = {
+
+                                    selectedHouse = it
+
                                     coreVM.onBottomSheetEvent(
                                         BottomSheetEvents.OpenBottomSheet(
                                             state = state,
                                             scope = scope,
                                             bottomSheetType = AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET,
-                                            bottomSheetData = it
+                                            bottomSheetData = null
                                         )
                                     )
                                 }
@@ -215,7 +220,14 @@ fun AgentApartmentView(
                 }
 
             },
-            closeBottomSheet = { state, scope -> }
+            closeBottomSheet = { state, scope ->
+                // close bottomsheet
+                coreVM.onBottomSheetEvent(
+                    BottomSheetEvents.CloseBottomSheet(
+                        state, scope
+                    )
+                )
+            }
         )
 
     }
