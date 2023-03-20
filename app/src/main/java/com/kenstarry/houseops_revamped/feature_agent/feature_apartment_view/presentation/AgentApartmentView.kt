@@ -31,6 +31,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -47,10 +48,6 @@ fun AgentApartmentView(
     val context = LocalContext.current
     val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
 
-    var count by remember {
-        mutableStateOf(0)
-    }
-
     agentApartmentVM.onEvent(
         AgentApartmentEvents.GetApartmentHouses(
             apartmentName = apartmentName,
@@ -61,6 +58,10 @@ fun AgentApartmentView(
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     var showAppIntro by remember {
         mutableStateOf(false)
+    }
+
+    val selectedHouse by remember {
+        mutableStateOf<HouseModel?>(coreVM.bottomSheetData.value as HouseModel?)
     }
 
     IntroShowCaseScaffold(
@@ -75,7 +76,7 @@ fun AgentApartmentView(
                 when (coreVM.bottomSheetContent.value) {
                     AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET -> {
                         AddApartmentHouseSheet(
-                            count = count + 1,
+                            house = selectedHouse,
                             apartmentName = apartmentName,
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
@@ -195,7 +196,16 @@ fun AgentApartmentView(
                                 primaryColor = primaryColor,
                                 tertiaryColor = tertiaryColor,
                                 onDelete = {},
-                                onUpdate = {}
+                                onUpdate = {
+                                    coreVM.onBottomSheetEvent(
+                                        BottomSheetEvents.OpenBottomSheet(
+                                            state = state,
+                                            scope = scope,
+                                            bottomSheetType = AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET,
+                                            bottomSheetData = it
+                                        )
+                                    )
+                                }
                             )
 
                         }

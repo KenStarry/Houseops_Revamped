@@ -29,7 +29,7 @@ import kotlin.random.Random
 
 @Composable
 fun AddApartmentHouseSheet(
-    count: Int,
+    house: HouseModel?,
     apartmentName: String,
     primaryColor: Color,
     tertiaryColor: Color,
