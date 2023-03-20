@@ -70,7 +70,7 @@ fun CategoriesScreen(
 
             when (categoriesVM.bottomSheetContent.value) {
                 //  Caretakers screen
-                categories[5].title -> {
+                categories[4].title -> {
                     CaretakerBottomSheet(
                         categoriesVM = categoriesVM,
                         agent = categoriesVM.agentData.value,

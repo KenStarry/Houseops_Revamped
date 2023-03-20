@@ -22,28 +22,38 @@ fun CoilImage(
 
     imageUri?.let {
 
-        if (it.toString().startsWith("content")) {
+        AsyncImage(
+            model = ImageRequest.Builder(context)
+                .data(it)
+                .crossfade(true)
+                .placeholder(placeholder)
+                .build(),
+            contentDescription = "User image",
+            contentScale = ContentScale.Crop,
+            modifier = modifier
+        )
 
-            Image(
-                painter = painterResource(id = R.drawable.profile),
-                contentDescription = "profile picture",
-                modifier = modifier,
-                contentScale = ContentScale.Crop
-            )
-
-        } else {
-
-            AsyncImage(
-                model = ImageRequest.Builder(context)
-                    .data(it)
-                    .crossfade(true)
-                    .placeholder(placeholder)
-                    .build(),
-                contentDescription = "User image",
-                contentScale = ContentScale.Crop,
-                modifier = modifier
-            )
-        }
-
+//        if (it.toString().startsWith("content")) {
+//
+//            Image(
+//                painter = painterResource(id = R.drawable.profile),
+//                contentDescription = "profile picture",
+//                modifier = modifier,
+//                contentScale = ContentScale.Crop
+//            )
+//
+//        } else {
+//
+//            AsyncImage(
+//                model = ImageRequest.Builder(context)
+//                    .data(it)
+//                    .crossfade(true)
+//                    .placeholder(placeholder)
+//                    .build(),
+//                contentDescription = "User image",
+//                contentScale = ContentScale.Crop,
+//                modifier = modifier
+//            )
+//        }
     }
 }

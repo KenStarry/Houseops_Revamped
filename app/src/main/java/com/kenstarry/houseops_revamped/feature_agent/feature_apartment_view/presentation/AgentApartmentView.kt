@@ -193,7 +193,9 @@ fun AgentApartmentView(
                                 houses = agentApartmentVM.apartmentHouses.value,
                                 user = coreVM.getUserDetails(currentUser?.email ?: "no email"),
                                 primaryColor = primaryColor,
-                                tertiaryColor = tertiaryColor
+                                tertiaryColor = tertiaryColor,
+                                onDelete = {},
+                                onUpdate = {}
                             )
 
                         }

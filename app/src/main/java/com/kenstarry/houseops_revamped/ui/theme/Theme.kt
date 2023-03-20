@@ -1,4 +1,4 @@
-package com.kenstarry.houseops_revamped.ui.theme
+    package com.kenstarry.houseops_revamped.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -11,10 +11,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.House
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.outlined.Update
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.components.HouseItemAlt
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -33,7 +35,9 @@ fun AgentApartmentHouses(
     user: UsersCollection?,
     houses: List<HouseModel>,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onUpdate: (house: HouseModel) -> Unit,
+    onDelete: (house: HouseModel) -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -97,6 +101,49 @@ fun AgentApartmentHouses(
                             .padding(8.dp)
                             .animateItemPlacement(),
                     )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    //  update house
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        //  delete icon
+                        TextButton(
+                            onClick = {
+                                onDelete(house)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onPrimary,
+                                contentColor = MaterialTheme.colorScheme.error
+                            )
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Outlined.DeleteForever,
+                                contentDescription = "delete button"
+                            )
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Text(text = "Delete")
+                        }
+
+                        //  update house icon
+                        HomePillBtns(
+                            icon = Icons.Outlined.Update,
+                            title = "Update",
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
+                            onClick = { onUpdate(house) }
+                        )
+
+                    }
 
                 }
             },
