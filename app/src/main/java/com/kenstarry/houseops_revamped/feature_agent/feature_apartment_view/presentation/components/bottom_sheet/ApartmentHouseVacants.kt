@@ -32,7 +32,6 @@ fun ApartmentHouseVacants(
 ) {
 
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
-    val context = LocalContext.current
 
     var counter by remember {
         mutableStateOf(agentApartmentVM.selectedVacantUnits.value)
@@ -75,14 +74,6 @@ fun ApartmentHouseVacants(
                                     counter
                                 )
                             )
-
-                            Toast
-                                .makeText(
-                                    context,
-                                    agentApartmentVM.selectedVacantUnits.value.toString(),
-                                    Toast.LENGTH_SHORT
-                                )
-                                .show()
                         }
                     },
                 contentAlignment = Alignment.Center
@@ -117,13 +108,6 @@ fun ApartmentHouseVacants(
                             )
                         )
 
-                        Toast
-                            .makeText(
-                                context,
-                                agentApartmentVM.selectedVacantUnits.value.toString(),
-                                Toast.LENGTH_SHORT
-                            )
-                            .show()
                     },
                 contentAlignment = Alignment.Center
             ) {

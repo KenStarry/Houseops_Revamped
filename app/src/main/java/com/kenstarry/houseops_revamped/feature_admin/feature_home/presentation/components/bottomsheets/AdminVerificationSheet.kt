@@ -26,7 +26,9 @@ import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 @Composable
 fun AdminVerificationSheet(
     coreViewModel: CoreViewModel,
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    primaryColor: Color,
+    tertiaryColor: Color
 ) {
 
     var isLoading by remember {
@@ -101,8 +103,8 @@ fun AdminVerificationSheet(
             if (isLoading) {
 
                 LoadingCircle(
-                    primaryColor = MaterialTheme.colorScheme.primary,
-                    tertiaryColor = MaterialTheme.colorScheme.tertiary
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor
                 )
 
             } else {

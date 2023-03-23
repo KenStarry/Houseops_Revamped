@@ -39,7 +39,6 @@ fun ApartmentHouseImages(
 
     val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
     val imagesState = agentApartmentVM.selectedImagesState
-    val context = LocalContext.current
 
     val launcher =
         rememberLauncherForActivityResult(
@@ -53,15 +52,7 @@ fun ApartmentHouseImages(
                 imageModelList.add(ImageModel(uri.toString(), currentTime.toString()))
             }
 
-            Toast.makeText(context, imageModelList.size.toString(), Toast.LENGTH_SHORT).show()
-
             agentApartmentVM.onEvent(AgentApartmentEvents.UpdateGalleryImages(imageModelList))
-
-            Toast.makeText(
-                context,
-                "showing images : ${agentApartmentVM.selectedImagesState.listOfSelectedImages}",
-                Toast.LENGTH_SHORT
-            ).show()
 
         }
 

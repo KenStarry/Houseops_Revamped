@@ -47,6 +47,9 @@ fun AgentApartmentHouses(
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
+        //  action cards
+        AgentActionCards()
+
         //  title
         Row(
             modifier = Modifier
@@ -79,6 +82,7 @@ fun AgentApartmentHouses(
 
         }
 
+        //  all added houses
         LazyColumn(
             content = {
                 items(houses) { house ->

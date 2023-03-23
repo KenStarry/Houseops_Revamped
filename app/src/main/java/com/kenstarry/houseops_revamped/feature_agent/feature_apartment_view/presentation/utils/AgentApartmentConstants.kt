@@ -2,11 +2,19 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pre
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ActionCard
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
 
 object AgentApartmentConstants {
 
     const val ADD_HOUSE_BOTTOM_SHEET = "add house bottom sheet"
+
+    //  action cards
+    val actionCards = listOf(
+        ActionCard("Users Booked", Icons.Outlined.Timeline),
+        ActionCard("Notifications", Icons.Outlined.Notifications),
+        ActionCard("Statistics", Icons.Outlined.BubbleChart),
+    )
 
     //  house categories
     val houseCategories = listOf(

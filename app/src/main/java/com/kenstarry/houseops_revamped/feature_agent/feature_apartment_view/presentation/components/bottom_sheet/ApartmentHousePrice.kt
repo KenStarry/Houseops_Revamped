@@ -33,12 +33,10 @@ fun ApartmentHousePrice(
 ) {
 
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
-    val context = LocalContext.current
     val pricing = remember {
         agentApartmentVM.selectedHousePrice
     }
 
-    Toast.makeText(context, agentApartmentVM.selectedHousePrice.value, Toast.LENGTH_SHORT).show()
     Column(
         modifier = Modifier
             .fillMaxWidth()

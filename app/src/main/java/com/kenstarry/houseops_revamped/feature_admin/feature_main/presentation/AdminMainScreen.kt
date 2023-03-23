@@ -74,7 +74,9 @@ fun AdminMainScreen(
                                 Constants.AUTHENTICATION_ROUTE,
                                 Constants.ADMIN_ROUTE
                             )
-                        }
+                        },
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
                     )
                 }
 
