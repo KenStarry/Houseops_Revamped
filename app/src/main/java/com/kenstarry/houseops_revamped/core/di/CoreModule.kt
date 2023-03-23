@@ -46,7 +46,8 @@ object CoreModule {
         getAllAgents = GetAllAgents(repo),
         uploadImagesToStorage = UploadImagesToStorage(repo),
         uploadSingleImageToStorage = UploadSingleImageToStorage(repo),
-        verificationEmail = VerificationEmail(repo)
+        verificationEmail = VerificationEmail(repo),
+        deleteDocument = DeleteDocument(repo)
     )
 
     //  provide datastore accent preference

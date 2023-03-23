@@ -13,6 +13,7 @@ data class CoreUseCases(
     val getAllAgents: GetAllAgents,
     val uploadImagesToStorage: UploadImagesToStorage,
     val uploadSingleImageToStorage: UploadSingleImageToStorage,
-    val verificationEmail: VerificationEmail
+    val verificationEmail: VerificationEmail,
+    val deleteDocument: DeleteDocument
 ) {
 }

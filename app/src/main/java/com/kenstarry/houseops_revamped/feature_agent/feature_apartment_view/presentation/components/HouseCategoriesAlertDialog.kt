@@ -27,7 +27,8 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class,
+@OptIn(
+    ExperimentalAnimationApi::class, ExperimentalMaterialApi::class,
     ExperimentalFoundationApi::class
 )
 @Composable
@@ -66,7 +67,11 @@ fun HouseCategoriesAlertDialog(
                             isSelected = category == selectedCategory,
                             onRadioButtonClicked = {
                                 selectedCategory = category
-                                agentApartmentVM.onEvent(AgentApartmentEvents.SelectHouseCategory(category))
+                                agentApartmentVM.onEvent(
+                                    AgentApartmentEvents.SelectHouseCategory(
+                                        category
+                                    )
+                                )
                             }
                         )
                     }
@@ -76,7 +81,7 @@ fun HouseCategoriesAlertDialog(
                     .height(300.dp)
             )
         },
-        onConfirm = {onConfirm(agentApartmentVM.selectedHouseCategory.value)},
+        onConfirm = { onConfirm(agentApartmentVM.selectedHouseCategory.value) },
         onDismiss = onDismiss
     )
 }

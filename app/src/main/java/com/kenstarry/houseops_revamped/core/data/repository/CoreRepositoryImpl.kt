@@ -291,7 +291,12 @@ class CoreRepositoryImpl @Inject constructor(
 
                                     userCollection.update(
                                         fieldToUpdate,
-                                        FieldValue.arrayUnion(ImageModel(url.toString(), model.time))
+                                        FieldValue.arrayUnion(
+                                            ImageModel(
+                                                url.toString(),
+                                                model.time
+                                            )
+                                        )
                                     )
 
                                     onResponse(Response.Success(url))
@@ -371,6 +376,34 @@ class CoreRepositoryImpl @Inject constructor(
                         }
                     }
             }
+
+        } catch (e: Exception) {
+            onResponse(Response.Failure(e.localizedMessage))
+        }
+    }
+
+    override suspend fun deleteDocument(
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
+        onResponse: (response: Response<*>) -> Unit
+    ) {
+
+        try {
+
+            val documentRef = if (subCollectionName != null && subCollectionDocument != null)
+                db.collection(collectionName)
+                    .document(documentName)
+                    .collection(subCollectionName)
+                    .document(subCollectionDocument)
+            else
+                db.collection(collectionName)
+                    .document(documentName)
+
+            documentRef.delete()
+                .addOnSuccessListener { onResponse(Response.Success(true)) }
+                .addOnFailureListener { onResponse(Response.Failure(it.localizedMessage)) }
 
         } catch (e: Exception) {
             onResponse(Response.Failure(e.localizedMessage))

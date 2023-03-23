@@ -1,6 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.core.presentation.components.ErrorLottie
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.DeleteHouseDialog
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -62,6 +64,9 @@ fun AgentApartmentView(
     }
 
     var selectedHouse by remember {
+        mutableStateOf<HouseModel?>(null)
+    }
+    var houseToDelete by remember {
         mutableStateOf<HouseModel?>(null)
     }
 
@@ -177,6 +182,70 @@ fun AgentApartmentView(
 
                 ) { contentPadding ->
 
+                    //  on delete dialog
+                    AnimatedVisibility(
+                        visible = coreVM.alertDialogSelected.value?.dialogType
+                                == Constants.AGENT_DELETE_HOUSE_ALERT_DIALOG &&
+                                coreVM.alertDialogSelected.value?.isDialogVisible
+                                == true
+                    ) {
+
+                        //  show delete confirmation
+                        DeleteHouseDialog(
+                            house = houseToDelete,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
+                            onConfirm = {
+
+                                //  delete house
+                                houseToDelete?.houseCategory.let {
+                                    coreVM.onEvent(CoreEvents.DeleteDocument(
+                                        collectionName = Constants.APARTMENTS_COLLECTION,
+                                        documentName = apartmentName,
+                                        subCollectionName = Constants.HOUSES_SUB_COLLECTION,
+                                        subCollectionDocument = houseToDelete?.houseCategory,
+                                        onResponse = { res ->
+                                            when (res) {
+                                                is Response.Success -> {
+                                                    Toast.makeText(
+                                                        context,
+                                                        "House Deleted successfully.",
+                                                        Toast.LENGTH_SHORT
+                                                    )
+                                                        .show()
+                                                }
+                                                is Response.Failure -> {
+                                                    Toast.makeText(
+                                                        context,
+                                                        res.error.toString(),
+                                                        Toast.LENGTH_SHORT
+                                                    )
+                                                        .show()
+                                                }
+                                            }
+                                        }
+                                    ))
+                                }
+
+                                coreVM.onEvent(
+                                    CoreEvents.ToggleAlertDialog(
+                                        dialogType = Constants.AGENT_DELETE_HOUSE_ALERT_DIALOG,
+                                        isDialogVisible = false
+                                    )
+                                )
+                            },
+                            onDismiss = {
+                                coreVM.onEvent(
+                                    CoreEvents.ToggleAlertDialog(
+                                        dialogType = Constants.AGENT_DELETE_HOUSE_ALERT_DIALOG,
+                                        isDialogVisible = false
+                                    )
+                                )
+                            }
+                        )
+
+                    }
+
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -200,7 +269,16 @@ fun AgentApartmentView(
                                     user = coreVM.getUserDetails(currentUser?.email ?: "no email"),
                                     primaryColor = primaryColor,
                                     tertiaryColor = tertiaryColor,
-                                    onDelete = {},
+                                    onDelete = { house ->
+                                        //  pass house to variable
+                                        houseToDelete = house
+                                        coreVM.onEvent(
+                                            CoreEvents.ToggleAlertDialog(
+                                                Constants.AGENT_DELETE_HOUSE_ALERT_DIALOG,
+                                                true
+                                            )
+                                        )
+                                    },
                                     onUpdate = {
 
                                         selectedHouse = it

@@ -165,7 +165,6 @@ class CoreViewModel @Inject constructor(
                 }
             }
 
-
             is CoreEvents.GetApartments -> {
                 viewModelScope.launch {
                     coreUseCases.getApartments(
@@ -246,6 +245,18 @@ class CoreViewModel @Inject constructor(
                         subCollectionDocument = event.subCollectionDocument,
                         fieldToUpdate = event.fieldToUpdate,
                         onResponse = { event.onResponse(it) }
+                    )
+                }
+            }
+
+            is CoreEvents.DeleteDocument -> {
+                viewModelScope.launch {
+                    coreUseCases.deleteDocument(
+                        collectionName = event.collectionName,
+                        documentName = event.documentName,
+                        subCollectionName = event.subCollectionName,
+                        subCollectionDocument = event.subCollectionDocument,
+                        onResponse = event.onResponse
                     )
                 }
             }

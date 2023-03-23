@@ -87,6 +87,15 @@ interface CoreRepository {
         onResponse: (response: Response<*>) -> Unit
     )
 
+    //  delete a document from firestore
+    suspend fun deleteDocument(
+        collectionName: String,
+        documentName: String,
+        subCollectionName: String?,
+        subCollectionDocument: String?,
+        onResponse: (response: Response<*>) -> Unit
+    )
+
 }
 
 

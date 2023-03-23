@@ -67,6 +67,14 @@ sealed class CoreEvents {
         val onResponse: (response: Response<*>) -> Unit
     ) : CoreEvents()
 
+    data class DeleteDocument(
+        val collectionName: String,
+        val documentName: String,
+        val subCollectionName: String?,
+        val subCollectionDocument: String?,
+        val onResponse: (response: Response<*>) -> Unit
+    ) : CoreEvents()
+
     data class ChangeAccent(val accentColor: AccentColor) : CoreEvents()
 
     data class ToggleLoadingCircles(val isLoading: Boolean) : CoreEvents()
