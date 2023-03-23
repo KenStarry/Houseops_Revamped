@@ -21,6 +21,7 @@ fun MainBottomNav(
 
     val screens = listOf(
         LandlordBottomNavScreens.Home,
+        LandlordBottomNavScreens.Statistics,
         LandlordBottomNavScreens.Agents
     )
 

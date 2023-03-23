@@ -3,6 +3,7 @@ package com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_ho
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.ModeNight
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -106,7 +107,7 @@ fun LandlordHome(
                 },
                 floatingActionButton = {
                     ExtendedFab(
-                        icon = Icons.Outlined.Apartment,
+                        icon = Icons.Outlined.Add,
                         title = "Add Apartment",
                         containerColor = primaryColor,
                         onFabClicked = {

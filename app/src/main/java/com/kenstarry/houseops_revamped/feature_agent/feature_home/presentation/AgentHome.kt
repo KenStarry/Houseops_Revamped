@@ -18,7 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
+import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.core.presentation.components.ErrorLottie
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.domain.model.AgentHomeEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeApartments
@@ -48,16 +50,17 @@ fun AgentHome(
 
     agentHomeVM.onEvent(
         AgentHomeEvents.GetAgentApartments(
-        email = userDetails?.userEmail ?: "no email",
-        onResponse = {
-            when (it) {
-                is Response.Success -> {}
-                is Response.Failure -> {
-                    Toast.makeText(context, "something went wrong...", Toast.LENGTH_SHORT).show()
+            email = userDetails?.userEmail ?: "no email",
+            onResponse = {
+                when (it) {
+                    is Response.Success -> {}
+                    is Response.Failure -> {
+                        Toast.makeText(context, "something went wrong...", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
-        }
-    ))
+        ))
 
     var showAppIntro by remember {
         mutableStateOf(false)
@@ -124,17 +127,25 @@ fun AgentHome(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     //  agent apartments
-                    AgentHomeApartments(
-                        apartments = agentHomeVM.agentApartments.value,
-                        primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor,
-                        onApartmentClicked = {
-                            direction.navigateToRoute(
-                                AgentScreens.ApartmentView.passApartmentName(it.apartmentName),
-                                null
-                            )
-                        }
-                    )
+                    if (agentHomeVM.agentApartments.value.isNotEmpty()) {
+                        AgentHomeApartments(
+                            apartments = agentHomeVM.agentApartments.value,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
+                            onApartmentClicked = {
+                                direction.navigateToRoute(
+                                    AgentScreens.ApartmentView.passApartmentName(it.apartmentName),
+                                    null
+                                )
+                            }
+                        )
+                    } else {
+                        ErrorLottie(
+                            lottieImage = R.raw.search_empty,
+                            title = null,
+                            message = "No Apartments Assigned to you yet..."
+                        )
+                    }
 
                 }
 

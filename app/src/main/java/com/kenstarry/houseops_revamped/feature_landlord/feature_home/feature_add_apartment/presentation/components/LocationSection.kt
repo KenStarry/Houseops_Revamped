@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowRight
 import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -93,7 +94,7 @@ fun LocationSection(
                     )
 
                     Icon(
-                        imageVector = Icons.Outlined.ExpandMore,
+                        imageVector = Icons.Outlined.Search,
                         contentDescription = "expand arrow",
                         tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                     )

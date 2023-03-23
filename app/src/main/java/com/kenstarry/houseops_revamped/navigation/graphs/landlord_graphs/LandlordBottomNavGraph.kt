@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.kenstarry.houseops_revamped.feature_landlord.feature_caretakers.presentation.LandlordAgents
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_add_apartment.presentation.LandlordAddApartment
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.LandlordHome
+import com.kenstarry.houseops_revamped.feature_landlord.feature_stats.presentation.LandlordStats
 import com.kenstarry.houseops_revamped.navigation.screens.LandlordBottomNavScreens
 import com.kenstarry.houseops_revamped.navigation.screens.LandlordScreens
 
@@ -26,6 +27,10 @@ fun LandlordBottomNavGraph(
                 mainNavHostController = mainNavHostController,
                 navHostController = navHostController
             )
+        }
+
+        composable(route = LandlordBottomNavScreens.Statistics.route) {
+            LandlordStats(navHostController = navHostController)
         }
 
         composable(route = LandlordBottomNavScreens.Agents.route) {

@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.canopas.lib.showcase.IntroShowCaseScaffold
 import com.canopas.lib.showcase.ShowcaseStyle
+import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
@@ -31,6 +32,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeFab
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.presentation.components.ErrorLottie
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -190,27 +192,37 @@ fun AgentApartmentView(
                         ) {
 
                             //  all houses of the apartment
-                            AgentApartmentHouses(
-                                context = context,
-                                houses = agentApartmentVM.apartmentHouses.value,
-                                user = coreVM.getUserDetails(currentUser?.email ?: "no email"),
-                                primaryColor = primaryColor,
-                                tertiaryColor = tertiaryColor,
-                                onDelete = {},
-                                onUpdate = {
+                            if (agentApartmentVM.apartmentHouses.value.isNotEmpty()) {
 
-                                    selectedHouse = it
+                                AgentApartmentHouses(
+                                    context = context,
+                                    houses = agentApartmentVM.apartmentHouses.value,
+                                    user = coreVM.getUserDetails(currentUser?.email ?: "no email"),
+                                    primaryColor = primaryColor,
+                                    tertiaryColor = tertiaryColor,
+                                    onDelete = {},
+                                    onUpdate = {
 
-                                    coreVM.onBottomSheetEvent(
-                                        BottomSheetEvents.OpenBottomSheet(
-                                            state = state,
-                                            scope = scope,
-                                            bottomSheetType = AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET,
-                                            bottomSheetData = null
+                                        selectedHouse = it
+
+                                        coreVM.onBottomSheetEvent(
+                                            BottomSheetEvents.OpenBottomSheet(
+                                                state = state,
+                                                scope = scope,
+                                                bottomSheetType = AgentApartmentConstants.ADD_HOUSE_BOTTOM_SHEET,
+                                                bottomSheetData = null
+                                            )
                                         )
-                                    )
-                                }
-                            )
+                                    }
+                                )
+
+                            } else {
+                                ErrorLottie(
+                                    lottieImage = R.raw.search_empty,
+                                    title = null,
+                                    message = "Add Houses to see them here."
+                                )
+                            }
 
                         }
 

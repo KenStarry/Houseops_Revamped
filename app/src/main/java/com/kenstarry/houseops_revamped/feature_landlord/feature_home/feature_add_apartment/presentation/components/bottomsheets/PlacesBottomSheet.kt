@@ -52,7 +52,7 @@ fun PlacesBottomSheet(
             textFieldValue = textLocation,
             startIcon = Icons.Outlined.Search,
             endIcon = null,
-            placeholder = "Search",
+            placeholder = "Search apartment location",
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Text,
             primaryColor = MaterialTheme.colorScheme.primary,
