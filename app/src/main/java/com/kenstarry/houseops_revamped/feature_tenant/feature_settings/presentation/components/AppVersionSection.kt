@@ -34,10 +34,7 @@ fun AppVersionSection() {
         )
 
         Text(
-            text = stringResource(
-                id = R.string.app_version_name,
-                BuildConfig.VERSION_NAME
-            ),
+            text = BuildConfig.VERSION_NAME,
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f)
