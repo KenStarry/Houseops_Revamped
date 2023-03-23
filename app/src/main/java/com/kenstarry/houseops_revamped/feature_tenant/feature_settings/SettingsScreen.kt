@@ -188,12 +188,17 @@ fun SettingsScreen(
                                     Constants.HOME_ROUTE
                                 )
 
-                                Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Logged out successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         ))
                     },
                     onDeleteAccount = {
                         //  delete account
+                        Toast.makeText(context, "coming soon", Toast.LENGTH_SHORT).show()
                     }
                 )
 
@@ -207,7 +212,27 @@ fun SettingsScreen(
                         .padding(8.dp),
                     settingsViewModel = settingsViewModel,
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    onAbout = {
+                        Toast.makeText(context, "coming soon", Toast.LENGTH_SHORT).show()
+                    },
+                    onFeedback = {
+                        Toast.makeText(
+                            context,
+                            "Feel free to leave a feedback via playstore.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
+                    onShare = {
+                        Toast.makeText(context, "coming soon", Toast.LENGTH_SHORT).show()
+                    },
+                    onRate = {
+                        Toast.makeText(
+                            context,
+                            "A rating on playstore would be very much appreciated!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 )
 
                 //  app version name

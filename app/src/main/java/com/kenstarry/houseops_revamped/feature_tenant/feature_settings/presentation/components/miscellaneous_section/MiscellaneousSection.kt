@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,7 +27,11 @@ fun MiscellaneousSection(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onAbout: () -> Unit,
+    onFeedback: () -> Unit,
+    onShare: () -> Unit,
+    onRate: () -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -77,7 +82,23 @@ fun MiscellaneousSection(
                                 icon = it.icon,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(50.dp),
+                                    .height(50.dp)
+                                    .clickable {
+                                        when (it) {
+                                            SettingsConstants.miscOptions[0] -> {
+                                                onAbout()
+                                            }
+                                            SettingsConstants.miscOptions[1] -> {
+                                                onFeedback()
+                                            }
+                                            SettingsConstants.miscOptions[2] -> {
+                                                onShare()
+                                            }
+                                            SettingsConstants.miscOptions[3] -> {
+                                                onRate()
+                                            }
+                                        }
+                                    },
                                 primaryColor = primaryColor,
                                 tertiaryColor = tertiaryColor
                             )
