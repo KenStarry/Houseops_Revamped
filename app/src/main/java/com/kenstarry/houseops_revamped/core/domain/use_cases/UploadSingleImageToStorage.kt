@@ -1,7 +1,9 @@
 package com.kenstarry.houseops_revamped.core.domain.use_cases
 
 import android.content.Context
+import android.media.Image
 import android.net.Uri
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.repository.CoreRepository
 
@@ -9,7 +11,7 @@ class UploadSingleImageToStorage(
     private val repo: CoreRepository
 ) {
     suspend operator fun invoke(
-        uri: Uri?,
+        uri: ImageModel?,
         context: Context,
         storageRef: String,
         collectionName: String,

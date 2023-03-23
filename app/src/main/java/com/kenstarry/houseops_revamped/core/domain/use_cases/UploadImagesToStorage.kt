@@ -2,6 +2,7 @@ package com.kenstarry.houseops_revamped.core.domain.use_cases
 
 import android.content.Context
 import android.net.Uri
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.repository.CoreRepository
 
@@ -9,7 +10,7 @@ class UploadImagesToStorage(
     private val repo: CoreRepository
 ) {
     suspend operator fun invoke(
-        imageUriList: List<Uri?>,
+        imageUriList: List<ImageModel?>,
         context: Context,
         storageRef: String,
         collectionName: String,

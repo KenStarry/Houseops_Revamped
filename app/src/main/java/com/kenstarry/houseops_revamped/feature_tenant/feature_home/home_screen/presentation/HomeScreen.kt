@@ -134,7 +134,7 @@ fun HomeScreen(
                 },
                 topBar = {
                     userDetails?.userImageUri?.let {
-                        if (it.isBlank()) {
+                        if (it.uri.isBlank()) {
                             HomeAppBar(
                                 navHostController = navHostController,
                                 direction = direction,
@@ -144,7 +144,7 @@ fun HomeScreen(
                             HomeAppBar(
                                 navHostController = navHostController,
                                 direction = direction,
-                                userImageUrl = it
+                                userImageUrl = it.uri
                             )
                         }
                     }

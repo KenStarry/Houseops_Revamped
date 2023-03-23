@@ -66,7 +66,7 @@ fun DetailsAgent(
                 ) {
                     CoilImage(
                         context = context,
-                        imageUri = it.userImageUri?.toUri(),
+                        imageUri = it.userImageUri?.uri?.toUri(),
                         placeholder = R.drawable.houseops_dark_final,
                         modifier = Modifier
                             .clip(CircleShape)

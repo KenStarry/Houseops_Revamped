@@ -48,7 +48,7 @@ fun AgentCard(
 
             CoilImage(
                 context = context,
-                imageUri = agent.userImageUri?.toUri(),
+                imageUri = agent.userImageUri?.uri?.toUri(),
                 placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
                 modifier = Modifier
                     .clip(CircleShape)

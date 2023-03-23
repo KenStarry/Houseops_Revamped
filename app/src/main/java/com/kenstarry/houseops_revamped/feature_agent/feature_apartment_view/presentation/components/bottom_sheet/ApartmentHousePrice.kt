@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AlternateEmail
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,7 +33,12 @@ fun ApartmentHousePrice(
 ) {
 
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
+    val context = LocalContext.current
+    val pricing = remember {
+        agentApartmentVM.selectedHousePrice
+    }
 
+    Toast.makeText(context, agentApartmentVM.selectedHousePrice.value, Toast.LENGTH_SHORT).show()
     Column(
         modifier = Modifier
             .fillMaxWidth()

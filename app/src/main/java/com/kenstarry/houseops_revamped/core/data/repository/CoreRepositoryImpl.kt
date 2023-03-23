@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import android.webkit.MimeTypeMap
+import androidx.core.net.toUri
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -12,10 +13,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
-import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
-import com.kenstarry.houseops_revamped.core.domain.model.Response
-import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
+import com.kenstarry.houseops_revamped.core.domain.model.*
 import com.kenstarry.houseops_revamped.core.domain.repository.CoreRepository
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.feature_authentication.domain.utils.AuthConstants
@@ -251,7 +249,7 @@ class CoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun uploadImagesToStorage(
-        imageUriList: List<Uri?>,
+        imageUriList: List<ImageModel?>,
         context: Context,
         storageRef: String,
         collectionName: String,
@@ -268,13 +266,13 @@ class CoreRepositoryImpl @Inject constructor(
         imageUriList.forEach { uri ->
 
             try {
-                uri?.let {
+                uri?.let { model ->
 
                     val fileRef = ref.child(
-                        "${System.currentTimeMillis()}.${getFileExtension(uri, context)}"
+                        "${model.time}.${getFileExtension(model.uri.toUri(), context)}"
                     )
 
-                    fileRef.putFile(it)
+                    fileRef.putFile(model.uri.toUri())
                         .addOnSuccessListener {
 
                             //  Grab the download url
@@ -293,7 +291,7 @@ class CoreRepositoryImpl @Inject constructor(
 
                                     userCollection.update(
                                         fieldToUpdate,
-                                        FieldValue.arrayUnion(url)
+                                        FieldValue.arrayUnion(ImageModel(url.toString(), model.time))
                                     )
 
                                     onResponse(Response.Success(url))
@@ -318,7 +316,7 @@ class CoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun uploadSingleImageToStorage(
-        uri: Uri?,
+        uri: ImageModel?,
         context: Context,
         storageRef: String,
         collectionName: String,
@@ -333,13 +331,13 @@ class CoreRepositoryImpl @Inject constructor(
             .getReference(storageRef)
 
         try {
-            uri?.let {
+            uri?.let { model ->
 
                 val fileRef = ref.child(
-                    "${System.currentTimeMillis()}.${getFileExtension(uri, context)}"
+                    "${model.time}.${getFileExtension(model.uri.toUri(), context)}"
                 )
 
-                fileRef.putFile(it)
+                fileRef.putFile(model.uri.toUri())
                     .addOnSuccessListener {
 
                         //  Grab the download url
@@ -358,7 +356,7 @@ class CoreRepositoryImpl @Inject constructor(
 
                                 myCollection.update(
                                     fieldToUpdate,
-                                    url
+                                    ImageModel(url.toString(), model.time)
                                 )
 
                                 onResponse(Response.Success(url))

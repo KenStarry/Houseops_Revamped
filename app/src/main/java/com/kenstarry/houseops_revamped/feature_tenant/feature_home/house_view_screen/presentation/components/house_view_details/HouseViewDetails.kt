@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.utils.intents.phoneCallIntent
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 
 @Composable
 fun HouseViewDetails(

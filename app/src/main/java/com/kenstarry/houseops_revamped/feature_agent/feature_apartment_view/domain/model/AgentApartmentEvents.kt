@@ -3,8 +3,8 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.dom
 import android.net.Uri
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
-import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.domain.model.LoginEvents
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 
 sealed class AgentApartmentEvents {
 
@@ -20,13 +20,16 @@ sealed class AgentApartmentEvents {
     ) : AgentApartmentEvents()
 
     //  pick images from gallery
-    data class AddGalleryImages(val uris: List<Uri>) : AgentApartmentEvents()
+    data class AddGalleryImages(val uris: List<ImageModel>) : AgentApartmentEvents()
 
     //  update selected images list
-    data class UpdateGalleryImages(val uris: List<Uri>) : AgentApartmentEvents()
+    data class UpdateGalleryImages(val uris: List<ImageModel>) : AgentApartmentEvents()
 
     //  delete image from list
     data class DeleteImageFromList(val index: Int) : AgentApartmentEvents()
+
+    //  clear all images
+    object ClearGalleryImages : AgentApartmentEvents()
 
     //  add feature
     data class AddFeature(val feature: ApartmentHouseFeaturesModel) : AgentApartmentEvents()

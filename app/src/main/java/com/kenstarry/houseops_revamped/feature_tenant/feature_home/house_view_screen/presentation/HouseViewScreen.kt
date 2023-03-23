@@ -32,7 +32,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.mode
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent.CaretakerBottomSheet
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.UserBooked
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.utils.HouseViewConstants

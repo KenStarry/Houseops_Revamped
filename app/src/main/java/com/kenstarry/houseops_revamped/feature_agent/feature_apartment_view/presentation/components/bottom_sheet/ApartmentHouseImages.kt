@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -20,9 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
@@ -35,12 +39,30 @@ fun ApartmentHouseImages(
 
     val agentApartmentVM: AgentApartmentViewModel = hiltViewModel()
     val imagesState = agentApartmentVM.selectedImagesState
+    val context = LocalContext.current
 
     val launcher =
         rememberLauncherForActivityResult(
             ActivityResultContracts.GetMultipleContents()
         ) {
-            agentApartmentVM.onEvent(AgentApartmentEvents.UpdateGalleryImages(it))
+
+            val imageModelList = mutableListOf<ImageModel>()
+
+            it.forEach { uri ->
+                val currentTime = System.currentTimeMillis()
+                imageModelList.add(ImageModel(uri.toString(), currentTime.toString()))
+            }
+
+            Toast.makeText(context, imageModelList.size.toString(), Toast.LENGTH_SHORT).show()
+
+            agentApartmentVM.onEvent(AgentApartmentEvents.UpdateGalleryImages(imageModelList))
+
+            Toast.makeText(
+                context,
+                "showing images : ${agentApartmentVM.selectedImagesState.listOfSelectedImages}",
+                Toast.LENGTH_SHORT
+            ).show()
+
         }
 
     Column(
@@ -85,10 +107,10 @@ fun ApartmentHouseImages(
                 content = {
                     itemsIndexed(
                         items = imagesState.listOfSelectedImages
-                    ) { index, uri ->
+                    ) { index, imageModel ->
                         //  display the images in an image container
                         ImageItem(
-                            imageUri = uri,
+                            imageUri = imageModel.uri.toUri(),
                             onDelete = {
                                 agentApartmentVM.onEvent(
                                     AgentApartmentEvents.DeleteImageFromList(index)

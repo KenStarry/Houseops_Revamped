@@ -3,10 +3,7 @@ package com.kenstarry.houseops_revamped.core.domain.repository
 import android.content.Context
 import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
-import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
-import com.kenstarry.houseops_revamped.core.domain.model.Response
-import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
+import com.kenstarry.houseops_revamped.core.domain.model.*
 
 interface CoreRepository {
 
@@ -66,7 +63,7 @@ interface CoreRepository {
 
     //  upload images to firestore
     suspend fun uploadImagesToStorage(
-        imageUriList: List<Uri?>,
+        imageUriList: List<ImageModel?>,
         context: Context,
         storageRef: String,
         collectionName: String,
@@ -79,7 +76,7 @@ interface CoreRepository {
 
     //  upload single image to firestore
     suspend fun uploadSingleImageToStorage(
-        uri: Uri?,
+        uri: ImageModel?,
         context: Context,
         storageRef: String,
         collectionName: String,

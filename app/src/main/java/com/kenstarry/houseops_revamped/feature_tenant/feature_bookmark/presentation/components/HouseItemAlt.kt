@@ -17,7 +17,7 @@ import androidx.core.net.toUri
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseLocation
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HousePrice
 
@@ -49,7 +49,7 @@ fun HouseItemAlt(
             if (house.houseImageUris.isNotEmpty()) {
                 CoilImage(
                     context = context,
-                    imageUri = house.houseImageUris[0].toUri(),
+                    imageUri = house.houseImageUris[0].uri.toUri(),
                     placeholder = R.drawable.houseops_dark_final,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))

@@ -2,6 +2,7 @@ package com.kenstarry.houseops_revamped.core.domain.model.events
 
 import android.content.Context
 import android.net.Uri
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.presentation.model.AccentColor
 import com.kenstarry.houseops_revamped.core.presentation.model.OptionsToggleModel
@@ -43,7 +44,7 @@ sealed class CoreEvents {
     ) : CoreEvents()
 
     data class UploadImagesToStorage(
-        val imageUriList: List<Uri?>,
+        val imageUriList: List<ImageModel?>,
         val context: Context,
         val storageRef: String,
         val collectionName: String,
@@ -55,7 +56,7 @@ sealed class CoreEvents {
     ) : CoreEvents()
 
     data class UploadSingleImageToStorage(
-        val uri: Uri?,
+        val uri: ImageModel?,
         val context: Context,
         val storageRef: String,
         val collectionName: String,

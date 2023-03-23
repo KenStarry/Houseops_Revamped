@@ -2,7 +2,7 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.use
 
 import android.util.Log
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.repository.BookedRepository
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 
 class GetBookedHouses(
     private val repo: BookedRepository

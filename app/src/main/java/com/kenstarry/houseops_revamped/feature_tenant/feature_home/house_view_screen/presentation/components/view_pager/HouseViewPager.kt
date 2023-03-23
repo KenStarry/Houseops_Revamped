@@ -2,14 +2,10 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_s
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BrokenImage
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,8 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -29,7 +23,7 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
@@ -81,7 +75,7 @@ fun HouseViewPager(
             ) { page ->
                 CoilImage(
                     context = context,
-                    imageUri = house.houseImageUris[page].toUri(),
+                    imageUri = house.houseImageUris[page].uri.toUri(),
                     placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))

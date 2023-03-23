@@ -76,10 +76,10 @@ fun AdminLandlordItem(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
 
-                        val uri = if (it.userImageUri?.isBlank() == true)
+                        val uri = if (it.userImageUri?.uri?.isBlank() == true)
                             currentUser?.photoUrl ?: "".toUri()
                         else
-                            it.userImageUri?.toUri()
+                            it.userImageUri?.uri?.toUri()
 
                         CoilImage(
                             context = context,

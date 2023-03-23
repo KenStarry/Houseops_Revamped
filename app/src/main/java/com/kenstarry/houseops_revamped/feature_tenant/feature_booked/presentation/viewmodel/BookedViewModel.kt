@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.use_case.BookedUseCases
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

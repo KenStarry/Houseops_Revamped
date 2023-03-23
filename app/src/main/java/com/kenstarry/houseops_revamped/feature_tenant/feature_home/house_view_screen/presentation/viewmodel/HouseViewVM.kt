@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.use_case.HouseViewUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -33,6 +33,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kenstarry.houseops_revamped.R
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
@@ -142,7 +143,10 @@ fun LoginScreen(
                                                         userName = acc.displayName,
                                                         userEmail = acc.email ?: "no email",
                                                         userPassword = "",
-                                                        userImageUri = acc.photoUrl.toString(),
+                                                        userImageUri = ImageModel(
+                                                            uri = acc.photoUrl.toString(),
+                                                            time = ""
+                                                        ),
                                                         userLikedHouses = listOf(),
                                                         userBookmarks = listOf(),
                                                         userBookedHouses = listOf(),

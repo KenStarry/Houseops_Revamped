@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
+import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
@@ -100,7 +101,10 @@ fun SignUpScreen(
                                             userName = authVM.formState.username,
                                             userEmail = authVM.formState.email,
                                             userPassword = authVM.formState.password,
-                                            userImageUri = authVM.formState.imageUri.toString(),
+                                            userImageUri = ImageModel(
+                                                uri = authVM.formState.imageUri.toString(),
+                                                time = ""
+                                            ),
                                             userLikedHouses = listOf(),
                                             userBookmarks = listOf(),
                                             userBookedHouses = listOf(),
@@ -116,7 +120,10 @@ fun SignUpScreen(
                                                     //  upload user image
                                                     coreVM.onEvent(
                                                         CoreEvents.UploadSingleImageToStorage(
-                                                        uri = authVM.formState.imageUri,
+                                                        uri = ImageModel(
+                                                            uri = authVM.formState.imageUri.toString(),
+                                                            time = System.currentTimeMillis().toString()
+                                                        ),
                                                         context = context,
                                                         storageRef = "user_images/${authVM.formState.email}",
                                                         collectionName = Constants.USERS_COLLECTION,

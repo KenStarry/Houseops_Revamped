@@ -10,7 +10,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.FeaturesState
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.ImagesState
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.AgentApartmentUseCases
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -85,6 +85,18 @@ class AgentApartmentViewModel @Inject constructor(
                     updatedImageList += event.uris
                     selectedImagesState = selectedImagesState.copy(
                         listOfSelectedImages = updatedImageList.distinct()
+                    )
+                }
+            }
+
+            is AgentApartmentEvents.ClearGalleryImages -> {
+                val updatedImagesList = selectedImagesState.listOfSelectedImages.toMutableList()
+
+                viewModelScope.launch {
+                    updatedImagesList.clear()
+
+                    selectedImagesState = selectedImagesState.copy(
+                        listOfSelectedImages = updatedImagesList
                     )
                 }
             }

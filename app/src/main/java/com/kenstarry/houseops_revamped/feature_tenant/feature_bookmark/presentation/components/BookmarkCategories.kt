@@ -25,7 +25,7 @@ import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.domain.model.BookmarkEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.viewmodel.BookmarksViewModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable

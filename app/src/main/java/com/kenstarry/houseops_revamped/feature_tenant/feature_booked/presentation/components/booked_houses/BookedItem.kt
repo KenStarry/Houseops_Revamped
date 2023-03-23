@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedHouseModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseItem
 import com.kenstarry.houseops_revamped.navigation.Direction
 import java.time.LocalDate

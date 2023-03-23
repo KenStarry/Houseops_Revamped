@@ -1,6 +1,5 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -15,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -27,7 +25,7 @@ import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseCategoriesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 
 @Composable
 fun AddApartmentHouseSheet(
@@ -44,8 +42,45 @@ fun AddApartmentHouseSheet(
     val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
 
-    house?.let {
+    if (house == null) {
 
+//        //  set category
+//        agentApartmentVM.onEvent(
+//            AgentApartmentEvents.SelectHouseCategory(
+//                "Pick House Category"
+//            )
+//        )
+//
+//        //  set images
+//        agentApartmentVM.onEvent(
+//            AgentApartmentEvents.ClearGalleryImages
+//        )
+//
+//        //  set pricing
+//        agentApartmentVM.onEvent(
+//            AgentApartmentEvents.SelectHousePrice(
+//                ""
+//            )
+//        )
+//
+//        //  set vacant units
+//        agentApartmentVM.onEvent(
+//            AgentApartmentEvents.SelectVacantUnits(
+//                0
+//            )
+//        )
+//
+//        //  set features
+//
+//
+//        //  set description
+//        agentApartmentVM.onEvent(
+//            AgentApartmentEvents.SelectHouseDescription(
+//                ""
+//            )
+//        )
+
+    } else {
         //  set category
         agentApartmentVM.onEvent(
             AgentApartmentEvents.SelectHouseCategory(
@@ -56,7 +91,7 @@ fun AddApartmentHouseSheet(
         //  set images
         agentApartmentVM.onEvent(
             AgentApartmentEvents.UpdateGalleryImages(
-                house.houseImageUris.map { it.toUri() }
+                house.houseImageUris
             )
         )
 
@@ -64,6 +99,13 @@ fun AddApartmentHouseSheet(
         agentApartmentVM.onEvent(
             AgentApartmentEvents.SelectHousePrice(
                 house.housePrice
+            )
+        )
+
+        //  set vacant units
+        agentApartmentVM.onEvent(
+            AgentApartmentEvents.SelectVacantUnits(
+                house.houseUnits.toInt()
             )
         )
 
@@ -219,7 +261,7 @@ fun AddApartmentHouseSheet(
         )
 
         if (house != null) {
-            Button(onClick = { onUpdate(houseModel) }) {
+            Button(onClick = { onDone(houseModel) }) {
                 Text(text = "Update")
             }
         } else {

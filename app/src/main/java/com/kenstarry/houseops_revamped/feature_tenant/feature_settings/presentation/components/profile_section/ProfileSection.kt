@@ -65,7 +65,7 @@ fun ProfileSection(
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    if (userDetails?.userImageUri?.isBlank() == true) {
+                    if (userDetails?.userImageUri?.uri?.isBlank() == true) {
 
                         CoilImage(
                             context = context,
@@ -79,7 +79,7 @@ fun ProfileSection(
                     } else {
                         CoilImage(
                             context = context,
-                            imageUri = userDetails?.userImageUri?.toUri(),
+                            imageUri = userDetails?.userImageUri?.uri?.toUri(),
                             placeholder = R.drawable.houseops_dark_final,
                             modifier = Modifier
                                 .clip(CircleShape)

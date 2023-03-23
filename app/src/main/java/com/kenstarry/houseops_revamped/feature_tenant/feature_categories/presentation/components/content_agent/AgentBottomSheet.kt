@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel as CategoriesViewModel1
 
@@ -62,7 +62,7 @@ fun CaretakerBottomSheet(
 
                 CoilImage(
                     context = context,
-                    imageUri = agent?.userImageUri?.toUri(),
+                    imageUri = agent?.userImageUri?.uri?.toUri(),
                     placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
                     modifier = Modifier
                         .clip(CircleShape)

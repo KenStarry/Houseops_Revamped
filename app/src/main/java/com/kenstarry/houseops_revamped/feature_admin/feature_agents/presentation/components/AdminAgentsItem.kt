@@ -74,7 +74,7 @@ fun AdminAgentsItem(
 
                         CoilImage(
                             context = context,
-                            imageUri = it.userImageUri?.toUri(),
+                            imageUri = it.userImageUri?.uri?.toUri(),
                             placeholder = R.drawable.profile,
                             modifier = Modifier
                                 .clip(CircleShape)
