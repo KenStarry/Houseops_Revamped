@@ -124,38 +124,6 @@ fun DashboardSection(
                                                     )
                                                 }
                                             }
-//                                            when (it.title) {
-//                                                SettingsConstants.dashboardOptions[0].title -> {
-//                                                    //  navigate to specific dashboard
-//                                                    when (type) {
-//                                                        //  landlord
-//                                                        AuthConstants.userTypes[0].userTitle -> {
-//                                                            direction.navigateToRoute(
-//                                                                LANDLORD_ROUTE,
-//                                                                null
-//                                                            )
-//                                                        }
-//                                                        //  tenant
-//                                                        AuthConstants.userTypes[1].userTitle -> {
-//                                                            //  open normal dashboard
-//                                                        }
-//                                                        //  admin
-//                                                        AuthConstants.userTypes[2].userTitle -> {
-//                                                            direction.navigateToRoute(
-//                                                                ADMIN_ROUTE,
-//                                                                null
-//                                                            )
-//                                                        }
-//                                                        //  agent
-//                                                        AuthConstants.userTypes[3].userTitle -> {
-//                                                            direction.navigateToRoute(
-//                                                                AGENT_ROUTE,
-//                                                                null
-//                                                            )
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
                                         }
                                         .padding(
                                             end = 16.dp

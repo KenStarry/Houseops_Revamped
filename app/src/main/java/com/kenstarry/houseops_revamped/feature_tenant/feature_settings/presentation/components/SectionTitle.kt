@@ -37,7 +37,7 @@ fun SectionTitle(
 ) {
 
     var isSectionVisible by remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
 
     Row(

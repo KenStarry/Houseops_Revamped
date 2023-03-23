@@ -27,19 +27,19 @@ class SettingsViewModel @Inject constructor(
     private val _selectedTheme = mutableStateOf(SettingsConstants.themeOptions[2].title)
     val selectedTheme: State<String> = _selectedTheme
 
-    private val _isDashboardSectionVisible = mutableStateOf(false)
+    private val _isDashboardSectionVisible = mutableStateOf(true)
     val isDashboardSectionVisible: State<Boolean> = _isDashboardSectionVisible
 
-    private val _isThemeSectionVisible = mutableStateOf(false)
+    private val _isThemeSectionVisible = mutableStateOf(true)
     val isThemeSectionVisible: State<Boolean> = _isThemeSectionVisible
 
-    private val _isPersonalizationSectionVisible = mutableStateOf(false)
+    private val _isPersonalizationSectionVisible = mutableStateOf(true)
     val isPersonalizationSectionVisible: State<Boolean> = _isPersonalizationSectionVisible
 
-    private val _isMiscSectionVisible = mutableStateOf(false)
+    private val _isMiscSectionVisible = mutableStateOf(true)
     val isMiscSectionVisible: State<Boolean> = _isMiscSectionVisible
 
-    private val _isDangerSectionVisible = mutableStateOf(false)
+    private val _isDangerSectionVisible = mutableStateOf(true)
     val isDangerSectionVisible: State<Boolean> = _isDangerSectionVisible
 
     //  ALERT DIALOGS

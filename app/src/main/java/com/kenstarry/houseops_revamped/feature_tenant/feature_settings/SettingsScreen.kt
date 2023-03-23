@@ -112,21 +112,23 @@ fun SettingsScreen(
                 )
 
                 //  dashboard section
-                DashboardSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .background(MaterialTheme.colorScheme.onSecondary)
-                        .padding(8.dp),
-                    directionInner = directionInner,
-                    direction = direction,
-                    userDetails = userDetails,
-                    context = context,
-                    settingsViewModel = settingsViewModel,
-                    coreViewModel = coreVM,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
-                )
+                userDetails?.userType?.let {
+                    DashboardSection(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .background(MaterialTheme.colorScheme.onSecondary)
+                            .padding(8.dp),
+                        directionInner = directionInner,
+                        direction = direction,
+                        userDetails = userDetails,
+                        context = context,
+                        settingsViewModel = settingsViewModel,
+                        coreViewModel = coreVM,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor
+                    )
+                }
 
                 //  Themes section
                 ThemesSection(
