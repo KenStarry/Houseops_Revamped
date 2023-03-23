@@ -1,4 +1,4 @@
-package com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components
+package com.kenstarry.houseops_revamped.core.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,14 +9,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 
 @Composable
-fun VerificationPending(
+fun ErrorLottie(
     lottieImage: Int,
-    title: String,
+    title: String?,
     message: String
 ) {
 
@@ -30,14 +28,15 @@ fun VerificationPending(
     ) {
 
         //  error message
-        Text(
-            text = title,
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
+        title?.let {
+            Text(
+                text = it,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
 
         Lottie(
             rawFile = lottieImage,

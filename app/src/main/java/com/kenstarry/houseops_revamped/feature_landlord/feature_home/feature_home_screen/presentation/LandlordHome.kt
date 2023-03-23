@@ -26,7 +26,7 @@ import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.domain.model.LndHomeEvents
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeApartments
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.LndHomeTopBar
-import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.components.VerificationPending
+import com.kenstarry.houseops_revamped.core.presentation.components.ErrorLottie
 import com.kenstarry.houseops_revamped.feature_landlord.feature_home.feature_home_screen.presentation.viewmodel.LndHomeViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.LandlordScreens
@@ -177,7 +177,7 @@ fun LandlordHome(
 
         } else {
             //  show an error message
-            VerificationPending(
+            ErrorLottie(
                 lottieImage = R.raw.email_verification,
                 title = "Verification Pending",
                 message = "We are working on verifying you..."

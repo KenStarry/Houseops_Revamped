@@ -19,9 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.components.ErrorLottie
+import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_admin.feature_landlord_view.domain.model.AdminLandlordViewEvents
@@ -48,14 +51,14 @@ fun AdminLandlordView(
 
     landlordViewVM.onEvent(
         AdminLandlordViewEvents.GetApartments(
-        landlordEmail = landlordEmail,
-        response = {
-            when (it) {
-                is Response.Success -> {}
-                is Response.Failure -> {}
+            landlordEmail = landlordEmail,
+            response = {
+                when (it) {
+                    is Response.Success -> {}
+                    is Response.Failure -> {}
+                }
             }
-        }
-    ))
+        ))
 
     var clickedApartment by remember {
         mutableStateOf<Apartment?>(null)
@@ -109,25 +112,25 @@ fun AdminLandlordView(
                         //  assign the agent to the apartment
                         coreVM.onEvent(
                             CoreEvents.UpdateFirestoreField(
-                            collectionName = Constants.APARTMENTS_COLLECTION,
-                            documentName = clickedApartment?.apartmentName ?: "",
-                            subCollectionName = null,
-                            subCollectionDocument = null,
-                            fieldName = "apartmentAgentAssigned",
-                            fieldValue = agent?.userEmail ?: "",
-                            onResponse = { res ->
-                                when (res) {
-                                    is Response.Success -> {
-                                        Toast.makeText(
-                                            context,
-                                            "Agent assigned successfully!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                collectionName = Constants.APARTMENTS_COLLECTION,
+                                documentName = clickedApartment?.apartmentName ?: "",
+                                subCollectionName = null,
+                                subCollectionDocument = null,
+                                fieldName = "apartmentAgentAssigned",
+                                fieldValue = agent?.userEmail ?: "",
+                                onResponse = { res ->
+                                    when (res) {
+                                        is Response.Success -> {
+                                            Toast.makeText(
+                                                context,
+                                                "Agent assigned successfully!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        is Response.Failure -> {}
                                     }
-                                    is Response.Failure -> {}
                                 }
-                            }
-                        ))
+                            ))
 
                         //  close Assign apartment dialog
                         landlordViewVM.onEvent(
@@ -221,24 +224,32 @@ fun AdminLandlordView(
                 }
 
                 //  apartments preview
-                AdminLandlordApartmentsPreview(
-                    apartments = landlordViewVM.apartments.value,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    onAssignClicked = {
+                if (landlordViewVM.apartments.value.isNotEmpty()) {
+                    AdminLandlordApartmentsPreview(
+                        apartments = landlordViewVM.apartments.value,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onAssignClicked = {
 
-                        //  pass clicked apartment name
-                        clickedApartment = it
+                            //  pass clicked apartment name
+                            clickedApartment = it
 
-                        //  open Assign apartment dialog
-                        landlordViewVM.onEvent(
-                            AdminLandlordViewEvents.ToggleAlertDialog(
-                                isVisible = true,
-                                dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                            //  open Assign apartment dialog
+                            landlordViewVM.onEvent(
+                                AdminLandlordViewEvents.ToggleAlertDialog(
+                                    isVisible = true,
+                                    dialogType = AdminLandlordConstants.ASSIGN_AGENT_DIALOG
+                                )
                             )
-                        )
-                    }
-                )
+                        }
+                    )
+                } else {
+                    ErrorLottie(
+                        lottieImage = R.raw.search_empty,
+                        title = null,
+                        message = "No Apartments Yet..."
+                    )
+                }
 
             }
 
