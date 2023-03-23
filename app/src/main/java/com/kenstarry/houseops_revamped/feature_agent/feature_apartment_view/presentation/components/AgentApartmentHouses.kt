@@ -48,7 +48,10 @@ fun AgentApartmentHouses(
     ) {
 
         //  action cards
-        AgentActionCards()
+        AgentActionCards(
+            primaryColor = primaryColor,
+            tertiaryColor = tertiaryColor
+        )
 
         //  title
         Row(

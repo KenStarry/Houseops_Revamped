@@ -11,7 +11,7 @@ object AgentApartmentConstants {
 
     //  action cards
     val actionCards = listOf(
-        ActionCard("Users Booked", Icons.Outlined.Timeline),
+        ActionCard("Bookings", Icons.Outlined.Timeline),
         ActionCard("Notifications", Icons.Outlined.Notifications),
         ActionCard("Statistics", Icons.Outlined.BubbleChart),
     )
