@@ -22,16 +22,15 @@ object AuthConstants {
 
     //  password validation
     const val PASSWORD_LENGTH = 8
-
     const val PASSWORD_LENGTH_ERROR =
         "The password needs to contain at least $PASSWORD_LENGTH characters"
-
     const val PASSWORD_LETTERS_ERROR =
         "The password needs to contain at least one letter and digit"
-
     const val PASSWORD_MATCH_ERROR = "The passwords don't match"
-
     const val BLANK_PASSWORD_ERROR = "Password cannot be blank"
+    const val DIGITS_ONLY_PASSWORD_ERROR = "Password must contain at least one letter"
+    const val LETTERS_ONLY_PASSWORD_ERROR = "Password must contain at least one digit"
+    const val PASSWORD_NO_UPPERCASE_ERROR = "Password must contain at least one uppercase letter"
 
     //  username validation
     const val BLANK_USERNAME_ERROR = "Username cannot be blank."

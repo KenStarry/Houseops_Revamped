@@ -43,7 +43,6 @@ fun AgentHomeApartments(
         },
         state = staggeredGridState,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp)
     )
 

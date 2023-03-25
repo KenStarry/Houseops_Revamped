@@ -63,8 +63,7 @@ fun PillSection(
             },
             state = staggeredGridState,
             modifier = modifier,
-            contentPadding = PaddingValues(vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            contentPadding = PaddingValues(vertical = 8.dp)
         )
     }
 }
