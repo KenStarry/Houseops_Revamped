@@ -46,50 +46,25 @@ fun AdminHomeScreen(
         ).value ?: Constants.accentColors[0].lightColor
     )
 
-    if (currentUser?.isEmailVerified == true) {
-
-        //  show main UI
-        AdminHomeContent(
-            onCardClicked = {
-                //  navigate to landlord view
-                direction.navigateToRoute(
-                    AdminScreens.LandlordView.passLandlordEmail(it.userEmail ?: "no email"),
-                    null
+    //  show main UI
+    AdminHomeContent(
+        onCardClicked = {
+            //  navigate to landlord view
+            direction.navigateToRoute(
+                AdminScreens.LandlordView.passLandlordEmail(it.userEmail ?: "no email"),
+                null
+            )
+        },
+        onActionsClicked = { landlord ->
+            coreViewModel.onBottomSheetEvent(
+                BottomSheetEvents.OpenBottomSheet(
+                    state = modalSheetState,
+                    scope = scope,
+                    bottomSheetType = AdminConstants.BOTTOM_SHEET_LANDLORD_ACTIONS,
+                    bottomSheetData = landlord
                 )
-            },
-            onActionsClicked = { landlord ->
-                coreViewModel.onBottomSheetEvent(
-                    BottomSheetEvents.OpenBottomSheet(
-                        state = modalSheetState,
-                        scope = scope,
-                        bottomSheetType = AdminConstants.BOTTOM_SHEET_LANDLORD_ACTIONS,
-                        bottomSheetData = landlord
-                    )
-                )
-            }
-        )
-
-    } else {
-
-        //  show error message
-        EmailVerificationMessage(
-            coreVM = coreVM,
-            primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor,
-            onSuccess = {
-                coreViewModel.onBottomSheetEvent(
-                    BottomSheetEvents.OpenBottomSheet(
-                        state = modalSheetState,
-                        scope = scope,
-                        bottomSheetType = AdminConstants.BOTTOM_SHEET_VERIFICATION_SUCCESS,
-                        bottomSheetData = null
-                    )
-                )
-            },
-            onFailure = {
-                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
-            }
-        )
-    }
+            )
+        }
+    )
 
 }

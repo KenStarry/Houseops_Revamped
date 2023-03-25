@@ -25,6 +25,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.pres
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_authentication.presentation.login.presentation.components.CustomTextField
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
+import java.text.NumberFormat
 
 @Composable
 fun ApartmentHousePrice(
@@ -75,9 +76,7 @@ fun ApartmentHousePrice(
                     tertiaryColor = tertiaryColor,
                     visualTransformation = NumberCommaTransformation(),
                     onInput = {
-                        //  add commas to price
                         agentApartmentVM.onEvent(AgentApartmentEvents.SelectHousePrice(it))
-
                     }
                 )
             }
@@ -93,7 +92,7 @@ fun ApartmentHousePrice(
                     contentDescription = "price icon",
                     tint = primaryColor
                 )
-                
+
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(

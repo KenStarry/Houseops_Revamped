@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import java.text.NumberFormat
 
 @Composable
 fun HousePrice(
@@ -65,12 +66,14 @@ fun HousePrice(
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     )
-                ) { append(houseModel.housePrice) }
+                ) {
+                    append(houseModel.housePrice)
+                }
                 withStyle(
                     style = SpanStyle(
                         color = primaryColor
                     )
-                ) { append("/$category") }
+                ) { append("/m") }
             },
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold,

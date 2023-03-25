@@ -60,18 +60,18 @@ fun HouseViewDetails(
     Spacer(modifier = Modifier.height(spacing))
 
     //  agent information & call / message icons
-    DetailsAgent(
-        context = context,
-        agentEmail = apartmentDetails?.apartmentAgentAssigned ?: "no email",
-        onCardClicked = {
-            onAgentClicked(it)
-        },
-        onPhoneClicked = { phoneNumber ->
-            phoneCallIntent(context, phoneNumber)
-        }
-    )
+//    DetailsAgent(
+//        context = context,
+//        agentEmail = apartmentDetails?.apartmentAgentAssigned ?: "no email",
+//        onCardClicked = {
+//            onAgentClicked(it)
+//        },
+//        onPhoneClicked = { phoneNumber ->
+//            phoneCallIntent(context, phoneNumber)
+//        }
+//    )
 
-    Spacer(modifier = Modifier.height(spacing))
+//    Spacer(modifier = Modifier.height(spacing))
 
     //  features
     DetailsFeatures(

@@ -35,6 +35,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.c
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.core.presentation.components.ErrorLottie
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.DeleteHouseDialog
+import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -88,10 +89,17 @@ fun AgentApartmentView(
                             tertiaryColor = tertiaryColor,
                             onDone = { house ->
 
+                                //  formatted price
+                                val formattedHouse = house.copy(
+                                    housePrice = NumberFormat.getIntegerInstance()
+                                        .format(house.housePrice.toInt())
+                                        .toString()
+                                )
+
                                 //  submit house to firebase
                                 agentApartmentVM.onEvent(AgentApartmentEvents.AddHouse(
                                     apartmentName = apartmentName,
-                                    houseModel = house,
+                                    houseModel = formattedHouse,
                                     onResponse = { res ->
                                         when (res) {
                                             is Response.Success -> {

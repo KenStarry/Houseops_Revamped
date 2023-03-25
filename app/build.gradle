@@ -89,6 +89,10 @@ dependencies {
     //  places api
     implementation 'com.google.android.libraries.places:places:3.0.0'
 
+    //  Google play reviews and ratings
+    implementation "com.google.android.play:review-ktx:2.0.1"
+    implementation "com.google.android.play:review:2.0.1"
+
     //  Preferences DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
@@ -117,9 +121,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
     //  lifecycle scope
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
     //  viewmodel scope
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     //  Pager Library
     implementation "com.google.accompanist:accompanist-pager:0.19.0"
