@@ -59,11 +59,14 @@ fun PillSection(
                         tertiaryColor = tertiaryColor
                     )
 
+                    Spacer(modifier = Modifier.width(16.dp))
+
                 }
             },
             state = staggeredGridState,
             modifier = modifier,
-            contentPadding = PaddingValues(vertical = 8.dp)
+            contentPadding = PaddingValues(vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         )
     }
 }

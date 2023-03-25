@@ -64,7 +64,13 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             SettingsAppBar(
-                onBackPressed = {},
+                onBackPressed = {
+                    //  go back to home screen
+                    direction.navigateToRoute(
+                        Constants.HOME_ROUTE,
+                        Constants.HOME_ROUTE
+                    )
+                },
                 settingsViewModel = settingsViewModel,
                 scrollBehavior = scrollBehavior
             )

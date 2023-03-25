@@ -23,16 +23,19 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentatio
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.components.booked_houses.BookedHouses
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.viewmodel.BookedViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
+import com.kenstarry.houseops_revamped.navigation.NavConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookedScreen(
+    mainNavHostController: NavHostController,
     navHostController: NavHostController
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
     val bookedVM: BookedViewModel = hiltViewModel()
-    val direction = Direction(navHostController)
+    val direction = Direction(mainNavHostController)
+    val directionInner = Direction(navHostController)
     val context = LocalContext.current
 
     val primaryColor = Color(
@@ -55,7 +58,10 @@ fun BookedScreen(
             BookedAppBar(
                 onBackPressed = {
                     //  go back to home screen
-                    direction.navigateUp()
+                    direction.navigateToRoute(
+                        Constants.HOME_ROUTE,
+                        Constants.HOME_ROUTE
+                    )
                 }
             )
         }
@@ -80,7 +86,7 @@ fun BookedScreen(
                         modifier = Modifier
                             .fillMaxSize(),
                         bookedVm = bookedVM,
-                        direction = direction,
+                        direction = directionInner,
                         primaryColor = primaryColor,
                         tertiaryColor = tertiaryColor
                     )

@@ -34,12 +34,18 @@ fun TenantInnerGraph(
 
         //  Booked screen
         composable(route = BottomNavScreens.Booked.route) {
-            BookedScreen(navHostController)
+            BookedScreen(
+                mainNavHostController = mainNavHostController,
+                navHostController = navHostController
+            )
         }
 
         //  Wishlist screen
         composable(route = BottomNavScreens.Bookmarks.route) {
-            BookmarkScreen(navHostController = navHostController)
+            BookmarkScreen(
+                mainNavHostController = mainNavHostController,
+                navHostController = navHostController
+            )
         }
 
         //  Settings screen

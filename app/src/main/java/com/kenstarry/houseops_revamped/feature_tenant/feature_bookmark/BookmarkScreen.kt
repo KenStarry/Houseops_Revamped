@@ -18,15 +18,18 @@ import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.components.BookmarkCategories
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.components.BookmarksAppBar
 import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.viewmodel.BookmarksViewModel
+import com.kenstarry.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarkScreen(
+    mainNavHostController: NavHostController,
     navHostController: NavHostController
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
     val bookmarksVM: BookmarksViewModel = hiltViewModel()
+    val direction = Direction(mainNavHostController)
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -53,7 +56,11 @@ fun BookmarkScreen(
         topBar = {
             BookmarksAppBar(
                 onBackPressed = {
-                    //  navigate to home screen
+                    //  go back to home screen
+                    direction.navigateToRoute(
+                        Constants.HOME_ROUTE,
+                        Constants.HOME_ROUTE
+                    )
                 },
                 onViewClicked = {
 
