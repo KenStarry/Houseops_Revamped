@@ -42,6 +42,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_sc
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.view_pager.HouseViewPager
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 import com.kenstarry.houseops_revamped.navigation.Direction
+import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreen
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -117,7 +118,20 @@ fun HouseViewScreen(
 
                 HouseViewConstants.HV_BOOK_HOUSE_BOTTOM_SHEET -> {
                     BookedHouseBottomSheet(
-                        house = coreVM.bottomSheetData.value as HouseModel
+                        house = coreVM.bottomSheetData.value as HouseModel,
+                        onViewStatusClicked = {
+                            //  dismiss bottomsheet
+                            coreVM.onBottomSheetEvent(
+                                BottomSheetEvents.CloseBottomSheet(
+                                    state, scope
+                                )
+                            )
+
+                            direction.navigateToRoute(
+                                BottomNavScreens.Booked.route,
+                                null
+                            )
+                        }
                     )
                 }
 

@@ -214,7 +214,7 @@ fun HomeScreen(
                             ) {
 
                                 Lottie(
-                                    rawFile = R.raw.search_empty,
+                                    rawFile = R.raw.search_icon,
                                     isPlaying = true,
                                     iterations = 1,
                                     modifier = Modifier

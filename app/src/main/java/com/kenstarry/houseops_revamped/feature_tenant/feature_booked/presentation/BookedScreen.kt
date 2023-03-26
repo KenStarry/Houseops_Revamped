@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,9 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.components.BookedAppBar
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.components.booked_houses.BookedHouses
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.viewmodel.BookedViewModel
@@ -88,7 +91,31 @@ fun BookedScreen(
                         bookedVm = bookedVM,
                         direction = directionInner,
                         primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor
+                        tertiaryColor = tertiaryColor,
+                        onDeleteDateCategory = { bookedHousesUnderCategory ->
+                            bookedVM.onEvent(BookedEvents.DeleteBookedHouseCategory(
+                                email = userDetails.userEmail ?: "no email",
+                                bookedHousesUnderCategory = bookedHousesUnderCategory,
+                                onResponse = { res ->
+                                    when (res) {
+                                        is Response.Success -> {
+                                            Toast.makeText(
+                                                context,
+                                                "Category deleted successfully",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                        is Response.Failure -> {
+                                            Toast.makeText(
+                                                context,
+                                                "Something went wrong.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                }
+                            ))
+                        }
                     )
                 } else {
 
@@ -108,7 +135,7 @@ fun BookedScreen(
                                 .fillMaxWidth(0.9f)
                                 .height(250.dp)
                         )
-                        
+
                         Spacer(modifier = Modifier.height(24.dp))
 
                         Text(

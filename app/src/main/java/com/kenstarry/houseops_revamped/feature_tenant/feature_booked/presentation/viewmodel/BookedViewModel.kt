@@ -53,6 +53,16 @@ class BookedViewModel @Inject constructor(
                     )
                 }
             }
+
+            is BookedEvents.DeleteBookedHouseCategory -> {
+                viewModelScope.launch {
+                    useCase.deleteBookedHouseCategory(
+                        email = event.email,
+                        bookedHousesUnderCategory = event.bookedHousesUnderCategory,
+                        onResponse = event.onResponse
+                    )
+                }
+            }
         }
     }
 }

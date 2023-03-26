@@ -15,7 +15,8 @@ import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 
 @Composable
 fun BookedHouseBottomSheet(
-    house: HouseModel?
+    house: HouseModel?,
+    onViewStatusClicked: () -> Unit
 ) {
 
     Column(
@@ -56,7 +57,10 @@ fun BookedHouseBottomSheet(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                //    navigate to booked screen
+                onViewStatusClicked()
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 contentColor = MaterialTheme.colorScheme.primary

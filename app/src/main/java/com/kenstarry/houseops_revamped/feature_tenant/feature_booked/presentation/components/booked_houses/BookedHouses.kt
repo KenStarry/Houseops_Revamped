@@ -25,7 +25,8 @@ fun BookedHouses(
     bookedHouses: List<BookedHouseModel>,
     direction: Direction,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onDeleteDateCategory: (bookedHousesUnderCategory: List<BookedHouseModel>) -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -46,19 +47,26 @@ fun BookedHouses(
             items(
                 items = bookedHouseDates
             ) { houseDate ->
+
+                val housesUnderBookedDate = bookedHouses.filter { it.dateBooked == houseDate }
+
                 //  bookedItem
                 BookedItem(
                     context = context,
                     user = user,
-                    bookedHouse = bookedHouses.filter { it.dateBooked == houseDate },
+                    bookedHousesUnderSelectedDate = housesUnderBookedDate,
                     houses = bookedVm.bookedHouses.value,
                     direction = direction,
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    onDeleteDateCategory = {
+                        onDeleteDateCategory(housesUnderBookedDate)
+                    }
                 )
+
 
                 Spacer(modifier = Modifier.height(24.dp))
             }

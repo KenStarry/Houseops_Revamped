@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.data.repository.BookedRepositoryImpl
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.repository.BookedRepository
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.use_case.BookedUseCases
+import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.use_case.DeleteBookedHouseCategory
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.use_case.GetBookedHouses
 import dagger.Module
 import dagger.Provides
@@ -26,7 +27,8 @@ object BookedModule {
     fun provideBookedUseCases(
         repository: BookedRepository
     ) = BookedUseCases(
-        getBookedHouses = GetBookedHouses(repository)
+        getBookedHouses = GetBookedHouses(repository),
+        deleteBookedHouseCategory = DeleteBookedHouseCategory(repository)
     )
 
 }
