@@ -21,13 +21,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedHouseModel
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.presentation.utils.BookedConstants
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseItem
+import com.kenstarry.houseops_revamped.core.presentation.components.HouseItem
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -36,6 +39,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun BookedItem(
     modifier: Modifier = Modifier,
+    coreVM: CoreViewModel = hiltViewModel(),
     context: Context,
     user: UsersCollection,
     bookedHousesUnderSelectedDate: List<BookedHouseModel>,
@@ -226,9 +230,18 @@ fun BookedItem(
                             items = validHouses
                         ) {
 
+                            //  get apartment details of the house
+                            coreVM.onEvent(
+                                CoreEvents.GetApartmentDetails(
+                                apartmentName = it.houseApartmentName,
+                                response = {}
+                            ))
+
                             HouseItem(
                                 context = context,
                                 house = it,
+                                location = coreVM.apartmentDetails.value?.apartmentLocation?.address
+                                    ?: "no location",
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(16.dp))
                                     .size(

@@ -24,9 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseItem
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.components.HouseItem
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.viewmodel.HomeViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 import kotlinx.coroutines.launch
@@ -34,6 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FeaturedSection(
     modifier: Modifier = Modifier,
+    coreVM: CoreViewModel = hiltViewModel(),
     homeVM: HomeViewModel = hiltViewModel(),
     navHostController: NavHostController,
     context: Context,
@@ -99,9 +103,18 @@ fun FeaturedSection(
                 itemsIndexed(
                     houses
                 ) { index, house ->
+
+                    //  get apartment details of the house
+                    coreVM.onEvent(CoreEvents.GetApartmentDetails(
+                        apartmentName = house.houseApartmentName,
+                        response = {}
+                    ))
+
                     HouseItem(
                         context = context,
                         house = house,
+                        location = coreVM.apartmentDetails.value?.apartmentLocation?.address
+                            ?: "no location",
                         modifier = Modifier
                             .clip(RoundedCornerShape(16.dp))
                             .size(

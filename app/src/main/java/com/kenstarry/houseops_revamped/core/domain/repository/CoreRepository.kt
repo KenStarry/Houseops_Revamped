@@ -39,6 +39,12 @@ interface CoreRepository {
         response: (response: Response<*>) -> Unit
     )
 
+    suspend fun getApartmentDetails(
+        apartmentName: String,
+        apartment: (apartment: Apartment) -> Unit,
+        response: (response: Response<*>) -> Unit
+    )
+
     suspend fun getAllCaretakers(
         caretakers: (List<Caretaker>?) -> Unit
     )

@@ -19,10 +19,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.kenstarry.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.components.HouseItemAlt
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.navigation.Direction
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -39,6 +43,7 @@ fun CategoryItem(
 ) {
 
     val direction = Direction(navHostController)
+    val coreVM: CoreViewModel = hiltViewModel()
 
     Column(
         modifier = Modifier
@@ -99,11 +104,19 @@ fun CategoryItem(
                 ) { house ->
 
                     if (house.houseCategory == houseCategory.title) {
-                        Log.d("bookmarks", house.houseCategory)
+
+                        //  get apartment details of the house
+                        coreVM.onEvent(
+                            CoreEvents.GetApartmentDetails(
+                                apartmentName = house.houseApartmentName,
+                                response = {}
+                            ))
 
                         HouseItemAlt(
                             context = context,
                             house = house,
+                            location = coreVM.apartmentDetails.value?.apartmentLocation?.address
+                                ?: "no location",
                             user = currentUser,
                             modifier = Modifier
                                 .clip(RoundedCornerShape(16.dp))

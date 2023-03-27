@@ -248,6 +248,34 @@ class CoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getApartmentDetails(
+        apartmentName: String,
+        apartment: (apartment: Apartment) -> Unit,
+        response: (response: Response<*>) -> Unit
+    ) {
+        try {
+
+            db.collection(Constants.APARTMENTS_COLLECTION)
+                .document(apartmentName)
+                .addSnapshotListener { snapshot, error ->
+
+                    if (error != null) {
+                        response(Response.Failure(error.localizedMessage))
+                        return@addSnapshotListener
+                    }
+
+                    snapshot?.toObject(Apartment::class.java)?.let {
+                        apartment(it)
+                        response(Response.Success(it))
+                    }
+
+                }
+
+        } catch (e: Exception) {
+            response(Response.Failure(e.localizedMessage))
+        }
+    }
+
     override suspend fun uploadImagesToStorage(
         imageUriList: List<ImageModel?>,
         context: Context,

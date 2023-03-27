@@ -22,9 +22,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
-import com.kenstarry.houseops_revamped.feature_tenant.feature_bookmark.presentation.components.HouseItemAlt
+import com.kenstarry.houseops_revamped.core.presentation.components.HouseItemAlt
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -40,6 +43,7 @@ fun AgentApartmentHouses(
 ) {
 
     val listState = rememberLazyListState()
+    val coreVM: CoreViewModel = hiltViewModel()
 
     Column(
         modifier = Modifier
@@ -90,9 +94,18 @@ fun AgentApartmentHouses(
             content = {
                 items(houses) { house ->
 
+                    //  get apartment details of the house
+                    coreVM.onEvent(
+                        CoreEvents.GetApartmentDetails(
+                        apartmentName = house.houseApartmentName,
+                        response = {}
+                    ))
+
                     HouseItemAlt(
                         context = context,
                         house = house,
+                        location = coreVM.apartmentDetails.value?.apartmentLocation?.address
+                            ?: "no location",
                         user = user,
                         snackbarHostState = null,
                         primaryColor = primaryColor,

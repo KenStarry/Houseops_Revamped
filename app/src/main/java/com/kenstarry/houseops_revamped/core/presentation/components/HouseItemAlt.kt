@@ -1,14 +1,11 @@
-package com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item
+package com.kenstarry.houseops_revamped.core.presentation.components
 
 import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BrokenImage
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,31 +14,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
-import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseLocation
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HousePrice
 
 @Composable
-fun HouseItem(
+fun HouseItemAlt(
     modifier: Modifier = Modifier,
     context: Context,
     house: HouseModel,
+    location: String,
     user: UsersCollection?,
     snackbarHostState: SnackbarHostState?,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
 
-    Column(
+    Row(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         //  Image
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.6f),
+                .weight(1.5f)
+                .fillMaxHeight(),
             contentAlignment = Alignment.Center
         ) {
 
@@ -49,7 +50,7 @@ fun HouseItem(
                 CoilImage(
                     context = context,
                     imageUri = house.houseImageUris[0].uri.toUri(),
-                    placeholder = com.kenstarry.houseops_revamped.R.drawable.houseops_dark_final,
+                    placeholder = R.drawable.houseops_dark_final,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))
                         .fillMaxSize()
@@ -74,9 +75,34 @@ fun HouseItem(
         //  content
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.Start
+                .weight(2f),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Card(
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = tertiaryColor,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                    ),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Text(
+                        text = house.houseApartmentName,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier
+                            .padding(8.dp)
+                    )
+                }
+            }
 
             Column(
                 modifier = Modifier
@@ -98,7 +124,9 @@ fun HouseItem(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 //  house location
-                HouseLocation()
+                HouseLocation(
+                    location = location
+                )
 
             }
 
