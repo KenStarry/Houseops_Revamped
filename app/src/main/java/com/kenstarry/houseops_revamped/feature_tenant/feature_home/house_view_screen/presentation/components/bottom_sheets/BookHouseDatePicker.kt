@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
@@ -169,12 +171,23 @@ fun BookHouseDatePicker(
             dismissOnBackPress = true,
             dismissOnClickOutside = false
         ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(24.dp),
         onCloseRequest = {},
         buttons = {
-            positiveButton(text = "Ok")
-            negativeButton(text = "Cancel")
-        }
+            positiveButton(
+                text = "Ok",
+                textStyle = TextStyle(
+                    color = primaryColor
+                )
+            )
+            negativeButton(
+                text = "Cancel",
+                textStyle = TextStyle(
+                    color = primaryColor
+                )
+            )
+        },
+        backgroundColor = MaterialTheme.colorScheme.onPrimary
     ) {
 
         datepicker(
@@ -182,7 +195,13 @@ fun BookHouseDatePicker(
             title = "Pick a Date",
             onDateChange = {
                 pickedDate = it
-            }
+            },
+            colors = DatePickerDefaults.colors(
+                headerBackgroundColor = tertiaryColor,
+                headerTextColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
+                calendarHeaderTextColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
+                dateActiveBackgroundColor = primaryColor
+            )
         )
 
     }
