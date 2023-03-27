@@ -23,6 +23,7 @@ import com.kenstarry.houseops_revamped.feature_admin.feature_home.presentation.v
 fun AdminHomeContent(
     onActionsClicked: (landlord: UsersCollection) -> Unit,
     onCardClicked: (landlord: UsersCollection) -> Unit,
+    onBackPressed: () -> Unit
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
@@ -62,9 +63,7 @@ fun AdminHomeContent(
                     userDetails?.userName ?: "",
                 primaryColor = primaryColor,
                 tertiaryColor = tertiaryColor,
-                onBackPressed = {
-
-                }
+                onBackPressed = onBackPressed
             )
         }
     ) { contentPadding ->

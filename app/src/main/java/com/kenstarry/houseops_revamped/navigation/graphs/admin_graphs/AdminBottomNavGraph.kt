@@ -34,6 +34,7 @@ fun AdminBottomNavGraph(
 
         composable(route = AdminBottomNavScreens.Home.route) {
             AdminHomeScreen(
+                mainNavHostController = mainNavHostController,
                 navHostController = navHostController,
                 coreViewModel = coreViewModel,
                 modalSheetState = modalSheetState,

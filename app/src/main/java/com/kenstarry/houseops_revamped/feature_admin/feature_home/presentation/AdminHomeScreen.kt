@@ -1,6 +1,5 @@
 package com.kenstarry.houseops_revamped.feature_admin.feature_home.presentation
 
-import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -10,7 +9,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
-import com.kenstarry.houseops_revamped.core.presentation.components.EmailVerificationMessage
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_admin.feature_home.presentation.components.AdminHomeContent
@@ -22,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AdminHomeScreen(
+    mainNavHostController: NavHostController,
     navHostController: NavHostController,
     coreViewModel: CoreViewModel,
     modalSheetState: ModalBottomSheetState,
@@ -29,7 +28,8 @@ fun AdminHomeScreen(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
-    val direction = Direction(navHostController)
+    val direction = Direction(mainNavHostController)
+    val directionInner = Direction(navHostController)
 
     val currentUser = coreVM.currentUser()
     val context = LocalContext.current
@@ -50,7 +50,7 @@ fun AdminHomeScreen(
     AdminHomeContent(
         onCardClicked = {
             //  navigate to landlord view
-            direction.navigateToRoute(
+            directionInner.navigateToRoute(
                 AdminScreens.LandlordView.passLandlordEmail(it.userEmail ?: "no email"),
                 null
             )
@@ -64,6 +64,9 @@ fun AdminHomeScreen(
                     bottomSheetData = landlord
                 )
             )
+        },
+        onBackPressed = {
+            direction.navigateUp()
         }
     )
 
