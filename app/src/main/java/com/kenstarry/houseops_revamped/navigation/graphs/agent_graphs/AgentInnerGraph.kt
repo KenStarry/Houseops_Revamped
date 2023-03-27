@@ -28,7 +28,7 @@ fun AgentInnerGraph(
     ) {
 
         composable(route = AgentBottomNavScreens.Home.route) {
-            AgentHome(navHostController, primaryColor, tertiaryColor)
+            AgentHome(mainNavHostController, navHostController, primaryColor, tertiaryColor)
         }
 
         composable(route = AgentBottomNavScreens.Notifications.route) {

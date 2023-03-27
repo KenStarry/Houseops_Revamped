@@ -80,9 +80,7 @@ fun LndHomeTopBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.onPrimary,
             titleContentColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-        ),
-
-        windowInsets = WindowInsets(8.dp)
+        )
     )
 }
 

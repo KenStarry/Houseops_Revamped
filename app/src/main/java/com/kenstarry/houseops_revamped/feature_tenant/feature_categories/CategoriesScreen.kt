@@ -124,6 +124,8 @@ fun CategoriesScreen(
                     CategoriesTopBar(
                         title = categoryTitle,
                         icon = categories.find { it.title == categoryTitle }?.icon,
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
                         onBackPressed = {
                             direction.navigateUp()
                         }

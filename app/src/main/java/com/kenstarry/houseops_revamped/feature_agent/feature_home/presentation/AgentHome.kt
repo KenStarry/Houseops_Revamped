@@ -3,13 +3,10 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +25,6 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.c
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeTopBar
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.intro_showcase.QuickAddShowCase
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.viewmodel.AgentHomeViewModel
-import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.AgentScreens
 import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.components.AgentHomeHeader as AgentHomeHeader1
@@ -36,6 +32,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_home.presentation.c
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgentHome(
+    mainNavHostController: NavHostController,
     navHostController: NavHostController,
     primaryColor: Color,
     tertiaryColor: Color
@@ -43,7 +40,8 @@ fun AgentHome(
 
     val coreVM: CoreViewModel = hiltViewModel()
     val agentHomeVM: AgentHomeViewModel = hiltViewModel()
-    val direction = Direction(navHostController)
+    val direction = Direction(mainNavHostController)
+    val directionInner = Direction(navHostController)
     val context = LocalContext.current
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
@@ -78,7 +76,6 @@ fun AgentHome(
                     primaryColor = primaryColor,
                     tertiaryColor = tertiaryColor,
                     onBackPressed = {
-                        Toast.makeText(context, "back clicked", Toast.LENGTH_SHORT).show()
                         direction.navigateUp()
                     }
                 )
@@ -133,7 +130,7 @@ fun AgentHome(
                             primaryColor = primaryColor,
                             tertiaryColor = tertiaryColor,
                             onApartmentClicked = {
-                                direction.navigateToRoute(
+                                directionInner.navigateToRoute(
                                     AgentScreens.ApartmentView.passApartmentName(it.apartmentName),
                                     null
                                 )
