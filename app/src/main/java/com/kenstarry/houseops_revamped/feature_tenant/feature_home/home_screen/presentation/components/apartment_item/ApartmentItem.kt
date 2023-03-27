@@ -9,17 +9,18 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ApartmentItem() {
+fun ApartmentItem(
+    modifier: Modifier = Modifier,
+    primaryColor: Color,
+    tertiaryColor: Color
+) {
 
     Card(
-        modifier = Modifier
-            .size(
-                width = 300.dp,
-                height = 250.dp
-            ),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp

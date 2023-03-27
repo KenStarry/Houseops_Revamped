@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.BottomSheet
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
@@ -69,6 +70,11 @@ fun HomeScreen(
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val context = LocalContext.current
+
+    coreVM.onEvent(
+        CoreEvents.GetApartments(
+        response = {}
+    ))
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,
@@ -267,6 +273,7 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight(),
+                                allApartments = coreVM.allApartments.value,
                                 title = "Apartments",
                                 primaryColor = primaryColor,
                                 tertiaryColor = tertiaryColor
