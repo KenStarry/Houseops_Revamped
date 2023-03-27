@@ -72,7 +72,10 @@ fun ApartmentsSection(
                  items(allApartments) {
                     ApartmentItem(
                         modifier = Modifier
-                            .size(120.dp),
+                            .size(
+                                width = 250.dp,
+                                height = 150.dp
+                            ),
                         primaryColor = primaryColor,
                         tertiaryColor = tertiaryColor
                     )
