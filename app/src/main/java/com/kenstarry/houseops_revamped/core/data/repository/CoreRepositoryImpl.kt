@@ -7,6 +7,10 @@ import android.webkit.MimeTypeMap
 import androidx.core.net.toUri
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
@@ -21,8 +25,29 @@ import javax.inject.Inject
 
 class CoreRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore,
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val placesClient: PlacesClient,
+    private val placeFields: List<Place.Field>
 ) : CoreRepository {
+
+    override suspend fun getPlaceCoordinates(
+        place: PlacesAPIResult,
+        currentLatLong: (currentLatLong: LatLng) -> Unit,
+        response: (response: Response<*>) -> Unit
+    ) {
+        val request = FetchPlaceRequest.newInstance(place.placeId, placeFields)
+
+        placesClient.fetchPlace(request)
+            .addOnSuccessListener { res ->
+                res?.let {
+                    it.place.latLng?.let(currentLatLong)
+                    response(Response.Success(it))
+                }
+            }
+            .addOnFailureListener {
+                response(Response.Failure(it.localizedMessage))
+            }
+    }
 
     override suspend fun isUserLoggedIn(): Boolean = auth.currentUser != null
 

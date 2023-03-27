@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
 import com.kenstarry.houseops_revamped.core.domain.model.AlertDialogProperties
@@ -32,6 +33,10 @@ class CoreViewModel @Inject constructor(
     private val accentPreference: AccentPreference,
     private val userDetailsPreference: UserDetailsPreference
 ) : ViewModel() {
+
+    //  Places Api
+    private val _currentLatLong = mutableStateOf(LatLng(0.0, 0.0))
+    val currentLatLong: State<LatLng> = _currentLatLong
 
     val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
     val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
@@ -151,6 +156,18 @@ class CoreViewModel @Inject constructor(
     fun onEvent(event: CoreEvents) {
 
         when (event) {
+
+            is CoreEvents.GetPlaceCoordinates -> {
+                viewModelScope.launch {
+                    coreUseCases.getPlaceCoordinates(
+                        place = event.place,
+                        currentLatLong = {
+                            _currentLatLong.value = it
+                        },
+                        response = event.response
+                    )
+                }
+            }
 
             is CoreEvents.SendVerificationEmail -> {
                 viewModelScope.launch {

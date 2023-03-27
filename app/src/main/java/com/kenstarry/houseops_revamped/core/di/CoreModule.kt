@@ -1,6 +1,8 @@
 package com.kenstarry.houseops_revamped.core.di
 
 import android.content.Context
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
@@ -23,10 +25,14 @@ object CoreModule {
     @Singleton
     fun provideCoreRepository(
         db: FirebaseFirestore,
-        auth: FirebaseAuth
+        auth: FirebaseAuth,
+        placesClient: PlacesClient,
+        placeFields: List<Place.Field>
     ) : CoreRepository = CoreRepositoryImpl(
         db = db,
-        auth = auth
+        auth = auth,
+        placesClient = placesClient,
+        placeFields = placeFields
     )
 
     @Provides
@@ -48,7 +54,8 @@ object CoreModule {
         uploadImagesToStorage = UploadImagesToStorage(repo),
         uploadSingleImageToStorage = UploadSingleImageToStorage(repo),
         verificationEmail = VerificationEmail(repo),
-        deleteDocument = DeleteDocument(repo)
+        deleteDocument = DeleteDocument(repo),
+        getPlaceCoordinates = GetPlaceCoordinates(repo)
     )
 
     //  provide datastore accent preference

@@ -5,9 +5,13 @@ import android.content.res.Resources
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kenstarry.houseops_revamped.BuildConfig
 import com.kenstarry.houseops_revamped.R
 import dagger.Module
 import dagger.Provides
@@ -24,7 +28,7 @@ object AppModule {
     @Singleton
     fun provideResources(
         @ApplicationContext context: Context
-    ) = context.resources
+    ): Resources = context.resources
 
     //  FIREBASE
     //  Firestore instance
@@ -47,6 +51,18 @@ object AppModule {
         .requestIdToken(resource.getString(R.string.default_web_client_id))
         .requestEmail()
         .build()
+
+    //  Places api
+    //  initialize places client
+    @Provides
+    @Singleton
+    fun providePlacesClient(
+        @ApplicationContext context: Context
+    ) = Places.initialize(context, BuildConfig.MAPS_API_KEY)
+
+    @Provides
+    @Singleton
+    fun providePlaceFields(): List<Place.Field> = listOf(Place.Field.LAT_LNG)
 }
 
 

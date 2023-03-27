@@ -2,14 +2,21 @@ package com.kenstarry.houseops_revamped.core.domain.repository
 
 import android.content.Context
 import android.net.Uri
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.domain.model.*
 
 interface CoreRepository {
 
+    suspend fun getPlaceCoordinates(
+        place: PlacesAPIResult,
+        currentLatLong: (currentLatLong: LatLng) -> Unit,
+        response: (response: Response<*>) -> Unit
+    )
+
     suspend fun isUserLoggedIn(): Boolean
 
-    suspend fun currentUser() : FirebaseUser?
+    suspend fun currentUser(): FirebaseUser?
 
     suspend fun sendVerificationEmail(
         response: (response: Response<*>) -> Unit
