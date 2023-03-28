@@ -36,7 +36,6 @@ fun DetailsAgent(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
-
     var agent by remember {
         mutableStateOf<UsersCollection?>(null)
     }

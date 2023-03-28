@@ -15,6 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
@@ -31,7 +33,9 @@ fun ShowGoogleMap(
         mutableStateOf(
             MapProperties(
                 maxZoomPreference = 20f,
-                minZoomPreference = 5f
+                minZoomPreference = 5f,
+                isBuildingEnabled = true,
+                isMyLocationEnabled = true
             )
         )
     }
@@ -40,11 +44,11 @@ fun ShowGoogleMap(
         mutableStateOf(
             MapUiSettings(
                 myLocationButtonEnabled = true,
-                scrollGesturesEnabled = false,
-                scrollGesturesEnabledDuringRotateOrZoom = false,
+                scrollGesturesEnabled = true,
+                scrollGesturesEnabledDuringRotateOrZoom = true,
                 mapToolbarEnabled = true,
-                rotationGesturesEnabled = false,
-                tiltGesturesEnabled = false
+                rotationGesturesEnabled = true,
+                tiltGesturesEnabled = true
             )
         )
     }
@@ -108,21 +112,8 @@ fun ShowGoogleMap(
             Marker(
                 state = MarkerState(location),
                 draggable = false,
-                title = "Marker in $placeName"
-            )
-
-            MarkerInfoWindow(
-                state = infoWindowState,
-                title = placeName,
-                content = {
-                    Column(
-                        modifier = Modifier.wrapContentSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Text(text = "Hello There ")
-                    }
-                }
+                title = "Marker in $placeName",
+                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
             )
         }
 
