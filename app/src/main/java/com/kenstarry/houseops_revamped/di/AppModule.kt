@@ -60,6 +60,12 @@ object AppModule {
     @Singleton
     @Named("Phone_Call_Intent")
     fun providePhoneCallIntent() = Intent(Intent.ACTION_CALL)
+
+    //  phone dial intent
+    @Provides
+    @Singleton
+    @Named("Phone_Dial_Intent")
+    fun providePhoneDialIntent() = Intent(Intent.ACTION_DIAL)
 }
 
 
