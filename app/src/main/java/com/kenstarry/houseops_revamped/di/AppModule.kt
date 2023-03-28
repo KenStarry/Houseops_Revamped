@@ -1,6 +1,8 @@
 package com.kenstarry.houseops_revamped.di
 
+import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -18,6 +20,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -52,17 +55,11 @@ object AppModule {
         .requestEmail()
         .build()
 
-    //  Places api
-    //  initialize places client
-//    @Provides
-//    @Singleton
-//    fun providePlacesClient(
-//        @ApplicationContext context: Context
-//    ) = Places.initialize(context, BuildConfig.MAPS_API_KEY)
-
-//    @Provides
-//    @Singleton
-//    fun providePlaceFields(): List<Place.Field> = listOf(Place.Field.LAT_LNG)
+    //  INTENTS
+    @Provides
+    @Singleton
+    @Named("Phone_Call_Intent")
+    fun providePhoneCallIntent() = Intent(Intent.ACTION_CALL)
 }
 
 

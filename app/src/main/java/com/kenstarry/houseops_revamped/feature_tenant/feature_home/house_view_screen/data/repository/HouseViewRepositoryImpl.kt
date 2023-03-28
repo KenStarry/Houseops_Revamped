@@ -1,5 +1,8 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.data.repository
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,8 +13,10 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.mode
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.UserBooked
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.repository.HouseViewRepository
+import javax.inject.Inject
+import javax.inject.Named
 
-class HouseViewRepositoryImpl(
+class HouseViewRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore
 ) : HouseViewRepository {
 
@@ -57,7 +62,7 @@ class HouseViewRepositoryImpl(
                         return@addSnapshotListener
                     }
 
-                    snapshot?.toObject(Apartment::class.java)?.let {  aprtmt ->
+                    snapshot?.toObject(Apartment::class.java)?.let { aprtmt ->
                         apartment(aprtmt)
                         response(Response.Success(aprtmt))
                     }

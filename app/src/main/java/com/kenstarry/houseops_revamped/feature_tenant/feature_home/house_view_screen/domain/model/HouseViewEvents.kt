@@ -1,5 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model
 
+import android.content.Context
+import android.content.Intent
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.feature_tenant.feature_booked.domain.model.BookedHouseModel
@@ -25,4 +27,8 @@ sealed class HouseViewEvents {
     ) : HouseViewEvents()
 
 
+    data class MakePhoneCall(
+        val context: Context,
+        val phoneNumber: String
+    ) : HouseViewEvents()
 }

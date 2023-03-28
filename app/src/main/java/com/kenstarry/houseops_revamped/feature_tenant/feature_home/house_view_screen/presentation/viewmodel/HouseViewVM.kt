@@ -1,5 +1,8 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.viewmodel
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -14,10 +17,12 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_sc
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class HouseViewVM @Inject constructor(
-    private val useCase: HouseViewUseCases
+    private val useCase: HouseViewUseCases,
+    @Named("Phone_Call_Intent") private val phoneCallIntent: Intent
 ) : ViewModel() {
 
     var currentHouse by mutableStateOf<HouseModel?>(null)
@@ -75,6 +80,21 @@ class HouseViewVM @Inject constructor(
                         userBooked = event.userBooked,
                         isAdd = event.isAdd
                     )
+                }
+            }
+
+            is HouseViewEvents.MakePhoneCall -> {
+                viewModelScope.launch {
+                    val parsePhone = Uri.parse("tel:${event.phoneNumber}")
+
+                    try {
+
+                        phoneCallIntent.data = parsePhone
+                        event.context.startActivity(phoneCallIntent)
+
+                    } catch (e: Exception) {
+                        Log.d("phone call", "error : $e")
+                    }
                 }
             }
         }
