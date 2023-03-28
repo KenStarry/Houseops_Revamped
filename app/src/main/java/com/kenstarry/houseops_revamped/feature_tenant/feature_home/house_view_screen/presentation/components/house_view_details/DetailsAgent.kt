@@ -16,16 +16,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
+import com.kenstarry.houseops_revamped.core.presentation.components.permission_handling.RequestPermission
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreen
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreenDull
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun DetailsAgent(
     context: Context,
@@ -36,6 +40,9 @@ fun DetailsAgent(
 ) {
 
     val coreVM: CoreViewModel = hiltViewModel()
+    val phonePermissionState = rememberPermissionState(
+        permission = android.Manifest.permission.CALL_PHONE
+    )
     var agent by remember {
         mutableStateOf<UsersCollection?>(null)
     }
@@ -57,98 +64,112 @@ fun DetailsAgent(
         agent = coreVM.getUserDetails(it)
     }
 
-    agent?.let {
+    agent?.let { user ->
 
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .clickable {
-                    onCardClicked(it)
-                },
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.onSecondary,
-                contentColor = MaterialTheme.colorScheme.onSecondary
-            )
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+        RequestPermission(
+            permissionState = phonePermissionState,
+            deniedContent = {
 
-                //  caretaker icon
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                ) {
-                    CoilImage(
-                        context = context,
-                        imageUri = it.userImageUri?.uri?.toUri(),
-                        placeholder = R.drawable.houseops_dark_final,
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .size(50.dp)
-                    )
+                Button(onClick = {
+                    phonePermissionState.launchPermissionRequest()
+                }) {
+                    Text(text = "Give call permission")
                 }
 
-                //  caretaker name and role
-                Column(
+            },
+            content = {
+                Card(
                     modifier = Modifier
-                        .weight(3f),
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-
-                    //  name
-                    Text(
-                        text = it.userName ?: "",
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-
-                    //  role
-                    Text(
-                        text = "HouseOps Agent",
-                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                        fontWeight = FontWeight.Normal,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                    )
-
-                }
-
-                //  phone call
-                Row(
-                    modifier = Modifier
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    IconButton(
-                        onClick = {
-                            //    add caretaker
-                            onPhoneClicked("0717446607")
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .clickable {
+                            onCardClicked(user)
                         },
-                        colors = IconButtonDefaults.iconButtonColors(
-                            contentColor = LimeGreen,
-                            containerColor = LimeGreenDull
-                        )
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.onSecondary,
+                        contentColor = MaterialTheme.colorScheme.onSecondary
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Phone,
-                            contentDescription = "Phone call"
-                        )
-                    }
 
+                        //  caretaker icon
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                        ) {
+                            CoilImage(
+                                context = context,
+                                imageUri = user.userImageUri?.uri?.toUri(),
+                                placeholder = R.drawable.houseops_dark_final,
+                                modifier = Modifier
+                                    .clip(CircleShape)
+                                    .size(50.dp)
+                            )
+                        }
+
+                        //  caretaker name and role
+                        Column(
+                            modifier = Modifier
+                                .weight(3f),
+                            horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+
+                            //  name
+                            Text(
+                                text = user.userName ?: "",
+                                fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+
+                            //  role
+                            Text(
+                                text = "HouseOps Agent",
+                                fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                                fontWeight = FontWeight.Normal,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                            )
+
+                        }
+
+                        //  phone call
+                        Row(
+                            modifier = Modifier
+                                .weight(1f),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+
+                            IconButton(
+                                onClick = {
+                                    //    add agent number
+                                    onPhoneClicked("0700692069")
+                                },
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    contentColor = LimeGreen,
+                                    containerColor = LimeGreenDull
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Phone,
+                                    contentDescription = "Phone call"
+                                )
+                            }
+
+                        }
+                    }
                 }
             }
-        }
+        )
 
     }
 }
