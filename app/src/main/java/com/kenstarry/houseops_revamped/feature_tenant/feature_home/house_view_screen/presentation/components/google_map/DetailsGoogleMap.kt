@@ -57,6 +57,7 @@ fun DetailsGoogleMap(
                 //  initialize places client
                 Places.initialize(context, BuildConfig.MAPS_API_KEY)
 
+
                 coreVM.onEvent(
                     CoreEvents.GetPlaceCoordinates(
                         place = it,

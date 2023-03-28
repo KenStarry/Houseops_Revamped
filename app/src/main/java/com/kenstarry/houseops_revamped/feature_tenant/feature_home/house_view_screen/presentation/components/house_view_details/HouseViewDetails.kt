@@ -59,6 +59,15 @@ fun HouseViewDetails(
 
     Spacer(modifier = Modifier.height(spacing))
 
+    //  google map
+    DetailsGoogleMap(
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor,
+        apartment = apartmentDetails
+    )
+
+    Spacer(modifier = Modifier.height(spacing))
+
     //  agent information & call / message icons
 //    DetailsAgent(
 //        context = context,
@@ -90,13 +99,6 @@ fun HouseViewDetails(
         description = house.houseDescription,
         primaryColor = primaryColor,
         tertiaryColor = tertiaryColor
-    )
-
-    //  google map
-    DetailsGoogleMap(
-        primaryColor = primaryColor,
-        tertiaryColor = tertiaryColor,
-        apartment = apartmentDetails
     )
 
 }
