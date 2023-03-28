@@ -87,10 +87,11 @@ fun DetailsTitle(
                 //  location
                 HomePillBtns(
                     icon = Icons.Outlined.LocationOn,
-                    title = apartmentDetails?.apartmentLocation?.address ?: "",
+                    title = apartmentDetails?.apartmentPurchaseType ?: "",
                     onClick = {},
                     primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor
+                    tertiaryColor = tertiaryColor,
+                    containerColor = tertiaryColor
                 )
 
             }

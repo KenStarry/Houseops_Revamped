@@ -66,7 +66,11 @@ fun DetailsGoogleMap(
                     ))
 
                 coreVM.currentLatLong.value?.let { latlng ->
-                    ShowGoogleMap(location = latlng)
+                    ShowGoogleMap(
+                        location = latlng,
+                        placeName = it.address,
+                        primaryColor, tertiaryColor
+                    )
                 }
             }
         }
