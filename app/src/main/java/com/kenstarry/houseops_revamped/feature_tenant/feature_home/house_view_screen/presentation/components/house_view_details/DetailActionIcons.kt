@@ -74,13 +74,6 @@ fun DetailActionIcons(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Outlined.ChatBubbleOutline,
-                    contentDescription = "Comments icon"
-                )
-            }
-
             BookmarkIcon(
                 house = house,
                 user = userDetails,

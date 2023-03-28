@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.MonetizationOn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -86,7 +87,7 @@ fun DetailsTitle(
 
                 //  location
                 HomePillBtns(
-                    icon = Icons.Outlined.LocationOn,
+                    icon = Icons.Outlined.MonetizationOn,
                     title = apartmentDetails?.apartmentPurchaseType ?: "",
                     onClick = {},
                     primaryColor = primaryColor,

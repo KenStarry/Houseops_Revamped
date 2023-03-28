@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.google_map
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +25,7 @@ import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.permission_handling.RequestPermission
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
+import com.kenstarry.houseops_revamped.ui.theme.HouseOps_RevampedTheme
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -39,6 +41,7 @@ fun DetailsGoogleMap(
     )
     val coreVM: CoreViewModel = hiltViewModel()
     val context = LocalContext.current
+    val inDarkTheme = isSystemInDarkTheme()
 
     RequestPermission(
         permissionState = locationPermissionState,
