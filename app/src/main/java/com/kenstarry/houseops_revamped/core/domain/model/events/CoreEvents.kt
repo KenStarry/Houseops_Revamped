@@ -33,6 +33,7 @@ sealed class CoreEvents {
 
     data class GetApartmentDetails(
         val apartmentName: String,
+        val apartmentDetails: (apartment: Apartment) -> Unit,
         val response: (response: Response<*>) -> Unit
     ) : CoreEvents()
 

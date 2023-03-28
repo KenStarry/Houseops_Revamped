@@ -9,7 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,8 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HouseLocation
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.HousePrice
 
@@ -27,12 +31,29 @@ fun HouseItem(
     modifier: Modifier = Modifier,
     context: Context,
     house: HouseModel,
-    location: String,
     user: UsersCollection?,
     snackbarHostState: SnackbarHostState?,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
+
+    val coreVM: CoreViewModel = hiltViewModel()
+
+    var apartmentDetails by remember {
+        mutableStateOf<Apartment?>(null)
+    }
+
+    //  get apartment details of the house
+    coreVM.onEvent(
+        CoreEvents.GetApartmentDetails(
+        apartmentName = house.houseApartmentName,
+        apartmentDetails = {
+            apartmentDetails = it
+        },
+        response = {}
+    ))
+
+    val location = apartmentDetails?.apartmentLocation?.address
 
     Column(
         modifier = modifier,
@@ -101,7 +122,7 @@ fun HouseItem(
 
                 //  house location
                 HouseLocation(
-                    location = location
+                    location = location ?: "no location"
                 )
 
             }

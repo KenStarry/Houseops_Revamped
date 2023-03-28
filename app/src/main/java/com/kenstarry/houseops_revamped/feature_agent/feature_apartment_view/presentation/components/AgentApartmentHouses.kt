@@ -97,9 +97,10 @@ fun AgentApartmentHouses(
                     //  get apartment details of the house
                     coreVM.onEvent(
                         CoreEvents.GetApartmentDetails(
-                        apartmentName = house.houseApartmentName,
-                        response = {}
-                    ))
+                            apartmentName = house.houseApartmentName,
+                            apartmentDetails = {},
+                            response = {}
+                        ))
 
                     HouseItemAlt(
                         context = context,

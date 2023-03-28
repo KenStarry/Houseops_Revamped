@@ -233,15 +233,14 @@ fun BookedItem(
                             //  get apartment details of the house
                             coreVM.onEvent(
                                 CoreEvents.GetApartmentDetails(
-                                apartmentName = it.houseApartmentName,
-                                response = {}
-                            ))
+                                    apartmentName = it.houseApartmentName,
+                                    apartmentDetails = {},
+                                    response = {}
+                                ))
 
                             HouseItem(
                                 context = context,
                                 house = it,
-                                location = coreVM.apartmentDetails.value?.apartmentLocation?.address
-                                    ?: "no location",
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(16.dp))
                                     .size(

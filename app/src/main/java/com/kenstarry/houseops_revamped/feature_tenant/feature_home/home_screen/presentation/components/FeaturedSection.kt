@@ -13,9 +13,7 @@ import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -104,17 +102,9 @@ fun FeaturedSection(
                     houses
                 ) { index, house ->
 
-                    //  get apartment details of the house
-                    coreVM.onEvent(CoreEvents.GetApartmentDetails(
-                        apartmentName = house.houseApartmentName,
-                        response = {}
-                    ))
-
                     HouseItem(
                         context = context,
                         house = house,
-                        location = coreVM.apartmentDetails.value?.apartmentLocation?.address
-                            ?: "no location",
                         modifier = Modifier
                             .clip(RoundedCornerShape(16.dp))
                             .size(

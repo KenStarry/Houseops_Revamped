@@ -109,6 +109,7 @@ fun CategoryItem(
                         coreVM.onEvent(
                             CoreEvents.GetApartmentDetails(
                                 apartmentName = house.houseApartmentName,
+                                apartmentDetails = {},
                                 response = {}
                             ))
 

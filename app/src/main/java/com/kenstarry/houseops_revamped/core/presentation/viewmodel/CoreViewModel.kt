@@ -203,6 +203,7 @@ class CoreViewModel @Inject constructor(
                         apartmentName = event.apartmentName,
                         apartment = {
                             _apartmentDetails.value = it
+                            event.apartmentDetails(it)
                         },
                         response = event.response
                     )

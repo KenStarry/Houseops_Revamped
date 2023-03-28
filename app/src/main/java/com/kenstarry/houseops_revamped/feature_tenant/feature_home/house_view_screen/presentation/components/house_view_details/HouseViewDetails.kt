@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.presentation.utils.intents.phoneCallIntent
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.google_map.DetailsGoogleMap
 
 @Composable
@@ -69,18 +70,19 @@ fun HouseViewDetails(
     Spacer(modifier = Modifier.height(spacing))
 
     //  agent information & call / message icons
-//    DetailsAgent(
-//        context = context,
-//        agentEmail = apartmentDetails?.apartmentAgentAssigned ?: "no email",
-//        onCardClicked = {
-//            onAgentClicked(it)
-//        },
-//        onPhoneClicked = { phoneNumber ->
-//            phoneCallIntent(context, phoneNumber)
-//        }
-//    )
+    DetailsAgent(
+        context = context,
+        house = house,
+        agentEmail = apartmentDetails?.apartmentAgentAssigned ?: "no email",
+        onCardClicked = {
+            onAgentClicked(it)
+        },
+        onPhoneClicked = { phoneNumber ->
+            phoneCallIntent(context, phoneNumber)
+        }
+    )
 
-//    Spacer(modifier = Modifier.height(spacing))
+    Spacer(modifier = Modifier.height(spacing))
 
     //  features
     DetailsFeatures(

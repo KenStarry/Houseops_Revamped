@@ -31,7 +31,7 @@ fun ShowGoogleMap(
         mutableStateOf(
             MapProperties(
                 maxZoomPreference = 20f,
-                minZoomPreference = 10f
+                minZoomPreference = 5f
             )
         )
     }
@@ -40,9 +40,11 @@ fun ShowGoogleMap(
         mutableStateOf(
             MapUiSettings(
                 myLocationButtonEnabled = true,
-                scrollGesturesEnabled = true,
-                scrollGesturesEnabledDuringRotateOrZoom = true,
-                mapToolbarEnabled = true
+                scrollGesturesEnabled = false,
+                scrollGesturesEnabledDuringRotateOrZoom = false,
+                mapToolbarEnabled = true,
+                rotationGesturesEnabled = false,
+                tiltGesturesEnabled = false
             )
         )
     }
