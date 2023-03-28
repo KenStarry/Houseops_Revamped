@@ -25,14 +25,10 @@ object CoreModule {
     @Singleton
     fun provideCoreRepository(
         db: FirebaseFirestore,
-        auth: FirebaseAuth,
-        placesClient: PlacesClient,
-        placeFields: List<Place.Field>
+        auth: FirebaseAuth
     ) : CoreRepository = CoreRepositoryImpl(
         db = db,
-        auth = auth,
-        placesClient = placesClient,
-        placeFields = placeFields
+        auth = auth
     )
 
     @Provides

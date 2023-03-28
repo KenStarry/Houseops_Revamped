@@ -3,6 +3,7 @@ package com.kenstarry.houseops_revamped.core.domain.model.events
 import android.content.Context
 import android.net.Uri
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.core.domain.model.PlacesAPIResult
@@ -14,6 +15,7 @@ sealed class CoreEvents {
 
     data class GetPlaceCoordinates(
         val place: PlacesAPIResult,
+        val placesClient: PlacesClient,
         val response: (response: Response<*>) -> Unit
     ) : CoreEvents()
 

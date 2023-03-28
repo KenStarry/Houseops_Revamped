@@ -1,6 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MyLocation
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.kenstarry.houseops_revamped.core.presentation.components.permission_handling.RequestPermission
 
 @Composable
 fun HomeGreetings(
@@ -65,7 +67,12 @@ fun HomeGreetings(
                     text = "No Location",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
+                    modifier = Modifier
+                        .clickable {
+                            //  request location permission
+
+                        }
                 )
 
             }

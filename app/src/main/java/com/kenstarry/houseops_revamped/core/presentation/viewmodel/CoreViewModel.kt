@@ -35,8 +35,8 @@ class CoreViewModel @Inject constructor(
 ) : ViewModel() {
 
     //  Places Api
-    private val _currentLatLong = mutableStateOf(LatLng(0.0, 0.0))
-    val currentLatLong: State<LatLng> = _currentLatLong
+    private val _currentLatLong = mutableStateOf<LatLng?>(null)
+    val currentLatLong: State<LatLng?> = _currentLatLong
 
     val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
     val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
@@ -161,6 +161,7 @@ class CoreViewModel @Inject constructor(
                 viewModelScope.launch {
                     coreUseCases.getPlaceCoordinates(
                         place = event.place,
+                        placesClient = event.placesClient,
                         currentLatLong = {
                             _currentLatLong.value = it
                         },

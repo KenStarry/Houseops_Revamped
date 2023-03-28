@@ -1,6 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import android.Manifest
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,11 +21,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.android.gms.maps.GoogleMapOptions
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.BottomSheet
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
+import com.kenstarry.houseops_revamped.core.presentation.components.permission_handling.RequestPermission
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.model.CategoryEvents
@@ -39,7 +47,7 @@ import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
 @OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalMaterialApi::class
+    ExperimentalMaterialApi::class, ExperimentalPermissionsApi::class
 )
 @Composable
 fun HomeScreen(
@@ -71,10 +79,13 @@ fun HomeScreen(
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val context = LocalContext.current
 
+    val locationPermissionState =
+        rememberPermissionState(permission = android.Manifest.permission.ACCESS_FINE_LOCATION)
+
     coreVM.onEvent(
         CoreEvents.GetApartments(
-        response = {}
-    ))
+            response = {}
+        ))
 
     BottomSheet(
         sheetBackground = MaterialTheme.colorScheme.onPrimary,

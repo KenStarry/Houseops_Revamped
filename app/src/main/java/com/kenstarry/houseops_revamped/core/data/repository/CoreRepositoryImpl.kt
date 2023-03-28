@@ -25,16 +25,16 @@ import javax.inject.Inject
 
 class CoreRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore,
-    private val auth: FirebaseAuth,
-    private val placesClient: PlacesClient,
-    private val placeFields: List<Place.Field>
+    private val auth: FirebaseAuth
 ) : CoreRepository {
 
     override suspend fun getPlaceCoordinates(
         place: PlacesAPIResult,
+        placesClient: PlacesClient,
         currentLatLong: (currentLatLong: LatLng) -> Unit,
         response: (response: Response<*>) -> Unit
     ) {
+        val placeFields = listOf(Place.Field.LAT_LNG)
         val request = FetchPlaceRequest.newInstance(place.placeId, placeFields)
 
         placesClient.fetchPlace(request)

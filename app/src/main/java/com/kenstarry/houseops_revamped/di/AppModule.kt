@@ -54,15 +54,15 @@ object AppModule {
 
     //  Places api
     //  initialize places client
-    @Provides
-    @Singleton
-    fun providePlacesClient(
-        @ApplicationContext context: Context
-    ) = Places.initialize(context, BuildConfig.MAPS_API_KEY)
+//    @Provides
+//    @Singleton
+//    fun providePlacesClient(
+//        @ApplicationContext context: Context
+//    ) = Places.initialize(context, BuildConfig.MAPS_API_KEY)
 
-    @Provides
-    @Singleton
-    fun providePlaceFields(): List<Place.Field> = listOf(Place.Field.LAT_LNG)
+//    @Provides
+//    @Singleton
+//    fun providePlaceFields(): List<Place.Field> = listOf(Place.Field.LAT_LNG)
 }
 
 

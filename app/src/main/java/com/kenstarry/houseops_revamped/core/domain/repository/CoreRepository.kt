@@ -3,6 +3,7 @@ package com.kenstarry.houseops_revamped.core.domain.repository
 import android.content.Context
 import android.net.Uri
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.domain.model.*
 
@@ -10,6 +11,7 @@ interface CoreRepository {
 
     suspend fun getPlaceCoordinates(
         place: PlacesAPIResult,
+        placesClient: PlacesClient,
         currentLatLong: (currentLatLong: LatLng) -> Unit,
         response: (response: Response<*>) -> Unit
     )

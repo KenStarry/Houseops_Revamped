@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
-import com.kenstarry.houseops_revamped.core.presentation.utils.intents.phoneCallIntent
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.google_map.DetailsGoogleMap
 
 @Composable
 fun HouseViewDetails(
@@ -90,6 +90,13 @@ fun HouseViewDetails(
         description = house.houseDescription,
         primaryColor = primaryColor,
         tertiaryColor = tertiaryColor
+    )
+
+    //  google map
+    DetailsGoogleMap(
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor,
+        apartment = apartmentDetails
     )
 
 }

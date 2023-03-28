@@ -1,22 +1,17 @@
 package com.kenstarry.houseops_revamped.core.presentation.components.permission_handling
 
 import androidx.compose.runtime.Composable
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionStatus
-import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
+import com.google.accompanist.permissions.*
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun RequestPermission(
-    permission: String,
+    permissionState: PermissionState,
     deniedMessage: String = "Give HouseOps permission to proceed.",
     rationaleMessage: String = "To proceed with HouseOps, then you need to give us permission",
     deniedContent: @Composable (Boolean) -> Unit,
     content: @Composable () -> Unit
 ) {
-
-    val permissionState = rememberPermissionState(permission = permission)
 
     when (permissionState.status) {
         is PermissionStatus.Granted -> {
