@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
@@ -33,6 +34,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.p
 
 @Composable
 fun ApartmentHouseImages(
+    houseModel: HouseModel?,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
@@ -97,10 +99,12 @@ fun ApartmentHouseImages(
             LazyRow(
                 content = {
                     itemsIndexed(
-                        items = imagesState.listOfSelectedImages
+                        items = houseModel?.houseImageUris
+                            ?: imagesState.listOfSelectedImages
                     ) { index, imageModel ->
                         //  display the images in an image container
                         ImageItem(
+                            houseModel = houseModel,
                             imageUri = imageModel.uri.toUri(),
                             onDelete = {
                                 agentApartmentVM.onEvent(

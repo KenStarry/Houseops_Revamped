@@ -14,6 +14,12 @@ sealed class AgentApartmentEvents {
         val onResponse: (response: Response<*>) -> Unit
     ) : AgentApartmentEvents()
 
+    data class UpdateHouse(
+        val apartmentName: String,
+        val houseModel: HouseModel,
+        val onResponse: (response: Response<*>) -> Unit
+    ) : AgentApartmentEvents()
+
     data class GetApartmentHouses(
         val apartmentName: String,
         val onResponse: (response: Response<*>) -> Unit

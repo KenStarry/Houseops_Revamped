@@ -1,7 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.house_view_details
 
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,9 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
-import com.kenstarry.houseops_revamped.core.presentation.utils.intents.phoneCallIntent
+import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.google_map.DetailsGoogleMap
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM

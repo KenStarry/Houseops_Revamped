@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,9 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
@@ -29,16 +32,19 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseFeatureCardItem
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseFeaturesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun ApartmentHouseFeatures(
+    house: HouseModel?,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
 
     val coreVM = hiltViewModel<CoreViewModel>()
+    val context = LocalContext.current
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
     val listState = rememberLazyListState()
 
@@ -116,7 +122,38 @@ fun ApartmentHouseFeatures(
         }
 
         //  feature item
-        AnimatedVisibility(visible = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.isNotEmpty()) {
+        if(house != null) {
+            LazyRow(
+                content = {
+                    items(agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures) { feature ->
+
+                        //    feature card
+                        HouseFeatureCardItem(
+                            apartmentHouseFeaturesModel = feature,
+                            primaryColor = primaryColor,
+                            tertiaryColor = tertiaryColor,
+                            isSelected = false,
+                            onClick = {
+                                //  open alert dialog
+                                coreVM.onEvent(
+                                    CoreEvents.ToggleAlertDialog(
+                                        dialogType = Constants.APARTMENT_FEATURES_ALERT_DIALOG,
+                                        isDialogVisible = true
+                                    )
+                                )
+                            }
+                        )
+                    }
+                },
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            )
+        }
+
+        AnimatedVisibility(visible = house == null && agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.isNotEmpty()) {
             LazyRow(
                 content = {
                     items(agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures) { feature ->

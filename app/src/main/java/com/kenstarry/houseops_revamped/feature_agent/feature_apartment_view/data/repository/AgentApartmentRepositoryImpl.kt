@@ -1,6 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.data.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.repository.AgentApartmentRepository

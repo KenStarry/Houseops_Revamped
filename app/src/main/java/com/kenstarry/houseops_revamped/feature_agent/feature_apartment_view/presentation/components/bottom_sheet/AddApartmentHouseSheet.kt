@@ -26,6 +26,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseCategoriesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 
 @Composable
 fun AddApartmentHouseSheet(
@@ -42,45 +43,7 @@ fun AddApartmentHouseSheet(
     val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
 
-    if (house == null) {
-
-//        //  set category
-//        agentApartmentVM.onEvent(
-//            AgentApartmentEvents.SelectHouseCategory(
-//                "Pick House Category"
-//            )
-//        )
-//
-//        //  set images
-//        agentApartmentVM.onEvent(
-//            AgentApartmentEvents.ClearGalleryImages
-//        )
-//
-//        //  set pricing
-//        agentApartmentVM.onEvent(
-//            AgentApartmentEvents.SelectHousePrice(
-//                ""
-//            )
-//        )
-//
-//        //  set vacant units
-//        agentApartmentVM.onEvent(
-//            AgentApartmentEvents.SelectVacantUnits(
-//                0
-//            )
-//        )
-//
-//        //  set features
-//
-//
-//        //  set description
-//        agentApartmentVM.onEvent(
-//            AgentApartmentEvents.SelectHouseDescription(
-//                ""
-//            )
-//        )
-
-    } else {
+    if (house != null) {
         //  set category
         agentApartmentVM.onEvent(
             AgentApartmentEvents.SelectHouseCategory(
@@ -110,6 +73,15 @@ fun AddApartmentHouseSheet(
         )
 
         //  set features
+        house.houseFeatures.forEach { houseFeature ->
+            agentApartmentVM.onEvent(
+                AgentApartmentEvents.AddFeature(
+                    AgentApartmentConstants.featureOptionsList.first { feature ->
+                        houseFeature == feature.title
+                    }
+                )
+            )
+        }
 
 
         //  set description
@@ -199,18 +171,21 @@ fun AddApartmentHouseSheet(
 
         //  house category
         ApartmentHouseCategory(
+            house = house,
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
         )
 
         //  apartment house images
         ApartmentHouseImages(
+            houseModel = house,
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
         )
 
         //  house price
         ApartmentHousePrice(
+            house = house,
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
         )
@@ -223,6 +198,7 @@ fun AddApartmentHouseSheet(
 
         //  house features
         ApartmentHouseFeatures(
+            house = house,
             primaryColor = primaryColor,
             tertiaryColor = tertiaryColor
         )
@@ -248,20 +224,34 @@ fun AddApartmentHouseSheet(
                 agentApartmentVM.selectedHouseCategory.value,
 
             housePurchaseType = "For Rent",
-            houseImageUris = emptyList(),
-            houseUnits = agentApartmentVM.selectedVacantUnits.value.toString(),
-            houseFeatures = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.map { it.title },
-            houseDescription = agentApartmentVM.selectedHouseDescription.value,
+
+            houseImageUris = house?.houseImageUris
+                ?: emptyList(),
+
+            houseUnits = house?.houseUnits
+                ?: agentApartmentVM.selectedVacantUnits.value.toString(),
+
+            houseFeatures = house?.houseFeatures
+                ?: agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.map { it.title },
+
+            houseDescription = house?.houseDescription
+                ?: agentApartmentVM.selectedHouseDescription.value,
+
             houseLikes = "",
             houseApartmentName = apartmentName,
-            housePrice = agentApartmentVM.selectedHousePrice.value,
-            housePriceCategory = "monthly",
+            housePrice = house?.housePrice
+                ?: agentApartmentVM.selectedHousePrice.value,
+
+            housePriceCategory = house?.housePriceCategory
+                ?: "monthly",
             houseComments = "",
-            houseUsersBooked = emptyList()
+            houseUsersBooked = house?.houseUsersBooked
+                ?: emptyList()
         )
 
         if (house != null) {
-            Button(onClick = { onDone(houseModel) }) {
+
+            Button(onClick = { onUpdate(houseModel) }) {
                 Text(text = "Update")
             }
         } else {

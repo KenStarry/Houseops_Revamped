@@ -90,16 +90,16 @@ fun AgentApartmentView(
                             onDone = { house ->
 
                                 //  formatted price
-                                val formattedHouse = house.copy(
-                                    housePrice = NumberFormat.getIntegerInstance()
-                                        .format(house.housePrice.toInt())
-                                        .toString()
-                                )
+//                                val formattedHouse = house.copy(
+//                                    housePrice = NumberFormat.getIntegerInstance()
+//                                        .format(house.housePrice.toInt())
+//                                        .toString()
+//                                )
 
                                 //  submit house to firebase
                                 agentApartmentVM.onEvent(AgentApartmentEvents.AddHouse(
                                     apartmentName = apartmentName,
-                                    houseModel = formattedHouse,
+                                    houseModel = house,
                                     onResponse = { res ->
                                         when (res) {
                                             is Response.Success -> {
@@ -143,7 +143,47 @@ fun AgentApartmentView(
                                     )
                                 )
                             },
-                            onUpdate = {},
+                            onUpdate = { house ->
+
+                                val newHouseModel = house.copy(
+                                    houseCategory = agentApartmentVM.selectedHouseCategory.value,
+                                    houseUnits = agentApartmentVM.selectedVacantUnits.value.toString(),
+                                    houseFeatures = agentApartmentVM.selectedFeaturesState.listOfSelectedFeatures.map { it.title },
+                                    housePrice = agentApartmentVM.selectedHousePrice.value,
+                                    houseDescription = agentApartmentVM.selectedHouseDescription.value
+                                )
+
+                                //  submit house to firebase
+                                agentApartmentVM.onEvent(AgentApartmentEvents.UpdateHouse(
+                                    apartmentName = apartmentName,
+                                    houseModel = newHouseModel,
+                                    onResponse = { res ->
+                                        when (res) {
+                                            is Response.Success -> {
+                                                Toast.makeText(
+                                                    context,
+                                                    "House updated successfully",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                            is Response.Failure -> {
+                                                Toast.makeText(
+                                                    context,
+                                                    "${res.error}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                    }
+                                ))
+
+                                // close bottomsheet
+                                coreVM.onBottomSheetEvent(
+                                    BottomSheetEvents.CloseBottomSheet(
+                                        state, scope
+                                    )
+                                )
+                            },
                             onCancel = {}
                         )
                     }

@@ -11,6 +11,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.ImagesState
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.AgentApartmentUseCases
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.model.ApartmentHouseFeaturesModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,6 +48,16 @@ class AgentApartmentViewModel @Inject constructor(
             is AgentApartmentEvents.AddHouse -> {
                 viewModelScope.launch {
                     useCases.addHouseToFirestore(
+                        apartmentName = event.apartmentName,
+                        houseModel = event.houseModel,
+                        onResponse = event.onResponse
+                    )
+                }
+            }
+
+            is AgentApartmentEvents.UpdateHouse -> {
+                viewModelScope.launch {
+                    useCases.updateHouseInFirestore(
                         apartmentName = event.apartmentName,
                         houseModel = event.houseModel,
                         onResponse = event.onResponse

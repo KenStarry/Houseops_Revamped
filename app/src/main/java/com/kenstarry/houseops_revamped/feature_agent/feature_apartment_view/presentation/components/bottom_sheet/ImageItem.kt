@@ -12,11 +12,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.core.presentation.components.CoilImage
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @Composable
 fun ImageItem(
+    houseModel: HouseModel?,
     imageUri: Uri,
     primaryColor: Color,
     tertiaryColor: Color,
@@ -42,21 +44,23 @@ fun ImageItem(
                 .size(150.dp)
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        if (houseModel == null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
-            //  delete button
-            HomePillBtns(
-                icon = Icons.Outlined.DeleteForever,
-                title = "Delete",
-                primaryColor = primaryColor,
-                tertiaryColor = tertiaryColor,
-                onClick = onDelete
-            )
+                //  delete button
+                HomePillBtns(
+                    icon = Icons.Outlined.DeleteForever,
+                    title = "Delete",
+                    primaryColor = primaryColor,
+                    tertiaryColor = tertiaryColor,
+                    onClick = onDelete
+                )
+            }
         }
     }
 

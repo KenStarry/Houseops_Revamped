@@ -2,5 +2,6 @@ package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.dom
 
 data class AgentApartmentUseCases(
     val getApartmentHouses: GetApartmentHouses,
-    val addHouseToFirestore: AddHouseToFirestore
+    val addHouseToFirestore: AddHouseToFirestore,
+    val updateHouseInFirestore: UpdateHouseInFirestore
 )

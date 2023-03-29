@@ -1,25 +1,27 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.bottom_sheet
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AlternateEmail
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.PriceChange
-import androidx.compose.material.icons.outlined.PriceCheck
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.outlined.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.model.AgentApartmentEvents
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.NumberCommaTransformation
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
@@ -27,16 +29,19 @@ import com.kenstarry.houseops_revamped.feature_authentication.presentation.login
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 import java.text.NumberFormat
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApartmentHousePrice(
+    house: HouseModel?,
     primaryColor: Color,
     tertiaryColor: Color
 ) {
 
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
-    val pricing = remember {
-        agentApartmentVM.selectedHousePrice
+    var pricing by remember {
+        mutableStateOf(house?.housePrice ?: agentApartmentVM.selectedHousePrice.value)
     }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -65,20 +70,66 @@ fun ApartmentHousePrice(
                     .weight(2f),
                 contentAlignment = Alignment.Center
             ) {
-                CustomTextField(
-                    textFieldValue = agentApartmentVM.selectedHousePrice.value,
-                    startIcon = Icons.Outlined.PriceCheck,
-                    endIcon = null,
-                    placeholder = "House Price",
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Number,
-                    primaryColor = primaryColor,
-                    tertiaryColor = tertiaryColor,
-                    visualTransformation = NumberCommaTransformation(),
-                    onInput = {
-                        agentApartmentVM.onEvent(AgentApartmentEvents.SelectHousePrice(it))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .size(40.dp)
+                            .background(tertiaryColor),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.MonetizationOn,
+                            contentDescription = "icon",
+                            tint = primaryColor
+                        )
                     }
-                )
+
+                    TextField(
+                        value = pricing,
+                        onValueChange = {
+                            pricing = if (it.isNotBlank() || it.isNotEmpty()) {
+                                NumberFormat.getIntegerInstance()
+                                    .format(it.replace(",", "").toLong())
+                                    .toString()
+                            } else {
+                                it
+                            }
+                            agentApartmentVM.onEvent(AgentApartmentEvents.SelectHousePrice(pricing))
+                        },
+                        placeholder = {
+                            Text(text = "Price")
+                        },
+                        maxLines = 1,
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.None,
+                            imeAction = ImeAction.Done,
+                            keyboardType = KeyboardType.Number
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth(),
+
+                        singleLine = true,
+
+                        colors = TextFieldDefaults.textFieldColors(
+                            containerColor = MaterialTheme.colorScheme.onPrimary,
+                            cursorColor = primaryColor,
+                            unfocusedIndicatorColor = tertiaryColor,
+                            focusedIndicatorColor = primaryColor
+                        ),
+
+                        textStyle = TextStyle(
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                            fontWeight = FontWeight.Normal
+                        )
+                    )
+                }
             }
 
             Row(

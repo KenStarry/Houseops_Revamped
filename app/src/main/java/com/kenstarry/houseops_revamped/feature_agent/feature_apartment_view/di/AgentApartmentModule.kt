@@ -6,6 +6,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.AddHouseToFirestore
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.AgentApartmentUseCases
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.GetApartmentHouses
+import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.domain.use_cases.UpdateHouseInFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +29,8 @@ object AgentApartmentModule {
         repository: AgentApartmentRepository
     ) = AgentApartmentUseCases(
         getApartmentHouses = GetApartmentHouses(repository),
-        addHouseToFirestore = AddHouseToFirestore(repository)
+        addHouseToFirestore = AddHouseToFirestore(repository),
+        updateHouseInFirestore = UpdateHouseInFirestore(repository)
     )
 }
 
