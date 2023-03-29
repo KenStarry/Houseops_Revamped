@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation
 
+import android.content.res.Resources
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,9 +19,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.BottomSheet
@@ -56,6 +60,7 @@ fun HouseViewScreen(
     val houseViewVM: HouseViewVM = hiltViewModel()
     val coreVM: CoreViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
+    val context = LocalContext.current
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -72,7 +77,6 @@ fun HouseViewScreen(
     val currentUser = coreVM.currentUser()
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val direction = Direction(navHostController)
-    val context = LocalContext.current
 
     houseViewVM.getHouse(apartment, category)
     houseViewVM.onEvent(HouseViewEvents.GetApartment(

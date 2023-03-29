@@ -77,6 +77,7 @@ fun HouseViewDetails(
         context = context,
         house = house,
         agentEmail = apartmentDetails?.apartmentAgentAssigned ?: "no email",
+        primaryColor = primaryColor,
         onCardClicked = {
             onAgentClicked(it)
         },

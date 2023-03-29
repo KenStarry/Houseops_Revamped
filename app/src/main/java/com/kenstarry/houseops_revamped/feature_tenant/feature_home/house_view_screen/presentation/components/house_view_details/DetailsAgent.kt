@@ -1,6 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.house_view_details
 
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -12,6 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -35,6 +38,7 @@ fun DetailsAgent(
     context: Context,
     house: HouseModel,
     agentEmail: String,
+    primaryColor: Color,
     onCardClicked: (agent: UsersCollection) -> Unit,
     onPhoneClicked: (phone: String) -> Unit
 ) {
@@ -70,11 +74,65 @@ fun DetailsAgent(
             permissionState = phonePermissionState,
             deniedContent = {
 
-                Button(onClick = {
-                    phonePermissionState.launchPermissionRequest()
-                }) {
-                    Text(text = "Give call permission")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.undraw_phone_call_re_hx6a),
+                        contentDescription = "Phone call SVG",
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(100.dp)
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .weight(1f),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+
+                        Text(
+                            text = "Phone Permission",
+                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.9f)
+                        )
+
+                        Text(
+                            text = "Grant access to make phone calls to HouseOps agents.",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            fontWeight = FontWeight.Normal,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        )
+
+                        TextButton(
+                            onClick = {
+                                phonePermissionState.launchPermissionRequest()
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onPrimary,
+                                contentColor = primaryColor
+                            ),
+                            contentPadding = PaddingValues(0.dp)
+                        ) {
+                            Text(
+                                text = "Grant permission",
+                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
+                    }
+
                 }
+
 
             },
             content = {
