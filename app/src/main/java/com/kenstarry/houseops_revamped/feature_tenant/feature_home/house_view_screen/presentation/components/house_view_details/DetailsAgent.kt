@@ -132,8 +132,6 @@ fun DetailsAgent(
                     }
 
                 }
-
-
             },
             content = {
                 Card(
