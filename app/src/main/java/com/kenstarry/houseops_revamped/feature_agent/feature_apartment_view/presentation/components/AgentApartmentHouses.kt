@@ -1,9 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components
 
 import android.content.Context
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -47,7 +45,8 @@ fun AgentApartmentHouses(
 
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
@@ -169,7 +168,8 @@ fun AgentApartmentHouses(
             },
             state = listState,
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxWidth()
+                .height(500.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         )
 

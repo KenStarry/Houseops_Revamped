@@ -89,13 +89,6 @@ fun AgentApartmentView(
                             tertiaryColor = tertiaryColor,
                             onDone = { house ->
 
-                                //  formatted price
-//                                val formattedHouse = house.copy(
-//                                    housePrice = NumberFormat.getIntegerInstance()
-//                                        .format(house.housePrice.toInt())
-//                                        .toString()
-//                                )
-
                                 //  submit house to firebase
                                 agentApartmentVM.onEvent(AgentApartmentEvents.AddHouse(
                                     apartmentName = apartmentName,

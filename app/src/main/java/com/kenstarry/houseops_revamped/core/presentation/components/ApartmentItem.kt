@@ -1,4 +1,4 @@
-package com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.apartment_item
+package com.kenstarry.houseops_revamped.core.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -16,11 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
-import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
 
 @OptIn(ExperimentalFoundationApi::class)

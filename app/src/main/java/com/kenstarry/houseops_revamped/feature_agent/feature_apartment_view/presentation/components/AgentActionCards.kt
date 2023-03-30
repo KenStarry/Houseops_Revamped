@@ -35,7 +35,7 @@ fun AgentActionCards(
             .fillMaxWidth()
             .wrapContentHeight(),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
         //  title
