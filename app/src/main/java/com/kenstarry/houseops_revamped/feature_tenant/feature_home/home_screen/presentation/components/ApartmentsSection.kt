@@ -76,6 +76,7 @@ fun ApartmentsSection(
                                 width = 250.dp,
                                 height = 150.dp
                             ),
+                        apartment = it,
                         primaryColor = primaryColor,
                         tertiaryColor = tertiaryColor
                     )

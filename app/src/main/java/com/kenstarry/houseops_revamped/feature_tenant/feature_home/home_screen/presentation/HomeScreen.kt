@@ -79,9 +79,6 @@ fun HomeScreen(
     val userDetails = coreVM.getUserDetails(currentUser?.email ?: "no email")
     val context = LocalContext.current
 
-    val locationPermissionState =
-        rememberPermissionState(permission = android.Manifest.permission.ACCESS_FINE_LOCATION)
-
     coreVM.onEvent(
         CoreEvents.GetApartments(
             response = {}

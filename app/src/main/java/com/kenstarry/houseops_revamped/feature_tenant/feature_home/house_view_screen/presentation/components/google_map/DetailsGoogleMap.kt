@@ -43,7 +43,6 @@ fun DetailsGoogleMap(
     )
     val coreVM: CoreViewModel = hiltViewModel()
     val context = LocalContext.current
-    val inDarkTheme = isSystemInDarkTheme()
 
     RequestPermission(
         permissionState = locationPermissionState,
