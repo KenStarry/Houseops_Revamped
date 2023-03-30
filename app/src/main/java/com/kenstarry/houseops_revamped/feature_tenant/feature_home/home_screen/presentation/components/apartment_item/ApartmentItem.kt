@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowRight
-import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.MoreVert
-import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -53,7 +50,7 @@ fun ApartmentItem(
                     .fillMaxSize()
                     .padding(8.dp),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
 
                 //  header title icon
@@ -73,7 +70,7 @@ fun ApartmentItem(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = aptmt.apartmentName.first().toString(),
+                            text = aptmt.apartmentName.first().uppercase().toString(),
                             fontSize = MaterialTheme.typography.titleSmall.fontSize,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
@@ -100,7 +97,7 @@ fun ApartmentItem(
                                 .clip(RoundedCornerShape(16.dp))
                                 .fillMaxWidth()
                                 .wrapContentHeight()
-                                .background(tertiaryColor)
+                                .background(MaterialTheme.colorScheme.onSecondary)
                                 .padding(8.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -138,6 +135,26 @@ fun ApartmentItem(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
+
+                //  view apartment button
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    HomePillBtns(
+                        icon = Icons.Outlined.UnfoldMore,
+                        title = "View apartment",
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        containerColor = MaterialTheme.colorScheme.onSecondary,
+                        contentColor = primaryColor
+                    ) {
+
+                    }
+                }
 
             }
 
