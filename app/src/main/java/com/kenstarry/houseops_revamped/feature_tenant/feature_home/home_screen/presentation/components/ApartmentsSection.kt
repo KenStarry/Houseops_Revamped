@@ -10,6 +10,8 @@ import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.presentation.components.ApartmentItem
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -25,10 +28,18 @@ fun ApartmentsSection(
     allApartments: List<Apartment>,
     title: String,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onViewApartmentClicked: (apartment: Apartment) -> Unit
 ) {
 
     val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(key1 = Unit) {
+        scope.launch {
+            listState.animateScrollToItem(index = 0)
+        }
+    }
 
     Column(
         modifier = modifier,
@@ -75,7 +86,10 @@ fun ApartmentsSection(
                             ),
                         apartment = it,
                         primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor
+                        tertiaryColor = tertiaryColor,
+                        onViewClicked = {
+                            onViewApartmentClicked(it)
+                        }
                     )
                  }
             },

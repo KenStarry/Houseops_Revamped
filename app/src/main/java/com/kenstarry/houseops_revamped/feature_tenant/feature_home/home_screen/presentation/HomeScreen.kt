@@ -284,7 +284,10 @@ fun HomeScreen(
                                 allApartments = coreVM.allApartments.value,
                                 title = "Apartments",
                                 primaryColor = primaryColor,
-                                tertiaryColor = tertiaryColor
+                                tertiaryColor = tertiaryColor,
+                                onViewApartmentClicked = { apartment ->
+
+                                }
                             )
 
                             Spacer(modifier = Modifier.height(64.dp))

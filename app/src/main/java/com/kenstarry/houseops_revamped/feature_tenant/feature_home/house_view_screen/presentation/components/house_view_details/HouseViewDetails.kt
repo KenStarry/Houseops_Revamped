@@ -43,6 +43,14 @@ fun HouseViewDetails(
 
     Spacer(modifier = Modifier.height(spacing))
 
+    DetailsVacant(
+        vacantHouses = house.houseUnits.toInt(),
+        primaryColor = primaryColor,
+        tertiaryColor = tertiaryColor
+    )
+
+    Spacer(modifier = Modifier.height(spacing))
+
     //  action icons
     DetailActionIcons(
         house = house,

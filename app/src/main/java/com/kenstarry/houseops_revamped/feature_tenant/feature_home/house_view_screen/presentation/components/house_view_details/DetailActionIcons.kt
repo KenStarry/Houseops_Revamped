@@ -1,5 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.house_view_details
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -24,6 +26,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.p
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.house_item.BookmarkIcon
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel as HouseModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DetailActionIcons(
     house: HouseModel,
@@ -53,7 +56,10 @@ fun DetailActionIcons(
                 text = "Ksh. ${house.housePrice}",
                 fontWeight = FontWeight.ExtraBold,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 1,
+                modifier = Modifier
+                    .basicMarquee()
             )
 
             HomePillBtns(

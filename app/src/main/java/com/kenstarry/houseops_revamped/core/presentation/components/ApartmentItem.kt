@@ -25,7 +25,8 @@ fun ApartmentItem(
     modifier: Modifier = Modifier,
     apartment: Apartment?,
     primaryColor: Color,
-    tertiaryColor: Color
+    tertiaryColor: Color,
+    onViewClicked: () -> Unit
 ) {
 
     apartment?.let { aptmt ->
@@ -57,7 +58,7 @@ fun ApartmentItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    //  apartment first letter
+                    //  apartment icon
                     Box(
                         modifier = Modifier
                             .clip(CircleShape)
@@ -65,11 +66,10 @@ fun ApartmentItem(
                             .background(tertiaryColor),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = aptmt.apartmentName.first().uppercase().toString(),
-                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                        Icon(
+                            imageVector = Icons.Outlined.Apartment,
+                            contentDescription = "Apartment icon",
+                            tint = primaryColor
                         )
                     }
 
@@ -148,7 +148,7 @@ fun ApartmentItem(
                         containerColor = MaterialTheme.colorScheme.onSecondary,
                         contentColor = primaryColor
                     ) {
-
+                        onViewClicked()
                     }
                 }
 
