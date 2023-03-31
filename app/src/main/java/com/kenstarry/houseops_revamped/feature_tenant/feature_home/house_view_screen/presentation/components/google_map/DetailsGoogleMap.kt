@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.google_map
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.kenstarry.houseops_revamped.BuildConfig
 import com.kenstarry.houseops_revamped.R
+import com.kenstarry.houseops_revamped.core.data.repository.LocationService
 import com.kenstarry.houseops_revamped.core.domain.model.Apartment
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
 import com.kenstarry.houseops_revamped.core.presentation.components.permission_handling.RequestPermission

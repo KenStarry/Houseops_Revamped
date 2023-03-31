@@ -16,6 +16,7 @@ data class CoreUseCases(
     val uploadSingleImageToStorage: UploadSingleImageToStorage,
     val verificationEmail: VerificationEmail,
     val deleteDocument: DeleteDocument,
-    val getPlaceCoordinates: GetPlaceCoordinates
+    val getPlaceCoordinates: GetPlaceCoordinates,
+    val getCurrentLocation: GetCurrentLocation
 ) {
 }

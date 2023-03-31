@@ -1,13 +1,16 @@
 package com.kenstarry.houseops_revamped.core.di
 
 import android.content.Context
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
 import com.kenstarry.houseops_revamped.core.data.repository.CoreRepositoryImpl
+import com.kenstarry.houseops_revamped.core.data.repository.LocationClientImpl
 import com.kenstarry.houseops_revamped.core.domain.repository.CoreRepository
+import com.kenstarry.houseops_revamped.core.domain.repository.LocationClient
 import com.kenstarry.houseops_revamped.core.domain.use_cases.*
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.data.datastore.AccentPreference
 import dagger.Module
@@ -33,8 +36,19 @@ object CoreModule {
 
     @Provides
     @Singleton
+    fun provideLocationClient(
+        @ApplicationContext context: Context,
+        client: FusedLocationProviderClient
+    ) : LocationClient = LocationClientImpl(
+        context = context,
+        client = client
+    )
+
+    @Provides
+    @Singleton
     fun provideCoreUseCase(
-        repo: CoreRepository
+        repo: CoreRepository,
+        client: LocationClient
     ) = CoreUseCases(
         isUserLoggedIn = IsUserLoggedIn(repo),
         currentUser = CurrentUser(repo),
@@ -51,7 +65,8 @@ object CoreModule {
         uploadSingleImageToStorage = UploadSingleImageToStorage(repo),
         verificationEmail = VerificationEmail(repo),
         deleteDocument = DeleteDocument(repo),
-        getPlaceCoordinates = GetPlaceCoordinates(repo)
+        getPlaceCoordinates = GetPlaceCoordinates(repo),
+        getCurrentLocation = GetCurrentLocation(client)
     )
 
     //  provide datastore accent preference

@@ -1,6 +1,11 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.location.LocationManager
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,9 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.android.gms.location.*
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
@@ -48,6 +55,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_sc
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreen
+import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
@@ -61,6 +69,71 @@ fun HouseViewScreen(
     val coreVM: CoreViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
     val context = LocalContext.current
+
+//    val fusedLocationClient = remember {
+//        LocationServices.getFusedLocationProviderClient(context)
+//    }
+//
+//    LaunchedEffect(key1 = true) {
+//        try {
+//
+//            val location = if (ActivityCompat.checkSelfPermission(
+//                    context,
+//                    Manifest.permission.ACCESS_FINE_LOCATION
+//                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                    context,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION
+//                ) != PackageManager.PERMISSION_GRANTED
+//            ) {
+//                null
+//            } else {
+//
+//                val locationRequest = LocationRequest.Builder(
+//                    Priority.PRIORITY_HIGH_ACCURACY, 1000
+//                )
+//
+//                val locationCallback = object : LocationCallback() {
+//                    override fun onLocationResult(locationResult: LocationResult) {
+//                        locationResult ?: return
+//
+//                        val lat = locationResult.lastLocation?.latitude
+//                        val long = locationResult.lastLocation?.longitude
+//                    }
+//                }
+//
+//                fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
+//            }
+//
+//        } catch (e: Exception) {
+//            Log.d("location", "Error : ${e.message}")
+//        }
+//    }
+
+//    val locationManager = remember {
+//        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//    }
+//
+//    val location = remember {
+//        if (ActivityCompat.checkSelfPermission(
+//                context,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                context,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            Toast.makeText(context, "permission denied", Toast.LENGTH_SHORT).show()
+//        } else {
+//            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//        }
+//    }
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(

@@ -7,6 +7,7 @@ import android.content.res.Resources
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.location.LocationServices
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
@@ -32,6 +33,13 @@ object AppModule {
     fun provideResources(
         @ApplicationContext context: Context
     ): Resources = context.resources
+
+    //  provide fused location
+    @Provides
+    @Singleton
+    fun provideFusedLocationClient(
+        @ApplicationContext context: Context
+    ) = LocationServices.getFusedLocationProviderClient(context)
 
     //  FIREBASE
     //  Firestore instance

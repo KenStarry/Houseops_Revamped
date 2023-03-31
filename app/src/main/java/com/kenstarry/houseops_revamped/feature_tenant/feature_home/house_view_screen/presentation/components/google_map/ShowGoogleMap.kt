@@ -1,5 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.components.google_map
 
+import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -22,8 +24,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.compose.*
 import com.kenstarry.houseops_revamped.R
+import com.kenstarry.houseops_revamped.core.data.repository.LocationService
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.viewmodel.CoreViewModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.utils.SettingsConstants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.viewmodel.SettingsViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun ShowGoogleMap(
@@ -33,13 +44,39 @@ fun ShowGoogleMap(
     tertiaryColor: Color
 ) {
 
+    val servicesScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val context = LocalContext.current
+    val coreVM: CoreViewModel = hiltViewModel()
     val settingsVM: SettingsViewModel = hiltViewModel()
     //  check if system is in dark theme or light theme
     val savedTheme = settingsVM.themeFlow.collectAsState(initial = null).value
     val inDarkTheme = isSystemInDarkTheme()
 
     savedTheme?.let {
+
+        var lat by remember {
+            mutableStateOf(0.0)
+        }
+        var lng by remember {
+            mutableStateOf(0.0)
+        }
+
+        //  get user location
+//        Intent(context, LocationService::class.java).apply {
+//            action = LocationService.ACTION_START_LOCATION_TRACKING
+//            context.startService(this)
+//        }
+        coreVM.onEvent(CoreEvents.GetCurrentLocation(1000L))
+
+        coreVM.userCurrentLocation.value
+            ?.catch { e -> Log.d("location", "Error occurred : $e") }
+            ?.onEach { location ->
+                lat = location.latitude
+                lng = location.longitude
+            }
+            ?.launchIn(servicesScope)
+
+        Log.d("location", "LatLng($lat, $lng)")
 
         val mapProperties by remember {
             mutableStateOf(
@@ -120,6 +157,9 @@ fun ShowGoogleMap(
                         .wrapContentHeight()
                 )
             }
+
+            //  let user toggle location tracking
+
 
             GoogleMap(
                 modifier = Modifier

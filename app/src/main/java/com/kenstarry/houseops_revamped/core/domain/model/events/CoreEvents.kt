@@ -13,6 +13,10 @@ import com.kenstarry.houseops_revamped.core.presentation.model.OptionsToggleMode
 
 sealed class CoreEvents {
 
+    data class GetCurrentLocation(
+        val interval: Long
+    ) : CoreEvents()
+
     data class GetPlaceCoordinates(
         val place: PlacesAPIResult,
         val placesClient: PlacesClient,

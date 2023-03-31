@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.core.presentation.viewmodel
 
+import android.location.Location
 import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
@@ -37,6 +38,10 @@ class CoreViewModel @Inject constructor(
     //  Places Api
     private val _currentLatLong = mutableStateOf<LatLng?>(null)
     val currentLatLong: State<LatLng?> = _currentLatLong
+
+    //  user current location
+    private val _userCurrentLocation = mutableStateOf<Flow<Location>?>(null)
+    val userCurrentLocation: State<Flow<Location>?> = _userCurrentLocation
 
     val primaryAccentFlow: Flow<Int?> get() = accentPreference.getPrimaryAccent
     val tertiaryAccentFlow: Flow<Int?> get() = accentPreference.getTertiaryAccent
@@ -156,6 +161,10 @@ class CoreViewModel @Inject constructor(
     fun onEvent(event: CoreEvents) {
 
         when (event) {
+
+            is CoreEvents.GetCurrentLocation -> {
+                _userCurrentLocation.value = coreUseCases.getCurrentLocation(event.interval)
+            }
 
             is CoreEvents.GetPlaceCoordinates -> {
                 viewModelScope.launch {
