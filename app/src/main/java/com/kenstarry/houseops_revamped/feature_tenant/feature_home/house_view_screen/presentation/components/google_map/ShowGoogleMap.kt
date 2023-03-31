@@ -44,39 +44,13 @@ fun ShowGoogleMap(
     tertiaryColor: Color
 ) {
 
-    val servicesScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val context = LocalContext.current
-    val coreVM: CoreViewModel = hiltViewModel()
     val settingsVM: SettingsViewModel = hiltViewModel()
     //  check if system is in dark theme or light theme
     val savedTheme = settingsVM.themeFlow.collectAsState(initial = null).value
     val inDarkTheme = isSystemInDarkTheme()
 
     savedTheme?.let {
-
-        var lat by remember {
-            mutableStateOf(0.0)
-        }
-        var lng by remember {
-            mutableStateOf(0.0)
-        }
-
-        //  get user location
-//        Intent(context, LocationService::class.java).apply {
-//            action = LocationService.ACTION_START_LOCATION_TRACKING
-//            context.startService(this)
-//        }
-        coreVM.onEvent(CoreEvents.GetCurrentLocation(1000L))
-
-        coreVM.userCurrentLocation.value
-            ?.catch { e -> Log.d("location", "Error occurred : $e") }
-            ?.onEach { location ->
-                lat = location.latitude
-                lng = location.longitude
-            }
-            ?.launchIn(servicesScope)
-
-        Log.d("location", "LatLng($lat, $lng)")
 
         val mapProperties by remember {
             mutableStateOf(

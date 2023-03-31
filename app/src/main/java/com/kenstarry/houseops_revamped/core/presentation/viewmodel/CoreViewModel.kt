@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.core.presentation.viewmodel
 
+import android.location.Geocoder
 import android.location.Location
 import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
@@ -13,10 +14,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseUser
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
-import com.kenstarry.houseops_revamped.core.domain.model.AlertDialogProperties
-import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.core.domain.model.Caretaker
-import com.kenstarry.houseops_revamped.core.domain.model.UsersCollection
+import com.kenstarry.houseops_revamped.core.domain.model.*
 import com.kenstarry.houseops_revamped.core.domain.model.events.AlertDialogEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
@@ -32,7 +30,8 @@ import javax.inject.Inject
 class CoreViewModel @Inject constructor(
     private val coreUseCases: CoreUseCases,
     private val accentPreference: AccentPreference,
-    private val userDetailsPreference: UserDetailsPreference
+    private val userDetailsPreference: UserDetailsPreference,
+    private val geocoder: Geocoder
 ) : ViewModel() {
 
     //  Places Api
@@ -176,6 +175,28 @@ class CoreViewModel @Inject constructor(
                         },
                         response = event.response
                     )
+                }
+            }
+
+            is CoreEvents.GetLocationAddressName -> {
+                viewModelScope.launch {
+                    val addresses = geocoder.getFromLocation(
+                        event.latLngModel.latitude,
+                        event.latLngModel.longitude,
+                        1
+                    )
+
+                    addresses?.let {
+                        //  pass the addresses to our event
+                        event.address(
+                            LocationAddresses(
+                                addressLine = it[0].getAddressLine(0) ?: "",
+                                locality = it[0].locality ?: "",
+                                subLocality = it[0].subLocality ?: "",
+                                country = it[0].countryName ?: ""
+                            )
+                        )
+                    }
                 }
             }
 

@@ -4,11 +4,9 @@ import android.content.Context
 import android.net.Uri
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.net.PlacesClient
-import com.kenstarry.houseops_revamped.core.domain.model.Apartment
-import com.kenstarry.houseops_revamped.core.domain.model.ImageModel
-import com.kenstarry.houseops_revamped.core.domain.model.PlacesAPIResult
-import com.kenstarry.houseops_revamped.core.domain.model.Response
+import com.kenstarry.houseops_revamped.core.domain.model.*
 import com.kenstarry.houseops_revamped.core.presentation.model.AccentColor
+import com.kenstarry.houseops_revamped.core.presentation.model.LatLngModel
 import com.kenstarry.houseops_revamped.core.presentation.model.OptionsToggleModel
 
 sealed class CoreEvents {
@@ -21,6 +19,11 @@ sealed class CoreEvents {
         val place: PlacesAPIResult,
         val placesClient: PlacesClient,
         val response: (response: Response<*>) -> Unit
+    ) : CoreEvents()
+
+    data class GetLocationAddressName(
+        val latLngModel: LatLngModel,
+        val address: (locationAddress: LocationAddresses) -> Unit
     ) : CoreEvents()
 
     data class SendVerificationEmail(

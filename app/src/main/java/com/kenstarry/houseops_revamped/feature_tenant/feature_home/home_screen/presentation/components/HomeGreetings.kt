@@ -14,12 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.kenstarry.houseops_revamped.core.domain.model.LocationAddresses
 import com.kenstarry.houseops_revamped.core.presentation.components.permission_handling.RequestPermission
+import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.utils.HomeUtils
 
 @Composable
 fun HomeGreetings(
     modifier: Modifier = Modifier,
-    userName: String
+    userName: String,
+    location: LocationAddresses?,
+    onRequestPermission: () -> Unit
 ) {
 
     Column(
@@ -44,7 +48,8 @@ fun HomeGreetings(
         ) {
 
             Text(
-                text = userName,
+                text = HomeUtils.getNthWord(userName, 1) +
+                        " ${HomeUtils.getNthWord(userName, 2).firstOrNull()}.",
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -64,14 +69,18 @@ fun HomeGreetings(
                 )
 
                 Text(
-                    text = "No Location",
+                    text = if (location == null)
+                        "No location"
+                    else
+                        "${location.locality}, ${location.country}",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = MaterialTheme.typography.bodyMedium.fontWeight,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f),
                     modifier = Modifier
                         .clickable {
                             //  request location permission
-
+                            if (location == null)
+                                onRequestPermission()
                         }
                 )
 
