@@ -12,7 +12,8 @@ import com.kenstarry.houseops_revamped.core.presentation.model.OptionsToggleMode
 sealed class CoreEvents {
 
     data class GetCurrentLocation(
-        val interval: Long
+        val interval: Long,
+        val onResponse: (response: Response<*>) -> Unit
     ) : CoreEvents()
 
     data class GetPlaceCoordinates(

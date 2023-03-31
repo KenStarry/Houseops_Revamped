@@ -162,7 +162,10 @@ class CoreViewModel @Inject constructor(
         when (event) {
 
             is CoreEvents.GetCurrentLocation -> {
-                _userCurrentLocation.value = coreUseCases.getCurrentLocation(event.interval)
+                _userCurrentLocation.value = coreUseCases.getCurrentLocation(
+                    interval = event.interval,
+                    onResponse = event.onResponse
+                )
             }
 
             is CoreEvents.GetPlaceCoordinates -> {

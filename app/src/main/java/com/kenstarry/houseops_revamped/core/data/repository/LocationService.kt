@@ -61,7 +61,7 @@ class LocationService : Service() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         //  launch our callback flow together with the location client
-        locationClient.getLocationUpdates(10000L)
+        locationClient.getLocationUpdates(10000L, onResponse = {})
             .catch { e -> Log.d("location", "Error: $e") }
             .onEach { location ->
                 val latitude = location.latitude

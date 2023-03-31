@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,14 +59,25 @@ fun CustomAlertDialog(
         confirmButton = {
             TextButton(
                 onClick = { onConfirm() }) {
-                Text(text = "Confirm")
+                Text(
+                    text = "Confirm",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
         },
         dismissButton = {
             TextButton(onClick = { onDismiss() }) {
-                Text(text = "Cancel")
+                Text(
+                    text = "Cancel",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
-        }
+        },
+        properties = DialogProperties(
+            dismissOnBackPress = true
+        )
     )
 }
 

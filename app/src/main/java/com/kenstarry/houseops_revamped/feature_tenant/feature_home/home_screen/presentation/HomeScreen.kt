@@ -1,10 +1,15 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
+import android.location.LocationManager
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -23,11 +28,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import com.kenstarry.houseops_revamped.R
 import com.kenstarry.houseops_revamped.core.domain.model.LocationAddresses
+import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.model.events.BottomSheetEvents
 import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.domain.util.hasLocationPermission
 import com.kenstarry.houseops_revamped.core.presentation.components.BottomSheet
 import com.kenstarry.houseops_revamped.core.presentation.components.Lottie
 import com.kenstarry.houseops_revamped.core.presentation.model.LatLngModel
@@ -65,7 +74,6 @@ fun HomeScreen(
     val servicesScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val direction = Direction(navHostController)
     val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
@@ -75,7 +83,12 @@ fun HomeScreen(
     }
 
     //  get location
-    coreVM.onEvent(CoreEvents.GetCurrentLocation(2000L))
+    coreVM.onEvent(
+        CoreEvents.GetCurrentLocation(
+            interval = 2000L,
+            onResponse = {}
+        )
+    )
 
     LaunchedEffect(key1 = Unit) {
         coreVM.userCurrentLocation.value
@@ -228,6 +241,42 @@ fun HomeScreen(
                 }
             ) {
 
+                //  GPS Alert dialog
+                AnimatedVisibility(
+                    visible = coreVM.alertDialogSelected.value?.dialogType
+                            == "GPS dialog" &&
+                            coreVM.alertDialogSelected.value?.isDialogVisible == true
+                ) {
+                    GPSAlertDialog(
+                        primaryColor = primaryColor,
+                        tertiaryColor = tertiaryColor,
+                        onConfirm = {
+                            //  open location settings
+                            context.startActivity(
+                                Intent(
+                                    Settings.ACTION_LOCATION_SOURCE_SETTINGS
+                                )
+                            )
+
+                            //  close dialog
+                            coreVM.onEvent(
+                                CoreEvents.ToggleAlertDialog(
+                                    dialogType = "GPS dialog",
+                                    isDialogVisible = false
+                                )
+                            )
+                        },
+                        onDismiss = {
+                            coreVM.onEvent(
+                                CoreEvents.ToggleAlertDialog(
+                                    dialogType = "GPS dialog",
+                                    isDialogVisible = false
+                                )
+                            )
+                        }
+                    )
+                }
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -259,7 +308,28 @@ fun HomeScreen(
                                 .padding(vertical = 8.dp),
 
                             onRequestPermission = {
-                                locationPermissionState.launchPermissionRequest()
+                                when (locationPermissionState.status) {
+                                    is PermissionStatus.Granted -> {
+
+                                        val locationManager =
+                                            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+                                        if (!locationManager.isProviderEnabled(
+                                                LocationManager.GPS_PROVIDER
+                                            )
+                                        ) {
+                                            coreVM.onEvent(
+                                                CoreEvents.ToggleAlertDialog(
+                                                    dialogType = "GPS dialog",
+                                                    isDialogVisible = true
+                                                )
+                                            )
+                                        }
+                                    }
+                                    is PermissionStatus.Denied -> {
+                                        locationPermissionState.launchPermissionRequest()
+                                    }
+                                }
                             }
                         )
 

@@ -6,6 +6,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
 import com.google.android.gms.location.*
+import com.kenstarry.houseops_revamped.core.domain.model.Response
 import com.kenstarry.houseops_revamped.core.domain.repository.LocationClient
 import com.kenstarry.houseops_revamped.core.domain.util.hasLocationPermission
 import kotlinx.coroutines.channels.awaitClose
@@ -19,7 +20,10 @@ class LocationClientImpl(
 ) : LocationClient {
 
     @SuppressLint("MissingPermission")
-    override fun getLocationUpdates(interval: Long): Flow<Location> {
+    override fun getLocationUpdates(
+        interval: Long,
+        onResponse: (response: Response<*>) -> Unit
+    ): Flow<Location> {
 
         return callbackFlow {
             if (!context.hasLocationPermission()) {
@@ -33,6 +37,7 @@ class LocationClientImpl(
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
             if (!isGPSEnabled && !isNetworkEnabled) {
+                onResponse(Response.Failure("GPS is disabled"))
                 throw LocationClient.LocationException("GPS is disabled")
             }
 
