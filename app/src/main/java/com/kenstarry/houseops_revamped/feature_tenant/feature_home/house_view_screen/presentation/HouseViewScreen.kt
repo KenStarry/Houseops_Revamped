@@ -44,6 +44,9 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.domain.
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.components.content_agent.CaretakerBottomSheet
 import com.kenstarry.houseops_revamped.feature_tenant.feature_categories.presentation.viewmodel.CategoriesViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.LocationAddresses
+import com.kenstarry.houseops_revamped.core.domain.model.events.CoreEvents
+import com.kenstarry.houseops_revamped.core.presentation.model.LatLngModel
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.HouseViewEvents
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.model.UserBooked
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.domain.utils.HouseViewConstants
@@ -55,6 +58,12 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_sc
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.tasks.await
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
@@ -68,7 +77,44 @@ fun HouseViewScreen(
     val houseViewVM: HouseViewVM = hiltViewModel()
     val coreVM: CoreViewModel = hiltViewModel()
     val categoriesVM: CategoriesViewModel = hiltViewModel()
+    val servicesScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val context = LocalContext.current
+
+    //  get current user location
+    val latLng = remember {
+        mutableStateOf<LatLngModel?>(null)
+    }
+
+    //  get location
+    coreVM.onEvent(
+        CoreEvents.GetCurrentLocation(
+            interval = 2000L,
+            onResponse = {}
+        )
+    )
+
+    LaunchedEffect(key1 = Unit) {
+        coreVM.userCurrentLocation.value
+            ?.catch { e -> Log.d("location", "Error occurred : $e") }
+            ?.onEach { location ->
+                latLng.value = LatLngModel(location.latitude, location.longitude)
+            }
+            ?.launchIn(servicesScope)
+    }
+
+    var address by remember {
+        mutableStateOf<LocationAddresses?>(null)
+    }
+
+    latLng.value?.let {
+        coreVM.onEvent(
+            CoreEvents.GetLocationAddressName(
+            latLngModel = it,
+            address = { addr ->
+                address = addr
+            }
+        ))
+    }
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
