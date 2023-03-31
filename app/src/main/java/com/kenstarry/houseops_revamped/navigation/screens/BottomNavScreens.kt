@@ -10,8 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 sealed class BottomNavScreens(
     val route: String,
     val title: String,
-    val icon: ImageVector,
-    val badgeCount: Int = 0
+    val icon: ImageVector
 ) {
 
     object Home : BottomNavScreens(
@@ -23,15 +22,13 @@ sealed class BottomNavScreens(
     object Booked : BottomNavScreens(
         route = "booked_screen",
         title = "Booked",
-        icon = Icons.Sharp.Timelapse,
-        badgeCount = 5
+        icon = Icons.Sharp.Timelapse
     )
 
     object Bookmarks : BottomNavScreens(
         route = "bookmarks_screen",
         title = "Bookmarks",
-        icon = Icons.Sharp.Bookmarks,
-        badgeCount = 13
+        icon = Icons.Sharp.Bookmarks
     )
 
     object Settings : BottomNavScreens(

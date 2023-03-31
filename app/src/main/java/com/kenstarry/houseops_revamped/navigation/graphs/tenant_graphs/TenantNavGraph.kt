@@ -8,7 +8,7 @@ import com.kenstarry.houseops_revamped.core.presentation.utils.Constants.HOME_RO
 import com.kenstarry.houseops_revamped.feature_tenant.feature_main_screen.presentation.MainScreen
 import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
-fun NavGraphBuilder.homeNavGraph(
+fun NavGraphBuilder.tenantNavGraph(
     navHostController: NavHostController
 ) {
 
