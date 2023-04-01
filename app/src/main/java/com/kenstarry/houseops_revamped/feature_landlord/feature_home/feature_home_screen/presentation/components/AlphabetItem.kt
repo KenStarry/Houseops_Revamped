@@ -56,11 +56,23 @@ fun AlphabetItem(
                     items = apartmentList
                 ) {
 
-                    ApartmentItem(
+                    com.kenstarry.houseops_revamped.core.presentation.components.ApartmentItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
                         apartment = it,
                         primaryColor = primaryColor,
-                        tertiaryColor = tertiaryColor
+                        tertiaryColor = tertiaryColor,
+                        onViewClicked = {
+//                            onViewApartmentClicked(it)
+                        }
                     )
+
+//                    ApartmentItem(
+//                        apartment = it,
+//                        primaryColor = primaryColor,
+//                        tertiaryColor = tertiaryColor
+//                    )
 
                 }
             },
@@ -68,7 +80,7 @@ fun AlphabetItem(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .height((100.dp + 32.dp) * apartmentList.size)
+                .height((150.dp + 32.dp) * apartmentList.size)
         )
 
     }

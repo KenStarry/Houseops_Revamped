@@ -77,42 +77,40 @@ fun HomeScreen(
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
-    //  get current user location
-    val latLng = remember {
-        mutableStateOf<LatLngModel?>(null)
-    }
+//    //  get current user location
+//    val latLng = remember {
+//        mutableStateOf<LatLngModel?>(null)
+//    }
+//
+//    //  get location
+//    coreVM.onEvent(
+//        CoreEvents.GetCurrentLocation(
+//            interval = 2000L,
+//            onResponse = {}
+//        )
+//    )
+//
+//    LaunchedEffect(key1 = Unit) {
+//        coreVM.userCurrentLocation.value
+//            ?.catch { e -> Log.d("location", "Error occurred : $e") }
+//            ?.onEach { location ->
+//                latLng.value = LatLngModel(location.latitude, location.longitude)
+//            }
+//            ?.launchIn(servicesScope)
+//    }
+//
+//    var address by remember {
+//        mutableStateOf<LocationAddresses?>(null)
+//    }
 
-    //  get location
-    coreVM.onEvent(
-        CoreEvents.GetCurrentLocation(
-            interval = 2000L,
-            onResponse = {}
-        )
-    )
-
-    LaunchedEffect(key1 = Unit) {
-        coreVM.userCurrentLocation.value
-            ?.catch { e -> Log.d("location", "Error occurred : $e") }
-            ?.onEach { location ->
-                latLng.value = LatLngModel(location.latitude, location.longitude)
-            }
-            ?.launchIn(servicesScope)
-    }
-
-    var address by remember {
-        mutableStateOf<LocationAddresses?>(null)
-    }
-
-    latLng.value?.let {
-        coreVM.onEvent(CoreEvents.GetLocationAddressName(
-            latLngModel = it,
-            address = { addr ->
-                address = addr
-            }
-        ))
-    }
-
-    Log.d("address", address?.toString() ?: "")
+//    latLng.value?.let {
+//        coreVM.onEvent(CoreEvents.GetLocationAddressName(
+//            latLngModel = it,
+//            address = { addr ->
+//                address = addr
+//            }
+//        ))
+//    }
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(
@@ -300,7 +298,7 @@ fun HomeScreen(
                             else
                                 userDetails?.userName ?: "",
 
-                            location = address,
+                            location = null,
 
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -403,7 +401,7 @@ fun HomeScreen(
                                 primaryColor = primaryColor,
                                 tertiaryColor = tertiaryColor,
                                 onViewApartmentClicked = { apartment ->
-
+                                    //  open apartment view screen
                                 }
                             )
 

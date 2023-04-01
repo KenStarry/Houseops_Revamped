@@ -89,10 +89,18 @@ fun AgentApartmentView(
                             tertiaryColor = tertiaryColor,
                             onDone = { house ->
 
+                                val randomNum = "${(0..9).random()}" +
+                                        "${(0..9).random()}" +
+                                        "${(0..9).random()}"
+
+                                val houseWithId = house.copy(
+                                    houseId = "${apartmentName.take(2)}-${agentApartmentVM.selectedHouseCategory.value}-$randomNum"
+                                )
+
                                 //  submit house to firebase
                                 agentApartmentVM.onEvent(AgentApartmentEvents.AddHouse(
                                     apartmentName = apartmentName,
-                                    houseModel = house,
+                                    houseModel = houseWithId,
                                     onResponse = { res ->
                                         when (res) {
                                             is Response.Success -> {

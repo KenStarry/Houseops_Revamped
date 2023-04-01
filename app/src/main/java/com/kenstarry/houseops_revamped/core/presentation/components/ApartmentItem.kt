@@ -47,7 +47,7 @@ fun ApartmentItem(
                     .fillMaxSize()
                     .padding(8.dp),
                 horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
 
                 //  header title icon
@@ -127,7 +127,7 @@ fun ApartmentItem(
                 //  title
                 Text(
                     text = aptmt.apartmentName,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )

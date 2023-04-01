@@ -80,41 +80,41 @@ fun HouseViewScreen(
     val servicesScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     val context = LocalContext.current
 
-    //  get current user location
-    val latLng = remember {
-        mutableStateOf<LatLngModel?>(null)
-    }
-
-    //  get location
-    coreVM.onEvent(
-        CoreEvents.GetCurrentLocation(
-            interval = 2000L,
-            onResponse = {}
-        )
-    )
-
-    LaunchedEffect(key1 = Unit) {
-        coreVM.userCurrentLocation.value
-            ?.catch { e -> Log.d("location", "Error occurred : $e") }
-            ?.onEach { location ->
-                latLng.value = LatLngModel(location.latitude, location.longitude)
-            }
-            ?.launchIn(servicesScope)
-    }
-
-    var address by remember {
-        mutableStateOf<LocationAddresses?>(null)
-    }
-
-    latLng.value?.let {
-        coreVM.onEvent(
-            CoreEvents.GetLocationAddressName(
-            latLngModel = it,
-            address = { addr ->
-                address = addr
-            }
-        ))
-    }
+//    //  get current user location
+//    val latLng = remember {
+//        mutableStateOf<LatLngModel?>(null)
+//    }
+//
+//    //  get location
+//    coreVM.onEvent(
+//        CoreEvents.GetCurrentLocation(
+//            interval = 2000L,
+//            onResponse = {}
+//        )
+//    )
+//
+//    LaunchedEffect(key1 = Unit) {
+//        coreVM.userCurrentLocation.value
+//            ?.catch { e -> Log.d("location", "Error occurred : $e") }
+//            ?.onEach { location ->
+//                latLng.value = LatLngModel(location.latitude, location.longitude)
+//            }
+//            ?.launchIn(servicesScope)
+//    }
+//
+//    var address by remember {
+//        mutableStateOf<LocationAddresses?>(null)
+//    }
+//
+//    latLng.value?.let {
+//        coreVM.onEvent(
+//            CoreEvents.GetLocationAddressName(
+//            latLngModel = it,
+//            address = { addr ->
+//                address = addr
+//            }
+//        ))
+//    }
 
     val primaryColor = Color(
         coreVM.primaryAccentFlow.collectAsState(

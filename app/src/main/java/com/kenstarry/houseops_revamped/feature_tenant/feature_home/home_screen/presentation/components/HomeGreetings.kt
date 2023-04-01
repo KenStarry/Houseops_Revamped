@@ -49,7 +49,7 @@ fun HomeGreetings(
 
             Text(
                 text = HomeUtils.getNthWord(userName, 1) +
-                        " ${HomeUtils.getNthWord(userName, 2).firstOrNull()}.",
+                        " ${HomeUtils.getNthWord(userName, 2).firstOrNull() ?: ""}.",
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer

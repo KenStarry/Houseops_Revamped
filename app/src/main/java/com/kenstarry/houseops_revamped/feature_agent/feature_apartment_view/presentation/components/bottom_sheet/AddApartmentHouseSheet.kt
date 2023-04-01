@@ -210,13 +210,13 @@ fun AddApartmentHouseSheet(
         )
 
         //  generate random id for the house
-        val randomNum = "${(0..9).random()}" +
-                "${(0..9).random()}" +
-                "${(0..9).random()}"
+//        val randomNum = "${(0..9).random()}" +
+//                "${(0..9).random()}" +
+//                "${(0..9).random()}"
 
         val houseModel = HouseModel(
 
-            houseId = "${apartmentName.take(2)}-${agentApartmentVM.selectedHouseCategory.value}-$randomNum",
+            houseId = "",
 
             houseCategory = if (agentApartmentVM.selectedHouseCategory.value == "Pick House Category")
                 "Single"
