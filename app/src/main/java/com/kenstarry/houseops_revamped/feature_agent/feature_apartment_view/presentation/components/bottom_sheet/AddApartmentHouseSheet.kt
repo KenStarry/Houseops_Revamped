@@ -28,6 +28,7 @@ import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.doma
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.components.HouseCategoriesAlertDialog
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.viewmodel.AgentApartmentViewModel
 import com.kenstarry.houseops_revamped.core.domain.model.HouseModel
+import com.kenstarry.houseops_revamped.core.domain.model.PlacesAPIResult
 import com.kenstarry.houseops_revamped.feature_agent.feature_apartment_view.presentation.utils.AgentApartmentConstants
 
 @Composable
@@ -243,9 +244,13 @@ fun AddApartmentHouseSheet(
 
             housePriceCategory = house?.housePriceCategory
                 ?: "monthly",
+
             houseComments = "",
+
             houseUsersBooked = house?.houseUsersBooked
-                ?: emptyList()
+                ?: emptyList(),
+
+            houseLocation = PlacesAPIResult("", "")
         )
 
         if (house != null) {

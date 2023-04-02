@@ -15,10 +15,11 @@ data class HouseModel(
     val housePrice: String,
     val housePriceCategory: String,
     val houseComments: String,
-    val houseUsersBooked: List<UserBooked>
+    val houseUsersBooked: List<UserBooked>,
+    val houseLocation: PlacesAPIResult
 ) {
 
     constructor() : this ("", "", "For Rent", emptyList(), "", emptyList(), "", "0",
-        "Pangani Palace", "23,000", "month", "", emptyList()
+        "Pangani Palace", "23,000", "month", "", emptyList(), PlacesAPIResult("", "")
     )
 }
