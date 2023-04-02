@@ -24,7 +24,7 @@ fun DetailsVacant(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -32,8 +32,11 @@ fun DetailsVacant(
             icon = Icons.Outlined.Timer,
             title = "$vacantHouses vacants remaining",
             primaryColor = primaryColor,
-            tertiaryColor = tertiaryColor,
-            containerColor = if (vacantHouses in 0..4)
+            tertiaryColor = if (vacantHouses in 0..3)
+                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.1f)
+            else
+                tertiaryColor,
+            containerColor = if (vacantHouses in 0..3)
                 MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.1f)
             else
                 tertiaryColor,

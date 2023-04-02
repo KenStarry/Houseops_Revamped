@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -42,6 +44,8 @@ fun AddApartmentHouseSheet(
     val agentApartmentVM = hiltViewModel<AgentApartmentViewModel>()
     val coreVM = hiltViewModel<CoreViewModel>()
     val imagesState = agentApartmentVM.selectedImagesState
+
+    val focusManager = LocalFocusManager.current
 
     if (house != null) {
         //  set category
@@ -209,14 +213,9 @@ fun AddApartmentHouseSheet(
             tertiaryColor = tertiaryColor
         )
 
-        //  generate random id for the house
-//        val randomNum = "${(0..9).random()}" +
-//                "${(0..9).random()}" +
-//                "${(0..9).random()}"
-
         val houseModel = HouseModel(
 
-            houseId = "",
+            houseId = house?.houseId ?: "",
 
             houseCategory = if (agentApartmentVM.selectedHouseCategory.value == "Pick House Category")
                 "Single"
@@ -251,12 +250,16 @@ fun AddApartmentHouseSheet(
 
         if (house != null) {
 
-            Button(onClick = { onUpdate(houseModel) }) {
+            Button(onClick = {
+                focusManager.clearFocus()
+                onUpdate(houseModel)
+            }) {
                 Text(text = "Update")
             }
         } else {
             DoneCancelButtons(
                 onDone = {
+                    focusManager.clearFocus()
                     onDone(houseModel)
                 },
                 onCancel = onCancel

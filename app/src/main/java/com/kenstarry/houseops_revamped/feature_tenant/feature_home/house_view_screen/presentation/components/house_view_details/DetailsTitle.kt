@@ -79,8 +79,8 @@ fun DetailsTitle(
                 Text(
                     text = houseCategory,
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                    fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)
                 )
                 
                 Spacer(modifier = Modifier.width(16.dp))
