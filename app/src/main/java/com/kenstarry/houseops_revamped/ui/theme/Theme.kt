@@ -4,13 +4,16 @@ import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
+import com.kenstarry.houseops_revamped.ui.custom.LocalSpacing
+import com.kenstarry.houseops_revamped.ui.custom.Spacing
 
-private val DarkColorScheme = darkColorScheme(
+    private val DarkColorScheme = darkColorScheme(
     primary = Constants.primaryCol.value,
     secondary = PinkAccent,
     tertiary = Constants.tertiaryCol.value,
@@ -75,9 +78,14 @@ fun HouseOps_RevampedTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    //  composition local provider helps us define custom theming
+    CompositionLocalProvider(
+        LocalSpacing provides Spacing()
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }

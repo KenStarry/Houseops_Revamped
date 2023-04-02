@@ -57,6 +57,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_sc
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.house_view_screen.presentation.viewmodel.HouseViewVM
 import com.kenstarry.houseops_revamped.navigation.Direction
 import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
+import com.kenstarry.houseops_revamped.ui.custom.spacing
 import com.kenstarry.houseops_revamped.ui.theme.LimeGreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -410,7 +411,7 @@ fun HouseViewScreen(
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.onPrimary)
                             .verticalScroll(rememberScrollState())
-                            .padding(12.dp)
+                            .padding(MaterialTheme.spacing.medium)
                     ) {
 
                         houseViewVM.currentHouse?.let {
