@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.kenstarry.houseops_revamped.feature_tenant.feature_home.home_screen.presentation.components.HomePillBtns
+import com.kenstarry.houseops_revamped.ui.theme.RedOrange
 
 @Composable
 fun DetailsVacant(
@@ -31,15 +32,22 @@ fun DetailsVacant(
         HomePillBtns(
             icon = Icons.Outlined.Timer,
             title = "$vacantHouses vacants remaining",
-            primaryColor = primaryColor,
+
+            primaryColor = if (vacantHouses in 0..3)
+                RedOrange
+            else
+                primaryColor,
+
             tertiaryColor = if (vacantHouses in 0..3)
-                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.1f)
+                RedOrange.copy(alpha = 0.1f)
             else
                 tertiaryColor,
+
             containerColor = if (vacantHouses in 0..3)
-                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.1f)
+                RedOrange.copy(alpha = 0.1f)
             else
                 tertiaryColor,
+
             onClick = {}
         )
 
