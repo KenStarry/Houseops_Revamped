@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,8 +16,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.kenstarry.houseops_revamped.ui.custom.spacing
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomAlertDialog(
     icon: ImageVector,
@@ -30,35 +32,67 @@ fun CustomAlertDialog(
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
-        icon = {
-            Box(
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        containerColor = containerColor,
+        text = {
+            Column(
                 modifier = Modifier
-                    .clip(CircleShape)
-                    .size(45.dp)
-                    .background(tertiaryColor),
-                contentAlignment = Alignment.Center
+                    .wrapContentSize(),
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)
             ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "Alert Icon",
-                    tint = primaryColor
-                )
+
+                //  title
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .size(35.dp)
+                            .background(tertiaryColor),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "Alert icon",
+                            tint = primaryColor,
+                            modifier = Modifier
+                                .size(16.dp)
+                        )
+                    }
+
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowRight,
+                        contentDescription = "Alert icon",
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f),
+                        modifier = Modifier
+                            .size(16.dp)
+                    )
+
+                    //  alert title
+                    Text(
+                        text = title,
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 1f)
+                    )
+                }
+                content()
             }
         },
-        title = {
-            Text(
-                text = title,
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-            )
-        },
-        shape = RoundedCornerShape(16.dp),
-        containerColor = containerColor,
-        text = { Column { content() } },
         confirmButton = {
             TextButton(
-                onClick = { onConfirm() }) {
+                onClick = { onConfirm() },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    contentColor = primaryColor
+                )
+            ) {
                 Text(
                     text = "Confirm",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
@@ -67,7 +101,13 @@ fun CustomAlertDialog(
             }
         },
         dismissButton = {
-            TextButton(onClick = { onDismiss() }) {
+            TextButton(
+                onClick = { onDismiss() },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    contentColor = primaryColor
+                )
+            ) {
                 Text(
                     text = "Cancel",
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
