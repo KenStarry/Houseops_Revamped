@@ -12,6 +12,9 @@ import com.kenstarry.houseops_revamped.core.domain.model.HouseCategoryModel
 import com.kenstarry.houseops_revamped.core.presentation.model.AccentColor
 
 object Constants {
+
+    const val APP_URL = "https://play.google.com/store/apps/details?id=com.kenstarry.houseops_revamped"
+
     //  routes
     //  constants for the routes
     const val ROOT_ROUTE = "root_route"

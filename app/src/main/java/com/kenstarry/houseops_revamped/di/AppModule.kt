@@ -89,6 +89,12 @@ object AppModule {
     @Singleton
     @Named("Phone_Dial_Intent")
     fun providePhoneDialIntent() = Intent(Intent.ACTION_DIAL)
+
+    //  view intent
+    @Provides
+    @Singleton
+    @Named("Action_View_Intent")
+    fun provideViewIntent() = Intent(Intent.ACTION_VIEW)
 }
 
 

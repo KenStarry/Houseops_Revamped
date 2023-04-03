@@ -1,5 +1,8 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.viewmodel
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -12,11 +15,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val themePreference: ThemePreference,
-    private val useCases: SettingsUseCases
+    private val useCases: SettingsUseCases,
+    @Named("Action_View_Intent") private val actionViewIntent: Intent
 ) : ViewModel() {
 
     val themeFlow: Flow<String?> get() = themePreference.getTheme
@@ -102,6 +107,20 @@ class SettingsViewModel @Inject constructor(
                     useCases.logout(
                         onLogout = event.onLogout
                     )
+                }
+            }
+
+            is SettingsEvents.GooglePlayRating -> {
+                viewModelScope.launch {
+                    try {
+                        actionViewIntent.data =
+                            Uri.parse(event.appUrl)
+
+                        event.context.startActivity(actionViewIntent)
+
+                    } catch (e: Exception) {
+                        Log.e("google play intent", "$e")
+                    }
                 }
             }
         }

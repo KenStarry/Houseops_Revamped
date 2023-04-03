@@ -223,21 +223,22 @@ fun SettingsScreen(
                         Toast.makeText(context, "coming soon", Toast.LENGTH_SHORT).show()
                     },
                     onFeedback = {
-                        Toast.makeText(
+                        //  open Google play rating
+                        settingsViewModel.onEvent(SettingsEvents.GooglePlayRating(
                             context,
-                            "Feel free to leave a feedback via playstore.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            Constants.APP_URL
+                        ))
                     },
                     onShare = {
                         Toast.makeText(context, "coming soon", Toast.LENGTH_SHORT).show()
                     },
                     onRate = {
-                        Toast.makeText(
+
+                        //  open Google play rating
+                        settingsViewModel.onEvent(SettingsEvents.GooglePlayRating(
                             context,
-                            "A rating on playstore would be very much appreciated!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            Constants.APP_URL
+                        ))
                     }
                 )
 

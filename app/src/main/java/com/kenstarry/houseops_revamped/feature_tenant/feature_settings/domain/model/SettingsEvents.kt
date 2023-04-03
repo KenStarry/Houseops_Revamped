@@ -1,5 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_settings.domain.model
 
+import android.content.Context
+
 sealed class SettingsEvents {
 
     data class ToggleDropdownMenu(
@@ -24,6 +26,11 @@ sealed class SettingsEvents {
 
     data class Logout(
         val onLogout: () -> Unit
+    ) : SettingsEvents()
+
+    data class GooglePlayRating(
+        val context: Context,
+        val appUrl: String
     ) : SettingsEvents()
 
 }
