@@ -92,6 +92,9 @@ sealed class CoreEvents {
     ) : CoreEvents()
 
     data class DeleteDocument(
+        val house: HouseModel,
+        val extension: String,
+        val imageRefs: List<ImageModel>?,
         val collectionName: String,
         val documentName: String,
         val subCollectionName: String?,

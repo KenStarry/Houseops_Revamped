@@ -104,6 +104,9 @@ interface CoreRepository {
 
     //  delete a document from firestore
     suspend fun deleteDocument(
+        house: HouseModel,
+        extension: String,
+        imageRefs: List<ImageModel>?,
         collectionName: String,
         documentName: String,
         subCollectionName: String?,

@@ -319,6 +319,9 @@ class CoreViewModel @Inject constructor(
             is CoreEvents.DeleteDocument -> {
                 viewModelScope.launch {
                     coreUseCases.deleteDocument(
+                        house = event.house,
+                        extension = event.extension,
+                        imageRefs = event.imageRefs,
                         collectionName = event.collectionName,
                         documentName = event.documentName,
                         subCollectionName = event.subCollectionName,

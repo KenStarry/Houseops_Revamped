@@ -247,12 +247,15 @@ fun AgentApartmentView(
                             onConfirm = {
 
                                 //  delete house
-                                houseToDelete?.houseCategory.let {
+                                houseToDelete?.let {
                                     coreVM.onEvent(CoreEvents.DeleteDocument(
+                                        house = it,
+                                        extension = "jpg",
+                                        imageRefs = it.houseImageUris,
                                         collectionName = Constants.APARTMENTS_COLLECTION,
                                         documentName = apartmentName,
                                         subCollectionName = Constants.HOUSES_SUB_COLLECTION,
-                                        subCollectionDocument = houseToDelete?.houseCategory,
+                                        subCollectionDocument = it.houseCategory,
                                         onResponse = { res ->
                                             when (res) {
                                                 is Response.Success -> {

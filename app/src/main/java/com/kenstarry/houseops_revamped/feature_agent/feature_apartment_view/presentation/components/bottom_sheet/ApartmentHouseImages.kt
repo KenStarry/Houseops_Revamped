@@ -51,7 +51,7 @@ fun ApartmentHouseImages(
 
             it.forEach { uri ->
                 val currentTime = System.currentTimeMillis()
-                imageModelList.add(ImageModel(uri.toString(), currentTime.toString()))
+                imageModelList.add(ImageModel(uri.toString(), currentTime.toString(), ""))
             }
 
             agentApartmentVM.onEvent(AgentApartmentEvents.UpdateGalleryImages(imageModelList))

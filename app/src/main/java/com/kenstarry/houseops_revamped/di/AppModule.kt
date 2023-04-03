@@ -15,6 +15,7 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.kenstarry.houseops_revamped.BuildConfig
 import com.kenstarry.houseops_revamped.R
 import dagger.Module
@@ -60,6 +61,11 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirebaseAuthentication() = Firebase.auth
+
+    //  Authentication instance
+    @Provides
+    @Singleton
+    fun provideFirebaseStorage() = Firebase.storage
 
     //  google sign in instance
     @Provides

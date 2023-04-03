@@ -103,7 +103,8 @@ fun SignUpScreen(
                                             userPassword = authVM.formState.password,
                                             userImageUri = ImageModel(
                                                 uri = authVM.formState.imageUri.toString(),
-                                                time = ""
+                                                time = "",
+                                                extension = ""
                                             ),
                                             userLikedHouses = listOf(),
                                             userBookmarks = listOf(),
@@ -122,7 +123,8 @@ fun SignUpScreen(
                                                         CoreEvents.UploadSingleImageToStorage(
                                                         uri = ImageModel(
                                                             uri = authVM.formState.imageUri.toString(),
-                                                            time = System.currentTimeMillis().toString()
+                                                            time = System.currentTimeMillis().toString(),
+                                                            extension = ""
                                                         ),
                                                         context = context,
                                                         storageRef = "user_images/${authVM.formState.email}",

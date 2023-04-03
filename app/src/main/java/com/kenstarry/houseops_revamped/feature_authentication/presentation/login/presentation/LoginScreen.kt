@@ -145,7 +145,8 @@ fun LoginScreen(
                                                         userPassword = "",
                                                         userImageUri = ImageModel(
                                                             uri = acc.photoUrl.toString(),
-                                                            time = ""
+                                                            time = "",
+                                                            extension = ""
                                                         ),
                                                         userLikedHouses = listOf(),
                                                         userBookmarks = listOf(),

@@ -25,7 +25,8 @@ import javax.inject.Inject
 
 class CoreRepositoryImpl @Inject constructor(
     private val db: FirebaseFirestore,
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val storage: FirebaseStorage
 ) : CoreRepository {
 
     override suspend fun getPlaceCoordinates(
@@ -321,8 +322,9 @@ class CoreRepositoryImpl @Inject constructor(
             try {
                 uri?.let { model ->
 
+                    val extension = getFileExtension(model.uri.toUri(), context)
                     val fileRef = ref.child(
-                        "${model.time}.${getFileExtension(model.uri.toUri(), context)}"
+                        "${model.time}.$extension"
                     )
 
                     fileRef.putFile(model.uri.toUri())
@@ -347,7 +349,8 @@ class CoreRepositoryImpl @Inject constructor(
                                         FieldValue.arrayUnion(
                                             ImageModel(
                                                 url.toString(),
-                                                model.time
+                                                model.time,
+                                                extension ?: ""
                                             )
                                         )
                                     )
@@ -391,8 +394,9 @@ class CoreRepositoryImpl @Inject constructor(
         try {
             uri?.let { model ->
 
+                val extension = getFileExtension(model.uri.toUri(), context)
                 val fileRef = ref.child(
-                    "${model.time}.${getFileExtension(model.uri.toUri(), context)}"
+                    "${model.time}.$extension"
                 )
 
                 fileRef.putFile(model.uri.toUri())
@@ -414,7 +418,7 @@ class CoreRepositoryImpl @Inject constructor(
 
                                 myCollection.update(
                                     fieldToUpdate,
-                                    ImageModel(url.toString(), model.time)
+                                    ImageModel(url.toString(), model.time, extension ?: "")
                                 )
 
                                 onResponse(Response.Success(url))
@@ -436,6 +440,9 @@ class CoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteDocument(
+        house: HouseModel,
+        extension: String,
+        imageRefs: List<ImageModel>?,
         collectionName: String,
         documentName: String,
         subCollectionName: String?,
@@ -455,7 +462,24 @@ class CoreRepositoryImpl @Inject constructor(
                     .document(documentName)
 
             documentRef.delete()
-                .addOnSuccessListener { onResponse(Response.Success(true)) }
+                .addOnSuccessListener {
+                    //  delete the images from storage
+                    imageRefs?.forEach { imageRef ->
+
+                        val storageRef = storage.reference
+
+                        val houseImageRef = storageRef.child(
+                            "house_images/" +
+                                    "${house.houseApartmentName}/" +
+                                    "${house.houseCategory}/" +
+                                    "${imageRef.time}.${imageRef.extension}"
+                        )
+
+                        houseImageRef.delete()
+                            .addOnSuccessListener { }
+                            .addOnFailureListener { }
+                    }
+                }
                 .addOnFailureListener { onResponse(Response.Failure(it.localizedMessage)) }
 
         } catch (e: Exception) {

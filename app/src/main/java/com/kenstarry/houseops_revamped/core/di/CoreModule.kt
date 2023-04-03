@@ -6,6 +6,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.kenstarry.houseops_revamped.core.data.datastore.preferences.UserDetailsPreference
 import com.kenstarry.houseops_revamped.core.data.repository.CoreRepositoryImpl
 import com.kenstarry.houseops_revamped.core.data.repository.LocationClientImpl
@@ -28,10 +29,12 @@ object CoreModule {
     @Singleton
     fun provideCoreRepository(
         db: FirebaseFirestore,
-        auth: FirebaseAuth
+        auth: FirebaseAuth,
+        storage: FirebaseStorage
     ) : CoreRepository = CoreRepositoryImpl(
         db = db,
-        auth = auth
+        auth = auth,
+        storage = storage
     )
 
     @Provides
