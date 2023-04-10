@@ -1,5 +1,7 @@
 package com.kenstarry.houseops_revamped.navigation.graphs.tenant_graphs
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -16,6 +18,7 @@ import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.SettingsS
 import com.kenstarry.houseops_revamped.navigation.screens.BottomNavScreens
 import com.kenstarry.houseops_revamped.navigation.screens.Screens
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun TenantInnerGraph(
     mainNavHostController: NavHostController,

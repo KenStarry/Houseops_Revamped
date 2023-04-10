@@ -1,6 +1,7 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_settings.domain.model
 
 import android.content.Context
+import android.content.Intent
 
 sealed class SettingsEvents {
 
@@ -31,6 +32,12 @@ sealed class SettingsEvents {
     data class GooglePlayRating(
         val context: Context,
         val appUrl: String
+    ) : SettingsEvents()
+
+    data class ShareApp(
+        val context: Context,
+        val appUrl: String,
+        val sendIntent: (intent: Intent) -> Unit
     ) : SettingsEvents()
 
 }

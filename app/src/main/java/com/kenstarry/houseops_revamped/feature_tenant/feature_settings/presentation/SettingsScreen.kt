@@ -1,5 +1,6 @@
 package com.kenstarry.houseops_revamped.feature_tenant.feature_settings
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
@@ -224,21 +225,35 @@ fun SettingsScreen(
                     },
                     onFeedback = {
                         //  open Google play rating
-                        settingsViewModel.onEvent(SettingsEvents.GooglePlayRating(
-                            context,
-                            Constants.APP_URL
-                        ))
+                        settingsViewModel.onEvent(
+                            SettingsEvents.GooglePlayRating(
+                                context,
+                                Constants.APP_URL
+                            )
+                        )
                     },
                     onShare = {
-                        Toast.makeText(context, "coming soon", Toast.LENGTH_SHORT).show()
+
+                        settingsViewModel.onEvent(
+                            SettingsEvents.ShareApp(
+                                context,
+                                Constants.APP_URL,
+                                sendIntent = {
+                                    val shareChooser = Intent.createChooser(it, "Share HouseOps")
+                                    context.startActivity(shareChooser)
+                                }
+                            )
+                        )
                     },
                     onRate = {
 
                         //  open Google play rating
-                        settingsViewModel.onEvent(SettingsEvents.GooglePlayRating(
-                            context,
-                            Constants.APP_URL
-                        ))
+                        settingsViewModel.onEvent(
+                            SettingsEvents.GooglePlayRating(
+                                context,
+                                Constants.APP_URL
+                            )
+                        )
                     }
                 )
 

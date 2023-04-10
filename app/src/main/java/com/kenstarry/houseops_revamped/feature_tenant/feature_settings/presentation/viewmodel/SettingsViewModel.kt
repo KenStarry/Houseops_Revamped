@@ -123,6 +123,45 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
             }
+
+            is SettingsEvents.ShareApp -> {
+                try {
+
+                    val sendIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_SUBJECT, "HouseOps")
+                        putExtra(
+                            Intent.EXTRA_TEXT, SettingsConstants.SHARE_MESSAGE
+                        )
+                        type = "text/html"
+                    }
+
+                    event.sendIntent(sendIntent)
+                } catch (e: Exception) {
+                    Log.e("share", "$e")
+                }
+            }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

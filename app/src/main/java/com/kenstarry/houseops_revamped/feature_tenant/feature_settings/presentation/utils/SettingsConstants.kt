@@ -2,11 +2,21 @@ package com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presenta
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
+import com.kenstarry.houseops_revamped.core.presentation.utils.Constants
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.model.SettingsSectionItem
 import com.kenstarry.houseops_revamped.feature_tenant.feature_settings.presentation.model.SettingsSectionModel
 import com.kenstarry.houseops_revamped.ui.theme.*
 
 object SettingsConstants {
+
+    const val SHARE_MESSAGE = "HouseOps is the number 1 house-sourcing platform in Kenya.\n\n" +
+            "It offers unique features such as: \n" +
+            "1. Searching for houses to let near you or anywhere in Kenya.\n" +
+            "2. Booking houses prior to payment.\n" +
+            "2. Direct communication between tenants and landlords for the ultimate experience.\n\n" +
+            "That dream house is waiting...\n" +
+            "Download on Google Play Store:\n" +
+            Constants.APP_URL
 
     val settingsSections = listOf(
         SettingsSectionModel(
